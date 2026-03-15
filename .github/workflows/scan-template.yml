@@ -58,6 +58,7 @@ jobs:
   scan:
     needs: prepare
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       max-parallel: 10
@@ -84,19 +85,19 @@ jobs:
       - name: Run subfinder
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
-          subfinder -dL batch_domains.txt -silent -o subs_raw.txt
+          subfinder -dL batch_domains.txt -silent -timeout 30 -t 10 -o subs_raw.txt || true
           grep -vP '^\d+[-\.]\d+[-\.]\d+[-\.]\d+\.' subs_raw.txt > subs.txt || true
 
       - name: Run httpx
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
-          httpx -l subs.txt ${{ inputs.httpx_flags }} -o live_hosts.txt || true
+          httpx -l subs.txt ${{ inputs.httpx_flags }} -timeout 10 -retries 1 -o live_hosts.txt || true
 
       - name: Run katana (if enabled)
         if: inputs.use_katana == true
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
-          katana -list live_hosts.txt -silent -js-crawl -depth 2 -o urls.txt || true
+          katana -list live_hosts.txt -silent -js-crawl -depth 2 -timeout 10 -o urls.txt || true
 
       - name: Update nuclei templates
         run: |
@@ -122,7 +123,7 @@ jobs:
             $TAGS_FLAG \
             $CUSTOM_FLAG \
             -severity ${{ inputs.severity }} \
-            -silent -retries 2 -timeout 10 \
+            -silent -retries 1 -timeout 8 \
             -bulk-size 50 -concurrency 50 \
             -o results.txt || true
 
