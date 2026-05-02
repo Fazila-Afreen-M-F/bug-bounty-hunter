@@ -87,7 +87,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.local/share/nuclei-templates
-          key: nuclei-templates-${{ runner.os }}-latest
+          key: nuclei-templates-${{ runner.os }}-weekly
           restore-keys: |
             nuclei-templates-${{ runner.os }}-
 
