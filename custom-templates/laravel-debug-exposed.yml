@@ -1,0 +1,40 @@
+id: laravel-debug-exposed
+info:
+  name: Laravel Debug Mode Exposed
+  author: BugBountyBot
+  severity: high
+  description: Detects Laravel applications running in debug mode, leaking stack traces, environment variables, and app secrets.
+  tags: laravel,debug,exposure,misconfig
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/something-that-does-not-exist-xyz"
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 500
+      - type: word
+        condition: or
+        words:
+          - "APP_KEY"
+          - "Illuminate\\"
+          - "laravel"
+          - "stack trace"
+          - "Whoops"
+        part: body
+        case-insensitive: true
+      - type: word
+        negative: true
+        condition: or
+        words:
+          - "<title>404</title>"
+          - "Not Found"
+          - "nginx"
+        part: body
+    extractors:
+      - type: regex
+        name: app_key
+        part: body
+        regex:
+          - 'APP_KEY[=:\s]+([^\s<>"]+)'
