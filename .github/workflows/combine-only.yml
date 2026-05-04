@@ -1,0 +1,45 @@
+name: Combine Subdomains Only
+on:
+  workflow_dispatch:
+
+jobs:
+  combine:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download artifacts from previous run
+        uses: actions/download-artifact@v4
+        with:
+          path: all_subs
+          run-id: 25283976910
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Combine and deduplicate
+        run: |
+          find all_subs -name "*.txt" | xargs cat 2>/dev/null | \
+          sort -u | \
+          grep -v '^\*\.' | \
+          grep -vE '^[0-9]{1,3}\.[0-9]' | \
+          grep -vE '^[a-f0-9]{32}\.' > all_subdomains_clean.txt || true
+
+          total=$(wc -l < all_subdomains_clean.txt)
+          half=$(( total / 2 ))
+
+          head -n $half all_subdomains_clean.txt > subdomains1.txt
+          tail -n +$((half + 1)) all_subdomains_clean.txt > subdomains2.txt
+
+          echo "Total: $total"
+          echo "File 1: $(wc -l < subdomains1.txt)"
+          echo "File 2: $(wc -l < subdomains2.txt)"
+
+      - name: Commit subdomains
+        run: |
+          git config --global user.email "bugbountybot@github.com"
+          git config --global user.name "BugBountyBot"
+          git add subdomains1.txt subdomains2.txt
+          git diff --staged --quiet || git commit -m "Weekly subdomain update $(date +'%Y-%m-%d')"
+          git push
