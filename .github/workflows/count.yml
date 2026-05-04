@@ -1,0 +1,24 @@
+name: Count Subdomains
+on:
+  workflow_dispatch:
+
+jobs:
+  count:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Count
+        run: |
+          echo "subdomains1.txt: $(wc -l < subdomains1.txt)"
+          echo "subdomains2.txt: $(wc -l < subdomains2.txt)"
+          echo "Total: $(cat subdomains1.txt subdomains2.txt | wc -l)"
+          echo ""
+          echo "After filtering junk:"
+          cat subdomains1.txt subdomains2.txt | \
+            grep -v '^\*\.' | \
+            grep -vE '\.(cloudfront\.net|amazonaws\.com|akamaitechnologies\.com|fastly\.net|cloudflare\.net)$' | \
+            grep -vE '^[a-f0-9]{8,}\.' | \
+            grep -vE '^[0-9]+\.' | \
+            sort -u | wc -l
