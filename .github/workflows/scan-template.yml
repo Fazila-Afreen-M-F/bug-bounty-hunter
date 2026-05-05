@@ -61,7 +61,7 @@ jobs:
           go install github.com/projectdiscovery/katana/cmd/katana@latest
 
       - name: Download nuclei templates
-       run: |
+        run: |
           export PATH=$PATH:$(go env GOPATH)/bin
           mkdir -p $HOME/.local/share/nuclei-templates
           git clone --depth 1 https://github.com/projectdiscovery/nuclei-templates.git $HOME/.local/share/nuclei-templates || true
