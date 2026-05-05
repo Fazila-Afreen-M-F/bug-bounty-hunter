@@ -1,0 +1,224 @@
+name: Scan Template Engine
+
+on:
+  workflow_call:
+    inputs:
+      scan_name:
+        required: true
+        type: string
+      tags:
+        required: false
+        type: string
+        default: ''
+      severity:
+        required: false
+        type: string
+        default: 'low,medium,high,critical'
+      use_katana:
+        required: false
+        type: boolean
+        default: false
+      input_file:
+        required: false
+        type: string
+        default: 'live_hosts'
+        # Options: live_hosts, live_hosts_403, live_hosts_404, urls
+    secrets:
+      EMAIL_USER:
+        required: true
+      EMAIL_PASS:
+        required: true
+      EMAIL_TO:
+        required: true
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Cache Go binaries
+      - name: Cache Go tools
+        uses: actions/cache@v4
+        id: cache-go
+        with:
+          path: ~/go/bin
+          key: go-tools-${{ runner.os }}-v2
+
+      - name: Install Go tools
+        if: steps.cache-go.outputs.cache-hit != 'true'
+        run: |
+          go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+          go install github.com/projectdiscovery/katana/cmd/katana@latest
+
+      # Cache nuclei templates separately — this is what was broken before
+      - name: Cache nuclei templates
+        uses: actions/cache@v4
+        id: cache-templates
+        with:
+          path: ~/.local/share/nuclei-templates
+          key: nuclei-templates-${{ runner.os }}-${{ steps.date.outputs.week }}
+          restore-keys: |
+            nuclei-templates-${{ runner.os }}-
+
+      - name: Get week number for cache key
+        id: date
+        run: echo "week=$(date +'%Y-%U')" >> $GITHUB_OUTPUT
+
+      - name: Download nuclei templates (only if not cached)
+        if: steps.cache-templates.outputs.cache-hit != 'true'
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          mkdir -p $HOME/.local/share/nuclei-templates
+          git clone --depth 1 https://github.com/projectdiscovery/nuclei-templates.git \
+            $HOME/.local/share/nuclei-templates || true
+          echo "Templates downloaded: $(ls $HOME/.local/share/nuclei-templates | wc -l) folders"
+
+      - name: Verify templates
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          echo "Templates ready: $(ls $HOME/.local/share/nuclei-templates | wc -l) folders"
+
+      # Pick the right input file
+      - name: Prepare input
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          INPUT="${{ inputs.input_file }}"
+
+          if [ "$INPUT" = "live_hosts_403" ]; then
+            if [ -f live_hosts_403.txt ] && [ -s live_hosts_403.txt ]; then
+              cp live_hosts_403.txt input.txt
+              echo "Using live_hosts_403.txt ($(wc -l < input.txt) hosts)"
+            else
+              echo "No 403 hosts file found, skipping"
+              echo "0" > input.txt
+            fi
+
+          elif [ "$INPUT" = "live_hosts_404" ]; then
+            if [ -f live_hosts_404.txt ] && [ -s live_hosts_404.txt ]; then
+              cp live_hosts_404.txt input.txt
+              echo "Using live_hosts_404.txt ($(wc -l < input.txt) hosts)"
+            else
+              echo "No 404 hosts file found, skipping"
+              echo "0" > input.txt
+            fi
+
+          elif [ -f live_hosts.txt ] && [ -s live_hosts.txt ]; then
+            cp live_hosts.txt input.txt
+            echo "Using live_hosts.txt ($(wc -l < input.txt) hosts)"
+
+          else
+            cp domains.txt input.txt
+            echo "Fallback to domains.txt ($(wc -l < input.txt) hosts)"
+          fi
+
+          echo "Total targets: $(wc -l < input.txt)"
+
+      # Katana crawl — only for secret/url scans
+      - name: Run katana
+        if: inputs.use_katana == true
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          echo "Starting katana crawl..."
+          katana -list input.txt \
+            -silent \
+            -js-crawl \
+            -depth 2 \
+            -timeout 10 \
+            -rl 50 \
+            -concurrency 10 \
+            -o urls.txt || true
+          echo "URLs found: $(wc -l < urls.txt 2>/dev/null || echo 0)"
+
+      # Main nuclei scan
+      - name: Run nuclei
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          TEMPLATES_DIR="$HOME/.local/share/nuclei-templates"
+
+          # Use urls.txt if katana ran, otherwise use input.txt
+          if [ "${{ inputs.use_katana }}" = "true" ] && [ -f urls.txt ] && [ -s urls.txt ]; then
+            INPUT_FILE="urls.txt"
+            echo "Nuclei input: urls.txt ($(wc -l < urls.txt) urls)"
+          else
+            INPUT_FILE="input.txt"
+            echo "Nuclei input: input.txt ($(wc -l < input.txt) hosts)"
+          fi
+
+          # Skip if empty input
+          if [ ! -s "$INPUT_FILE" ]; then
+            echo "No targets to scan, skipping nuclei"
+            touch results.txt
+            exit 0
+          fi
+
+          # Build tags flag
+          TAGS_FLAG=""
+          if [ -n "${{ inputs.tags }}" ]; then
+            TAGS_FLAG="-itags ${{ inputs.tags }}"
+          fi
+
+          # Include custom templates if they exist
+          if [ -d "custom-templates" ]; then
+            T_FLAG="-t $TEMPLATES_DIR -t custom-templates"
+          else
+            T_FLAG="-t $TEMPLATES_DIR"
+          fi
+
+          echo "Starting nuclei scan..."
+          echo "Tags: ${{ inputs.tags }}"
+          echo "Severity: ${{ inputs.severity }}"
+
+          timeout 21000 nuclei -l "$INPUT_FILE" \
+            $T_FLAG \
+            $TAGS_FLAG \
+            -severity ${{ inputs.severity }} \
+            -silent \
+            -retries 1 \
+            -timeout 10 \
+            -bulk-size 25 \
+            -concurrency 25 \
+            -rate-limit 100 \
+            -max-host-error 30 \
+            -no-color \
+            -o results.txt || true
+
+          echo "=== ${{ inputs.scan_name }} RESULTS ==="
+          echo "Findings: $(wc -l < results.txt 2>/dev/null || echo 0)"
+
+      - name: Show results
+        if: always()
+        run: |
+          count=$(wc -l < results.txt 2>/dev/null || echo 0)
+          echo "Total findings: $count"
+          if [ "$count" -gt "0" ]; then
+            cat results.txt
+          else
+            echo "No findings"
+          fi
+
+      - name: Check for results
+        id: check
+        run: |
+          if [ -s results.txt ]; then
+            echo "found=true" >> $GITHUB_OUTPUT
+            echo "count=$(wc -l < results.txt)" >> $GITHUB_OUTPUT
+          else
+            echo "found=false" >> $GITHUB_OUTPUT
+            echo "count=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send email alert
+        if: steps.check.outputs.found == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: "[${{ inputs.scan_name }}] ${{ steps.check.outputs.count }} Finding(s) - $(date +'%Y-%m-%d')"
+          body: file://results.txt
+          to: ${{ secrets.EMAIL_TO }}
+          from: BugBountyBot
