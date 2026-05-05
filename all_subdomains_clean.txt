@@ -1,4 +1,3 @@
-10jahre.post.ch
 15548180-review-feature-so-43yikb.demo.innovation.post.ch
 3-review-depl-721-f-a4nvyg.demo.innovation.post.ch
 403592291.post.ch
@@ -41,12 +40,9 @@ adfsmsx.post.ch
 adfspext.post.ch
 adfspxext.post.ch
 adm.onsexprime.fr
-admin-dev.meetonline.post.ch
 admin-int.1000-premiers-jours.fr
-admin-int.meetonline.post.ch
 admin-pp.onsexprime.fr
 admin-ppd.1000-premiers-jours.fr
-admin-prd.meetonline.post.ch
 admin-pre.1000-premiers-jours.fr
 admin.1000-premiers-jours.fr
 admin.bot.post.ch
@@ -118,7 +114,6 @@ api-dev.postweb.post.ch
 api-int.marge.post.ch
 api-int.postweb.post.ch
 api-tresorit.post.ch
-api.1000-premiers-jours.fr
 api.marge.post.ch
 api.post.ch
 api.postweb.post.ch
@@ -148,8 +143,6 @@ apis-int-gslb.post.ch
 apis-int.post.ch
 apis-test-gslb.post.ch
 apis-test.post.ch
-apis.apis-int.post.ch
-apis.apis.post.ch
 apis.ent.shop.post.ch
 apis.ent.shopdev.post.ch
 apis.ent.shopint.post.ch
@@ -197,11 +190,8 @@ ase.post.ch
 asedev1.post.ch
 asedev2.post.ch
 aseint.post.ch
-asendia-int.post.ch
-asendia.post.ch
 asetest.post.ch
 asmbplus03.post.ch
-assets.1000-premiers-jours.fr
 assim.post.ch
 assimdev1.post.ch
 assimdev2.post.ch
@@ -224,7 +214,6 @@ authorintsc.post.ch
 authorms.post.ch
 authormsint.post.ch
 authorsc.post.ch
-autodiscover.account.post.ch
 autodiscover.post.ch
 automation.apis-dev.post.ch
 automation.apis-int.post.ch
@@ -259,7 +248,6 @@ awuag.post.ch
 awuagint.post.ch
 axeba-int.post.ch
 axeba.post.ch
-azc-url-redirects-poc.post.ch
 b2bgateway.post.ch
 b2bgatewayint.post.ch
 b2bweb.post.ch
@@ -270,7 +258,6 @@ bd77eot.5013372m.international.post.ch
 bd77fvn.26520254t.digital-solutions.post.ch
 bd77fvu.26520254m.digital-solutions.post.ch
 beauty.post.ch
-beta.account.post.ch
 betool-int.post.ch
 betool-test.post.ch
 betool.post.ch
@@ -287,10 +274,8 @@ billingonline-intern.post.ch
 billingonline-test.post.ch
 billingonline.post.ch
 blockchain.post.ch
-blog.dam.post.ch
 bobi.post.ch
 bobiint.post.ch
-bosw.eshop-livetest.post.ch
 bot.post.ch
 briefmarken-erleben.post.ch
 briefmarken-erleben1.post.ch
@@ -320,8 +305,6 @@ canalposte.post.ch
 canalposteint.post.ch
 canton-admin.e-voting.post.ch
 canton.e-voting.post.ch
-capcore.post.ch
-capcoreint.post.ch
 career-pt.post.ch
 career-pt1.post.ch
 career-pt2.post.ch
@@ -351,7 +334,6 @@ cert.ws.ssoint.post.ch
 cert.wspartner.ssoint.post.ch
 cert.wsredesignint1.post.ch
 certmgrtest04.post.ch
-chat.account.post.ch
 chat.post.ch
 chatit.post.ch
 cinfoni-germany.innovation.post.ch
@@ -364,7 +346,6 @@ cinfoni-trustedsource.innovation.post.ch
 citrix-mdsp.post.ch
 claim.extranet.post.ch
 claimint.extranet.post.ch
-cnd.post.ch
 co-star.post.ch
 co-star1.post.ch
 co-star2.post.ch
@@ -456,7 +437,6 @@ customer-service-test.post.ch
 customer-service.post.ch
 customer-service1.post.ch
 customer-service2.post.ch
-cvpnzf.post.ch
 cybertest-int.post.ch
 cybertest.post.ch
 dam-test.post.ch
@@ -500,22 +480,12 @@ developerint.post.ch
 developerint1.post.ch
 developerint2.post.ch
 devint.post.ch
-devtest.post.ch
-devtest1.post.ch
 dgs-int.post.ch
 dgs.post.ch
-dh-auth.apis-dev.post.ch
-dh-auth.apis-int.post.ch
-dh-auth.apis-test.post.ch
-dh-auth.apis.post.ch
 dh-dev.post.ch
 dh-int.post.ch
 dh-preprod.post.ch
 dh-test.post.ch
-dh.apis-dev.post.ch
-dh.apis-int.post.ch
-dh.apis-test.post.ch
-dh.apis.post.ch
 dh.post.ch
 dialogmarketingsolutions.post.ch
 dialogmarketingsolutions1.post.ch
@@ -566,7 +536,6 @@ directanalytics.post.ch
 directcalendar-prod.post.ch
 directcalendar-stage.post.ch
 directcalendar-staging.post.ch
-directcalendar.post.ch
 directday.post.ch
 directday1.post.ch
 directday2.post.ch
@@ -584,14 +553,12 @@ dispo-int.post.ch
 dispo-test.post.ch
 dispo.post.ch
 dlq.post.ch
-dm-wissensspiel.post.ch
 dmc-int.post.ch
 dmc-light-int.post.ch
 dmc-light.post.ch
 dmc.post.ch
 dmsolutions.post.ch
 dns1.post.ch
-dns2.fonts.post.ch
 dns2.post.ch
 dns3.post.ch
 dns4.post.ch
@@ -605,7 +572,6 @@ docucenter.post.ch
 docucenterint.docucenter.post.ch
 docucenterint.klp.post.ch
 docucenterint.post.ch
-domainmanage.post.ch
 download.ocsweb.post.ch
 download.ocswebt.post.ch
 ds.post.ch
@@ -652,7 +618,6 @@ earlyint2.post.ch
 eas.post.ch
 easint.post.ch
 easyliving-int.klp.post.ch
-ebs-as2.post.ch
 ef-intix.post.ch
 ef-testix.post.ch
 eirene.apis-dev.post.ch
@@ -668,7 +633,6 @@ emmads.post.ch
 emmint.post.ch
 emmpf.post.ch
 enregistrement-vor.post.ch
-enregistrement.dev.post.ch
 enregistrement.post.ch
 enregistrement.vor.post.ch
 ent.shop.post.ch
@@ -722,21 +686,17 @@ epostoffice4int.post.ch
 epostoffice4int1.post.ch
 epostoffice4int2.post.ch
 epr.ag.int.post.ch
-epr.ag.preprod.post.ch
 epr.ag.prod.post.ch
 epr.cara.int.post.ch
-epr.cara.preprod.post.ch
 epr.esanita.int.post.ch
 epr.esanita.prod.post.ch
 epr.ne.int.post.ch
 epr.ne.prod.post.ch
 epr.sanela.int.post.ch
 epr.ti.int.post.ch
-epr.ti.preprod.post.ch
 epr.ti.prod.post.ch
 epr.xsana.int.post.ch
 erfassung-vor.post.ch
-erfassung.dev.post.ch
 erfassung.post.ch
 erfassung.vor.post.ch
 erp-int.post.ch
@@ -801,9 +761,6 @@ example-cug2.post.ch
 example-cugint.post.ch
 example-cugint1.post.ch
 example-cugint2.post.ch
-example-onepager.post.ch
-example-onepager1.post.ch
-example-onepager2.post.ch
 example-onepagerint.post.ch
 example-onepagerint1.post.ch
 example-onepagerint2.post.ch
@@ -865,7 +822,6 @@ fr-admin-test.evoting.post.ch
 fr-admin.evoting.post.ch
 fr-test.evoting.post.ch
 fr.evoting.post.ch
-ftp.post.ch
 fuer-alle.post.ch
 fuer-alle1.post.ch
 fuer-alle2.post.ch
@@ -902,14 +858,10 @@ gititint.post.ch
 gitlab.innovation.post.ch
 globalsign-test.post.ch
 globalsignatlas-test.venaficloud.post.ch
-go.dam.post.ch
 gollum.apis-dev.post.ch
 gollum.apis-int.post.ch
 gollum.apis-test.post.ch
 gollum.apis.post.ch
-gslb4.post.ch
-gslbext1.post.ch
-gslbext2.post.ch
 guest.post.ch
 guest2.post.ch
 guestauth.post.ch
@@ -920,9 +872,6 @@ gveae1a.post.ch
 gvedexpe1a.post.ch
 gvedexpe1a.uc.post.ch
 gvedexpe1a.vc.uc.post.ch
-gvedexpe2a.post.ch
-gvedexpe2a.uc.post.ch
-gvedexpe2a.vc.uc.post.ch
 gvee01a.post.ch
 gvee01a.uc.post.ch
 gvee02a.post.ch
@@ -950,8 +899,6 @@ gvie02a.uc.ucint.post.ch
 gvie03a.post.ch
 gviee01a.post.ch
 gviee01a.ucint.post.ch
-gviee02a.post.ch
-gviee02a.ucint.post.ch
 gvife01a.post.ch
 gvife01a.ucint.post.ch
 gvisb03.post.ch
@@ -1006,7 +953,6 @@ igb2b.innovation.post.ch
 il-lavoro-che-vorrei.postdoc.post.ch
 im.post.ch
 im.ucint.post.ch
-images.1000-premiers-jours.fr
 imageservice.post.ch
 imageserviceint1.post.ch
 imageserviceint2.post.ch
@@ -1037,14 +983,11 @@ incamail-test.post.ch
 incamail.post.ch
 info.extranet.post.ch
 infoint.extranet.post.ch
-infoscreen.ictacademy.post.ch
 innovation.post.ch
 int-adm.onsexprime.fr
 int-app-distribution.post.ch
 int-awp-learn.post.ch
-int-filp.post.ch
 int-pfch.post.ch
-int-transport.post.ch
 int-trendwiki.post.ch
 int.1000-premiers-jours.fr
 int.admin.places.post.ch
@@ -1080,7 +1023,6 @@ int2.post.ch
 int2.wohnen-riehen.post.ch
 int2.wohnen-volketswil.post.ch
 int2crm.post.ch
-internal.dam.post.ch
 international.apis-dev.post.ch
 international.apis-int.post.ch
 international.apis-test.post.ch
@@ -1112,9 +1054,7 @@ iotp.apis-test.post.ch
 iotp.apis.post.ch
 iqsoftweb.post.ch
 irec.apis-dev.post.ch
-irec.apis-int.post.ch
 irec.apis-test.post.ch
-irec.apis.post.ch
 irisrp.post.ch
 irisrpint.post.ch
 island1.post.ch
@@ -1142,7 +1082,6 @@ iwsbc.post.ch
 jacint.post.ch
 jamf.post.ch
 jamfpki.post.ch
-jenkins.dam.post.ch
 jenkinsshtp.post.ch
 jenkinsshts.post.ch
 jira.post.ch
@@ -1169,7 +1108,6 @@ kaderanlass-immobilien2.post.ch
 kaderanlass-immobilienint.post.ch
 kaderanlass-immobilienint1.post.ch
 kaderanlass-immobilienint2.post.ch
-kampagne.post.ch
 kampagnen.post.ch
 kampagnen1.post.ch
 kampagnen2.post.ch
@@ -1223,7 +1161,6 @@ lad.apis-dev.post.ch
 lad.apis-int.post.ch
 lad.apis-test.post.ch
 lad.apis.post.ch
-landi.emanager.post.ch
 lbepof.post.ch
 lbepofint.post.ch
 ldb.extranet.post.ch
@@ -1308,12 +1245,6 @@ marge-dev.post.ch
 marge-int.post.ch
 marge.post.ch
 maritzcx.post.ch
-marketingpower.post.ch
-marketingpower1.post.ch
-marketingpower2.post.ch
-marketingpowerint.post.ch
-marketingpowerint1.post.ch
-marketingpowerint2.post.ch
 marketresearch.post.ch
 matam.post.ch
 match-int.post.ch
@@ -1325,10 +1256,8 @@ meda.apis-dev.post.ch
 meda.apis-int.post.ch
 meda.apis-test.post.ch
 meda.apis.post.ch
-media.1000-premiers-jours.fr
 medien.post.ch
 meet.post.ch
-meetonline.post.ch
 mehralsworte.post.ch
 meine-sendungen.post.ch
 meine-sendungen1.post.ch
@@ -1363,8 +1292,6 @@ mobalight.post.ch
 mobalightint.post.ch
 mobasyncint.post.ch
 mobile.extranet.post.ch
-mobile.personalzeitung.post.ch
-mobile.post.ch
 mobilecodeservice-int.post.ch
 mobilecodeservice.apis-dev.post.ch
 mobilecodeservice.apis-int.post.ch
@@ -1402,7 +1329,6 @@ msm.apis-test.post.ch
 msm.apis.post.ch
 msmgateway-int.post.ch
 msmgateway.post.ch
-mx.account.post.ch
 mx.incamail-test.post.ch
 mx1.post.ch
 mx10.post.ch
@@ -1463,8 +1389,6 @@ nemo.apis-int.post.ch
 nemo.apis-test.post.ch
 nemo.apis.post.ch
 nemo.post.ch
-nemoauth-int.post.ch
-nemoauth-test.post.ch
 nemoint.post.ch
 nemopilot.post.ch
 nemotest.post.ch
@@ -1478,7 +1402,6 @@ neslpf.apis-dev.post.ch
 neslpf.apis-int.post.ch
 neslpf.apis-test.post.ch
 neslpf.apis.post.ch
-net.post.ch
 netapp.post.ch
 netappint.post.ch
 netapptest.post.ch
@@ -1487,13 +1410,9 @@ nevis.ent.shopdev.post.ch
 nevis.ent.shopint.post.ch
 nevis.ent.shoptest.post.ch
 new.post.ch
-newhelp.post.ch
-newplaces.post.ch
-newplacesint.post.ch
 news-intern.post.ch
 newsletter-directpoint.post.ch
 next.design-system.post.ch
-ngate3.post.ch
 ninja.post.ch
 nonprod.post.ch
 notification.apis-dev.post.ch
@@ -1508,7 +1427,6 @@ ocs.extranet.post.ch
 ocsp.post.ch
 ocsweb.post.ch
 ocswebt.post.ch
-officewebapp.sp.post.ch
 olisi1.post.ch
 olist.post.ch
 omi-int.post.ch
@@ -1557,7 +1475,6 @@ paisa.apis-dev.post.ch
 paisa.apis-int.post.ch
 paisa.apis-test.post.ch
 paisa.apis.post.ch
-paket-welt.post.ch
 pakete-spenden.post.ch
 paprica-int.post.ch
 paprica-int2.post.ch
@@ -1595,13 +1512,11 @@ patient.zu.dh-test.post.ch
 payment-int.post.ch
 payment.post.ch
 paymentserver2k.post.ch
-pccold.post.ch
 pccweb.api.post.ch
 pccweb.apiint.post.ch
 pccweb.apitest.post.ch
 pensionierte.post.ch
 pensionierteint.post.ch
-personalzeitung.post.ch
 personas.post.ch
 pes.post.ch
 pesint-term.post.ch
@@ -1609,7 +1524,6 @@ pesint.post.ch
 pets.post.ch
 pf37wiki.post.ch
 pfwiki.post.ch
-pfworkspaceinet.post.ch
 phishingdashboard.post.ch
 photocollect.post.ch
 pilot-directcalendar.post.ch
@@ -1619,7 +1533,6 @@ pit2.post.ch
 pitint.post.ch
 pitint1.post.ch
 pitint2.post.ch
-pkitest2.post.ch
 place-poste-delemont.post.ch
 place-poste-delemont1.post.ch
 place-poste-delemont2.post.ch
@@ -1629,7 +1542,6 @@ place-poste-delemontint1.post.ch
 place-poste-delemontint2.post.ch
 places-old.post.ch
 places.post.ch
-placesint-old.post.ch
 placesint.post.ch
 pladato-dev.post.ch
 pladato-int.post.ch
@@ -1709,7 +1621,6 @@ postweb2.post.ch
 postwebint.post.ch
 postwebint1.post.ch
 postwebint2.post.ch
-postzone-new.post.ch
 postzone.extern.post.ch
 postzone.externint.post.ch
 postzone.post.ch
@@ -1720,7 +1631,6 @@ ppbws.post.ch
 ppd.1000-premiers-jours.fr
 ppd.onsexprime.fr
 ppg.post.ch
-ppgenerator.post.ch
 pr.onsexprime.fr
 practitioner.neu.dh-dev.post.ch
 practitioner.neu.dh-int.post.ch
@@ -1772,7 +1682,6 @@ pwlan.post.ch
 pword.extranet.post.ch
 pwordint.extranet.post.ch
 pwsbc.post.ch
-pww.post.ch
 pww.ras.post.ch
 pww.rasint.post.ch
 pwwex.post.ch
@@ -1857,7 +1766,6 @@ sandbox.apis-int.post.ch
 sandbox.apis-test.post.ch
 sandbox.apis.post.ch
 sandroclaus.post.ch
-sanela.dh-int.post.ch
 sap.apis-dev.post.ch
 sap.apis-int.post.ch
 sap.apis-test.post.ch
@@ -1873,15 +1781,12 @@ sappi.apis-dev.post.ch
 sappi.apis-int.post.ch
 sappi.apis-test.post.ch
 sappi.apis.post.ch
-sapsps-int.post.ch
-sapsps.post.ch
 sapssopost.post.ch
 sas-landing-api.innovation.post.ch
 sbcteams.post.ch
 sbcvbd.post.ch
 sc-dev.advertising.post.ch
 sc-dev.post.ch
-sc-test.advertising.post.ch
 scanner.ppbws.post.ch
 scepintune.post.ch
 scepintunestaging.post.ch
@@ -1893,7 +1798,6 @@ schreiben3.post.ch
 schreibenint.post.ch
 schreibenint1.post.ch
 schreibenint2.post.ch
-schreibfabrik.post.ch
 scytl-admin-test.evoting.post.ch
 scytl-test.evoting.post.ch
 sdl.extranet.post.ch
@@ -1937,7 +1841,6 @@ seviint.post.ch
 sf.ras.post.ch
 sf.rasint.post.ch
 share.post.ch
-sharepoint.sp.post.ch
 shop.post.ch
 shopdev.post.ch
 shopint.post.ch
@@ -1993,7 +1896,6 @@ sports.post.ch
 sps.post.ch
 spscom.post.ch
 spsint.post.ch
-ssi.post.ch
 ssj.extern.post.ch
 ssj.externint.post.ch
 ssje.extern.post.ch
@@ -2030,13 +1932,10 @@ sss.apis-int.post.ch
 sss.apis-test.post.ch
 sss.apis.post.ch
 staging-moodle.post.ch
-staging.personalzeitung.post.ch
 stampworld-int.post.ch
 stampworld.post.ch
 standorte.post.ch
 standorteint.post.ch
-static.1000-premiers-jours.fr
-static.fonts.post.ch
 static.post.ch
 static1.intpa-cms.post.ch
 static2.intpa-cms.post.ch
@@ -2046,7 +1945,6 @@ stb-test.innovation.post.ch
 stb-test.post.ch
 stb.innovation.post.ch
 stb.post.ch
-store.1000-premiers-jours.fr
 stories.post.ch
 stories1.post.ch
 stories2.post.ch
@@ -2071,7 +1969,6 @@ swisspostmobile.apis-dev.post.ch
 swisspostmobile.apis-int.post.ch
 swisspostmobile.apis-test.post.ch
 swisspostmobile.apis.post.ch
-swissrhodiolalp.emanager.post.ch
 sync.post.ch
 sysloginteh01.post.ch
 syslogintzf01.post.ch
@@ -2111,10 +2008,7 @@ telman.apis-test.post.ch
 telman.apis.post.ch
 telman.post.ch
 test-awp-learn.post.ch
-test-filp.post.ch
 test-pfch.post.ch
-test-sws-venafi.post.ch
-test-tpp-nick.post.ch
 test.dmsolutions.post.ch
 test.globalsign.atlas.post.ch
 test.iot-platform.post.ch
@@ -2123,12 +2017,10 @@ test.portal.postcompanycars.post.ch
 test.post.ch
 test.sappcloud.post.ch
 test.schilligerj.post.ch
-test0.wsint.post.ch
 test1.post.ch
 test7.post.ch
 test9.post.ch
 testcert-nick.post.ch
-testcert10.post.ch
 testswisssign.post.ch
 testworkspaceinet.post.ch
 testworkspaceinet1.post.ch
@@ -2167,24 +2059,14 @@ uaasapp-d.post.ch
 uaasapp-i.post.ch
 uaasapp-t.post.ch
 uaasapp.post.ch
-uaasapp2sa.post.ch
 uaasapp2sadev1.post.ch
 uaasapp2sadev2.post.ch
 uaasapp2saint.post.ch
 uaasapp2satest.post.ch
-uaasapp3rsa.post.ch
-uaasapp3rsadev1.post.ch
-uaasapp3rsadev2.post.ch
-uaasapp3rsaint.post.ch
-uaasapp3rsatest.post.ch
-uaasappazuredev1.post.ch
-uaasappazuretest.post.ch
 uaasappdev1.post.ch
 uaasappdev2.post.ch
 uaasappint.post.ch
 uaasapptest.post.ch
-uaaspspp.post.ch
-uaaspsppint.post.ch
 uat.post.ch
 uc.post.ch
 uc.ucint.post.ch
@@ -2196,7 +2078,6 @@ uniformint.post.ch
 upload.incamail.post.ch
 us10060048.post.ch
 usercontent-tresorit.post.ch
-v2.1000-premiers-jours.fr
 vadsi1.post.ch
 vadsp1.post.ch
 vagwp1.post.ch
@@ -2212,7 +2093,6 @@ vdns1.post.ch
 vdnsa.post.ch
 vdnsb.post.ch
 vdp.post.ch
-venafi-test001.post.ch
 venture.post.ch
 venture1.post.ch
 venture2.post.ch
@@ -2231,7 +2111,6 @@ vhin2p.post.ch
 vhinip.post.ch
 vhinpp.post.ch
 video-support.post.ch
-video.1000-premiers-jours.fr
 violations-int.post.ch
 violations.post.ch
 visual.post.ch
@@ -2251,8 +2130,6 @@ vsmtp1.post.ch
 vsmtp2.post.ch
 vsmtp3.post.ch
 vsmtp4.post.ch
-vw01lp0106cicd1.post.ch
-vw01lp0106cicd2.post.ch
 vw0qw3.post.ch
 wafpoc.post.ch
 wahlen.post.ch
@@ -2300,7 +2177,6 @@ webrtc.vc.uc.post.ch
 webservices-cashlog-int.post.ch
 webservices-cashlog.post.ch
 webservices-int.post.ch
-webservices-test.post.ch
 webservices.post.ch
 webservices6-int.post.ch
 webservices6.post.ch
@@ -2355,15 +2231,6 @@ wikitintdc03.post.ch
 wikitinteh.post.ch
 wikitintzf.post.ch
 wildcard.dh-dev.post.ch
-wildcard.dh.apis-dev.post.ch
-wildcard.dh.apis-int.post.ch
-wildcard.dh.apis-test.post.ch
-wildcard.dh.apis.post.ch
-wildcard.uaasapp-d.post.ch
-wildcard.uaasapp-i.post.ch
-wildcard.uaasapp-t.post.ch
-wildcard.uaasapp.post.ch
-wildcard.wsredesignint1.post.ch
 wildcardtest.post.ch
 wirkung.post.ch
 wohnen-franklinplatz.post.ch
@@ -2393,7 +2260,6 @@ wsbc-cloud.post.ch
 wsbc.post.ch
 wsc.post.ch
 wscint.post.ch
-wsint.post.ch
 wsmgmt.incamail-dev.post.ch
 wsmgmt.incamail-test.post.ch
 wspartner.ssoint.post.ch
@@ -2401,7 +2267,6 @@ wsread.incamail-dev.post.ch
 wsread.incamail-test.post.ch
 wsredesignint1.post.ch
 wsredesignint2.post.ch
-wsstest.post.ch
 wunschberuf.postdoc.post.ch
 www.1000-premiers-jours.fr
 www.403592291.post.ch
