@@ -73,7 +73,9 @@ jobs:
           echo "Templates downloaded: $(ls $HOME/.local/share/nuclei-templates | wc -l) folders"
 
       - name: Verify templates
-        run: echo "Templates ready: $(ls $HOME/.local/share/nuclei-templates | wc -l) folders"
+        run: |
+          count=$(ls $HOME/.local/share/nuclei-templates | wc -l)
+          echo "Templates ready: $count folders"
 
       - name: Prepare input
         run: |
