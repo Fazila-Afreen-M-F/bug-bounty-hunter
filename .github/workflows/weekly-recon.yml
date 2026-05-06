@@ -44,18 +44,10 @@ jobs:
       matrix:
         batch: ${{ fromJson(needs.prepare.outputs.batches) }}
     steps:
-      - name: Cache Go tools
-        uses: actions/cache@v4
-        id: cache-tools
-        with:
-          path: ~/go/bin
-          key: go-tools-${{ runner.os }}-v3
-
       - name: Install tools
-        if: steps.cache-tools.outputs.cache-hit != 'true'
         run: |
           go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
-          go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+          go install github.com/projectdiscovery/dnsx/cmd/dnsx@latest
 
       - name: Download clean domains
         uses: actions/download-artifact@v4
@@ -74,16 +66,44 @@ jobs:
             -timeout 30 \
             -t 10 \
             -max-time 300 \
-            -o subs_raw.txt || true
+            -o subs_passive.txt || true
 
-          cat subs_raw.txt | \
+          echo "Passive subdomains: $(wc -l < subs_passive.txt 2>/dev/null || echo 0)"
+
+      - name: Run dnsx bruteforce on batch
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+
+          # Download SecLists top 5000 subdomain wordlist
+          curl -sL "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/subdomains-top1million-5000.txt" \
+            -o wordlist.txt || true
+
+          start=$(( (${{ matrix.batch }} - 1) * 50 + 1 ))
+          sed -n "${start},$((start + 49))p" domains_clean.txt > batch_domains.txt
+
+          # Bruteforce each domain in batch
+          > subs_active.txt
+          while IFS= read -r domain; do
+            dnsx -d "$domain" \
+              -w wordlist.txt \
+              -silent \
+              -resp-only \
+              -t 50 \
+              >> subs_active.txt || true
+          done < batch_domains.txt
+
+          echo "Active subdomains: $(wc -l < subs_active.txt 2>/dev/null || echo 0)"
+
+      - name: Merge passive and active results
+        run: |
+          cat subs_passive.txt subs_active.txt 2>/dev/null | \
             grep -vP '^\d+[-\.]\d+[-\.]\d+[-\.]\d+\.' | \
             grep -v '^\*\.' | \
             grep -vE '^[a-f0-9]{32}\.' | \
             grep -vE '\.(png|jpg|gif|css|js)$' | \
             sort -u > batch_subs.txt || true
 
-          echo "Batch ${{ matrix.batch }} subdomains: $(wc -l < batch_subs.txt)"
+          echo "Batch ${{ matrix.batch }} total subdomains: $(wc -l < batch_subs.txt)"
 
       - name: Upload batch results
         uses: actions/upload-artifact@v4
@@ -103,9 +123,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Always install httpx directly — no cross-job cache dependency
-      - name: Install httpx
-        run: go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+      - name: Install tools
+        run: |
+          go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+          go install github.com/PentestPad/subzy@latest
 
       - name: Download all subdomain artifacts
         uses: actions/download-artifact@v4
@@ -122,6 +143,28 @@ jobs:
             grep -vE '^[a-f0-9]{32}\.' > all_subdomains_clean.txt || true
 
           echo "Total unique subdomains: $(wc -l < all_subdomains_clean.txt)"
+
+      # ── SUBZY: runs on ALL subdomains before httpx filters ──────
+      # Catches dangling CNAMEs that httpx would drop as dead
+      # This is the DNS-level takeover check
+      - name: Run subzy takeover check
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+
+          subzy run \
+            --targets all_subdomains_clean.txt \
+            --hide_fails \
+            --verify_ssl \
+            --timeout 10 \
+            --concurrency 50 \
+            > subzy_raw.txt 2>/dev/null || true
+
+          # Extract only vulnerable findings
+          grep -i "vulnerable" subzy_raw.txt > takeover_candidates.txt || true
+
+          count=$(wc -l < takeover_candidates.txt)
+          echo "Takeover candidates found: $count"
+          echo "takeover_count=$count" >> $GITHUB_ENV
 
       - name: Run httpx
         run: |
@@ -162,6 +205,31 @@ jobs:
         run: |
           git config --global user.email "bugbountybot@github.com"
           git config --global user.name "BugBountyBot"
-          git add live_hosts.txt live_hosts_403.txt live_hosts_404.txt all_subdomains_clean.txt
-          git diff --staged --quiet || git commit -m "Weekly recon $(date +'%Y-%m-%d') - $(wc -l < live_hosts.txt) live hosts"
+          git add live_hosts.txt live_hosts_403.txt live_hosts_404.txt \
+                  all_subdomains_clean.txt takeover_candidates.txt
+          git diff --staged --quiet || git commit -m "Weekly recon $(date +'%Y-%m-%d') - $(wc -l < live_hosts.txt) live hosts - ${{ env.takeover_count }} takeover candidates"
           git push
+
+      # ── EMAIL: only fires if subzy found something ───────────────
+      - name: Email takeover candidates
+        if: env.takeover_count != '0'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          to: ${{ secrets.EMAIL_TO }}
+          from: BugBountyBot
+          subject: "[TAKEOVER] ${{ env.takeover_count }} Candidate(s) Found - $(date +'%Y-%m-%d')"
+          body: |
+            Subzy found ${{ env.takeover_count }} subdomain takeover candidate(s).
+
+            CANDIDATES:
+            ${{ env.takeover_count != '0' && '(see takeover_candidates.txt in repo)' || '' }}
+
+            Next steps:
+            1. Open takeover_candidates.txt in your repo
+            2. For each candidate run: dig CNAME <subdomain>
+            3. Check if the service is unclaimed
+            4. Verify manually before reporting
