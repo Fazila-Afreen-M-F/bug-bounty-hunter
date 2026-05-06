@@ -160,6 +160,7 @@ jobs:
             > subzy_raw.txt 2>/dev/null || true
 
           # Extract only vulnerable findings
+          touch takeover_candidates.txt
           grep -i "vulnerable" subzy_raw.txt > takeover_candidates.txt || true
 
           count=$(wc -l < takeover_candidates.txt)
@@ -221,7 +222,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASS }}
           to: ${{ secrets.EMAIL_TO }}
           from: BugBountyBot
-          subject: "[TAKEOVER] ${{ env.takeover_count }} Candidate(s) Found - $(date +'%Y-%m-%d')"
+          subject: "[TAKEOVER] ${{ env.takeover_count }} Subdomain Takeover Candidate(s) Found"
           body: |
             Subzy found ${{ env.takeover_count }} subdomain takeover candidate(s).
 
