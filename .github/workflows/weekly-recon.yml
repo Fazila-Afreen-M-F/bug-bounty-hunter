@@ -100,7 +100,11 @@ jobs:
             grep -v '^\*\.' | \
             grep -vE '^[a-f0-9]{32}\.' | \
             grep -vE '\.(png|jpg|gif|css|js)$' | \
-            sort -u > batch_subs.txt || true
+            grep -vE 'cust\.' | \
+            grep -vE '^ua-[0-9]' | \
+            grep -vE '[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,3}' | \
+            grep -vE '^(ns|mail|smtp|pop|imap|ftp|vpn|server|node|host)[0-9]+\.' | \
+            sort -u | head -5000 > batch_subs.txt || true
 
           echo "Batch ${{ matrix.batch }} total subdomains: $(wc -l < batch_subs.txt)"
 
@@ -116,7 +120,7 @@ jobs:
               --hide_fails \
               --verify_ssl \
               --timeout 10 \
-              --concurrency 50 \
+              --concurrency 100 \
               > subzy_raw.txt 2>/dev/null || true
 
             grep -i "vulnerable" subzy_raw.txt > takeover_batch.txt || true
