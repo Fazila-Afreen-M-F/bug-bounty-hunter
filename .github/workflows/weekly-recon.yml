@@ -123,7 +123,10 @@ jobs:
               --concurrency 100 \
               > subzy_raw.txt 2>/dev/null || true
 
-            grep -i "vulnerable" subzy_raw.txt > takeover_batch.txt || true
+            echo "=== SUBZY RAW OUTPUT ==="
+            cat subzy_raw.txt || true
+            echo "========================"
+            cat subzy_raw.txt > takeover_batch.txt || true
           fi
 
           echo "Takeover candidates in batch ${{ matrix.batch }}: $(wc -l < takeover_batch.txt)"
