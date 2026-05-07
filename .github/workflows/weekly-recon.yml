@@ -126,7 +126,7 @@ jobs:
             echo "=== SUBZY RAW OUTPUT ==="
             cat subzy_raw.txt || true
             echo "========================"
-            cat subzy_raw.txt > takeover_batch.txt || true
+            grep "\[ VULNERABLE \]" subzy_raw.txt > takeover_batch.txt || true
           fi
 
           echo "Takeover candidates in batch ${{ matrix.batch }}: $(wc -l < takeover_batch.txt)"
