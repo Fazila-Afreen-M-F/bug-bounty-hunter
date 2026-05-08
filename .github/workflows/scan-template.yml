@@ -150,12 +150,22 @@ jobs:
             exit 0
           fi
 
+          # ── Template selection logic ──────────────────────────────
+          # If tags is empty AND custom-templates folder exists:
+          #   → run ONLY custom templates (no nuclei defaults)
+          # If tags is set AND custom-templates folder exists:
+          #   → run both nuclei defaults (filtered by tags) + custom templates
+          # Otherwise:
+          #   → run nuclei defaults filtered by tags
           TAGS_FLAG=""
           if [ -n "$TAGS" ]; then
             TAGS_FLAG="-itags $TAGS"
           fi
 
-          if [ -d "custom-templates" ]; then
+          if [ -d "custom-templates" ] && [ -z "$TAGS" ]; then
+            # Custom-only mode: no default templates, no tags filter
+            T_FLAG="-t custom-templates"
+          elif [ -d "custom-templates" ] && [ -n "$TAGS" ]; then
             T_FLAG="-t $TEMPLATES_DIR -t custom-templates"
           else
             T_FLAG="-t $TEMPLATES_DIR"
@@ -164,7 +174,7 @@ jobs:
           timeout 21000 nuclei -l "$INPUT_FILE" \
             $T_FLAG \
             $TAGS_FLAG \
-            -etags ssl,tls,http-missing-headers,tech,info \
+            -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \
             -severity "$SEVERITY" \
             -silent \
             -retries 1 \
