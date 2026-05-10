@@ -171,7 +171,7 @@ jobs:
             -timeout 10 \
             -bulk-size 25 \
             -concurrency 25 \
-            -rate-limit 100 \
+            -rate-limit 15 \
             -max-host-error 30 \
             -no-color \
             -o results.txt || true
