@@ -2,7 +2,7 @@ name: Weekly Scan
 
 on:
   schedule:
-    - cron: '30 20 * * 6'
+    - cron: '30 20 * * 5'
   workflow_dispatch:
 
 jobs:
