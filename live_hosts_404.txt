@@ -1,4 +1,9 @@
-https://2c2p-checkout.antom.com
-https://checkout.antom.com
-https://js.antom.com
-https://simpler.antom.com
+https://api-demo.onedoc.ch
+https://api-dev.onedoc.ch
+https://api.onedoc.ch
+https://asca-demo.onedoc.ch
+https://asca-dev.onedoc.ch
+https://vdp.onedoc.ch
+https://ws-demo.onedoc.ch
+https://ws-dev.onedoc.ch
+https://ws.onedoc.ch
