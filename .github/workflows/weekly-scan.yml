@@ -1,32 +1,30 @@
 name: Weekly Scan
-
 on:
   schedule:
     - cron: '30 20 * * 5'
   workflow_dispatch:
 
 jobs:
-  # ─── 1. COMBINED WEEKLY SCAN ───────────────────────────────────
+  # ─── 1. WEEKLY COMBINED ────────────────────────────────────────
   # JWT + GraphQL + Swagger + Git/Env + Default Logins + Dev Tools + S3 + SpringBoot
-  # Removed: exposure, file, config, token, secret, api-key
-  # Those tags overlap with JS Secrets scan — they live there only
+  # new_first = scans new_live_hosts first, then remaining live_hosts
+  # Tags do NOT overlap with daily scan (cve/cors/panel/admin stay in daily)
   weekly_combined:
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "Weekly Combined"
       tags: "jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator"
       severity: "low,medium,high,critical"
-      input_file: "live_hosts"
+      input_file: "new_first"
     secrets:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
 
   # ─── 2. JS SECRETS SCAN ────────────────────────────────────────
-  # Katana crawls every live host, finds hidden URLs and JS files
-  # Nuclei then scans those URLs specifically for secrets and keys
-  # Tags narrowed to only what actually fires on JS file content
-  # exposure/file/config removed — they don't find things inside JS
+  # Katana crawls hosts (capped at 50, 30 min timeout)
+  # Nuclei scans crawled URLs for secrets and keys in JS
+  # new_first = new hosts get into katana's 50-host cap first
   weekly_js_secrets:
     uses: ./.github/workflows/scan-template.yml
     with:
@@ -34,15 +32,14 @@ jobs:
       tags: "token,secret,api-key,generic-tokens"
       severity: "low,medium,high,critical"
       use_katana: true
-      input_file: "live_hosts"
+      input_file: "new_first"
     secrets:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
 
   # ─── 3. CUSTOM TEMPLATES ───────────────────────────────────────
-  # Runs ONLY our hand-crafted templates — zero nuclei defaults
-  # use_custom_only: true means custom-templates dir only, nothing else appended
+  # Runs ONLY our hand-crafted templates
   # Covers: graphql-field-suggestion-leak, spring-boot-actuator-exposed,
   #         swagger-unauthenticated-execution
   weekly_custom:
@@ -51,7 +48,7 @@ jobs:
       scan_name: "Custom Templates"
       use_custom_only: true
       severity: "low,medium,high,critical"
-      input_file: "live_hosts"
+      input_file: "new_first"
     secrets:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
