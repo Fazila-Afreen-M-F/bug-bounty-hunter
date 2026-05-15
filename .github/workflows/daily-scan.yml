@@ -1,5 +1,4 @@
 name: Daily Scan
-
 on:
   schedule:
     - cron: '30 2 * * *'
@@ -20,14 +19,16 @@ jobs:
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
 
   # ─── 2. MAIN DAILY SCAN ────────────────────────────────────────
-  # CVE + CORS + Admin Panels — no secrets/exposure here (those are weekly)
+  # CVE + CORS + Admin Panels
+  # new_first = scans new_live_hosts first, then remaining live_hosts
+  # This way fresh targets get priority without running a separate job
   daily_main:
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "Daily Main"
       tags: "cve,cors,panel,admin"
       severity: "low,medium,high,critical"
-      input_file: "live_hosts"
+      input_file: "new_first"
     secrets:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
