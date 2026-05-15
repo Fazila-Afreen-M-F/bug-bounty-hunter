@@ -1,0 +1,161 @@
+# ============================================================
+# SCOPE FILTER - domains branch
+# Format:
+#   IN:  in-scope pattern (wildcard or exact)
+#   OUT: explicitly out-of-scope (dropped before scanning)
+# Weekly recon reads this file and filters all discovered
+# subdomains before they land in live_hosts.txt
+# ============================================================
+
+# ─── post.ch (Swiss Post - YesWeHack) ───────────────────────
+# Scope: *.post.ch within AS12511 / 194.41.128.0/17
+# IP range check is done separately in weekly-recon.yml
+IN:*.post.ch
+OUT:login.swissid.ch
+OUT:incamail.post.ch
+OUT:incamail-dev.post.ch
+OUT:incamail-test.post.ch
+
+# ─── siilo.com (Doctolib - YesWeHack) ───────────────────────
+IN:*.siilo.com
+IN:*.doctolib.fr
+IN:*.doctolib.de
+IN:*.doctolib.it
+IN:*.doctolib.com
+IN:*.doctolib.net
+OUT:community.doctolib.com
+OUT:info.doctolib.com
+OUT:info.doctolib.fr
+OUT:info.doctolib.de
+OUT:info.doctolib.it
+OUT:status.doctolib.com
+OUT:status.doctolib.fr
+OUT:status.doctolib.it
+OUT:store.doctolib.com
+OUT:media.doctolib.com
+OUT:fb.doctolib.com
+OUT:fb-dev.doctolib.fr
+OUT:pro-app.doctolib.com
+OUT:developers.doctolib.com
+OUT:partners.doctolib.fr
+OUT:partnerportal.doctolib.com
+OUT:partnerprogram.doctolib.com
+OUT:doctocommit.doctolib.fr
+OUT:share.doctolib.net
+OUT:exceptions.doctolib.fr
+OUT:exceptions.doctolib.de
+OUT:l.siilo.com
+OUT:l-dev.siilo.com
+OUT:web.siilo.com
+OUT:web-dev.siilo.com
+OUT:www-admin.siilo.com
+OUT:mjt-dev.siilo.com
+OUT:att-dev-nl.siilo.com
+OUT:sandbox-nl.siilo.com
+OUT:connect.siilo.com
+OUT:prod-nl-web.siilo.com
+
+# ─── blablacardaily.com (BlaBlaCar - YesWeHack) ─────────────
+IN:blablacardaily.com
+IN:api.blablalines.com
+IN:daily.blablacar.fr
+IN:*.blablacar.fr
+IN:*.blablacar.de
+IN:*.blablacar.co.uk
+IN:*.blablacar.in
+IN:*.blablacar.es
+IN:*.blablacar.mx
+IN:*.blablacar.be
+IN:*.blablacar.it
+IN:*.blablacar.nl
+IN:*.blablacar.pl
+IN:*.blablacar.com.br
+IN:*.blablacar.pt
+IN:*.blablacar.ro
+IN:*.blablacar.com
+IN:*.blablacar.tr
+OUT:dev.blablacar.com
+
+# ─── bredbandsbolaget.se / ownit.se / vimla.se (Telenor - YesWeHack) ───
+IN:*.bredbandsbolaget.se
+IN:*.ownit.se
+IN:*.vimla.se
+IN:*.vimla.work
+IN:*.vimla.io
+IN:*.telenor.se
+IN:*.inpli.se
+IN:*.telenorinpli.se
+OUT:*.cust.bredbandsbolaget.se
+OUT:*.bbcust.telenor.se
+OUT:*.cust.telenor.se
+OUT:*.sme.telenor.se
+OUT:*.cust.ownit.se
+OUT:*.customers.ownit.se
+OUT:*.ownit.nu
+OUT:tc.ownit.se
+OUT:faq.vimla.se
+OUT:stage-vimla-se.vimla.io
+OUT:*.telenor.com
+
+# ─── contentsquare.net / content-square.net / csqtrk.net (Contentsquare - YesWeHack) ───
+IN:*.contentsquare.com
+IN:mobile-production.content-square.net
+IN:m.csqtrk.net
+IN:s.contentsquare.net
+OUT:partnerportal.contentsquare.com
+OUT:uxawards.contentsquare.com
+OUT:www.contentsquare.com
+OUT:community.contentsquare.com
+OUT:brand.contentsquare.com
+OUT:blog.contentsquare.com
+OUT:csquad.contentsquare.com
+OUT:go.contentsquare.com
+OUT:hackathon.contentsquare.com
+OUT:security.contentsquare.com
+OUT:support.contentsquare.com
+OUT:learn.contentsquare.com
+OUT:learn2.contentsquare.com
+OUT:csq.contentsquare.com
+OUT:university.contentsquare.com
+OUT:foundation.contentsquare.com
+OUT:content.contentsquare.com
+OUT:partners.contentsquare.com
+OUT:incident.contentsquare.com
+OUT:explore.contentsquare.com
+OUT:get.contentsquare.com
+OUT:trust.contentsquare.com
+OUT:loyalty.contentsquare.com
+OUT:page.contentsquare.com
+OUT:invite.contentsquare.com
+OUT:status.contentsquare.com
+
+# ─── atg.se (ATG - YesWeHack) ───────────────────────────────
+IN:*.atg.se
+OUT:fraga.atg.se
+OUT:hittabutik.atg.se
+OUT:kundo.atg.se
+OUT:shop.atg.se
+OUT:webbshop.atg.se
+OUT:r121.news.atg.se
+OUT:r122.news.atg.se
+OUT:r123.news.atg.se
+OUT:r124.news.atg.se
+
+# ─── onedoc.ch (OneDoc - YesWeHack) ─────────────────────────
+# Scope is EXACT - only these 4 hosts, nothing else
+IN:www.onedoc.ch
+IN:pro.onedoc.ch
+IN:api.onedoc.ch
+IN:telehealth.onedoc.ch
+
+# ─── acronis.com / acronis.work / devicelock.com (Acronis - HackerOne) ───
+IN:*.acronis.com
+IN:*.acronis.work
+IN:*.devicelock.com
+IN:*.5nine.com
+
+# ─── magento.com (Adobe - HackerOne) ────────────────────────
+IN:magento.com
+IN:account.magento.com
+IN:commercemarketplace.adobe.com
+IN:repo.magento.com
