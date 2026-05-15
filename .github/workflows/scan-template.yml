@@ -91,37 +91,32 @@ jobs:
             $HOME/.local/share/nuclei-templates || true
           echo "Templates downloaded: $(ls $HOME/.local/share/nuclei-templates | wc -l) folders"
 
-      - name: Verify templates
-        run: |
-          count=$(ls $HOME/.local/share/nuclei-templates | wc -l)
-          echo "Templates ready: $count folders"
-
       - name: Prepare input
         run: |
           INPUT="${{ inputs.input_file }}"
 
           if [ "$INPUT" = "live_hosts_403" ]; then
-            if [ -f live_hosts_403.txt ] && [ -s live_hosts_403.txt ]; then
-              cp live_hosts_403.txt input.txt
-            else
-              touch input.txt
-            fi
+            cp live_hosts_403.txt input.txt 2>/dev/null || touch input.txt
           elif [ "$INPUT" = "live_hosts_404" ]; then
-            if [ -f live_hosts_404.txt ] && [ -s live_hosts_404.txt ]; then
-              cp live_hosts_404.txt input.txt
-            else
-              touch input.txt
-            fi
+            cp live_hosts_404.txt input.txt 2>/dev/null || touch input.txt
           elif [ "$INPUT" = "new_live_hosts" ]; then
+            cp new_live_hosts.txt input.txt 2>/dev/null || touch input.txt
+          elif [ "$INPUT" = "new_first" ]; then
+            # New hosts first then all hosts - used by daily and weekly scans
+            touch input.txt
             if [ -f new_live_hosts.txt ] && [ -s new_live_hosts.txt ]; then
-              cp new_live_hosts.txt input.txt
-            else
-              touch input.txt
+              cat new_live_hosts.txt >> input.txt
+            fi
+            if [ -f live_hosts.txt ] && [ -s live_hosts.txt ]; then
+              # Add live hosts that are not already in new_live_hosts
+              if [ -f new_live_hosts.txt ] && [ -s new_live_hosts.txt ]; then
+                comm -23 <(sort live_hosts.txt) <(sort new_live_hosts.txt) >> input.txt || true
+              else
+                cat live_hosts.txt >> input.txt
+              fi
             fi
           elif [ -f live_hosts.txt ] && [ -s live_hosts.txt ]; then
             cp live_hosts.txt input.txt
-          elif [ -f domains.txt ] && [ -s domains.txt ]; then
-            cp domains.txt input.txt
           else
             touch input.txt
           fi
@@ -132,7 +127,11 @@ jobs:
         if: inputs.use_katana == true
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
-          katana -list input.txt \
+
+          # Hard cap: max 50 hosts for katana to prevent timeout
+          head -50 input.txt > katana_input.txt
+
+          timeout 1800 katana -list katana_input.txt \
             -silent \
             -js-crawl \
             -depth 1 \
@@ -145,8 +144,9 @@ jobs:
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
             -H "X-Intigriti-Research: chemical, oxidizer" \
             -o urls.txt || true
+
           if [ -f urls.txt ]; then
-            sort -u urls.txt | head -2000 > urls_capped.txt
+            sort -u urls.txt | head -1000 > urls_capped.txt
             mv urls_capped.txt urls.txt
           fi
           echo "URLs found: $(wc -l < urls.txt 2>/dev/null || echo 0)"
