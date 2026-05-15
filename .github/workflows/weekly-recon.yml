@@ -1,4 +1,3 @@
-# weekly-recon.yml
 name: Weekly Recon Pipeline
 on:
   schedule:
@@ -21,7 +20,8 @@ jobs:
           git fetch origin domains 2>/dev/null || true
           git checkout origin/domains -- domains.txt 2>/dev/null || true
           if [ ! -s domains.txt ]; then
-            echo "No domains branch found, using main branch domains.txt"
+            echo "No domains.txt found"
+            exit 1
           fi
           echo "Domains loaded: $(wc -l < domains.txt)"
 
@@ -29,7 +29,6 @@ jobs:
         id: split
         run: |
           grep -vEi "^#|^$" domains.txt | \
-          grep -vEi "google\.|microsoft\.|apple\.|amazon\.|facebook\.|meta\.|twitter\.|netflix\.|linkedin\.|github\." | \
           grep -v '^\*\.' | \
           sort -u > domains_clean.txt || true
 
@@ -117,40 +116,15 @@ jobs:
             grep -vE '^ua-[0-9]' | \
             grep -vE '[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,3}' | \
             grep -vE '^(ns|mail|smtp|pop|imap|ftp|vpn|server|node|host)[0-9]+\.' | \
-            sort -u | head -5000 > batch_subs.txt || true
+            sort -u | head -5000 > batch_subs_raw.txt || true
 
-          echo "Batch ${{ matrix.batch }} total subdomains: $(wc -l < batch_subs.txt)"
+          echo "Batch ${{ matrix.batch }} raw subdomains: $(wc -l < batch_subs_raw.txt)"
 
-      - name: Run subzy on batch
-        run: |
-          export PATH=$PATH:$(go env GOPATH)/bin
-
-          touch takeover_batch.txt
-
-          if [ -s batch_subs.txt ]; then
-            subzy run \
-              --targets batch_subs.txt \
-              --hide_fails \
-              --verify_ssl \
-              --timeout 10 \
-              --concurrency 20 \
-              > subzy_raw.txt 2>/dev/null || true
-
-            echo "=== SUBZY RAW OUTPUT ==="
-            cat subzy_raw.txt || true
-            echo "========================"
-            grep "\[ VULNERABLE \]" subzy_raw.txt > takeover_batch.txt || true
-          fi
-
-          echo "Takeover candidates in batch ${{ matrix.batch }}: $(wc -l < takeover_batch.txt)"
-
-      - name: Upload batch results
+      - name: Upload raw batch results
         uses: actions/upload-artifact@v4
         with:
           name: subs-batch-${{ matrix.batch }}
-          path: |
-            batch_subs.txt
-            takeover_batch.txt
+          path: batch_subs_raw.txt
           if-no-files-found: warn
 
   combine_and_probe:
@@ -161,7 +135,7 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     if: ${{ always() && needs.prepare.result == 'success' }}
     steps:
-      - name: Checkout domains branch directly
+      - name: Checkout domains branch
         uses: actions/checkout@v4
         with:
           ref: domains
@@ -171,6 +145,7 @@ jobs:
       - name: Install tools
         run: |
           go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+          go install github.com/PentestPad/subzy@latest
 
       - name: Download all subdomain artifacts
         uses: actions/download-artifact@v4
@@ -178,25 +153,81 @@ jobs:
           path: all_subs
           pattern: subs-batch-*
 
-      - name: Combine and deduplicate subdomains
+      - name: Combine all raw subdomains
         run: |
-          find all_subs -name "batch_subs.txt" | xargs cat 2>/dev/null | \
-            sort -u | \
-            grep -v '^\*\.' | \
-            grep -vE '^[0-9]{1,3}\.[0-9]' | \
-            grep -vE '^[a-f0-9]{32}\.' > all_subdomains_new.txt || true
+          find all_subs -name "batch_subs_raw.txt" | xargs cat 2>/dev/null | \
+            sort -u > all_subdomains_raw.txt || true
+          echo "Total raw subdomains: $(wc -l < all_subdomains_raw.txt)"
 
-          echo "Total unique subdomains this week: $(wc -l < all_subdomains_new.txt)"
-
-      - name: Combine takeover results
+      - name: Apply scope filter
         run: |
-          find all_subs -name "takeover_batch.txt" | \
-            xargs cat 2>/dev/null | \
-            sort -u > takeover_candidates.txt || true
+          if [ ! -f scope.txt ]; then
+            echo "WARNING: No scope.txt found - skipping scope filter"
+            cp all_subdomains_raw.txt all_subdomains_new.txt
+          else
+            > all_subdomains_new.txt
 
-          count=$(wc -l < takeover_candidates.txt)
-          echo "Total takeover candidates: $count"
-          echo "takeover_count=$count" >> $GITHUB_ENV
+            # Read IN patterns and OUT patterns from scope.txt
+            grep "^IN:" scope.txt | sed 's/^IN://' > scope_in.txt || true
+            grep "^OUT:" scope.txt | sed 's/^OUT://' > scope_out.txt || true
+
+            echo "IN patterns: $(wc -l < scope_in.txt)"
+            echo "OUT patterns: $(wc -l < scope_out.txt)"
+
+            # For each subdomain check if it matches any IN pattern
+            while IFS= read -r subdomain; do
+              matched=false
+              while IFS= read -r pattern; do
+                # Convert wildcard pattern to regex
+                if [[ "$pattern" == \*.* ]]; then
+                  domain="${pattern:2}"
+                  if [[ "$subdomain" == *".$domain" ]] || [[ "$subdomain" == "$domain" ]]; then
+                    matched=true
+                    break
+                  fi
+                else
+                  if [[ "$subdomain" == "$pattern" ]]; then
+                    matched=true
+                    break
+                  fi
+                fi
+              done < scope_in.txt
+
+              if [ "$matched" = true ]; then
+                echo "$subdomain" >> all_subdomains_new.txt
+              fi
+            done < all_subdomains_raw.txt
+
+            echo "After IN filter: $(wc -l < all_subdomains_new.txt)"
+
+            # Now remove OUT patterns
+            cp all_subdomains_new.txt all_subdomains_inscope.txt
+            > all_subdomains_new.txt
+
+            while IFS= read -r subdomain; do
+              blocked=false
+              while IFS= read -r pattern; do
+                if [[ "$pattern" == \*.* ]]; then
+                  domain="${pattern:2}"
+                  if [[ "$subdomain" == *".$domain" ]] || [[ "$subdomain" == "$domain" ]]; then
+                    blocked=true
+                    break
+                  fi
+                else
+                  if [[ "$subdomain" == "$pattern" ]]; then
+                    blocked=true
+                    break
+                  fi
+                fi
+              done < scope_out.txt
+
+              if [ "$blocked" = false ]; then
+                echo "$subdomain" >> all_subdomains_new.txt
+              fi
+            done < all_subdomains_inscope.txt
+
+            echo "After OUT filter: $(wc -l < all_subdomains_new.txt)"
+          fi
 
       - name: Diff new subdomains
         run: |
@@ -212,6 +243,26 @@ jobs:
           echo "New subdomains this week: $(wc -l < new_subdomains.txt)"
           cp all_subdomains_new.txt all_subdomains_clean.txt
 
+      - name: Run subzy on all subdomains
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          touch takeover_candidates.txt
+
+          if [ -s all_subdomains_clean.txt ]; then
+            subzy run \
+              --targets all_subdomains_clean.txt \
+              --hide_fails \
+              --verify_ssl \
+              --timeout 10 \
+              --concurrency 20 \
+              > subzy_raw.txt 2>/dev/null || true
+
+            grep "\[ VULNERABLE \]" subzy_raw.txt > takeover_candidates.txt || true
+          fi
+
+          echo "Takeover candidates: $(wc -l < takeover_candidates.txt)"
+          echo "takeover_count=$(wc -l < takeover_candidates.txt)" >> $GITHUB_ENV
+
       - name: Run httpx on all subdomains
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
@@ -220,7 +271,7 @@ jobs:
             -silent \
             -timeout 8 \
             -retries 0 \
-            -rl 10 \
+            -rl 5 \
             -threads 25 \
             -mc 200,201,301,302,303,401,403,404,405,500 \
             -title \
@@ -228,8 +279,6 @@ jobs:
             -tech-detect \
             -no-color \
             -o httpx_full.txt || true
-
-          awk '{print $1}' httpx_full.txt | sort -u > live_hosts_all.txt
 
           grep -E '\[200\]|\[201\]|\[301\]|\[302\]|\[303\]|\[401\]|\[403\]' httpx_full.txt | \
             awk '{print $1}' | sort -u > live_hosts.txt || true
@@ -241,14 +290,13 @@ jobs:
             awk '{print $1}' | sort -u > live_hosts_404.txt || true
 
           echo "=== FINAL COUNTS ==="
-          echo "Main targets: $(wc -l < live_hosts.txt)"
-          echo "403 targets: $(wc -l < live_hosts_403.txt)"
-          echo "404 targets: $(wc -l < live_hosts_404.txt)"
+          echo "Live hosts: $(wc -l < live_hosts.txt)"
+          echo "403 hosts: $(wc -l < live_hosts_403.txt)"
+          echo "404 hosts: $(wc -l < live_hosts_404.txt)"
 
       - name: Run httpx on new subdomains
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
-
           touch new_live_hosts.txt
 
           if [ -s new_subdomains.txt ]; then
@@ -256,8 +304,8 @@ jobs:
               -silent \
               -timeout 8 \
               -retries 0 \
-              -rl 10 \
-              -threads 50 \
+              -rl 5 \
+              -threads 25 \
               -mc 200,201,301,302,303,401,403,404,405,500 \
               -status-code \
               -no-color \
@@ -303,5 +351,5 @@ jobs:
             Next steps:
             1. Open takeover_candidates.txt in your repo
             2. For each candidate run: dig CNAME <subdomain>
-            3. Check if the service is unclaimed on can-i-take-over-xyz
+            3. Check can-i-take-over-xyz
             4. Verify manually before reporting
