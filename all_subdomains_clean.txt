@@ -3185,7 +3185,6 @@ www.bsi-crm.post.ch
 www.captiveportal.atg.se
 www.cbt.extern.post.ch
 www.cbt.externint.post.ch
-www.cdn.bredbandsbolaget.se
 www.certmgrtest04.post.ch
 www.cockpit.post.ch
 www.cockpitint1.post.ch
@@ -3300,6 +3299,7 @@ www.rasint.post.ch
 www.rasns01.post.ch
 www.rasns02.post.ch
 www.rasns03.post.ch
+www.rds.vimla.se
 www.remote-support-ng.post.ch
 www.remote-support.post.ch
 www.service.post.ch
@@ -3323,6 +3323,7 @@ www.sspa.extern.post.ch
 www.sspa.externint.post.ch
 www.sspe.extern.post.ch
 www.sspe.externint.post.ch
+www.stage.vimla.se
 www.stayfit.post.ch
 www.stories.post.ch
 www.sventest.post.ch
