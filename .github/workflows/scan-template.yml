@@ -194,8 +194,8 @@ jobs:
             -silent \
             -retries 1 \
             -timeout 10 \
-            -bulk-size 25 \
-            -concurrency 25 \
+            -bulk-size 75 \
+            -concurrency 75 \
             -rate-limit 5 \
             -fhr \
             -max-host-error 50 \
