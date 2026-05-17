@@ -1,15 +1,11 @@
 # ============================================================
-# SCOPE FILTER - domains branch
+# SCOPE FILTER - domains branch (Account 1)
 # Format:
 #   IN:  in-scope pattern (wildcard or exact)
 #   OUT: explicitly out-of-scope (dropped before scanning)
-# Weekly recon reads this file and filters all discovered
-# subdomains before they land in live_hosts.txt
 # ============================================================
 
 # ─── post.ch (Swiss Post - YesWeHack) ───────────────────────
-# Scope: *.post.ch within AS12511 / 194.41.128.0/17
-# IP range check is done separately in weekly-recon.yml
 IN:*.post.ch
 OUT:login.swissid.ch
 OUT:incamail.post.ch
@@ -140,22 +136,3 @@ OUT:r121.news.atg.se
 OUT:r122.news.atg.se
 OUT:r123.news.atg.se
 OUT:r124.news.atg.se
-
-# ─── onedoc.ch (OneDoc - YesWeHack) ─────────────────────────
-# Scope is EXACT - only these 4 hosts, nothing else
-IN:www.onedoc.ch
-IN:pro.onedoc.ch
-IN:api.onedoc.ch
-IN:telehealth.onedoc.ch
-
-# ─── acronis.com / acronis.work / devicelock.com (Acronis - HackerOne) ───
-IN:*.acronis.com
-IN:*.acronis.work
-IN:*.devicelock.com
-IN:*.5nine.com
-
-# ─── magento.com (Adobe - HackerOne) ────────────────────────
-IN:magento.com
-IN:account.magento.com
-IN:commercemarketplace.adobe.com
-IN:repo.magento.com
