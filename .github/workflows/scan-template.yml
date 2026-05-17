@@ -41,11 +41,28 @@ jobs:
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
-      - name: Checkout
+      - name: Checkout domains branch
         uses: actions/checkout@v4
         with:
           ref: domains
           fetch-depth: 1
+
+      - name: Checkout custom templates from main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-repo
+          fetch-depth: 1
+
+      - name: Copy custom templates
+        run: |
+          if [ -d main-repo/custom-templates ] && [ "$(ls -A main-repo/custom-templates)" ]; then
+            cp -r main-repo/custom-templates ./custom-templates
+            echo "Custom templates: $(ls custom-templates | wc -l) files"
+          else
+            mkdir -p custom-templates
+            echo "No custom templates found"
+          fi
 
       - name: Get week number
         id: date
@@ -56,7 +73,7 @@ jobs:
         id: cache-go
         with:
           path: ~/go/bin
-          key: go-tools-${{ runner.os }}-v3
+          key: go-tools-${{ runner.os }}-v4
 
       - name: Install Go tools
         if: steps.cache-go.outputs.cache-hit != 'true'
@@ -64,7 +81,7 @@ jobs:
           go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
           go install github.com/projectdiscovery/katana/cmd/katana@latest
 
-      - name: Install nuclei if missing
+      - name: Ensure tools installed
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
           if ! command -v nuclei &> /dev/null; then
@@ -72,6 +89,12 @@ jobs:
             go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
           else
             echo "nuclei found: $(nuclei -version 2>&1 | head -1)"
+          fi
+          if ! command -v katana &> /dev/null; then
+            echo "katana not found, installing..."
+            go install github.com/projectdiscovery/katana/cmd/katana@latest
+          else
+            echo "katana found"
           fi
 
       - name: Cache nuclei templates
@@ -102,13 +125,11 @@ jobs:
           elif [ "$INPUT" = "new_live_hosts" ]; then
             cp new_live_hosts.txt input.txt 2>/dev/null || touch input.txt
           elif [ "$INPUT" = "new_first" ]; then
-            # New hosts first then all hosts - used by daily and weekly scans
             touch input.txt
             if [ -f new_live_hosts.txt ] && [ -s new_live_hosts.txt ]; then
               cat new_live_hosts.txt >> input.txt
             fi
             if [ -f live_hosts.txt ] && [ -s live_hosts.txt ]; then
-              # Add live hosts that are not already in new_live_hosts
               if [ -f new_live_hosts.txt ] && [ -s new_live_hosts.txt ]; then
                 comm -23 <(sort live_hosts.txt) <(sort new_live_hosts.txt) >> input.txt || true
               else
@@ -128,7 +149,6 @@ jobs:
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
 
-          # Hard cap: max 50 hosts for katana to prevent timeout
           head -50 input.txt > katana_input.txt
 
           timeout 1800 katana -list katana_input.txt \
@@ -148,6 +168,8 @@ jobs:
           if [ -f urls.txt ]; then
             sort -u urls.txt | head -1000 > urls_capped.txt
             mv urls_capped.txt urls.txt
+          else
+            touch urls.txt
           fi
           echo "URLs found: $(wc -l < urls.txt 2>/dev/null || echo 0)"
 
@@ -171,16 +193,57 @@ jobs:
             exit 0
           fi
 
+          # Build template paths directly to specific folders
+          # This is much faster than loading entire templates dir
+          if [ "$USE_CUSTOM_ONLY" = "true" ]; then
+            if [ -d custom-templates ] && [ "$(ls -A custom-templates)" ]; then
+              T_FLAG="-t custom-templates"
+            else
+              echo "No custom templates found, skipping"
+              touch results.txt
+              exit 0
+            fi
+          else
+            TEMPLATE_PATHS=""
+            if [[ "$TAGS" == *"cve"* ]]; then
+              TEMPLATE_PATHS="$TEMPLATE_PATHS,$TEMPLATES_DIR/http/cves"
+            fi
+            if [[ "$TAGS" == *"cors"* ]] || [[ "$TAGS" == *"403"* ]] || [[ "$TAGS" == *"graphql"* ]] || [[ "$TAGS" == *"springboot"* ]] || [[ "$TAGS" == *"actuator"* ]]; then
+              TEMPLATE_PATHS="$TEMPLATE_PATHS,$TEMPLATES_DIR/http/misconfiguration"
+            fi
+            if [[ "$TAGS" == *"panel"* ]] || [[ "$TAGS" == *"admin"* ]] || [[ "$TAGS" == *"swagger"* ]] || [[ "$TAGS" == *"api-docs"* ]] || [[ "$TAGS" == *"openapi"* ]]; then
+              TEMPLATE_PATHS="$TEMPLATE_PATHS,$TEMPLATES_DIR/http/exposed-panels"
+            fi
+            if [[ "$TAGS" == *"takeover"* ]] || [[ "$TAGS" == *"subdomain-takeover"* ]]; then
+              TEMPLATE_PATHS="$TEMPLATE_PATHS,$TEMPLATES_DIR/http/takeovers"
+            fi
+            if [[ "$TAGS" == *"token"* ]] || [[ "$TAGS" == *"secret"* ]] || [[ "$TAGS" == *"api-key"* ]] || [[ "$TAGS" == *"generic-tokens"* ]] || [[ "$TAGS" == *"git"* ]] || [[ "$TAGS" == *"env-file"* ]] || [[ "$TAGS" == *"jwt"* ]]; then
+              TEMPLATE_PATHS="$TEMPLATE_PATHS,$TEMPLATES_DIR/http/exposures"
+            fi
+            if [[ "$TAGS" == *"default-login"* ]] || [[ "$TAGS" == *"jenkins"* ]] || [[ "$TAGS" == *"grafana"* ]] || [[ "$TAGS" == *"kibana"* ]]; then
+              TEMPLATE_PATHS="$TEMPLATE_PATHS,$TEMPLATES_DIR/http/default-logins"
+            fi
+            if [[ "$TAGS" == *"s3"* ]] || [[ "$TAGS" == *"aws-s3"* ]]; then
+              TEMPLATE_PATHS="$TEMPLATE_PATHS,$TEMPLATES_DIR/cloud"
+            fi
+
+            # Remove leading comma
+            TEMPLATE_PATHS="${TEMPLATE_PATHS#,}"
+
+            if [ -z "$TEMPLATE_PATHS" ]; then
+              T_FLAG="-t $TEMPLATES_DIR"
+            else
+              T_FLAG="-t $TEMPLATE_PATHS"
+            fi
+          fi
+
           TAGS_FLAG=""
-          if [ -n "$TAGS" ]; then
+          if [ -n "$TAGS" ] && [ "$USE_CUSTOM_ONLY" = "false" ]; then
             TAGS_FLAG="-itags $TAGS"
           fi
 
-          if [ "$USE_CUSTOM_ONLY" = "true" ]; then
-            T_FLAG="-t custom-templates"
-          else
-            T_FLAG="-t $TEMPLATES_DIR"
-          fi
+          echo "Templates: $T_FLAG"
+          echo "Tags: $TAGS_FLAG"
 
           timeout 21000 nuclei -l "$INPUT_FILE" \
             $T_FLAG \
@@ -198,7 +261,7 @@ jobs:
             -concurrency 75 \
             -rate-limit 5 \
             -fhr \
-            -max-host-error 50 \
+            -max-host-error 75 \
             -no-color \
             -o results.txt || true
 
