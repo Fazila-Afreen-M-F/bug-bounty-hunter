@@ -250,7 +250,7 @@ jobs:
             $TAGS_FLAG \
             -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \
             -severity "$SEVERITY" \
-            -H "User-Agent: Mozilla/5.0 BugBounty/42 (YWH) Chemical Oxidizer" \
+            -H "User-Agent: Mozilla/5.0 BugBounty/42 (YWH) Chemical Oxidizer CS_YWH/BB" \
             -H "X-Bug-Bounty: HackerOne-potassium_permanganate, HackerOne-oxidizer" \
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
             -H "X-Intigriti-Research: chemical, oxidizer" \
