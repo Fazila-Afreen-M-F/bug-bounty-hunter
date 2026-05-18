@@ -3,9 +3,10 @@ on:
   schedule:
     - cron: '30 2 * * *'
   workflow_dispatch:
+
 jobs:
   # ─── 1. TAKEOVER ───────────────────────────────────────────────
-  # Uses 404 hosts only — subdomains returning 404 are takeover candidates
+  # 404 hosts only — fast, no split needed
   takeover:
     uses: ./.github/workflows/scan-template.yml
     with:
@@ -16,8 +17,10 @@ jobs:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
-  # ─── 2. MAIN DAILY SCAN PART A ─────────────────────────────────
-  # First half of live_hosts — CVE + CORS + Admin Panels
+
+  # ─── 2. MAIN DAILY SCAN — 4-WAY SPLIT ─────────────────────────
+  # CVE (2022-2025) + CORS + Admin Panels
+  # 25 domains ≈ 325 hosts → ~80 hosts per job → ~45 min each
   daily_main_a:
     uses: ./.github/workflows/scan-template.yml
     with:
@@ -30,8 +33,7 @@ jobs:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
-  # ─── 3. MAIN DAILY SCAN PART B ─────────────────────────────────
-  # Second half of live_hosts — CVE + CORS + Admin Panels
+
   daily_main_b:
     uses: ./.github/workflows/scan-template.yml
     with:
@@ -44,8 +46,35 @@ jobs:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
-  # ─── 4. 403 BYPASS ─────────────────────────────────────────────
-  # Uses 403 hosts only — pre-filtered by weekly recon
+
+  daily_main_c:
+    uses: ./.github/workflows/scan-template.yml
+    with:
+      scan_name: "Daily Main C"
+      tags: "cve,cors,panel,admin"
+      severity: "low,medium,high,critical"
+      input_file: "new_first"
+      split: "third"
+    secrets:
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+
+  daily_main_d:
+    uses: ./.github/workflows/scan-template.yml
+    with:
+      scan_name: "Daily Main D"
+      tags: "cve,cors,panel,admin"
+      severity: "low,medium,high,critical"
+      input_file: "new_first"
+      split: "fourth"
+    secrets:
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+
+  # ─── 3. 403 BYPASS ─────────────────────────────────────────────
+  # 403 hosts only — pre-filtered by weekly recon, no split needed
   bypass_403:
     uses: ./.github/workflows/scan-template.yml
     with:
