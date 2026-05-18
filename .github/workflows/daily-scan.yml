@@ -3,7 +3,6 @@ on:
   schedule:
     - cron: '30 2 * * *'
   workflow_dispatch:
-
 jobs:
   # ─── 1. TAKEOVER ───────────────────────────────────────────────
   # Uses 404 hosts only — subdomains returning 404 are takeover candidates
@@ -17,24 +16,35 @@ jobs:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
-
-  # ─── 2. MAIN DAILY SCAN ────────────────────────────────────────
-  # CVE + CORS + Admin Panels
-  # new_first = scans new_live_hosts first, then remaining live_hosts
-  # This way fresh targets get priority without running a separate job
-  daily_main:
+  # ─── 2. MAIN DAILY SCAN PART A ─────────────────────────────────
+  # First half of live_hosts — CVE + CORS + Admin Panels
+  daily_main_a:
     uses: ./.github/workflows/scan-template.yml
     with:
-      scan_name: "Daily Main"
+      scan_name: "Daily Main A"
       tags: "cve,cors,panel,admin"
       severity: "low,medium,high,critical"
       input_file: "new_first"
+      split: "first"
     secrets:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
-
-  # ─── 3. 403 BYPASS ─────────────────────────────────────────────
+  # ─── 3. MAIN DAILY SCAN PART B ─────────────────────────────────
+  # Second half of live_hosts — CVE + CORS + Admin Panels
+  daily_main_b:
+    uses: ./.github/workflows/scan-template.yml
+    with:
+      scan_name: "Daily Main B"
+      tags: "cve,cors,panel,admin"
+      severity: "low,medium,high,critical"
+      input_file: "new_first"
+      split: "second"
+    secrets:
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+  # ─── 4. 403 BYPASS ─────────────────────────────────────────────
   # Uses 403 hosts only — pre-filtered by weekly recon
   bypass_403:
     uses: ./.github/workflows/scan-template.yml
