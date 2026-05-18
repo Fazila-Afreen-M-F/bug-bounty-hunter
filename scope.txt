@@ -1,5 +1,5 @@
 # ============================================================
-# SCOPE FILTER - domains branch (Account 1)
+# scope.txt — domains branch
 # Format:
 #   IN:  in-scope pattern (wildcard or exact)
 #   OUT: explicitly out-of-scope (dropped before scanning)
@@ -12,7 +12,7 @@ OUT:incamail.post.ch
 OUT:incamail-dev.post.ch
 OUT:incamail-test.post.ch
 
-# ─── siilo.com (Doctolib - YesWeHack) ───────────────────────
+# ─── siilo.com / doctolib (Doctolib - YesWeHack) ────────────
 IN:*.siilo.com
 IN:*.doctolib.fr
 IN:*.doctolib.de
@@ -93,7 +93,7 @@ OUT:faq.vimla.se
 OUT:stage-vimla-se.vimla.io
 OUT:*.telenor.com
 
-# ─── contentsquare.net / content-square.net / csqtrk.net (Contentsquare - YesWeHack) ───
+# ─── contentsquare (Contentsquare - YesWeHack) ──────────────
 IN:*.contentsquare.com
 IN:mobile-production.content-square.net
 IN:m.csqtrk.net
@@ -136,3 +136,83 @@ OUT:r121.news.atg.se
 OUT:r122.news.atg.se
 OUT:r123.news.atg.se
 OUT:r124.news.atg.se
+
+# ─── onedoc.ch (OneDoc - YesWeHack) ─────────────────────────
+# Exact hosts only — no wildcard scope
+IN:www.onedoc.ch
+IN:pro.onedoc.ch
+IN:api.onedoc.ch
+IN:telehealth.onedoc.ch
+
+# ─── acronis.com / acronis.work / devicelock.com (Acronis - HackerOne) ───
+IN:*.acronis.com
+IN:*.acronis.work
+IN:*.devicelock.com
+IN:*.5nine.com
+OUT:training.acronis.com
+OUT:learn.acronis.com
+
+# ─── magento.com (Adobe - HackerOne) ────────────────────────
+# Exact hosts only — no wildcard scope
+IN:magento.com
+IN:account.magento.com
+IN:commercemarketplace.adobe.com
+IN:repo.magento.com
+
+# ─── muscache.com / airbnb.org / airbnbpayments.com / musta.ch (Airbnb - HackerOne) ───
+IN:*.airbnb.com
+IN:*.airbnb.org
+IN:*.musta.ch
+IN:*.airbnbpayments.com
+IN:*.muscache.com
+IN:*.hoteltonight.com
+OUT:*.atairbnb.com
+OUT:*.withairbnb.com
+OUT:*.airbnbcitizen.com
+OUT:*.byairbnb.com
+OUT:*.airbnb-aws.com
+OUT:*.luxuryretreats.com
+OUT:*.airbnbopen.com
+OUT:hoteltonight-test.com
+OUT:api.hoteltonight-test.com
+OUT:places.hoteltonight-test.com
+
+# ─── tumblr.com (Automattic - HackerOne) ────────────────────
+IN:*.tumblr.com
+IN:*.srvcs.tumblr.com
+IN:t.umblr.com
+OUT:*.txmblr.com
+OUT:*.survey.fm
+OUT:*.poll.fm
+OUT:*.crowdsignal.net
+OUT:scrollkit.com
+OUT:*.scrollkit.com
+OUT:polishmywriting.com
+OUT:*.polishmywriting.com
+OUT:learnboost.com
+OUT:*.learnboost.com
+OUT:afterthedeadline.com
+OUT:*.afterthedeadline.com
+
+# ─── wordpress.com (Automattic - HackerOne) ─────────────────
+IN:wordpress.com
+IN:*.wordpress.com
+OUT:*.wordpress.com
+# Note: only wordpress.com itself is high bounty — subdomains are same platform
+# but noisy, keep main domain only for quality findings
+
+# ─── intensedebate.com (Automattic - HackerOne) ─────────────
+IN:intensedebate.com
+IN:*.intensedebate.com
+
+# ─── simplenote.com (Automattic - HackerOne) ────────────────
+IN:simplenote.com
+IN:*.simplenote.com
+
+# ─── simperium.com (Automattic - HackerOne) ─────────────────
+IN:simperium.com
+IN:*.simperium.com
+
+# ─── akismet.com (Automattic - HackerOne) ───────────────────
+IN:akismet.com
+IN:*.akismet.com
