@@ -3,9 +3,9 @@ on:
   schedule:
     - cron: '30 20 * * 5'
   workflow_dispatch:
+
 jobs:
-  # ─── 1. WEEKLY COMBINED PART A ─────────────────────────────────
-  # First half of live_hosts
+  # ─── 1. WEEKLY COMBINED — 4-WAY SPLIT ─────────────────────────
   # JWT + GraphQL + Swagger + Git/Env + Default Logins + Dev Tools + S3 + SpringBoot
   weekly_combined_a:
     uses: ./.github/workflows/scan-template.yml
@@ -19,8 +19,7 @@ jobs:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
-  # ─── 2. WEEKLY COMBINED PART B ─────────────────────────────────
-  # Second half of live_hosts
+
   weekly_combined_b:
     uses: ./.github/workflows/scan-template.yml
     with:
@@ -33,9 +32,36 @@ jobs:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
-  # ─── 3. JS SECRETS SCAN ────────────────────────────────────────
+
+  weekly_combined_c:
+    uses: ./.github/workflows/scan-template.yml
+    with:
+      scan_name: "Weekly Combined C"
+      tags: "jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator"
+      severity: "low,medium,high,critical"
+      input_file: "new_first"
+      split: "third"
+    secrets:
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+
+  weekly_combined_d:
+    uses: ./.github/workflows/scan-template.yml
+    with:
+      scan_name: "Weekly Combined D"
+      tags: "jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator"
+      severity: "low,medium,high,critical"
+      input_file: "new_first"
+      split: "fourth"
+    secrets:
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+
+  # ─── 2. JS SECRETS SCAN ────────────────────────────────────────
   # Katana crawls hosts (capped at 50, 30 min timeout)
-  # Nuclei scans crawled URLs for secrets and keys in JS
+  # Nuclei scans crawled URLs for secrets/keys in JS files
   weekly_js_secrets:
     uses: ./.github/workflows/scan-template.yml
     with:
@@ -48,8 +74,9 @@ jobs:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
-  # ─── 4. CUSTOM TEMPLATES ───────────────────────────────────────
-  # Runs ONLY our hand-crafted templates
+
+  # ─── 3. CUSTOM TEMPLATES ───────────────────────────────────────
+  # Runs ONLY hand-crafted templates
   # Covers: graphql-field-suggestion-leak, spring-boot-actuator-exposed,
   #         swagger-unauthenticated-execution
   weekly_custom:
