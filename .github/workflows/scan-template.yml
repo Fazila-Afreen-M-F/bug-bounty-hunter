@@ -147,19 +147,29 @@ jobs:
             touch input.txt
           fi
 
-          # Apply split if specified
+          # ── 4-way split support ──
           if [ -n "$SPLIT" ] && [ -s input.txt ]; then
             total=$(wc -l < input.txt)
-            half=$(( (total + 1) / 2 ))
+            quarter=$(( (total + 3) / 4 ))
             if [ "$SPLIT" = "first" ]; then
-              head -n "$half" input.txt > input_split.txt
-              mv input_split.txt input.txt
-              echo "Split: first half ($half of $total targets)"
+              sed -n "1,${quarter}p" input.txt > input_split.txt
+              echo "Split: first quarter (~$quarter of $total targets)"
             elif [ "$SPLIT" = "second" ]; then
-              tail -n "+$((half + 1))" input.txt > input_split.txt
-              mv input_split.txt input.txt
-              echo "Split: second half ($((total - half)) of $total targets)"
+              start2=$(( quarter + 1 ))
+              end2=$(( quarter * 2 ))
+              sed -n "${start2},${end2}p" input.txt > input_split.txt
+              echo "Split: second quarter of $total targets"
+            elif [ "$SPLIT" = "third" ]; then
+              start3=$(( quarter * 2 + 1 ))
+              end3=$(( quarter * 3 ))
+              sed -n "${start3},${end3}p" input.txt > input_split.txt
+              echo "Split: third quarter of $total targets"
+            elif [ "$SPLIT" = "fourth" ]; then
+              start4=$(( quarter * 3 + 1 ))
+              sed -n "${start4},\$p" input.txt > input_split.txt
+              echo "Split: fourth quarter of $total targets"
             fi
+            mv input_split.txt input.txt
           fi
 
           echo "Total targets: $(wc -l < input.txt)"
@@ -223,9 +233,16 @@ jobs:
             fi
           else
             TEMPLATE_PATHS=""
+
+            # ── CVE: 2022-2025 only — drops ~2500 old templates, keeps the valuable ones ──
             if [[ "$TAGS" == *"cve"* ]]; then
-              TEMPLATE_PATHS="$TEMPLATE_PATHS,$TEMPLATES_DIR/http/cves"
+              for year in 2022 2023 2024 2025; do
+                if [ -d "$TEMPLATES_DIR/http/cves/$year" ]; then
+                  TEMPLATE_PATHS="$TEMPLATE_PATHS,$TEMPLATES_DIR/http/cves/$year"
+                fi
+              done
             fi
+
             if [[ "$TAGS" == *"cors"* ]] || [[ "$TAGS" == *"403"* ]] || [[ "$TAGS" == *"graphql"* ]] || [[ "$TAGS" == *"springboot"* ]] || [[ "$TAGS" == *"actuator"* ]]; then
               TEMPLATE_PATHS="$TEMPLATE_PATHS,$TEMPLATES_DIR/http/misconfiguration"
             fi
@@ -273,12 +290,12 @@ jobs:
             -H "X-Intigriti-Research: chemical, oxidizer" \
             -silent \
             -retries 1 \
-            -timeout 10 \
+            -timeout 5 \
             -bulk-size 75 \
             -concurrency 75 \
             -rate-limit 5 \
             -fhr \
-            -max-host-error 75 \
+            -max-host-error 30 \
             -no-color \
             -o results.txt || true
 
