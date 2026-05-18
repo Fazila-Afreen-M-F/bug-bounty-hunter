@@ -3,28 +3,39 @@ on:
   schedule:
     - cron: '30 20 * * 5'
   workflow_dispatch:
-
 jobs:
-  # ─── 1. WEEKLY COMBINED ────────────────────────────────────────
+  # ─── 1. WEEKLY COMBINED PART A ─────────────────────────────────
+  # First half of live_hosts
   # JWT + GraphQL + Swagger + Git/Env + Default Logins + Dev Tools + S3 + SpringBoot
-  # new_first = scans new_live_hosts first, then remaining live_hosts
-  # Tags do NOT overlap with daily scan (cve/cors/panel/admin stay in daily)
-  weekly_combined:
+  weekly_combined_a:
     uses: ./.github/workflows/scan-template.yml
     with:
-      scan_name: "Weekly Combined"
+      scan_name: "Weekly Combined A"
       tags: "jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator"
       severity: "low,medium,high,critical"
       input_file: "new_first"
+      split: "first"
     secrets:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
-
-  # ─── 2. JS SECRETS SCAN ────────────────────────────────────────
+  # ─── 2. WEEKLY COMBINED PART B ─────────────────────────────────
+  # Second half of live_hosts
+  weekly_combined_b:
+    uses: ./.github/workflows/scan-template.yml
+    with:
+      scan_name: "Weekly Combined B"
+      tags: "jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator"
+      severity: "low,medium,high,critical"
+      input_file: "new_first"
+      split: "second"
+    secrets:
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+  # ─── 3. JS SECRETS SCAN ────────────────────────────────────────
   # Katana crawls hosts (capped at 50, 30 min timeout)
   # Nuclei scans crawled URLs for secrets and keys in JS
-  # new_first = new hosts get into katana's 50-host cap first
   weekly_js_secrets:
     uses: ./.github/workflows/scan-template.yml
     with:
@@ -37,8 +48,7 @@ jobs:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
-
-  # ─── 3. CUSTOM TEMPLATES ───────────────────────────────────────
+  # ─── 4. CUSTOM TEMPLATES ───────────────────────────────────────
   # Runs ONLY our hand-crafted templates
   # Covers: graphql-field-suggestion-leak, spring-boot-actuator-exposed,
   #         swagger-unauthenticated-execution
