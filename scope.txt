@@ -178,9 +178,15 @@ OUT:api.hoteltonight-test.com
 OUT:places.hoteltonight-test.com
 
 # ─── tumblr.com (Automattic - HackerOne) ────────────────────
-IN:*.tumblr.com
-IN:*.srvcs.tumblr.com
+# Exact infrastructure hosts only — NOT *.tumblr.com (millions of user blogs)
+IN:www.tumblr.com
+IN:api.tumblr.com
+IN:secure.tumblr.com
+IN:safe.tumblr.com
+IN:embed.tumblr.com
+IN:assets.tumblr.com
 IN:t.umblr.com
+IN:*.srvcs.tumblr.com
 OUT:*.txmblr.com
 OUT:*.survey.fm
 OUT:*.poll.fm
@@ -195,11 +201,8 @@ OUT:afterthedeadline.com
 OUT:*.afterthedeadline.com
 
 # ─── wordpress.com (Automattic - HackerOne) ─────────────────
+# Main domain only — NOT *.wordpress.com (millions of user blogs)
 IN:wordpress.com
-IN:*.wordpress.com
-OUT:*.wordpress.com
-# Note: only wordpress.com itself is high bounty — subdomains are same platform
-# but noisy, keep main domain only for quality findings
 
 # ─── intensedebate.com (Automattic - HackerOne) ─────────────
 IN:intensedebate.com
