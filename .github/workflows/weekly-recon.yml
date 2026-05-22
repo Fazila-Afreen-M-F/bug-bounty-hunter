@@ -131,7 +131,7 @@ jobs:
             grep -vE '^20[0-9]{2}-[0-9]{2}-[0-9]{2}-.*\.musta\.ch$' | \
             grep -vE '^20[0-9]{2}-[0-9]{2}-.*\.musta\.ch$' | \
             grep -vE '^20[0-9]{2}-[a-z].*\.musta\.ch$' | \
-            sort -u | head -5000 > batch_subs_raw.txt || true
+            sort -u | head -200000 > batch_subs_raw.txt || true
 
           echo "Batch ${{ matrix.batch }} raw subdomains: $(wc -l < batch_subs_raw.txt)"
 
