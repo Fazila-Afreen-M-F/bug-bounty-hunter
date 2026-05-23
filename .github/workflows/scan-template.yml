@@ -234,7 +234,6 @@ jobs:
           else
             TEMPLATE_PATHS=""
 
-            # ── CVE: 2022-2025 only — drops ~2500 old templates, keeps the valuable ones ──
             if [[ "$TAGS" == *"cve"* ]]; then
               for year in 2022 2023 2024 2025; do
                 if [ -d "$TEMPLATES_DIR/http/cves/$year" ]; then
@@ -291,8 +290,8 @@ jobs:
             -silent \
             -retries 1 \
             -timeout 5 \
-            -bulk-size 75 \
-            -concurrency 75 \
+            -bulk-size 50 \
+            -concurrency 50 \
             -rate-limit 5 \
             -fhr \
             -max-host-error 30 \
