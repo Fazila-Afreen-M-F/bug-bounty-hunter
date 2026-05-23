@@ -5,63 +5,205 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ─── 1. WEEKLY COMBINED — 4-WAY SPLIT ─────────────────────────
-  # JWT + GraphQL + Swagger + Git/Env + Default Logins + Dev Tools + S3 + SpringBoot
-  weekly_combined_a:
-    uses: ./.github/workflows/scan-template.yml
-    with:
-      scan_name: "Weekly Combined A"
-      tags: "jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator"
-      severity: "low,medium,high,critical"
-      input_file: "new_first"
-      split: "first"
-    secrets:
-      EMAIL_USER: ${{ secrets.EMAIL_USER }}
-      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+  # ─── PREPARE: build host list + calculate dynamic splits ───────
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      batches: ${{ steps.split.outputs.batches }}
+      has_hosts: ${{ steps.split.outputs.has_hosts }}
+    steps:
+      - name: Checkout domains branch
+        uses: actions/checkout@v4
+        with:
+          ref: domains
+          fetch-depth: 1
 
-  weekly_combined_b:
-    uses: ./.github/workflows/scan-template.yml
-    with:
-      scan_name: "Weekly Combined B"
-      tags: "jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator"
-      severity: "low,medium,high,critical"
-      input_file: "new_first"
-      split: "second"
-    secrets:
-      EMAIL_USER: ${{ secrets.EMAIL_USER }}
-      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      - name: Build new_first list + calculate splits
+        id: split
+        run: |
+          touch live_hosts.txt new_live_hosts.txt
 
-  weekly_combined_c:
-    uses: ./.github/workflows/scan-template.yml
-    with:
-      scan_name: "Weekly Combined C"
-      tags: "jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator"
-      severity: "low,medium,high,critical"
-      input_file: "new_first"
-      split: "third"
-    secrets:
-      EMAIL_USER: ${{ secrets.EMAIL_USER }}
-      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          # new_first: new hosts first, then rest
+          > combined.txt
+          if [ -s new_live_hosts.txt ]; then
+            cat new_live_hosts.txt >> combined.txt
+          fi
+          if [ -s live_hosts.txt ]; then
+            if [ -s new_live_hosts.txt ]; then
+              comm -23 <(sort live_hosts.txt) <(sort new_live_hosts.txt) >> combined.txt || true
+            else
+              cat live_hosts.txt >> combined.txt
+            fi
+          fi
 
-  weekly_combined_d:
-    uses: ./.github/workflows/scan-template.yml
-    with:
-      scan_name: "Weekly Combined D"
-      tags: "jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator"
-      severity: "low,medium,high,critical"
-      input_file: "new_first"
-      split: "fourth"
-    secrets:
-      EMAIL_USER: ${{ secrets.EMAIL_USER }}
-      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          total=$(wc -l < combined.txt)
+          echo "Total hosts: $total"
 
-  # ─── 2. JS SECRETS SCAN ────────────────────────────────────────
-  # Katana crawls hosts (capped at 50, 30 min timeout)
-  # Nuclei scans crawled URLs for secrets/keys in JS files
+          if [ "$total" -eq 0 ]; then
+            echo "has_hosts=false" >> $GITHUB_OUTPUT
+            echo "batches=[]" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "has_hosts=true" >> $GITHUB_OUTPUT
+
+          # ~200 hosts per job, max 15 parallel jobs
+          BATCH_SIZE=200
+          num_batches=$(( (total + BATCH_SIZE - 1) / BATCH_SIZE ))
+          if [ "$num_batches" -gt 15 ]; then
+            num_batches=15
+          fi
+
+          echo "Batches: $num_batches (~$BATCH_SIZE hosts each)"
+          batches=$(seq 1 $num_batches | jq -R . | jq -sc .)
+          echo "batches=$batches" >> $GITHUB_OUTPUT
+
+      - name: Upload host list
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-hosts
+          path: combined.txt
+          retention-days: 1
+
+  # ─── WEEKLY COMBINED: JWT + GraphQL + Swagger + Git + S3 etc ───
+  weekly_combined:
+    needs: prepare
+    if: needs.prepare.outputs.has_hosts == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      max-parallel: 15
+      matrix:
+        batch: ${{ fromJson(needs.prepare.outputs.batches) }}
+    steps:
+      - name: Checkout domains branch
+        uses: actions/checkout@v4
+        with:
+          ref: domains
+          fetch-depth: 1
+
+      - name: Checkout main for custom templates
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-repo
+          fetch-depth: 1
+
+      - name: Copy custom templates
+        run: |
+          mkdir -p custom-templates
+          if [ -d main-repo/custom-templates ] && [ "$(ls -A main-repo/custom-templates 2>/dev/null)" ]; then
+            cp -r main-repo/custom-templates ./custom-templates
+          fi
+
+      - name: Download host list
+        uses: actions/download-artifact@v4
+        with:
+          name: weekly-hosts
+
+      - name: Slice hosts for this batch
+        run: |
+          total=$(wc -l < combined.txt)
+          num_batches=${{ strategy.job-total }}
+          batch_num=${{ matrix.batch }}
+          batch_size=$(( (total + num_batches - 1) / num_batches ))
+          start=$(( (batch_num - 1) * batch_size + 1 ))
+          end=$(( batch_num * batch_size ))
+          sed -n "${start},${end}p" combined.txt > input.txt
+          echo "Batch $batch_num/$num_batches: $(wc -l < input.txt) of $total hosts"
+
+      - name: Get week number
+        id: date
+        run: echo "week=$(date +'%Y-%U')" >> $GITHUB_OUTPUT
+
+      - name: Cache Go tools
+        uses: actions/cache@v4
+        id: cache-go
+        with:
+          path: ~/go/bin
+          key: go-tools-${{ runner.os }}-v4
+
+      - name: Install nuclei
+        if: steps.cache-go.outputs.cache-hit != 'true'
+        run: go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+
+      - name: Ensure nuclei installed
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          if ! command -v nuclei &>/dev/null; then
+            go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+          fi
+
+      - name: Cache nuclei templates
+        uses: actions/cache@v4
+        id: cache-templates
+        with:
+          path: ~/.local/share/nuclei-templates
+          key: nuclei-templates-${{ runner.os }}-${{ steps.date.outputs.week }}
+          restore-keys: nuclei-templates-${{ runner.os }}-
+
+      - name: Download nuclei templates
+        if: steps.cache-templates.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p $HOME/.local/share/nuclei-templates
+          git clone --depth 1 https://github.com/projectdiscovery/nuclei-templates.git \
+            $HOME/.local/share/nuclei-templates || true
+
+      - name: Run nuclei
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          TEMPLATES_DIR="$HOME/.local/share/nuclei-templates"
+          touch results.txt
+
+          if [ ! -s input.txt ]; then
+            echo "No targets for this batch"
+            exit 0
+          fi
+
+          TEMPLATE_PATHS="$TEMPLATES_DIR/http/misconfiguration,$TEMPLATES_DIR/http/exposed-panels,$TEMPLATES_DIR/http/exposures,$TEMPLATES_DIR/http/default-logins,$TEMPLATES_DIR/cloud"
+
+          timeout 21000 nuclei -l input.txt \
+            -t "$TEMPLATE_PATHS" \
+            -itags jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator \
+            -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \
+            -severity low,medium,high,critical \
+            -H "User-Agent: Mozilla/5.0 BugBounty/42 (YWH) Chemical Oxidizer CS_YWH/BB" \
+            -H "X-Bug-Bounty: HackerOne-potassium_permanganate, HackerOne-oxidizer" \
+            -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
+            -H "X-Intigriti-Research: chemical, oxidizer" \
+            -silent -retries 1 -timeout 5 \
+            -bulk-size 50 -concurrency 50 \
+            -rate-limit 5 -fhr -max-host-error 30 \
+            -no-color -o results.txt || true
+
+          echo "Findings: $(wc -l < results.txt)"
+
+      - name: Check for results
+        id: check
+        run: |
+          if [ -s results.txt ]; then
+            echo "found=true" >> $GITHUB_OUTPUT
+            echo "count=$(wc -l < results.txt)" >> $GITHUB_OUTPUT
+          else
+            echo "found=false" >> $GITHUB_OUTPUT
+            echo "count=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send email alert
+        if: steps.check.outputs.found == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: "[Weekly Combined ${{ matrix.batch }}] ${{ steps.check.outputs.count }} Finding(s)"
+          body: file://results.txt
+          to: ${{ secrets.EMAIL_TO }}
+          from: BugBountyBot
+
+  # ─── JS SECRETS: katana crawl + nuclei secrets scan ────────────
   weekly_js_secrets:
     uses: ./.github/workflows/scan-template.yml
     with:
@@ -75,10 +217,7 @@ jobs:
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
 
-  # ─── 3. CUSTOM TEMPLATES ───────────────────────────────────────
-  # Runs ONLY hand-crafted templates
-  # Covers: graphql-field-suggestion-leak, spring-boot-actuator-exposed,
-  #         swagger-unauthenticated-execution
+  # ─── CUSTOM TEMPLATES: hand-crafted only ───────────────────────
   weekly_custom:
     uses: ./.github/workflows/scan-template.yml
     with:
