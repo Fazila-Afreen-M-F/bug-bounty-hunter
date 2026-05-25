@@ -5,12 +5,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ─── PREPARE: build host list + calculate dynamic splits ───────
   prepare:
     runs-on: ubuntu-latest
     outputs:
       batches: ${{ steps.split.outputs.batches }}
       has_hosts: ${{ steps.split.outputs.has_hosts }}
+      has_403: ${{ steps.split.outputs.has_403 }}
+      has_404: ${{ steps.split.outputs.has_404 }}
     steps:
       - name: Checkout domains branch
         uses: actions/checkout@v4
@@ -18,12 +19,11 @@ jobs:
           ref: domains
           fetch-depth: 1
 
-      - name: Build new_first list + calculate splits
+      - name: Build host lists + calculate splits
         id: split
         run: |
-          touch live_hosts.txt new_live_hosts.txt
+          touch live_hosts.txt new_live_hosts.txt live_hosts_403.txt live_hosts_404.txt
 
-          # new_first: new hosts first, then rest
           > combined.txt
           if [ -s new_live_hosts.txt ]; then
             cat new_live_hosts.txt >> combined.txt
@@ -37,47 +37,113 @@ jobs:
           fi
 
           total=$(wc -l < combined.txt)
-          echo "Total hosts: $total"
+          total_403=$(wc -l < live_hosts_403.txt)
+          total_404=$(wc -l < live_hosts_404.txt)
+          echo "Total: $total | 403: $total_403 | 404: $total_404"
 
           if [ "$total" -eq 0 ]; then
             echo "has_hosts=false" >> $GITHUB_OUTPUT
             echo "batches=[]" >> $GITHUB_OUTPUT
-            exit 0
+          else
+            echo "has_hosts=true" >> $GITHUB_OUTPUT
+            num_batches=20
+            if [ "$total" -lt 20 ]; then num_batches=$total; fi
+            batches=$(seq 1 $num_batches | jq -R . | jq -sc .)
+            echo "batches=$batches" >> $GITHUB_OUTPUT
+            echo "Batches: $num_batches (~$(( (total + num_batches - 1) / num_batches )) hosts each)"
           fi
 
-          echo "has_hosts=true" >> $GITHUB_OUTPUT
+          [ "$total_403" -gt 0 ] && echo "has_403=true" >> $GITHUB_OUTPUT || echo "has_403=false" >> $GITHUB_OUTPUT
+          [ "$total_404" -gt 0 ] && echo "has_404=true" >> $GITHUB_OUTPUT || echo "has_404=false" >> $GITHUB_OUTPUT
 
-          # ~200 hosts per job, max 15 parallel jobs
-          BATCH_SIZE=200
-          num_batches=$(( (total + BATCH_SIZE - 1) / BATCH_SIZE ))
-          if [ "$num_batches" -gt 15 ]; then
-            num_batches=15
-          fi
-
-          echo "Batches: $num_batches (~$BATCH_SIZE hosts each)"
-          batches=$(seq 1 $num_batches | jq -R . | jq -sc .)
-          echo "batches=$batches" >> $GITHUB_OUTPUT
-
-      - name: Upload host list
+      - name: Upload host lists
         uses: actions/upload-artifact@v4
         with:
           name: daily-hosts
-          path: combined.txt
+          path: |
+            combined.txt
+            live_hosts_403.txt
+            live_hosts_404.txt
           retention-days: 1
 
-  # ─── TAKEOVER: 404 hosts only, no split needed ─────────────────
+  # ─── TAKEOVER ──────────────────────────────────────────────────
   takeover:
-    uses: ./.github/workflows/scan-template.yml
-    with:
-      scan_name: "Subdomain Takeover"
-      tags: "takeover,subdomain-takeover"
-      input_file: "live_hosts_404"
-    secrets:
-      EMAIL_USER: ${{ secrets.EMAIL_USER }}
-      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+    needs: prepare
+    if: needs.prepare.outputs.has_404 == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Download host lists
+        uses: actions/download-artifact@v4
+        with:
+          name: daily-hosts
 
-  # ─── MAIN DAILY SCAN: CVE + CORS + Admin — dynamic split ───────
+      - name: Get week number
+        id: date
+        run: echo "week=$(date +'%Y-%U')" >> $GITHUB_OUTPUT
+
+      - name: Cache Go tools
+        uses: actions/cache@v4
+        id: cache-go
+        with:
+          path: ~/go/bin
+          key: go-tools-${{ runner.os }}-v4
+
+      - name: Install nuclei
+        if: steps.cache-go.outputs.cache-hit != 'true'
+        run: go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+
+      - name: Ensure nuclei installed
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          if ! command -v nuclei &>/dev/null; then
+            go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+          fi
+
+      - name: Cache nuclei templates
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/nuclei-templates
+          key: nuclei-templates-${{ runner.os }}-${{ steps.date.outputs.week }}
+          restore-keys: nuclei-templates-${{ runner.os }}-
+
+      - name: Download nuclei templates
+        run: |
+          mkdir -p $HOME/.local/share/nuclei-templates
+          if [ ! -d "$HOME/.local/share/nuclei-templates/http" ]; then
+            git clone --depth 1 https://github.com/projectdiscovery/nuclei-templates.git \
+              $HOME/.local/share/nuclei-templates || true
+          fi
+
+      - name: Run takeover scan
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          TEMPLATES_DIR="$HOME/.local/share/nuclei-templates"
+          touch results.txt
+          timeout 3000 nuclei -l live_hosts_404.txt \
+            -t "$TEMPLATES_DIR/http/takeovers" \
+            -itags takeover,subdomain-takeover \
+            -severity low,medium,high,critical \
+            -silent -retries 0 -timeout 3 \
+            -bulk-size 50 -concurrency 50 \
+            -rate-limit 5 -fhr -max-host-error 5 \
+            -no-color -o results.txt || true
+          echo "Findings: $(wc -l < results.txt)"
+
+      - name: Send email alert
+        if: ${{ hashFiles('results.txt') != '' }}
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: "[Takeover] $(wc -l < results.txt) Finding(s)"
+          body: file://results.txt
+          to: ${{ secrets.EMAIL_TO }}
+          from: BugBountyBot
+
+  # ─── MAIN DAILY: always 20 parallel jobs ───────────────────────
   daily_main:
     needs: prepare
     if: needs.prepare.outputs.has_hosts == 'true'
@@ -85,30 +151,10 @@ jobs:
     timeout-minutes: 360
     strategy:
       fail-fast: false
-      max-parallel: 15
+      max-parallel: 20
       matrix:
         batch: ${{ fromJson(needs.prepare.outputs.batches) }}
     steps:
-      - name: Checkout domains branch
-        uses: actions/checkout@v4
-        with:
-          ref: domains
-          fetch-depth: 1
-
-      - name: Checkout main for custom templates
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          path: main-repo
-          fetch-depth: 1
-
-      - name: Copy custom templates
-        run: |
-          mkdir -p custom-templates
-          if [ -d main-repo/custom-templates ] && [ "$(ls -A main-repo/custom-templates 2>/dev/null)" ]; then
-            cp -r main-repo/custom-templates ./custom-templates
-          fi
-
       - name: Download host list
         uses: actions/download-artifact@v4
         with:
@@ -173,7 +219,6 @@ jobs:
             exit 0
           fi
 
-          # CVE 2022-2025 only
           CVE_PATHS=""
           for year in 2022 2023 2024 2025; do
             if [ -d "$TEMPLATES_DIR/http/cves/$year" ]; then
@@ -181,10 +226,9 @@ jobs:
             fi
           done
           CVE_PATHS="${CVE_PATHS#,}"
-
           TEMPLATE_PATHS="$CVE_PATHS,$TEMPLATES_DIR/http/misconfiguration,$TEMPLATES_DIR/http/exposed-panels"
 
-          timeout 21000 nuclei -l input.txt \
+          timeout 18000 nuclei -l input.txt \
             -t "$TEMPLATE_PATHS" \
             -itags cve,cors,panel,admin \
             -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \
@@ -193,9 +237,9 @@ jobs:
             -H "X-Bug-Bounty: HackerOne-potassium_permanganate, HackerOne-oxidizer" \
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
             -H "X-Intigriti-Research: chemical, oxidizer" \
-            -silent -retries 1 -timeout 5 \
+            -silent -retries 0 -timeout 3 \
             -bulk-size 50 -concurrency 50 \
-            -rate-limit 5 -fhr -max-host-error 30 \
+            -rate-limit 5 -fhr -max-host-error 5 \
             -no-color -o results.txt || true
 
           echo "Findings: $(wc -l < results.txt)"
@@ -224,14 +268,113 @@ jobs:
           to: ${{ secrets.EMAIL_TO }}
           from: BugBountyBot
 
-  # ─── 403 BYPASS: pre-filtered list, no split needed ────────────
+  # ─── 403 BYPASS: always 20 parallel jobs ───────────────────────
   bypass_403:
-    uses: ./.github/workflows/scan-template.yml
-    with:
-      scan_name: "403 Bypass"
-      tags: "403"
-      input_file: "live_hosts_403"
-    secrets:
-      EMAIL_USER: ${{ secrets.EMAIL_USER }}
-      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+    needs: prepare
+    if: needs.prepare.outputs.has_403 == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        batch: ${{ fromJson(needs.prepare.outputs.batches) }}
+    steps:
+      - name: Download host lists
+        uses: actions/download-artifact@v4
+        with:
+          name: daily-hosts
+
+      - name: Slice 403 hosts for this batch
+        run: |
+          total=$(wc -l < live_hosts_403.txt)
+          num_batches=${{ strategy.job-total }}
+          batch_num=${{ matrix.batch }}
+          batch_size=$(( (total + num_batches - 1) / num_batches ))
+          start=$(( (batch_num - 1) * batch_size + 1 ))
+          end=$(( batch_num * batch_size ))
+          sed -n "${start},${end}p" live_hosts_403.txt > input_403.txt
+          echo "Batch $batch_num/$num_batches: $(wc -l < input_403.txt) of $total hosts"
+
+      - name: Get week number
+        id: date
+        run: echo "week=$(date +'%Y-%U')" >> $GITHUB_OUTPUT
+
+      - name: Cache Go tools
+        uses: actions/cache@v4
+        id: cache-go
+        with:
+          path: ~/go/bin
+          key: go-tools-${{ runner.os }}-v4
+
+      - name: Install nuclei
+        if: steps.cache-go.outputs.cache-hit != 'true'
+        run: go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+
+      - name: Ensure nuclei installed
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          if ! command -v nuclei &>/dev/null; then
+            go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+          fi
+
+      - name: Cache nuclei templates
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/nuclei-templates
+          key: nuclei-templates-${{ runner.os }}-${{ steps.date.outputs.week }}
+          restore-keys: nuclei-templates-${{ runner.os }}-
+
+      - name: Download nuclei templates
+        run: |
+          mkdir -p $HOME/.local/share/nuclei-templates
+          if [ ! -d "$HOME/.local/share/nuclei-templates/http" ]; then
+            git clone --depth 1 https://github.com/projectdiscovery/nuclei-templates.git \
+              $HOME/.local/share/nuclei-templates || true
+          fi
+
+      - name: Run 403 bypass scan
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          TEMPLATES_DIR="$HOME/.local/share/nuclei-templates"
+          touch results.txt
+
+          if [ ! -s input_403.txt ]; then
+            echo "No targets for this batch"
+            exit 0
+          fi
+
+          timeout 6000 nuclei -l input_403.txt \
+            -t "$TEMPLATES_DIR/http/misconfiguration" \
+            -itags 403 \
+            -severity low,medium,high,critical \
+            -silent -retries 0 -timeout 3 \
+            -bulk-size 50 -concurrency 50 \
+            -rate-limit 5 -fhr -max-host-error 5 \
+            -no-color -o results.txt || true
+
+          echo "Findings: $(wc -l < results.txt)"
+
+      - name: Check for results
+        id: check
+        run: |
+          if [ -s results.txt ]; then
+            echo "found=true" >> $GITHUB_OUTPUT
+            echo "count=$(wc -l < results.txt)" >> $GITHUB_OUTPUT
+          else
+            echo "found=false" >> $GITHUB_OUTPUT
+            echo "count=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send email alert
+        if: steps.check.outputs.found == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: "[403 Bypass ${{ matrix.batch }}] ${{ steps.check.outputs.count }} Finding(s)"
+          body: file://results.txt
+          to: ${{ secrets.EMAIL_TO }}
+          from: BugBountyBot
