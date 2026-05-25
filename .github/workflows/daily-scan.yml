@@ -137,15 +137,26 @@ jobs:
           echo "Total findings: $count"
           if [ "$count" -gt "0" ]; then cat results.txt; else echo "No findings"; fi
 
+      - name: Check for results
+        id: check
+        run: |
+          if [ -s results.txt ]; then
+            echo "found=true" >> $GITHUB_OUTPUT
+            echo "count=$(wc -l < results.txt)" >> $GITHUB_OUTPUT
+          else
+            echo "found=false" >> $GITHUB_OUTPUT
+            echo "count=0" >> $GITHUB_OUTPUT
+          fi
+
       - name: Send email alert
-        if: ${{ hashFiles('results.txt') != '' }}
+        if: steps.check.outputs.found == 'true'
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 465
           username: ${{ secrets.EMAIL_USER }}
           password: ${{ secrets.EMAIL_PASS }}
-          subject: "[Takeover] $(wc -l < results.txt) Finding(s)"
+          subject: "[Takeover] ${{ steps.check.outputs.count }} Finding(s)"
           body: file://results.txt
           to: ${{ secrets.EMAIL_TO }}
           from: BugBountyBot
