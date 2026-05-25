@@ -5,7 +5,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ─── PREPARE: build host list + calculate dynamic splits ───────
   prepare:
     runs-on: ubuntu-latest
     outputs:
@@ -23,7 +22,6 @@ jobs:
         run: |
           touch live_hosts.txt new_live_hosts.txt
 
-          # new_first: new hosts first, then rest
           > combined.txt
           if [ -s new_live_hosts.txt ]; then
             cat new_live_hosts.txt >> combined.txt
@@ -46,15 +44,9 @@ jobs:
           fi
 
           echo "has_hosts=true" >> $GITHUB_OUTPUT
-
-          # ~200 hosts per job, max 15 parallel jobs
-          BATCH_SIZE=200
-          num_batches=$(( (total + BATCH_SIZE - 1) / BATCH_SIZE ))
-          if [ "$num_batches" -gt 15 ]; then
-            num_batches=15
-          fi
-
-          echo "Batches: $num_batches (~$BATCH_SIZE hosts each)"
+          num_batches=20
+          if [ "$total" -lt 20 ]; then num_batches=$total; fi
+          echo "Batches: $num_batches (~$(( (total + num_batches - 1) / num_batches )) hosts each)"
           batches=$(seq 1 $num_batches | jq -R . | jq -sc .)
           echo "batches=$batches" >> $GITHUB_OUTPUT
 
@@ -65,7 +57,7 @@ jobs:
           path: combined.txt
           retention-days: 1
 
-  # ─── WEEKLY COMBINED: JWT + GraphQL + Swagger + Git + S3 etc ───
+  # ─── WEEKLY COMBINED: always 20 parallel jobs ──────────────────
   weekly_combined:
     needs: prepare
     if: needs.prepare.outputs.has_hosts == 'true'
@@ -73,30 +65,10 @@ jobs:
     timeout-minutes: 360
     strategy:
       fail-fast: false
-      max-parallel: 15
+      max-parallel: 20
       matrix:
         batch: ${{ fromJson(needs.prepare.outputs.batches) }}
     steps:
-      - name: Checkout domains branch
-        uses: actions/checkout@v4
-        with:
-          ref: domains
-          fetch-depth: 1
-
-      - name: Checkout main for custom templates
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          path: main-repo
-          fetch-depth: 1
-
-      - name: Copy custom templates
-        run: |
-          mkdir -p custom-templates
-          if [ -d main-repo/custom-templates ] && [ "$(ls -A main-repo/custom-templates 2>/dev/null)" ]; then
-            cp -r main-repo/custom-templates ./custom-templates
-          fi
-
       - name: Download host list
         uses: actions/download-artifact@v4
         with:
@@ -163,7 +135,7 @@ jobs:
 
           TEMPLATE_PATHS="$TEMPLATES_DIR/http/misconfiguration,$TEMPLATES_DIR/http/exposed-panels,$TEMPLATES_DIR/http/exposures,$TEMPLATES_DIR/http/default-logins,$TEMPLATES_DIR/cloud"
 
-          timeout 21000 nuclei -l input.txt \
+          timeout 18000 nuclei -l input.txt \
             -t "$TEMPLATE_PATHS" \
             -itags jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator \
             -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \
@@ -172,9 +144,9 @@ jobs:
             -H "X-Bug-Bounty: HackerOne-potassium_permanganate, HackerOne-oxidizer" \
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
             -H "X-Intigriti-Research: chemical, oxidizer" \
-            -silent -retries 1 -timeout 5 \
+            -silent -retries 0 -timeout 3 \
             -bulk-size 50 -concurrency 50 \
-            -rate-limit 5 -fhr -max-host-error 30 \
+            -rate-limit 5 -fhr -max-host-error 5 \
             -no-color -o results.txt || true
 
           echo "Findings: $(wc -l < results.txt)"
@@ -203,7 +175,7 @@ jobs:
           to: ${{ secrets.EMAIL_TO }}
           from: BugBountyBot
 
-  # ─── JS SECRETS: katana crawl + nuclei secrets scan ────────────
+  # ─── JS SECRETS: katana caps at 50 hosts, fine as is ───────────
   weekly_js_secrets:
     uses: ./.github/workflows/scan-template.yml
     with:
@@ -217,7 +189,7 @@ jobs:
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
 
-  # ─── CUSTOM TEMPLATES: hand-crafted only ───────────────────────
+  # ─── CUSTOM TEMPLATES: small set, fine as is ───────────────────
   weekly_custom:
     uses: ./.github/workflows/scan-template.yml
     with:
