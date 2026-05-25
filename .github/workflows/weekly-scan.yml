@@ -151,6 +151,13 @@ jobs:
 
           echo "Findings: $(wc -l < results.txt)"
 
+      - name: Show results
+        if: always()
+        run: |
+          count=$(wc -l < results.txt 2>/dev/null || echo 0)
+          echo "Total findings: $count"
+          if [ "$count" -gt "0" ]; then cat results.txt; else echo "No findings"; fi
+
       - name: Check for results
         id: check
         run: |
