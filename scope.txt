@@ -95,9 +95,9 @@ OUT:*.telenor.com
 
 # ─── contentsquare (Contentsquare - YesWeHack) ──────────────
 IN:*.contentsquare.com
-IN:mobile-production.content-square.net
-IN:m.csqtrk.net
-IN:s.contentsquare.net
+IN:*.content-square.net
+IN:*.contentsquare.net
+IN:*.csqtrk.net
 OUT:partnerportal.contentsquare.com
 OUT:uxawards.contentsquare.com
 OUT:www.contentsquare.com
@@ -138,7 +138,6 @@ OUT:r123.news.atg.se
 OUT:r124.news.atg.se
 
 # ─── onedoc.ch (OneDoc - YesWeHack) ─────────────────────────
-# Exact hosts only — no wildcard scope
 IN:www.onedoc.ch
 IN:pro.onedoc.ch
 IN:api.onedoc.ch
@@ -153,7 +152,6 @@ OUT:training.acronis.com
 OUT:learn.acronis.com
 
 # ─── magento.com (Adobe - HackerOne) ────────────────────────
-# Exact hosts only — no wildcard scope
 IN:magento.com
 IN:account.magento.com
 IN:commercemarketplace.adobe.com
@@ -178,7 +176,6 @@ OUT:api.hoteltonight-test.com
 OUT:places.hoteltonight-test.com
 
 # ─── tumblr.com (Automattic - HackerOne) ────────────────────
-# Exact infrastructure hosts only — NOT *.tumblr.com (millions of user blogs)
 IN:www.tumblr.com
 IN:api.tumblr.com
 IN:secure.tumblr.com
@@ -201,7 +198,6 @@ OUT:afterthedeadline.com
 OUT:*.afterthedeadline.com
 
 # ─── wordpress.com (Automattic - HackerOne) ─────────────────
-# Main domain only — NOT *.wordpress.com (millions of user blogs)
 IN:wordpress.com
 
 # ─── intensedebate.com (Automattic - HackerOne) ─────────────
