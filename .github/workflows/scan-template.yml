@@ -190,9 +190,9 @@ jobs:
             -concurrency 5 \
             -max-response-size 2000000 \
             -H "User-Agent: Mozilla/5.0 BugBounty/42 (YWH) Chemical Oxidizer CS_YWH/BB" \
-            -H "X-Bug-Bounty: HackerOne-potassium_permanganate, HackerOne-oxidizer" \
+            -H "X-Bug-Bounty: HackerOne-Chemical, HackerOne-Oxidizer" \
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
-            -H "X-Intigriti-Research: chemical, oxidizer" \
+            -H "X-Intigriti-Research: Chemical, Oxidizer" \
             -o urls.txt || true
 
           if [ -f urls.txt ]; then
@@ -284,9 +284,9 @@ jobs:
             -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \
             -severity "$SEVERITY" \
             -H "User-Agent: Mozilla/5.0 BugBounty/42 (YWH) Chemical Oxidizer CS_YWH/BB" \
-            -H "X-Bug-Bounty: HackerOne-potassium_permanganate, HackerOne-oxidizer" \
+            -H "X-Bug-Bounty: HackerOne-Chemical, HackerOne-Oxidizer" \
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
-            -H "X-Intigriti-Research: chemical, oxidizer" \
+            -H "X-Intigriti-Research: Chemical, Oxidizer" \
             -silent \
             -retries 0 \
             -timeout 3 \
