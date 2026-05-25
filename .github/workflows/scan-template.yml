@@ -185,7 +185,7 @@ jobs:
             -silent \
             -js-crawl \
             -depth 1 \
-            -timeout 5 \
+            -timeout 3 \
             -rl 5 \
             -concurrency 5 \
             -max-response-size 2000000 \
@@ -278,7 +278,7 @@ jobs:
           echo "Templates: $T_FLAG"
           echo "Tags: $TAGS_FLAG"
 
-          timeout 21000 nuclei -l "$INPUT_FILE" \
+          timeout 18000 nuclei -l "$INPUT_FILE" \
             $T_FLAG \
             $TAGS_FLAG \
             -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \
@@ -288,13 +288,13 @@ jobs:
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
             -H "X-Intigriti-Research: chemical, oxidizer" \
             -silent \
-            -retries 1 \
-            -timeout 5 \
+            -retries 0 \
+            -timeout 3 \
             -bulk-size 50 \
             -concurrency 50 \
             -rate-limit 5 \
             -fhr \
-            -max-host-error 30 \
+            -max-host-error 5 \
             -no-color \
             -o results.txt || true
 
