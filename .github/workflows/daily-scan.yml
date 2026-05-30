@@ -128,6 +128,7 @@ jobs:
             -H "X-Bug-Bounty: HackerOne-Chemical, HackerOne-Oxidizer" \
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
             -H "X-Intigriti-Research: Chemical, Oxidizer" \
+            -H "X-YesWeHack-Research: Chemical, Oxidizer" \
             -silent -retries 0 -timeout 3 \
             -bulk-size 50 -concurrency 50 \
             -rate-limit 5 -fhr -max-host-error 5 \
@@ -259,6 +260,7 @@ jobs:
             -H "X-Bug-Bounty: HackerOne-Chemical, HackerOne-Oxidizer" \
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
             -H "X-Intigriti-Research: Chemical, Oxidizer" \
+            -H "X-YesWeHack-Research: Chemical, Oxidizer" \
             -silent -retries 0 -timeout 3 \
             -bulk-size 50 -concurrency 50 \
             -rate-limit 5 -fhr -max-host-error 5 \
@@ -381,6 +383,7 @@ jobs:
             -H "X-Bug-Bounty: HackerOne-Chemical, HackerOne-Oxidizer" \
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
             -H "X-Intigriti-Research: Chemical, Oxidizer" \
+            -H "X-YesWeHack-Research: Chemical, Oxidizer" \
             -silent -retries 0 -timeout 3 \
             -bulk-size 50 -concurrency 50 \
             -rate-limit 5 -fhr -max-host-error 5 \
