@@ -193,6 +193,7 @@ jobs:
             -H "X-Bug-Bounty: HackerOne-Chemical, HackerOne-Oxidizer" \
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
             -H "X-Intigriti-Research: Chemical, Oxidizer" \
+            -H "X-YesWeHack-Research: Chemical, Oxidizer" \
             -o urls.txt || true
 
           if [ -f urls.txt ]; then
