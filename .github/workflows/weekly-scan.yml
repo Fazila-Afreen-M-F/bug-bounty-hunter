@@ -7,6 +7,8 @@ on:
 jobs:
   prepare:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     outputs:
       batches: ${{ steps.split.outputs.batches }}
       has_hosts: ${{ steps.split.outputs.has_hosts }}
@@ -63,6 +65,8 @@ jobs:
     if: needs.prepare.outputs.has_hosts == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 360
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       fail-fast: false
       max-parallel: 20
