@@ -142,7 +142,7 @@ jobs:
           timeout 18000 nuclei -l input.txt \
             -t "$TEMPLATE_PATHS" \
             -itags jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator \
-            -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \
+            -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive,js \
             -severity low,medium,high,critical \
             -H "User-Agent: Mozilla/5.0 BugBounty/42 (YWH) Chemical Oxidizer CS_YWH/BB" \
             -H "X-Bug-Bounty: HackerOne-Chemical, HackerOne-Oxidizer" \
