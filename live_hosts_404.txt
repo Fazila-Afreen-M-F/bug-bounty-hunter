@@ -1,11 +1,11 @@
 http://assets.contentsquare.net
-http://bsi-crm-int.post.ch
 https://a-preview.acronis.com
 https://aaw.apis-int.post.ch
 https://aaw.apis.post.ch
 https://abgw-ach1-aci01.acronis.com
 https://abgw-akl1-aci01.acronis.com
 https://abgw-auh1-aci01.acronis.com
+https://abgw-ber1-acs01.acronis.com
 https://abgw-bll1-aci01.acronis.com
 https://abgw-bom1-aci01.acronis.com
 https://abgw-bud1-aci01.acronis.com
@@ -20,7 +20,6 @@ https://abgw-iad10-aci01.acronis.com
 https://abgw-icn1-aci01.acronis.com
 https://abgw-ist1-aci01.acronis.com
 https://abgw-jnb1-aci01.acronis.com
-https://abgw-jp2-acs1.acronis.com
 https://abgw-kul1-aci01.acronis.com
 https://abgw-lis1-aci01.acronis.com
 https://abgw-mty1-aci01.acronis.com
@@ -41,14 +40,12 @@ https://abgw-yyz2-acs01.acronis.com
 https://adfs.post.ch
 https://adfspext.post.ch
 https://admin.places.post.ch
-https://adon.apis.post.ch
 https://adp.post.ch
 https://agents-ae01-cloud.acronis.com
 https://agents-at01-cloud.acronis.com
 https://agents-au1-cloud.acronis.com
 https://agents-beta-cloud.acronis.com
 https://agents-bg01-cloud.acronis.com
-https://agents-bg92-cloud.acronis.com
 https://agents-br01-cloud.acronis.com
 https://agents-br02-cloud.acronis.com
 https://agents-ca01-cloud.acronis.com
@@ -98,11 +95,8 @@ https://api-dev.postweb.post.ch
 https://api-int.marge.post.ch
 https://api-int.postweb.post.ch
 https://api.marge.post.ch
-https://api.onedoc.ch
 https://api.post.ch
-https://api.postweb.post.ch
 https://apiint.post.ch
-https://apim.apis-int.post.ch
 https://apim.apis.post.ch
 https://apis-dev-gslb.post.ch
 https://apis-dev.post.ch
@@ -113,7 +107,6 @@ https://apitest.post.ch
 https://apps.post.ch
 https://appsint.post.ch
 https://appstest.post.ch
-https://aprol.apis.post.ch
 https://ase.post.ch
 https://asedev1.post.ch
 https://asedev2.post.ch
