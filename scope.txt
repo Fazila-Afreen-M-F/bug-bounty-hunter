@@ -1,8 +1,6 @@
 # ============================================================
 # scope.txt — domains branch
-# Format:
-#   IN:  in-scope pattern (wildcard or exact)
-#   OUT: explicitly out-of-scope (dropped before scanning)
+# Merged from all accounts
 # ============================================================
 
 # ─── post.ch (Swiss Post - YesWeHack) ───────────────────────
@@ -51,7 +49,7 @@ OUT:sandbox-nl.siilo.com
 OUT:connect.siilo.com
 OUT:prod-nl-web.siilo.com
 
-# ─── blablacardaily.com (BlaBlaCar - YesWeHack) ─────────────
+# ─── BlaBlaCar (YesWeHack) ──────────────────────────────────
 IN:blablacardaily.com
 IN:api.blablalines.com
 IN:daily.blablacar.fr
@@ -72,7 +70,7 @@ IN:*.blablacar.com
 IN:*.blablacar.tr
 OUT:dev.blablacar.com
 
-# ─── bredbandsbolaget.se / ownit.se / vimla.se (Telenor - YesWeHack) ───
+# ─── Telenor Sweden (YesWeHack) ─────────────────────────────
 IN:*.bredbandsbolaget.se
 IN:*.ownit.se
 IN:*.vimla.se
@@ -93,7 +91,7 @@ OUT:faq.vimla.se
 OUT:stage-vimla-se.vimla.io
 OUT:*.telenor.com
 
-# ─── contentsquare (Contentsquare - YesWeHack) ──────────────
+# ─── Contentsquare (YesWeHack) ──────────────────────────────
 IN:*.contentsquare.com
 IN:*.content-square.net
 IN:*.contentsquare.net
@@ -125,7 +123,7 @@ OUT:page.contentsquare.com
 OUT:invite.contentsquare.com
 OUT:status.contentsquare.com
 
-# ─── atg.se (ATG - YesWeHack) ───────────────────────────────
+# ─── ATG (YesWeHack) ────────────────────────────────────────
 IN:*.atg.se
 OUT:fraga.atg.se
 OUT:hittabutik.atg.se
@@ -137,13 +135,13 @@ OUT:r122.news.atg.se
 OUT:r123.news.atg.se
 OUT:r124.news.atg.se
 
-# ─── onedoc.ch (OneDoc - YesWeHack) ─────────────────────────
+# ─── OneDoc (YesWeHack) ─────────────────────────────────────
 IN:www.onedoc.ch
 IN:pro.onedoc.ch
 IN:api.onedoc.ch
 IN:telehealth.onedoc.ch
 
-# ─── acronis.com / acronis.work / devicelock.com (Acronis - HackerOne) ───
+# ─── Acronis (HackerOne) ────────────────────────────────────
 IN:*.acronis.com
 IN:*.acronis.work
 IN:*.devicelock.com
@@ -151,13 +149,13 @@ IN:*.5nine.com
 OUT:training.acronis.com
 OUT:learn.acronis.com
 
-# ─── magento.com (Adobe - HackerOne) ────────────────────────
+# ─── Adobe / Magento (HackerOne) ────────────────────────────
 IN:magento.com
 IN:account.magento.com
 IN:commercemarketplace.adobe.com
 IN:repo.magento.com
 
-# ─── muscache.com / airbnb.org / airbnbpayments.com / musta.ch (Airbnb - HackerOne) ───
+# ─── Airbnb (HackerOne) ─────────────────────────────────────
 IN:*.airbnb.com
 IN:*.airbnb.org
 IN:*.musta.ch
@@ -175,7 +173,7 @@ OUT:hoteltonight-test.com
 OUT:api.hoteltonight-test.com
 OUT:places.hoteltonight-test.com
 
-# ─── tumblr.com (Automattic - HackerOne) ────────────────────
+# ─── Automattic (HackerOne) ─────────────────────────────────
 IN:www.tumblr.com
 IN:api.tumblr.com
 IN:secure.tumblr.com
@@ -184,34 +182,788 @@ IN:embed.tumblr.com
 IN:assets.tumblr.com
 IN:t.umblr.com
 IN:*.srvcs.tumblr.com
+IN:wordpress.com
+IN:intensedebate.com
+IN:*.intensedebate.com
+IN:simplenote.com
+IN:*.simplenote.com
+IN:simperium.com
+IN:*.simperium.com
+IN:akismet.com
+IN:*.akismet.com
+IN:clay.earth
+IN:wpscan.com
+IN:mailpoet.com
+IN:gravatar.com
 OUT:*.txmblr.com
 OUT:*.survey.fm
 OUT:*.poll.fm
 OUT:*.crowdsignal.net
-OUT:scrollkit.com
-OUT:*.scrollkit.com
-OUT:polishmywriting.com
-OUT:*.polishmywriting.com
-OUT:learnboost.com
-OUT:*.learnboost.com
-OUT:afterthedeadline.com
-OUT:*.afterthedeadline.com
 
-# ─── wordpress.com (Automattic - HackerOne) ─────────────────
-IN:wordpress.com
+# ─── Banco Plata (HackerOne) ────────────────────────────────
+IN:platacard.mx
+IN:bancoplata.mx
 
-# ─── intensedebate.com (Automattic - HackerOne) ─────────────
-IN:intensedebate.com
-IN:*.intensedebate.com
+# ─── BitMEX (HackerOne) ─────────────────────────────────────
+IN:bitmex.com
+IN:testnet.bitmex.com
 
-# ─── simplenote.com (Automattic - HackerOne) ────────────────
-IN:simplenote.com
-IN:*.simplenote.com
+# ─── Bykea (HackerOne) ──────────────────────────────────────
+IN:*.bykea.net
+IN:bykea.com
 
-# ─── simperium.com (Automattic - HackerOne) ─────────────────
-IN:simperium.com
-IN:*.simperium.com
+# ─── Coinbase (HackerOne) ───────────────────────────────────
+IN:*.cbhq.net
+IN:*.coinbase.com
+IN:*.base.org
+IN:*.tagomi.com
 
-# ─── akismet.com (Automattic - HackerOne) ───────────────────
-IN:akismet.com
-IN:*.akismet.com
+# ─── Crypto.com (HackerOne) ─────────────────────────────────
+IN:mona.co
+IN:nadex.com
+IN:og.com
+IN:*.crypto.com
+
+# ─── Deriv (HackerOne) ──────────────────────────────────────
+IN:*.deriv.com
+IN:*.deriv.cloud
+IN:*.binary.com
+IN:derivws.com
+
+# ─── Elastic (HackerOne) ────────────────────────────────────
+IN:*.elastic.co
+IN:*.elastic.dev
+IN:*.swiftype.com
+IN:*.elasticsearch.com
+IN:*.elasticsearch.org
+IN:*.elasticsearch.fr
+IN:*.elasticsearch.jp
+IN:*.elasticon.com
+IN:*.logstash.net
+IN:ela.st
+IN:found.io
+
+# ─── eero (HackerOne) ───────────────────────────────────────
+IN:*.eero.com
+IN:*.e2ro.com
+
+# ─── Exodus (HackerOne) ─────────────────────────────────────
+IN:*.exodus.io
+IN:*.exodus.com
+IN:grateful.me
+
+# ─── FanDuel (HackerOne) ────────────────────────────────────
+IN:fanduel.com
+IN:tvg.com
+
+# ─── Flickr (HackerOne) ─────────────────────────────────────
+IN:flickr.com
+IN:whatismode.com
+IN:modefestival.com
+
+# ─── GoCardless (HackerOne) ─────────────────────────────────
+IN:*.gocardless.io
+IN:*.gocardless-banking.io
+IN:*.gocardless-cicd.io
+
+# ─── Grab (HackerOne) ───────────────────────────────────────
+IN:*.myteksi.com
+IN:*.myteksi.net
+IN:grab.co
+IN:*.grabpay.com
+IN:kartaview.org
+IN:ovo.id
+IN:ovofinansial.com
+IN:hungrygowhere.com
+IN:p.grabtaxi.com
+
+# ─── Grindr (HackerOne) ─────────────────────────────────────
+IN:grindr.com
+IN:grindr.io
+IN:grindr.mobi
+IN:grindr.work
+
+# ─── Hilton (HackerOne) ─────────────────────────────────────
+IN:*.hilton.com
+IN:hilton.io
+IN:hiltonbusinessonline.com
+IN:hiltonlocalbiz.com
+
+# ─── HubSpot (HackerOne) ────────────────────────────────────
+IN:*.hubspot.com
+IN:chatspot.ai
+IN:hubspotemail.net
+IN:hubspotpagebuilder.com
+IN:hubspotpagebuilder.eu
+IN:hubspot.net
+
+# ─── HYPR (HackerOne) ───────────────────────────────────────
+IN:*.hypr.com
+IN:*.gethypr.com
+OUT:support.hypr.com
+OUT:help.hypr.com
+OUT:partners.hypr.com
+
+# ─── inDrive (HackerOne) ────────────────────────────────────
+IN:*.indriverapp.com
+IN:*.indriver.com
+IN:*.indrive.com
+IN:*.indriver.io
+IN:volans.tech
+IN:alternativa.film
+IN:auroratechaward.com
+IN:invisionu.education
+
+# ─── Instacart (HackerOne) ──────────────────────────────────
+IN:*.instacart.com
+IN:*.instacart.tools
+OUT:brand.instacart.com
+OUT:affiliate.instacart.com
+OUT:careers.instacart.com
+
+# ─── KAYAK (HackerOne) ──────────────────────────────────────
+IN:*.kayak.com
+IN:*.swoodoo.com
+IN:*.checkfelix.com
+IN:*.momondo.com
+IN:*.cheapflights.com
+IN:*.hotelscombined.com
+IN:mundi.com.br
+IN:kayak.ai
+
+# ─── Kong (HackerOne) ───────────────────────────────────────
+IN:*.konghq.com
+
+# ─── Kiwi.com (HackerOne) ───────────────────────────────────
+IN:*.kiwi.com
+IN:*.skypicker.com
+
+# ─── Logitech / Streamlabs (HackerOne) ──────────────────────
+IN:*.logitech.com
+IN:*.streamlabs.com
+
+# ─── Lyst (HackerOne) ───────────────────────────────────────
+IN:lyst.com
+IN:lystit.com
+IN:lyst.co
+OUT:help.lyst.com
+
+# ─── Malwarebytes (HackerOne) ───────────────────────────────
+IN:*.malwarebytes.com
+IN:*.mwbsys.com
+IN:*.mbamupdates.com
+IN:*.mwb-threatintel.com
+IN:*.threatdown.com
+OUT:academy.malwarebytes.com
+OUT:support.malwarebytes.com
+OUT:forums.malwarebytes.com
+OUT:blog.malwarebytes.com
+OUT:view.malwarebytes.com
+OUT:store.malwarebytes.com
+OUT:store.threatdown.com
+OUT:pages.malwarebytes.com
+OUT:estore.malwarebytes.com
+
+# ─── Marriott (HackerOne) ───────────────────────────────────
+IN:www.marriott.com
+IN:marrtool.com
+IN:joinmarriottbonvoy.com
+IN:editionhotels.com
+IN:www.ritzcarlton.com
+IN:moments.marriottbonvoy.com
+IN:homes-and-villas.marriott.com
+IN:all-inclusive.marriott.com
+IN:reservations.all-inclusive.marriott.com
+IN:sso.marriott.com
+IN:psp.marriott.com
+IN:mgs.marriott.com
+IN:cpp.marriott.com
+IN:careers.marriott.com
+IN:gateway*.marriott.com
+IN:*.gateway.marriott.com
+IN:*.dcfgateway.marriott.com
+IN:*.mgs.marriott.com
+IN:*.sba.marriott.com
+IN:*.artifactory.marriott.com
+IN:*.apigwc.marriott.com
+IN:*.apigatewayc.marriott.com
+IN:*gateway-apc.marriott.com
+IN:traveler.marriott.com
+IN:travelagents.marriott.com
+IN:ssm-marriottms.saviyntcloud.com
+IN:wechat.api.marriott.com
+IN:ifast.marriott.com
+IN:efast.marriott.com
+IN:device.marriott.com
+IN:bpa2.marriott.com
+IN:auth-apc.marriott.com
+IN:apcgateway.marriott.com
+IN:activities.marriott.com
+IN:*uat.marriott.com
+IN:help.marriott.com
+IN:jobs.marriott.com
+IN:esupplier.marriott.com
+IN:passwordchallenge.marriott.com
+IN:lawmanager.marriott.com
+IN:join.marriott.com
+IN:joinrewards.marriott.com
+IN:hotel-deals.marriott.com
+IN:hotel-development.marriott.com
+IN:gifts.marriott.com
+IN:globaldesign.marriott.com
+IN:contentportal.marriott.com
+IN:contentportalauth.marriott.com
+IN:cache.marriott.com
+IN:bsp.marriott.com
+IN:bilt.marriott.com
+IN:app-insiders.marriott.com
+IN:moments.marriott.com
+IN:mds.marriott.com
+IN:oasisprod.marriott.com
+IN:university.marriott.com
+IN:uber.marriott.com
+IN:smetrics.marriott.com
+IN:owa.marriott.com
+IN:vacation.marriott.com
+IN:www.members.marriott.com
+IN:www.giving.marriott.com
+IN:www.travel-brilliantly.marriott.com
+IN:www.shopmarriott.com
+IN:mipartnerprivileges.marriott.com
+IN:meetmarriottbonvoy.marriott.com
+IN:channel-portal.homes-and-villas.marriott.com
+IN:ci-propertyconversionportal.marriott.com
+IN:bsp.marriott.com
+OUT:vacations.marriott.com
+OUT:giftcards.marriott.com
+OUT:*.ritzcarltonyachtcollection.com
+OUT:www.travelagents.marriott.com
+OUT:www.msg-gateway.marriott.com
+OUT:towneplacesuites.marriott.com
+OUT:springhillsuites.marriott.com
+OUT:milux.marriott.com
+OUT:mi.bookmarriott.com
+OUT:meetings-excellence.marriott.com
+OUT:marriottlearnourbrands.com
+OUT:marriott.tech
+OUT:luxurybrands.marriott.com
+OUT:hotelexcellence.marriott.com
+
+# ─── MercadoLibre (HackerOne) ───────────────────────────────
+IN:*.mercadolibre.com
+IN:*.mercadolivre.com.br
+IN:*.mercadopago.com
+IN:*.adminml.com
+IN:*.mlstatic.com
+IN:logistica.redelcom.cl
+IN:*.biolibre.ar
+IN:*.biolibre.cl
+IN:*.biolibre.co
+IN:*.biolibre.mx
+IN:*.biolivre.com.br
+IN:*.meliplay.com.ar
+IN:*.meliplay.com.pe
+IN:*.meliplay.com.uy
+IN:*.mercadoplay.co
+IN:*.mercadoplay.com.pe
+IN:*.mercadoplay.com.uy
+IN:*.mercadoplay.pe
+IN:*.mercadoplay.uy
+IN:*.portalinmobiliario.cl
+IN:*.portalinmobiliario.com
+IN:*.tucarro.com
+IN:*.tucarro.com.co
+IN:*.tumoto.com
+IN:*.furycloud.io
+IN:*.furydocs.io
+IN:mercadolibreexperience.cl
+IN:mercadolivreexperience.com.br
+IN:sustentabilidadmercadolibre.com
+IN:mpago.la
+IN:mpago.li
+IN:mercadobackoffice.com
+IN:mercadoenvios.com.ve
+IN:mercadopago.com.ve
+OUT:*.mercadolibre.cn
+
+# ─── MetaMask (HackerOne) ───────────────────────────────────
+IN:metamask.io
+IN:*.metamask.io
+
+# ─── MoonPay (HackerOne) ────────────────────────────────────
+IN:*.moonpay.com
+IN:*.moonpaycloud.com
+IN:*.hypermint.com
+OUT:support.moonpay.com
+OUT:qr.moonpay.com
+OUT:page.moonpay.com
+OUT:help.moonpay.com
+OUT:docs.moonpay.com
+OUT:docs.hypermint.com
+OUT:dev.moonpay.com
+
+# ─── Netlify (HackerOne) ────────────────────────────────────
+IN:*.netlify.com
+IN:*.onegraph.com
+
+# ─── Newegg (HackerOne) ─────────────────────────────────────
+IN:*.newegg.com
+IN:*.newegg.ca
+IN:secure.newegg.com
+IN:secure.newegg.ca
+IN:pmtcards.newegg.com
+OUT:jobs.newegg.com
+OUT:sellerportal.newegg.com
+OUT:vendorportal.newegg.com
+OUT:sellingpilot.newegg.com
+OUT:*.neweggbusiness.com
+
+# ─── pixiv (HackerOne) ──────────────────────────────────────
+IN:www.pixiv.net
+IN:accounts.pixiv.net
+IN:sketch.pixiv.net
+IN:novel.pixiv.net
+IN:payment.pixiv.net
+IN:sensei.pixiv.net
+IN:comic.pixiv.net
+IN:comic-indies.pixiv.net
+IN:coban.pixiv.net
+IN:dic.pixiv.net
+IN:premium.pixiv.net
+IN:hub.vroid.com
+IN:vroid.com
+IN:booth.pm
+IN:neoket.net
+IN:pastela.app
+IN:*.fanbox.cc
+OUT:factory.pixiv.net
+OUT:ads.pixiv.net
+OUT:*.pixiv.co.jp
+
+# ─── Reddit (HackerOne) ─────────────────────────────────────
+IN:*.reddit.com
+IN:*.snooguts.net
+IN:*.redditmedia.com
+IN:*.redditinc.com
+IN:*.reddithelp.com
+IN:*.redditblog.com
+IN:redditforbusiness.com
+IN:*.spiketrap.io
+IN:matrix.redditspace.com
+IN:business.reddithelp.com
+OUT:spell.ml
+OUT:www.meaningcloud.com
+OUT:reddit.secure.force.com
+OUT:memorable.io
+
+# ─── Redox (HackerOne) ──────────────────────────────────────
+IN:10x.redoxengine.com
+IN:testapp.redoxengine.com
+IN:testapi.redoxengine.com
+OUT:dashboard.redoxengine.com
+OUT:api.redoxengine.com
+
+# ─── Remitly (HackerOne) ────────────────────────────────────
+IN:remitly.com
+IN:*.remitly.com
+IN:rewire.com
+IN:app.rewire.to
+
+# ─── Ring / Blink (HackerOne) ───────────────────────────────
+IN:*.ring.com
+IN:*.blinkforhome.com
+IN:*.immedia-semi.com
+IN:prd-ring-web-us.prd.rings.solutions
+
+# ─── Robinhood / Say Technologies (HackerOne) ───────────────
+IN:*.saytechnologies.com
+IN:*.rhinternal.net
+
+# ─── Roblox (HackerOne) ─────────────────────────────────────
+IN:*.roblox.com
+OUT:blog.roblox.com
+
+# ─── SHEIN (HackerOne) ──────────────────────────────────────
+IN:*.shein.com
+IN:*.sheingsp.com
+IN:*.romwe.com
+
+# ─── Shopify (HackerOne) ────────────────────────────────────
+IN:*.shopify.com
+IN:*.shopify.io
+IN:*.shopifykloud.com
+IN:*.shopifycloud.com
+IN:linkpop.com
+IN:shopifyinbox.com
+IN:shopifycs.com
+
+# ─── Stripe / Recko (HackerOne) ─────────────────────────────
+IN:*.recko.io
+IN:*.reckoproduction.com
+IN:*.reckostaging.com
+IN:*.lemonsqueezy.com
+IN:*.bridge.xyz
+
+# ─── TikTok (HackerOne) ─────────────────────────────────────
+IN:*.tiktok.com
+IN:*.tiktokv.com
+IN:tiktokpublishers.com
+IN:tiktokcdn.com
+IN:pangleglobal.com
+IN:pipopay.com
+
+# ─── Trip.com Group (HackerOne) ─────────────────────────────
+IN:*.travix.com
+IN:*.travix.io
+IN:*.cheaptickets.nl
+IN:*.trainpal.com
+IN:*.mytrainpal.com
+IN:*.trip.biz
+IN:*.vliegwinkel.nl
+IN:*.vayama.com
+IN:*.triplinkintl.com
+IN:*.budgetair.com
+IN:*.flugladen.de
+IN:*.trip.com
+OUT:staging.travix.com
+OUT:dev.travix.com
+
+# ─── Ubiquiti (HackerOne) ───────────────────────────────────
+IN:*.ubnt.com
+IN:*.ui.com
+OUT:training.ui.com
+OUT:ir.ui.com
+
+# ─── Unico (HackerOne) ──────────────────────────────────────
+IN:*.unico.io
+
+# ─── Verily (HackerOne) ─────────────────────────────────────
+IN:*.verily.com
+OUT:helix.verily.com
+OUT:enroll.onduo.com
+
+# ─── Wealthsimple (HackerOne) ───────────────────────────────
+IN:*.wealthsimple.com
+IN:*.simpletax.ca
+
+# ─── Vinted (Intigriti) ─────────────────────────────────────
+IN:*.vinted.net
+IN:*.vinted.com
+IN:*.vinted.fr
+IN:*.vintedgo.com
+OUT:api.prod.svc.vintedpay.com
+OUT:callbacks.prod.svc.vintedpay.com
+OUT:*.homerr.com
+OUT:*.vintedpay.com
+OUT:*.vinted.ca
+OUT:*.people.vinted.com
+
+# ─── eToro (Bugcrowd) ───────────────────────────────────────
+IN:*.etoro.com
+IN:etoropartners.com
+IN:delta.app
+IN:etorox.com
+
+# ─── Rapyd (Bugcrowd) ───────────────────────────────────────
+IN:*.rapyd.net
+IN:*.rapyd.com
+IN:*.rapyd.org
+IN:*.korta.is
+IN:jointhemoment.net
+IN:*.kortathjonustan.is
+OUT:community.rapyd.net
+OUT:support.rapyd.net
+OUT:docs.rapyd.net
+OUT:sandbox.rapyd.net
+
+# ─── Luno (Bugcrowd) ────────────────────────────────────────
+IN:staging.luno.com
+
+# ─── Blockchain.com (Bugcrowd) ──────────────────────────────
+IN:blockchain.com
+OUT:email-clicks.blockchain.com
+OUT:support.blockchain.com
+OUT:blog.blockchain.com
+OUT:docs.blockchain.com
+
+# ─── Chime (Bugcrowd) ───────────────────────────────────────
+IN:*.chimepayments.com
+IN:*.chime.com
+IN:*.1debit.com
+IN:*.chimecard.com
+IN:*.chmfin.com
+IN:*.chimebank.com
+IN:*.saltlabs.com
+OUT:help.chime.com
+OUT:status.chime.com
+OUT:careers.chime.com
+OUT:developer.chime.com
+
+# ─── SnapNames (Bugcrowd) ───────────────────────────────────
+IN:snapnames.com
+IN:namejet.com
+OUT:*.snapnames.com
+OUT:*.namejet.com
+OUT:*.buydomains.com
+
+# ─── Bitso (Bugcrowd) ───────────────────────────────────────
+IN:bitso.com
+IN:*.nvio.mx
+IN:*.nvio.ar
+OUT:help.bitso.com
+OUT:status.bitso.com
+OUT:dev.bitso.com
+OUT:blog.bitso.com
+OUT:stage.bitso.com
+OUT:sandbox.bitso.com
+
+# ─── Verisign (Bugcrowd) ────────────────────────────────────
+IN:*.verisign.com
+IN:*.verisign-grs.com
+IN:*.youcouldbe.com
+IN:blog.verisign.com
+IN:*.namestudioforsocial.com
+IN:*.namestudio.com
+
+# ─── Just Eat Takeaway (Bugcrowd) ───────────────────────────
+IN:*.takeaway.com
+IN:*.thuisbezorgd.nl
+IN:*.lieferando.de
+IN:*.pyszne.pl
+IN:*.bistro.sk
+IN:*.just-eat.es
+IN:*.just-eat.co.uk
+IN:*.just-eat.ch
+IN:*.10bis.co.il
+IN:*.scoober.com
+IN:*.just-eat.com
+IN:*.skippayments.com
+IN:*.justeattakeaway.com
+IN:*.just-eat.io
+IN:*.justeat-int.com
+IN:*.yourdelivery.de
+IN:*.jet-external.com
+OUT:*.business.just-eat.co.uk
+
+# ─── Nubank (Bugcrowd) ──────────────────────────────────────
+IN:*.nubank.com.br
+IN:*.nu.com.mx
+IN:*.nu.com.co
+IN:*.nuinvest.com.br
+OUT:*.nuinternational.com
+OUT:international.nubank.com.br
+
+# ─── Immutable (Bugcrowd) ───────────────────────────────────
+IN:*.immutable.com
+IN:*.imtbl.com
+IN:imx.community
+OUT:*.dev.x.immutable.com
+OUT:*.sandbox.x.immutable.com
+OUT:*.dev.immutable.com
+OUT:*.sandbox.imtbl.com
+OUT:*.dev.imtbl.com
+OUT:*.guildofguardians.com
+OUT:*.godsunchained.com
+
+# ─── MGM China (Bugcrowd) ───────────────────────────────────
+IN:*.mgm.mo
+IN:*.mgmmacau.com
+IN:*.mlife.mo
+OUT:opay.icbc.com.cn
+OUT:mgmchinaholdings.com
+
+# ─── Lime (Bugcrowd) ────────────────────────────────────────
+IN:lime.bike
+IN:li.me
+IN:limeinternal.com
+OUT:*.lime.bike
+
+# ─── TheFork (Bugcrowd) ─────────────────────────────────────
+IN:*.thefork.com
+IN:*.theforkmanager.com
+IN:*.restaurant-information.com
+OUT:*.lafourchette.com
+
+# ─── Certinia (Bugcrowd) ────────────────────────────────────
+IN:*.certinia.com
+IN:*.financialforce.com
+OUT:gslink.financialforce.com
+OUT:*.salesforce.com
+
+# ─── Mattermost (Bugcrowd) ──────────────────────────────────
+IN:*.cloud.mattermost.com
+OUT:about.mattermost.com
+OUT:integrations.mattermost.com
+OUT:docs.mattermost.com
+OUT:academy.mattermost.com
+OUT:developers.mattermost.com
+OUT:forum.mattermost.com
+OUT:mattermost.com
+
+# ─── Infinite Athlete (Bugcrowd) ────────────────────────────
+IN:*.tempus-ex.com
+IN:*.infiniteathlete.ai
+
+# ─── NEOGOV (Bugcrowd) ──────────────────────────────────────
+IN:login.neogov.com
+IN:www.governmentjobs.com
+IN:api.neogov.com
+IN:cdn.neogov.com
+IN:powerdms.com
+IN:securesignin.powerdms.com
+IN:secure.cuehit.net
+IN:app.agency360.com
+IN:hr.neogov.com
+IN:securesignin.neogov.com
+
+# ─── Under Armour Product Security (Bugcrowd) ───────────────
+IN:www.underarmour.com
+IN:www.underarmour.co.uk
+IN:www.underarmournext.co.uk
+IN:underarmournext.com
+IN:api.shop.ua.com
+IN:*.api.ua.com
+IN:consumer-sustainability.underarmour.com
+IN:vpe-us.underarmour.com
+IN:*.underarmour.cn
+IN:www.underarmour.com.sg
+IN:underarmour.co.kr
+IN:armourhouse.underarmour.com
+OUT:www.underarmour.com/en-us/affiliate-home
+OUT:www.uabiz.com
+OUT:investor.underarmour.com
+OUT:blog.underarmour.com
+OUT:www.uaretail.com
+OUT:www.uateamcatalogs.com
+OUT:productsafety.underarmour.com
+OUT:uabusiness.force.com
+OUT:www.underarmour.jobs
+OUT:www.plankindustries.com
+
+# ─── Under Armour Corporate (Bugcrowd) ──────────────────────
+IN:apphouse.underarmour.com
+IN:ourhouse.underarmour.com
+IN:transfer.underarmour.com
+IN:snc.underarmour.com
+IN:snctest-s.underarmour.com
+IN:snctest-c.underarmour.com
+IN:supplier.underarmour.com
+IN:vtxapp9p.underarmour.com
+IN:vtxapp9q.underarmour.com
+IN:vtxapp9d.underarmour.com
+IN:vtxappd.underarmour.com
+OUT:investor.underarmour.com
+OUT:careers.underarmour.com
+OUT:uaallaccess.com
+
+# ─── Zendesk (Bugcrowd) ─────────────────────────────────────
+IN:*.zendesk.com
+OUT:support.zendesk.com
+OUT:www.zendesk.com
+OUT:*.zdassets.com
+
+# ─── Tripadvisor (Bugcrowd) ─────────────────────────────────
+IN:*.tripadvisor.com
+IN:*.tamg.cloud
+IN:*.tapayments.com
+OUT:ir.tripadvisor.com
+OUT:*.tripadvisor.cn
+OUT:careers.tripadvisor.com
+
+# ─── Viator (Bugcrowd) ──────────────────────────────────────
+IN:*.viator.com
+IN:*.viatorinc.com
+IN:*.toursgds.com
+OUT:*.rc.viator.com
+OUT:*.sandbox.viator.com
+OUT:agentcenter.viator.com
+OUT:operatorresources.viator.com
+
+# ─── Kinepolis (Intigriti) ──────────────────────────────────
+IN:*.kinepolis.be
+IN:*.kinepolis.nl
+IN:*.kinepolis.com
+IN:*.kinepolis.fr
+IN:*.kinepolis.ch
+IN:*.kinepolis.lu
+IN:*.kinepolis.es
+IN:*.megatix.be
+IN:*.landmarkcinemas.com
+IN:*.mjrtheatres.com
+IN:kinepolis-studio.be
+OUT:dev.kinepolis.com
+OUT:jobs.kinepolis.com
+
+# ─── AS Watson / Kruidvat (Intigriti) ───────────────────────
+IN:*.kruidvat.nl
+IN:*.kruidvat.be
+IN:*.trekpleister.nl
+IN:*.prijsmepper.nl
+
+# ─── Delen Private Bank (Intigriti) ─────────────────────────
+IN:api.digital.delen.be
+IN:api.digital.delen.lu
+IN:app.delen.be
+IN:app.delen.ch
+IN:app.delen.lu
+IN:auth.digital.delen.be
+IN:auth.digital.delen.lu
+IN:login.delen.be
+IN:login.delen.ch
+IN:login.delen.lu
+IN:login.oyens.com
+IN:status.delen.be
+IN:sts.delen.be
+IN:www.cadelam.be
+IN:www.cadelux.lu
+IN:www.delen.bank
+IN:www.delen.be
+
+# ─── AS Watson Superdrug (Intigriti) ────────────────────────
+IN:*.superdrug.com
+IN:*.savers.co.uk
+IN:superdrugmobile.com
+
+# ─── Tomorrowland (Intigriti) ───────────────────────────────
+IN:*.tomorrowland.com
+IN:*.weareone.world
+OUT:returns.store.tomorrowland.com
+
+# ─── TrueLayer (Intigriti) ──────────────────────────────────
+IN:*.truelayer.com
+IN:*.truelayer.cloud
+IN:*.truelayer.io
+OUT:banks.truelayer.com
+OUT:careers.truelayer.com
+OUT:docs.truelayer.com
+OUT:status.truelayer.com
+OUT:trust.truelayer.com
+
+# ─── AS Watson Watsons (Intigriti) ──────────────────────────
+IN:*.watsons.com.hk
+IN:*.watsons.co.th
+IN:*.watsons.com.tw
+IN:*.watsons.com.sg
+IN:*.watsons.com.ph
+IN:*.watsons.com.my
+IN:*.watsons.co.id
+IN:*.watsons.vn
+IN:*.watsons.com.tr
+IN:*.pns.hk
+IN:*.parknshop.com
+IN:*.fortress.com.hk
+IN:*.drogas.lt
+IN:*.drogas.lv
+IN:*.moneyback.com.hk
+IN:*.lookatme.com.ph
+IN:watsonsbeautystudio.com
+
+# ─── Etsy (Bugcrowd) ────────────────────────────────────────
+IN:*.etsy.com
+OUT:icht.etsysecure.com
+OUT:etsypayments.com
+
+# ─── Verily additional assets (HackerOne) ───────────────────
+IN:verilyme.com
+IN:projectbaseline.com
+IN:signalpath.com
