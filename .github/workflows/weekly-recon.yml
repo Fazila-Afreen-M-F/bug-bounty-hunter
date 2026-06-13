@@ -180,63 +180,49 @@ jobs:
             echo "WARNING: No scope.txt found - skipping scope filter"
             cp all_subdomains_raw.txt all_subdomains_new.txt
           else
-            > all_subdomains_new.txt
-
             grep "^IN:" scope.txt | sed 's/^IN://' > scope_in.txt || true
             grep "^OUT:" scope.txt | sed 's/^OUT://' > scope_out.txt || true
 
             echo "IN patterns: $(wc -l < scope_in.txt)"
             echo "OUT patterns: $(wc -l < scope_out.txt)"
 
-            while IFS= read -r subdomain; do
-              matched=false
-              while IFS= read -r pattern; do
-                if [[ "$pattern" == \*.* ]]; then
-                  domain="${pattern:2}"
-                  if [[ "$subdomain" == *".$domain" ]] || [[ "$subdomain" == "$domain" ]]; then
-                    matched=true
-                    break
-                  fi
-                else
-                  if [[ "$subdomain" == "$pattern" ]]; then
-                    matched=true
-                    break
-                  fi
-                fi
-              done < scope_in.txt
-
-              if [ "$matched" = true ]; then
-                echo "$subdomain" >> all_subdomains_new.txt
+            # Build grep-compatible regex from IN patterns
+            > in_grep.txt
+            while IFS= read -r pattern; do
+              if [[ "$pattern" == \*.* ]]; then
+                domain="${pattern:2}"
+                # escape dots in domain for regex
+                escaped=$(echo "$domain" | sed 's/\./\\./g')
+                echo "\\.${escaped}$|^${escaped}$" >> in_grep.txt
+              else
+                escaped=$(echo "$pattern" | sed 's/\./\\./g')
+                echo "^${escaped}$" >> in_grep.txt
               fi
-            done < all_subdomains_raw.txt
+            done < scope_in.txt
 
-            echo "After IN filter: $(wc -l < all_subdomains_new.txt)"
-
-            cp all_subdomains_new.txt all_subdomains_inscope.txt
-            > all_subdomains_new.txt
-
-            while IFS= read -r subdomain; do
-              blocked=false
-              while IFS= read -r pattern; do
-                if [[ "$pattern" == \*.* ]]; then
-                  domain="${pattern:2}"
-                  if [[ "$subdomain" == *".$domain" ]] || [[ "$subdomain" == "$domain" ]]; then
-                    blocked=true
-                    break
-                  fi
-                else
-                  if [[ "$subdomain" == "$pattern" ]]; then
-                    blocked=true
-                    break
-                  fi
-                fi
-              done < scope_out.txt
-
-              if [ "$blocked" = false ]; then
-                echo "$subdomain" >> all_subdomains_new.txt
+            # Build grep-compatible regex from OUT patterns
+            > out_grep.txt
+            while IFS= read -r pattern; do
+              if [[ "$pattern" == \*.* ]]; then
+                domain="${pattern:2}"
+                escaped=$(echo "$domain" | sed 's/\./\\./g')
+                echo "\\.${escaped}$|^${escaped}$" >> out_grep.txt
+              else
+                escaped=$(echo "$pattern" | sed 's/\./\\./g')
+                echo "^${escaped}$" >> out_grep.txt
               fi
-            done < all_subdomains_inscope.txt
+            done < scope_out.txt
 
+            # Apply IN filter - fast grep instead of bash loop
+            grep -Ef in_grep.txt all_subdomains_raw.txt > all_subdomains_inscope.txt || true
+            echo "After IN filter: $(wc -l < all_subdomains_inscope.txt)"
+
+            # Apply OUT filter
+            if [ -s out_grep.txt ]; then
+              grep -vEf out_grep.txt all_subdomains_inscope.txt > all_subdomains_new.txt || true
+            else
+              cp all_subdomains_inscope.txt all_subdomains_new.txt
+            fi
             echo "After OUT filter: $(wc -l < all_subdomains_new.txt)"
           fi
 
