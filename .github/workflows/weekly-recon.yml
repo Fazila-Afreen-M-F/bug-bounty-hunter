@@ -1,107 +1,34 @@
 name: Weekly Recon Pipeline
 
 # ─────────────────────────────────────────────────────────────────────────────
-# SCHEDULE (all times IST = UTC-5:30 subtracted, so IST 6:00 = UTC 0:30 etc.)
+# SCHEDULE: Every Saturday 6:00am IST (Friday 00:30 UTC)
+# All 7 discover batches run in PARALLEL on separate servers (~1.5h)
+# Then combine → httpx → finalize runs automatically
+# Total time: ~2.5h. One trigger, fully automated.
 #
-# Batch 1 → Saturday 6:00am  IST = Friday  00:30 UTC
-# Batch 2 → Saturday 8:30am  IST = Saturday 03:00 UTC
-# Batch 3 → Saturday 11:00am IST = Saturday 05:30 UTC
-# Batch 4 → Saturday 1:30pm  IST = Saturday 08:00 UTC
-# Batch 5 → Saturday 4:00pm  IST = Saturday 10:30 UTC
-# Batch 6 → Saturday 6:30pm  IST = Saturday 13:00 UTC
-# Batch 7 → Saturday 9:00pm  IST = Saturday 15:30 UTC
-#
-# Each batch: subfinder + dnsx (~1.5h), leaves 1h buffer before next starts.
-# combine_and_probe fires after batch 7 (triggered manually or via batch 7 completion).
-# combine_and_probe uses 10 parallel httpx jobs so it finishes in ~2h.
-# Daily scan at 11:30pm IST = 18:00 UTC — well after everything is done.
+# Manual trigger: workflow_dispatch with no inputs = runs everything
 # ─────────────────────────────────────────────────────────────────────────────
 
 on:
   workflow_dispatch:
-    inputs:
-      batch_num:
-        description: 'Which batch to run (1-7), or "combine" to run combine_and_probe only'
-        required: false
-        default: ''
   schedule:
-    - cron: '30 0 * * 6'   # Batch 1 — Saturday 06:00 IST
-    - cron: '0 3 * * 6'    # Batch 2 — Saturday 08:30 IST
-    - cron: '30 5 * * 6'   # Batch 3 — Saturday 11:00 IST
-    - cron: '0 8 * * 6'    # Batch 4 — Saturday 13:30 IST
-    - cron: '30 10 * * 6'  # Batch 5 — Saturday 16:00 IST
-    - cron: '0 13 * * 6'   # Batch 6 — Saturday 18:30 IST
-    - cron: '30 15 * * 6'  # Batch 7 — Saturday 21:00 IST
-    - cron: '0 18 * * 6'   # combine_and_probe — Saturday 23:30 IST
+    - cron: '30 0 * * 6'   # Saturday 06:00 IST
 
-# ─────────────────────────────────────────────────────────────────────────────
-# WHICH BATCH TO RUN?
-# GitHub doesn't tell us which cron fired, so we use the current UTC hour
-# to decide. Each cron fires at a distinct hour so this is unambiguous.
-# workflow_dispatch with batch_num overrides this.
-# ─────────────────────────────────────────────────────────────────────────────
 jobs:
 
-  # ── ROUTER: decide which batch number this run is ──────────────────────────
-  router:
-    runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    outputs:
-      batch_num: ${{ steps.decide.outputs.batch_num }}
-      run_discover: ${{ steps.decide.outputs.run_discover }}
-      run_combine: ${{ steps.decide.outputs.run_combine }}
-    steps:
-      - name: Decide batch
-        id: decide
-        run: |
-          MANUAL="${{ github.event.inputs.batch_num }}"
-          HOUR=$(date -u +"%H")
-          MIN=$(date -u +"%M")
-
-          if [ -n "$MANUAL" ]; then
-            TARGET="$MANUAL"
-          else
-            # Map UTC hour to batch number
-            # 00:30 → batch 1, 03:00 → batch 2, 05:30 → batch 3
-            # 08:00 → batch 4, 10:30 → batch 5, 13:00 → batch 6
-            # 15:30 → batch 7, 18:00 → combine
-            if   [ "$HOUR" -eq 0  ]; then TARGET="1"
-            elif [ "$HOUR" -eq 3  ]; then TARGET="2"
-            elif [ "$HOUR" -eq 5  ]; then TARGET="3"
-            elif [ "$HOUR" -eq 8  ]; then TARGET="4"
-            elif [ "$HOUR" -eq 10 ]; then TARGET="5"
-            elif [ "$HOUR" -eq 13 ]; then TARGET="6"
-            elif [ "$HOUR" -eq 15 ]; then TARGET="7"
-            elif [ "$HOUR" -eq 18 ]; then TARGET="combine"
-            else
-              echo "Unknown hour $HOUR — defaulting to combine"
-              TARGET="combine"
-            fi
-          fi
-
-          echo "batch_num=$TARGET" >> $GITHUB_OUTPUT
-
-          if [ "$TARGET" = "combine" ]; then
-            echo "run_discover=false" >> $GITHUB_OUTPUT
-            echo "run_combine=true"  >> $GITHUB_OUTPUT
-          else
-            echo "run_discover=true" >> $GITHUB_OUTPUT
-            echo "run_combine=false" >> $GITHUB_OUTPUT
-          fi
-
-          echo "Running: $TARGET"
-
-  # ── DISCOVER: subfinder + dnsx for one batch of ~47 domains ────────────────
+  # ── DISCOVER: all 7 batches run in parallel ─────────────────────────────────
   discover:
-    needs: router
-    if: needs.router.outputs.run_discover == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    strategy:
+      fail-fast: false
+      max-parallel: 7
+      matrix:
+        batch: [1, 2, 3, 4, 5, 6, 7]
     steps:
-      - name: Checkout domains branch for domains.txt
+      - name: Checkout domains branch
         uses: actions/checkout@v4
         with:
           ref: domains
@@ -114,7 +41,7 @@ jobs:
 
       - name: Prepare batch domains
         run: |
-          BATCH="${{ needs.router.outputs.batch_num }}"
+          BATCH="${{ matrix.batch }}"
           BATCH_SIZE=47
 
           grep -vEi "^#|^$" domains.txt | grep -v '^\*\.' | sort -u > domains_clean.txt
@@ -125,27 +52,36 @@ jobs:
           end=$(( BATCH * BATCH_SIZE ))
           [ "$end" -gt "$total" ] && end=$total
 
-          sed -n "${start},${end}p" domains_clean.txt > batch_domains.txt
+          if [ "$start" -gt "$total" ]; then
+            echo "Batch $BATCH is out of range, nothing to do"
+            touch batch_domains.txt
+          else
+            sed -n "${start},${end}p" domains_clean.txt > batch_domains.txt
+          fi
+
           echo "Batch $BATCH: lines $start-$end = $(wc -l < batch_domains.txt) domains"
           cat batch_domains.txt
 
       - name: Run subfinder
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
+          touch subs_passive.txt
+          if [ ! -s batch_domains.txt ]; then echo "No domains, skipping"; exit 0; fi
           subfinder -dL batch_domains.txt \
             -silent \
             -timeout 30 \
             -t 5 \
             -max-time 300 \
             -o subs_passive.txt || true
-          echo "Passive subdomains: $(wc -l < subs_passive.txt 2>/dev/null || echo 0)"
+          echo "Passive subdomains: $(wc -l < subs_passive.txt)"
 
       - name: Run dnsx bruteforce
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
+          touch subs_active.txt
+          if [ ! -s batch_domains.txt ]; then echo "No domains, skipping"; exit 0; fi
           curl -sL "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/subdomains-top1million-5000.txt" \
             -o wordlist.txt || true
-
           > subs_active.txt
           while IFS= read -r domain; do
             dnsx -d "$domain" \
@@ -155,7 +91,7 @@ jobs:
               -t 20 \
               >> subs_active.txt || true
           done < batch_domains.txt
-          echo "Active subdomains: $(wc -l < subs_active.txt 2>/dev/null || echo 0)"
+          echo "Active subdomains: $(wc -l < subs_active.txt)"
 
       - name: Merge and clean
         run: |
@@ -190,40 +126,32 @@ jobs:
 
           echo "Filtered subdomains before cap: $(wc -l < all_subs_filtered.txt)"
 
-          # Cap per root domain — max 500 subdomains each to prevent flooding
+          # Cap per root domain — max 500 subdomains each
           > batch_subs_raw.txt
-          while IFS= read -r domain; do
-            grep -E "\.${domain}$|^${domain}$" all_subs_filtered.txt | \
-              head -500 >> batch_subs_raw.txt || true
-          done < batch_domains.txt
+          if [ -s batch_domains.txt ]; then
+            while IFS= read -r domain; do
+              grep -E "\.${domain}$|^${domain}$" all_subs_filtered.txt | \
+                head -500 >> batch_subs_raw.txt || true
+            done < batch_domains.txt
+          fi
           sort -u batch_subs_raw.txt -o batch_subs_raw.txt
+          echo "Batch ${{ matrix.batch }} subdomains after cap: $(wc -l < batch_subs_raw.txt)"
 
-          echo "Batch ${{ needs.router.outputs.batch_num }} subdomains after cap: $(wc -l < batch_subs_raw.txt)"
+      - name: Upload batch results as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-subs-${{ matrix.batch }}
+          path: batch_subs_raw.txt
+          retention-days: 1
 
-      - name: Commit batch results to domains branch
-        run: |
-          git config --global user.email "bugbountybot@github.com"
-          git config --global user.name "BugBountyBot"
-
-          BATCH="${{ needs.router.outputs.batch_num }}"
-          OUTFILE="batch_subs_${BATCH}.txt"
-
-          cp batch_subs_raw.txt "$OUTFILE"
-          git add "$OUTFILE"
-          git diff --staged --quiet || git commit -m "Recon batch $BATCH complete — $(wc -l < batch_subs_raw.txt) subdomains ($(date +'%Y-%m-%d %H:%M IST'))"
-          git push origin domains
-
-  # ── COMBINE AND PROBE: runs at 23:30 IST after all 7 batches done ──────────
+  # ── COMBINE AND PROBE: runs after all 7 batches finish ─────────────────────
   combine_and_probe:
-    needs: router
-    if: needs.router.outputs.run_combine == 'true'
+    needs: discover
+    if: always() && needs.discover.result != 'cancelled'
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    outputs:
-      httpx_batches: ${{ steps.prep.outputs.httpx_batches }}
-      total_subs: ${{ steps.prep.outputs.total_subs }}
     steps:
       - name: Checkout domains branch
         uses: actions/checkout@v4
@@ -237,13 +165,18 @@ jobs:
           go install github.com/projectdiscovery/httpx/cmd/httpx@latest
           go install github.com/PentestPad/subzy@latest
 
+      - name: Download all batch artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: batch_artifacts
+          pattern: batch-subs-*
+
       - name: Combine all batch files + apply scope filter
         id: prep
         run: |
-          # Merge all batch_subs_N.txt files committed during the day
           > all_subdomains_raw.txt
-          for f in batch_subs_*.txt; do
-            [ -f "$f" ] && cat "$f" >> all_subdomains_raw.txt
+          find batch_artifacts -name "batch_subs_raw.txt" | while read f; do
+            cat "$f" >> all_subdomains_raw.txt
           done
           sort -u all_subdomains_raw.txt -o all_subdomains_raw.txt
           echo "Total raw subdomains: $(wc -l < all_subdomains_raw.txt)"
@@ -315,7 +248,6 @@ jobs:
             echo "Chunk $i: $(wc -l < httpx_chunk_${i}.txt) subdomains"
             i=$((i+1))
           done
-          echo "httpx_batches=[1,2,3,4,5,6,7,8,9,10]" >> $GITHUB_OUTPUT
 
       - name: Run subzy on all subdomains
         run: |
@@ -341,14 +273,14 @@ jobs:
           path: httpx_chunk_*.txt
           retention-days: 1
 
-      - name: Upload new_subdomains for later
+      - name: Upload new_subdomains for finalize
         uses: actions/upload-artifact@v4
         with:
           name: new-subdomains
           path: new_subdomains.txt
           retention-days: 1
 
-      - name: Commit interim results (subdomains + takeovers)
+      - name: Commit interim results
         run: |
           git config --global user.email "bugbountybot@github.com"
           git config --global user.name "BugBountyBot"
@@ -466,7 +398,7 @@ jobs:
           name: new-subdomains
           path: new_subs_dl
 
-      - name: Install httpx for new_subdomains probe
+      - name: Install httpx
         run: go install github.com/projectdiscovery/httpx/cmd/httpx@latest
 
       - name: Merge httpx results + build live_hosts
@@ -510,13 +442,6 @@ jobs:
           else
             echo "No new subdomains"
           fi
-
-      - name: Cleanup batch files from domains branch
-        run: |
-          # Remove per-batch files now that we've merged them
-          git config --global user.email "bugbountybot@github.com"
-          git config --global user.name "BugBountyBot"
-          git rm -f batch_subs_*.txt 2>/dev/null || true
 
       - name: Commit final results
         run: |
