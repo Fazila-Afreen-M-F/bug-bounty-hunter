@@ -183,8 +183,22 @@ jobs:
             grep -vE '^20[0-9]{2}-[0-9]{2}-[0-9]{2}-.*\.musta\.ch$' | \
             grep -vE '^20[0-9]{2}-[0-9]{2}-.*\.musta\.ch$' | \
             grep -vE '^20[0-9]{2}-[a-z].*\.musta\.ch$' | \
-            sort -u | head -200000 > batch_subs_raw.txt || true
-          echo "Batch ${{ needs.router.outputs.batch_num }} raw subdomains: $(wc -l < batch_subs_raw.txt)"
+            grep -vE '^[a-z0-9][a-z0-9-]*\.booth\.pm$' | \
+            grep -vE '^[a-z0-9][a-z0-9-]*\.vroid\.com$' | \
+            grep -vE '^[a-z0-9][a-z0-9-]*\.neoket\.net$' | \
+            sort -u > all_subs_filtered.txt || true
+
+          echo "Filtered subdomains before cap: $(wc -l < all_subs_filtered.txt)"
+
+          # Cap per root domain — max 500 subdomains each to prevent flooding
+          > batch_subs_raw.txt
+          while IFS= read -r domain; do
+            grep -E "\.${domain}$|^${domain}$" all_subs_filtered.txt | \
+              head -500 >> batch_subs_raw.txt || true
+          done < batch_domains.txt
+          sort -u batch_subs_raw.txt -o batch_subs_raw.txt
+
+          echo "Batch ${{ needs.router.outputs.batch_num }} subdomains after cap: $(wc -l < batch_subs_raw.txt)"
 
       - name: Commit batch results to domains branch
         run: |
