@@ -7,6 +7,8 @@ on:
 jobs:
   prepare:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     outputs:
       batches: ${{ steps.split.outputs.batches }}
       has_hosts: ${{ steps.split.outputs.has_hosts }}
@@ -72,6 +74,8 @@ jobs:
     if: needs.prepare.outputs.has_404 == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Download host lists
         uses: actions/download-artifact@v4
@@ -123,6 +127,7 @@ jobs:
           timeout 3000 nuclei -l live_hosts_404.txt \
             -t "$TEMPLATES_DIR/http/takeovers" \
             -itags takeover,subdomain-takeover \
+            -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \
             -severity low,medium,high,critical \
             -H "User-Agent: Mozilla/5.0 BugBounty/42 (YWH) Chemical Oxidizer CS_YWH/BB" \
             -H "X-Bug-Bounty: HackerOne-Chemical, HackerOne-Oxidizer" \
@@ -142,29 +147,12 @@ jobs:
           echo "Total findings: $count"
           if [ "$count" -gt "0" ]; then cat results.txt; else echo "No findings"; fi
 
-      - name: Check for results
-        id: check
-        run: |
-          if [ -s results.txt ]; then
-            echo "found=true" >> $GITHUB_OUTPUT
-            echo "count=$(wc -l < results.txt)" >> $GITHUB_OUTPUT
-          else
-            echo "found=false" >> $GITHUB_OUTPUT
-            echo "count=0" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Send email alert
-        if: steps.check.outputs.found == 'true'
-        uses: dawidd6/action-send-mail@v3
+      - name: Upload takeover results
+        uses: actions/upload-artifact@v4
         with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.EMAIL_USER }}
-          password: ${{ secrets.EMAIL_PASS }}
-          subject: "[Takeover] ${{ steps.check.outputs.count }} Finding(s)"
-          body: file://results.txt
-          to: ${{ secrets.EMAIL_TO }}
-          from: BugBountyBot
+          name: takeover-results
+          path: results.txt
+          retention-days: 1
 
   # ─── MAIN DAILY: always 20 parallel jobs ───────────────────────
   daily_main:
@@ -172,6 +160,8 @@ jobs:
     if: needs.prepare.outputs.has_hosts == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 360
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       fail-fast: false
       max-parallel: 20
@@ -275,29 +265,13 @@ jobs:
           echo "Total findings: $count"
           if [ "$count" -gt "0" ]; then cat results.txt; else echo "No findings"; fi
 
-      - name: Check for results
-        id: check
-        run: |
-          if [ -s results.txt ]; then
-            echo "found=true" >> $GITHUB_OUTPUT
-            echo "count=$(wc -l < results.txt)" >> $GITHUB_OUTPUT
-          else
-            echo "found=false" >> $GITHUB_OUTPUT
-            echo "count=0" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Send email alert
-        if: steps.check.outputs.found == 'true'
-        uses: dawidd6/action-send-mail@v3
+      - name: Upload batch results
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.EMAIL_USER }}
-          password: ${{ secrets.EMAIL_PASS }}
-          subject: "[Daily Main ${{ matrix.batch }}] ${{ steps.check.outputs.count }} Finding(s)"
-          body: file://results.txt
-          to: ${{ secrets.EMAIL_TO }}
-          from: BugBountyBot
+          name: daily-results-${{ matrix.batch }}
+          path: results.txt
+          retention-days: 1
 
   # ─── 403 BYPASS: always 20 parallel jobs ───────────────────────
   bypass_403:
@@ -305,6 +279,8 @@ jobs:
     if: needs.prepare.outputs.has_403 == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       fail-fast: false
       max-parallel: 20
@@ -378,6 +354,7 @@ jobs:
           timeout 6000 nuclei -l input_403.txt \
             -t "$TEMPLATES_DIR/http/misconfiguration" \
             -itags 403 \
+            -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \
             -severity low,medium,high,critical \
             -H "User-Agent: Mozilla/5.0 BugBounty/42 (YWH) Chemical Oxidizer CS_YWH/BB" \
             -H "X-Bug-Bounty: HackerOne-Chemical, HackerOne-Oxidizer" \
@@ -398,26 +375,62 @@ jobs:
           echo "Total findings: $count"
           if [ "$count" -gt "0" ]; then cat results.txt; else echo "No findings"; fi
 
-      - name: Check for results
-        id: check
-        run: |
-          if [ -s results.txt ]; then
-            echo "found=true" >> $GITHUB_OUTPUT
-            echo "count=$(wc -l < results.txt)" >> $GITHUB_OUTPUT
-          else
-            echo "found=false" >> $GITHUB_OUTPUT
-            echo "count=0" >> $GITHUB_OUTPUT
-          fi
+      - name: Upload 403 batch results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bypass-results-${{ matrix.batch }}
+          path: results.txt
+          retention-days: 1
 
-      - name: Send email alert
-        if: steps.check.outputs.found == 'true'
+  # ─── NOTIFY: one email after all jobs finish ───────────────────
+  notify:
+    needs: [daily_main, bypass_403, takeover]
+    if: always() && (needs.daily_main.result == 'success' || needs.bypass_403.result == 'success' || needs.takeover.result == 'success')
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - name: Download all daily results
+        uses: actions/download-artifact@v4
+        with:
+          path: all_results
+          pattern: daily-results-*
+        continue-on-error: true
+
+      - name: Download all 403 results
+        uses: actions/download-artifact@v4
+        with:
+          path: all_results
+          pattern: bypass-results-*
+        continue-on-error: true
+
+      - name: Download takeover results
+        uses: actions/download-artifact@v4
+        with:
+          path: all_results
+          pattern: takeover-results
+        continue-on-error: true
+
+      - name: Merge and deduplicate all findings
+        id: merge
+        run: |
+          find all_results -name "results.txt" | xargs cat 2>/dev/null | \
+            sort -u > final_findings.txt || true
+          count=$(wc -l < final_findings.txt)
+          echo "count=$count" >> $GITHUB_OUTPUT
+          echo "Total unique findings: $count"
+          if [ "$count" -gt 0 ]; then cat final_findings.txt; fi
+
+      - name: Send summary email
+        if: steps.merge.outputs.count != '0'
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 465
           username: ${{ secrets.EMAIL_USER }}
           password: ${{ secrets.EMAIL_PASS }}
-          subject: "[403 Bypass ${{ matrix.batch }}] ${{ steps.check.outputs.count }} Finding(s)"
-          body: file://results.txt
+          subject: "[Daily Scan] ${{ steps.merge.outputs.count }} Unique Finding(s) — $(date +'%Y-%m-%d')"
+          body: file://final_findings.txt
           to: ${{ secrets.EMAIL_TO }}
           from: BugBountyBot
