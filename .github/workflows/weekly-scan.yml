@@ -1,7 +1,7 @@
 name: Weekly Scan
 on:
   schedule:
-    - cron: '30 20 * * 5'
+    - cron: '30 4 * * 0'   # Sunday 10:00am IST (UTC 04:30)
   workflow_dispatch:
 
 jobs:
@@ -59,7 +59,7 @@ jobs:
           path: combined.txt
           retention-days: 1
 
-  # ─── WEEKLY COMBINED: always 20 parallel jobs ──────────────────
+  # ─── WEEKLY COMBINED: always 20 parallel jobs ──────────────────────────────
   weekly_combined:
     needs: prepare
     if: needs.prepare.outputs.has_hosts == 'true'
@@ -187,7 +187,7 @@ jobs:
           to: ${{ secrets.EMAIL_TO }}
           from: BugBountyBot
 
-  # ─── JS SECRETS: katana caps at 50 hosts, fine as is ───────────
+  # ─── JS SECRETS ────────────────────────────────────────────────
   weekly_js_secrets:
     uses: ./.github/workflows/scan-template.yml
     with:
@@ -201,7 +201,7 @@ jobs:
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
 
-  # ─── CUSTOM TEMPLATES: small set, fine as is ───────────────────
+  # ─── CUSTOM TEMPLATES ──────────────────────────────────────────
   weekly_custom:
     uses: ./.github/workflows/scan-template.yml
     with:
