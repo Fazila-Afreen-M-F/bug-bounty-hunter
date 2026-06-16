@@ -1,97 +1,150 @@
 name: Weekly Recon Pipeline
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SCHEDULE (all times IST = UTC-5:30 subtracted, so IST 6:00 = UTC 0:30 etc.)
+#
+# Batch 1 → Saturday 6:00am  IST = Friday  00:30 UTC
+# Batch 2 → Saturday 8:30am  IST = Saturday 03:00 UTC
+# Batch 3 → Saturday 11:00am IST = Saturday 05:30 UTC
+# Batch 4 → Saturday 1:30pm  IST = Saturday 08:00 UTC
+# Batch 5 → Saturday 4:00pm  IST = Saturday 10:30 UTC
+# Batch 6 → Saturday 6:30pm  IST = Saturday 13:00 UTC
+# Batch 7 → Saturday 9:00pm  IST = Saturday 15:30 UTC
+#
+# Each batch: subfinder + dnsx (~1.5h), leaves 1h buffer before next starts.
+# combine_and_probe fires after batch 7 (triggered manually or via batch 7 completion).
+# combine_and_probe uses 10 parallel httpx jobs so it finishes in ~2h.
+# Daily scan at 11:30pm IST = 18:00 UTC — well after everything is done.
+# ─────────────────────────────────────────────────────────────────────────────
+
 on:
-  schedule:
-    - cron: '30 18 * * 5'
   workflow_dispatch:
+    inputs:
+      batch_num:
+        description: 'Which batch to run (1-7), or "combine" to run combine_and_probe only'
+        required: false
+        default: ''
+  schedule:
+    - cron: '30 0 * * 6'   # Batch 1 — Saturday 06:00 IST
+    - cron: '0 3 * * 6'    # Batch 2 — Saturday 08:30 IST
+    - cron: '30 5 * * 6'   # Batch 3 — Saturday 11:00 IST
+    - cron: '0 8 * * 6'    # Batch 4 — Saturday 13:30 IST
+    - cron: '30 10 * * 6'  # Batch 5 — Saturday 16:00 IST
+    - cron: '0 13 * * 6'   # Batch 6 — Saturday 18:30 IST
+    - cron: '30 15 * * 6'  # Batch 7 — Saturday 21:00 IST
+    - cron: '0 18 * * 6'   # combine_and_probe — Saturday 23:30 IST
 
+# ─────────────────────────────────────────────────────────────────────────────
+# WHICH BATCH TO RUN?
+# GitHub doesn't tell us which cron fired, so we use the current UTC hour
+# to decide. Each cron fires at a distinct hour so this is unambiguous.
+# workflow_dispatch with batch_num overrides this.
+# ─────────────────────────────────────────────────────────────────────────────
 jobs:
-  prepare:
+
+  # ── ROUTER: decide which batch number this run is ──────────────────────────
+  router:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     outputs:
-      batches: ${{ steps.split.outputs.batches }}
+      batch_num: ${{ steps.decide.outputs.batch_num }}
+      run_discover: ${{ steps.decide.outputs.run_discover }}
+      run_combine: ${{ steps.decide.outputs.run_combine }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
-      - name: Fetch domains from domains branch
+      - name: Decide batch
+        id: decide
         run: |
-          git fetch origin domains 2>/dev/null || true
-          git checkout origin/domains -- domains.txt 2>/dev/null || true
-          if [ ! -s domains.txt ]; then
-            echo "No domains.txt found"
-            exit 1
+          MANUAL="${{ github.event.inputs.batch_num }}"
+          HOUR=$(date -u +"%H")
+          MIN=$(date -u +"%M")
+
+          if [ -n "$MANUAL" ]; then
+            TARGET="$MANUAL"
+          else
+            # Map UTC hour to batch number
+            # 00:30 → batch 1, 03:00 → batch 2, 05:30 → batch 3
+            # 08:00 → batch 4, 10:30 → batch 5, 13:00 → batch 6
+            # 15:30 → batch 7, 18:00 → combine
+            if   [ "$HOUR" -eq 0  ]; then TARGET="1"
+            elif [ "$HOUR" -eq 3  ]; then TARGET="2"
+            elif [ "$HOUR" -eq 5  ]; then TARGET="3"
+            elif [ "$HOUR" -eq 8  ]; then TARGET="4"
+            elif [ "$HOUR" -eq 10 ]; then TARGET="5"
+            elif [ "$HOUR" -eq 13 ]; then TARGET="6"
+            elif [ "$HOUR" -eq 15 ]; then TARGET="7"
+            elif [ "$HOUR" -eq 18 ]; then TARGET="combine"
+            else
+              echo "Unknown hour $HOUR — defaulting to combine"
+              TARGET="combine"
+            fi
           fi
-          echo "Domains loaded: $(wc -l < domains.txt)"
 
-      - name: Filter and split domains
-        id: split
-        run: |
-          grep -vEi "^#|^$" domains.txt | \
-          grep -v '^\*\.' | \
-          sort -u > domains_clean.txt || true
+          echo "batch_num=$TARGET" >> $GITHUB_OUTPUT
 
-          total=$(wc -l < domains_clean.txt)
-          num_batches=$(( (total + 49) / 50 ))
-          batches=$(seq 1 $num_batches | jq -R . | jq -sc .)
-          echo "batches=$batches" >> $GITHUB_OUTPUT
-          echo "Original: $(wc -l < domains.txt), Clean: $total, Batches: $num_batches"
+          if [ "$TARGET" = "combine" ]; then
+            echo "run_discover=false" >> $GITHUB_OUTPUT
+            echo "run_combine=true"  >> $GITHUB_OUTPUT
+          else
+            echo "run_discover=true" >> $GITHUB_OUTPUT
+            echo "run_combine=false" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Upload clean domains
-        uses: actions/upload-artifact@v4
-        with:
-          name: domains-clean
-          path: domains_clean.txt
+          echo "Running: $TARGET"
 
+  # ── DISCOVER: subfinder + dnsx for one batch of ~47 domains ────────────────
   discover:
-    needs: prepare
+    needs: router
+    if: needs.router.outputs.run_discover == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    strategy:
-      fail-fast: false
-      max-parallel: 10
-      matrix:
-        batch: ${{ fromJson(needs.prepare.outputs.batches) }}
     steps:
+      - name: Checkout domains branch for domains.txt
+        uses: actions/checkout@v4
+        with:
+          ref: domains
+          fetch-depth: 1
+
       - name: Install tools
         run: |
           go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
           go install github.com/projectdiscovery/dnsx/cmd/dnsx@latest
-          go install github.com/PentestPad/subzy@latest
 
-      - name: Download clean domains
-        uses: actions/download-artifact@v4
-        with:
-          name: domains-clean
+      - name: Prepare batch domains
+        run: |
+          BATCH="${{ needs.router.outputs.batch_num }}"
+          BATCH_SIZE=47
 
-      - name: Run subfinder on batch
+          grep -vEi "^#|^$" domains.txt | grep -v '^\*\.' | sort -u > domains_clean.txt
+          total=$(wc -l < domains_clean.txt)
+          echo "Total clean domains: $total"
+
+          start=$(( (BATCH - 1) * BATCH_SIZE + 1 ))
+          end=$(( BATCH * BATCH_SIZE ))
+          [ "$end" -gt "$total" ] && end=$total
+
+          sed -n "${start},${end}p" domains_clean.txt > batch_domains.txt
+          echo "Batch $BATCH: lines $start-$end = $(wc -l < batch_domains.txt) domains"
+          cat batch_domains.txt
+
+      - name: Run subfinder
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
-          start=$(( (${{ matrix.batch }} - 1) * 50 + 1 ))
-          sed -n "${start},$((start + 49))p" domains_clean.txt > batch_domains.txt
-          echo "Batch ${{ matrix.batch }}: $(wc -l < batch_domains.txt) domains"
-
           subfinder -dL batch_domains.txt \
             -silent \
             -timeout 30 \
             -t 5 \
             -max-time 300 \
             -o subs_passive.txt || true
-
           echo "Passive subdomains: $(wc -l < subs_passive.txt 2>/dev/null || echo 0)"
 
-      - name: Run dnsx bruteforce on batch
+      - name: Run dnsx bruteforce
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
-
           curl -sL "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/subdomains-top1million-5000.txt" \
             -o wordlist.txt || true
-
-          start=$(( (${{ matrix.batch }} - 1) * 50 + 1 ))
-          sed -n "${start},$((start + 49))p" domains_clean.txt > batch_domains.txt
 
           > subs_active.txt
           while IFS= read -r domain; do
@@ -102,10 +155,9 @@ jobs:
               -t 20 \
               >> subs_active.txt || true
           done < batch_domains.txt
-
           echo "Active subdomains: $(wc -l < subs_active.txt 2>/dev/null || echo 0)"
 
-      - name: Merge passive and active results
+      - name: Merge and clean
         run: |
           cat subs_passive.txt subs_active.txt 2>/dev/null | \
             grep -vP '^\d+[-\.]\d+[-\.]\d+[-\.]\d+\.' | \
@@ -132,23 +184,32 @@ jobs:
             grep -vE '^20[0-9]{2}-[0-9]{2}-.*\.musta\.ch$' | \
             grep -vE '^20[0-9]{2}-[a-z].*\.musta\.ch$' | \
             sort -u | head -200000 > batch_subs_raw.txt || true
+          echo "Batch ${{ needs.router.outputs.batch_num }} raw subdomains: $(wc -l < batch_subs_raw.txt)"
 
-          echo "Batch ${{ matrix.batch }} raw subdomains: $(wc -l < batch_subs_raw.txt)"
+      - name: Commit batch results to domains branch
+        run: |
+          git config --global user.email "bugbountybot@github.com"
+          git config --global user.name "BugBountyBot"
 
-      - name: Upload raw batch results
-        uses: actions/upload-artifact@v4
-        with:
-          name: subs-batch-${{ matrix.batch }}
-          path: batch_subs_raw.txt
-          if-no-files-found: warn
+          BATCH="${{ needs.router.outputs.batch_num }}"
+          OUTFILE="batch_subs_${BATCH}.txt"
 
+          cp batch_subs_raw.txt "$OUTFILE"
+          git add "$OUTFILE"
+          git diff --staged --quiet || git commit -m "Recon batch $BATCH complete — $(wc -l < batch_subs_raw.txt) subdomains ($(date +'%Y-%m-%d %H:%M IST'))"
+          git push origin domains
+
+  # ── COMBINE AND PROBE: runs at 23:30 IST after all 7 batches done ──────────
   combine_and_probe:
-    needs: [prepare, discover]
+    needs: router
+    if: needs.router.outputs.run_combine == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    if: ${{ always() && needs.prepare.result == 'success' }}
+    outputs:
+      httpx_batches: ${{ steps.prep.outputs.httpx_batches }}
+      total_subs: ${{ steps.prep.outputs.total_subs }}
     steps:
       - name: Checkout domains branch
         uses: actions/checkout@v4
@@ -162,36 +223,30 @@ jobs:
           go install github.com/projectdiscovery/httpx/cmd/httpx@latest
           go install github.com/PentestPad/subzy@latest
 
-      - name: Download all subdomain artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: all_subs
-          pattern: subs-batch-*
-
-      - name: Combine all raw subdomains
+      - name: Combine all batch files + apply scope filter
+        id: prep
         run: |
-          find all_subs -name "batch_subs_raw.txt" | xargs cat 2>/dev/null | \
-            sort -u > all_subdomains_raw.txt || true
+          # Merge all batch_subs_N.txt files committed during the day
+          > all_subdomains_raw.txt
+          for f in batch_subs_*.txt; do
+            [ -f "$f" ] && cat "$f" >> all_subdomains_raw.txt
+          done
+          sort -u all_subdomains_raw.txt -o all_subdomains_raw.txt
           echo "Total raw subdomains: $(wc -l < all_subdomains_raw.txt)"
 
-      - name: Apply scope filter
-        run: |
+          # Scope filter
           if [ ! -f scope.txt ]; then
-            echo "WARNING: No scope.txt found - skipping scope filter"
+            echo "WARNING: No scope.txt — skipping scope filter"
             cp all_subdomains_raw.txt all_subdomains_new.txt
           else
             grep "^IN:" scope.txt | sed 's/^IN://' > scope_in.txt || true
             grep "^OUT:" scope.txt | sed 's/^OUT://' > scope_out.txt || true
+            echo "IN patterns: $(wc -l < scope_in.txt) | OUT patterns: $(wc -l < scope_out.txt)"
 
-            echo "IN patterns: $(wc -l < scope_in.txt)"
-            echo "OUT patterns: $(wc -l < scope_out.txt)"
-
-            # Build grep-compatible regex from IN patterns
             > in_grep.txt
             while IFS= read -r pattern; do
               if [[ "$pattern" == \*.* ]]; then
                 domain="${pattern:2}"
-                # escape dots in domain for regex
                 escaped=$(echo "$domain" | sed 's/\./\\./g')
                 echo "\\.${escaped}$|^${escaped}$" >> in_grep.txt
               else
@@ -200,7 +255,6 @@ jobs:
               fi
             done < scope_in.txt
 
-            # Build grep-compatible regex from OUT patterns
             > out_grep.txt
             while IFS= read -r pattern; do
               if [[ "$pattern" == \*.* ]]; then
@@ -213,11 +267,9 @@ jobs:
               fi
             done < scope_out.txt
 
-            # Apply IN filter - fast grep instead of bash loop
             grep -Ef in_grep.txt all_subdomains_raw.txt > all_subdomains_inscope.txt || true
             echo "After IN filter: $(wc -l < all_subdomains_inscope.txt)"
 
-            # Apply OUT filter
             if [ -s out_grep.txt ]; then
               grep -vEf out_grep.txt all_subdomains_inscope.txt > all_subdomains_new.txt || true
             else
@@ -226,8 +278,7 @@ jobs:
             echo "After OUT filter: $(wc -l < all_subdomains_new.txt)"
           fi
 
-      - name: Diff new subdomains
-        run: |
+          # Diff vs previous week
           if [ -f all_subdomains_clean.txt ] && [ -s all_subdomains_clean.txt ]; then
             comm -23 \
               <(sort all_subdomains_new.txt) \
@@ -236,15 +287,26 @@ jobs:
           else
             cp all_subdomains_new.txt new_subdomains.txt || true
           fi
-
           echo "New subdomains this week: $(wc -l < new_subdomains.txt)"
           cp all_subdomains_new.txt all_subdomains_clean.txt
+
+          total=$(wc -l < all_subdomains_clean.txt)
+          echo "total_subs=$total" >> $GITHUB_OUTPUT
+
+          # Split into 10 chunks for parallel httpx
+          split -n l/10 all_subdomains_clean.txt httpx_chunk_
+          i=1
+          for chunk in httpx_chunk_*; do
+            mv "$chunk" "httpx_chunk_${i}.txt"
+            echo "Chunk $i: $(wc -l < httpx_chunk_${i}.txt) subdomains"
+            i=$((i+1))
+          done
+          echo "httpx_batches=[1,2,3,4,5,6,7,8,9,10]" >> $GITHUB_OUTPUT
 
       - name: Run subzy on all subdomains
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
           touch takeover_candidates.txt
-
           if [ -s all_subdomains_clean.txt ]; then
             subzy run \
               --targets all_subdomains_clean.txt \
@@ -253,80 +315,34 @@ jobs:
               --timeout 10 \
               --concurrency 20 \
               > subzy_raw.txt 2>/dev/null || true
-
             grep "\[ VULNERABLE \]" subzy_raw.txt > takeover_candidates.txt || true
           fi
-
           echo "Takeover candidates: $(wc -l < takeover_candidates.txt)"
           echo "takeover_count=$(wc -l < takeover_candidates.txt)" >> $GITHUB_ENV
 
-      - name: Run httpx on all subdomains
-        run: |
-          export PATH=$PATH:$(go env GOPATH)/bin
+      - name: Upload chunks for parallel httpx
+        uses: actions/upload-artifact@v4
+        with:
+          name: httpx-chunks
+          path: httpx_chunk_*.txt
+          retention-days: 1
 
-          httpx -l all_subdomains_clean.txt \
-            -silent \
-            -timeout 15 \
-            -retries 1 \
-            -rl 5 \
-            -threads 10 \
-            -mc 200,201,301,302,303,401,403,404,405,500 \
-            -title \
-            -status-code \
-            -tech-detect \
-            -no-color \
-            -o httpx_full.txt || true
+      - name: Upload new_subdomains for later
+        uses: actions/upload-artifact@v4
+        with:
+          name: new-subdomains
+          path: new_subdomains.txt
+          retention-days: 1
 
-          grep -E '\[200\]|\[201\]|\[301\]|\[302\]|\[303\]|\[401\]|\[403\]' httpx_full.txt | \
-            awk '{print $1}' | sort -u > live_hosts.txt || true
-
-          grep '\[403\]' httpx_full.txt | \
-            awk '{print $1}' | sort -u > live_hosts_403.txt || true
-
-          grep '\[404\]' httpx_full.txt | \
-            awk '{print $1}' | sort -u > live_hosts_404.txt || true
-
-          echo "=== FINAL COUNTS ==="
-          echo "Live hosts: $(wc -l < live_hosts.txt)"
-          echo "403 hosts: $(wc -l < live_hosts_403.txt)"
-          echo "404 hosts: $(wc -l < live_hosts_404.txt)"
-
-      - name: Run httpx on new subdomains
-        run: |
-          export PATH=$PATH:$(go env GOPATH)/bin
-          touch new_live_hosts.txt
-
-          if [ -s new_subdomains.txt ]; then
-            httpx -l new_subdomains.txt \
-              -silent \
-              -timeout 15 \
-              -retries 1 \
-              -rl 5 \
-              -threads 10 \
-              -mc 200,201,301,302,303,401,403,404,405,500 \
-              -status-code \
-              -no-color \
-              -o httpx_new.txt || true
-
-            awk '{print $1}' httpx_new.txt | sort -u > new_live_hosts.txt || true
-            echo "New live hosts: $(wc -l < new_live_hosts.txt)"
-          else
-            echo "No new subdomains this week"
-          fi
-
-      - name: Commit results to domains branch
+      - name: Commit interim results (subdomains + takeovers)
         run: |
           git config --global user.email "bugbountybot@github.com"
           git config --global user.name "BugBountyBot"
           git add \
-            live_hosts.txt \
-            live_hosts_403.txt \
-            live_hosts_404.txt \
             all_subdomains_clean.txt \
             new_subdomains.txt \
-            new_live_hosts.txt \
-            takeover_candidates.txt
-          git diff --staged --quiet || git commit -m "Weekly recon $(date +'%Y-%m-%d') - $(wc -l < live_hosts.txt) live | $(wc -l < new_subdomains.txt) new subs | ${{ env.takeover_count }} takeover candidates"
+            takeover_candidates.txt || true
+          git diff --staged --quiet || git commit -m "Recon interim $(date +'%Y-%m-%d') — $(wc -l < all_subdomains_clean.txt) subs | $(wc -l < new_subdomains.txt) new | ${{ env.takeover_count }} takeovers"
           git push origin domains
 
       - name: Email takeover candidates
@@ -350,3 +366,152 @@ jobs:
             2. For each candidate run: dig CNAME <subdomain>
             3. Check can-i-take-over-xyz
             4. Verify manually before reporting
+
+  # ── HTTPX PARALLEL: 10 jobs, each probes 1/10th of subdomains ──────────────
+  httpx_parallel:
+    needs: combine_and_probe
+    if: needs.combine_and_probe.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        chunk: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    steps:
+      - name: Download httpx chunks
+        uses: actions/download-artifact@v4
+        with:
+          name: httpx-chunks
+
+      - name: Install httpx
+        run: go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+
+      - name: Run httpx on chunk ${{ matrix.chunk }}
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          CHUNK="httpx_chunk_${{ matrix.chunk }}.txt"
+
+          if [ ! -s "$CHUNK" ]; then
+            echo "Chunk ${{ matrix.chunk }} is empty, skipping"
+            touch httpx_results_${{ matrix.chunk }}.txt
+            exit 0
+          fi
+
+          echo "Probing $(wc -l < $CHUNK) subdomains in chunk ${{ matrix.chunk }}"
+
+          httpx -l "$CHUNK" \
+            -silent \
+            -timeout 15 \
+            -retries 1 \
+            -rl 10 \
+            -threads 25 \
+            -mc 200,201,301,302,303,401,403,404,405,500 \
+            -title \
+            -status-code \
+            -tech-detect \
+            -no-color \
+            -o httpx_results_${{ matrix.chunk }}.txt || true
+
+          echo "Chunk ${{ matrix.chunk }} results: $(wc -l < httpx_results_${{ matrix.chunk }}.txt)"
+
+      - name: Upload httpx results
+        uses: actions/upload-artifact@v4
+        with:
+          name: httpx-results-${{ matrix.chunk }}
+          path: httpx_results_${{ matrix.chunk }}.txt
+          retention-days: 1
+
+  # ── FINALIZE: merge all httpx results, commit live_hosts ───────────────────
+  finalize:
+    needs: httpx_parallel
+    if: always() && needs.httpx_parallel.result != 'cancelled'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - name: Checkout domains branch
+        uses: actions/checkout@v4
+        with:
+          ref: domains
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Download all httpx results
+        uses: actions/download-artifact@v4
+        with:
+          path: httpx_results
+          pattern: httpx-results-*
+
+      - name: Download new subdomains
+        uses: actions/download-artifact@v4
+        with:
+          name: new-subdomains
+          path: new_subs_dl
+
+      - name: Install httpx for new_subdomains probe
+        run: go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+
+      - name: Merge httpx results + build live_hosts
+        run: |
+          find httpx_results -name "httpx_results_*.txt" | xargs cat 2>/dev/null | \
+            sort -u > httpx_full.txt || true
+          echo "Total httpx results: $(wc -l < httpx_full.txt)"
+
+          grep -E '\[200\]|\[201\]|\[301\]|\[302\]|\[303\]|\[401\]|\[403\]' httpx_full.txt | \
+            awk '{print $1}' | sort -u > live_hosts.txt || true
+
+          grep '\[403\]' httpx_full.txt | \
+            awk '{print $1}' | sort -u > live_hosts_403.txt || true
+
+          grep '\[404\]' httpx_full.txt | \
+            awk '{print $1}' | sort -u > live_hosts_404.txt || true
+
+          echo "=== FINAL COUNTS ==="
+          echo "Live hosts: $(wc -l < live_hosts.txt)"
+          echo "403 hosts:  $(wc -l < live_hosts_403.txt)"
+          echo "404 hosts:  $(wc -l < live_hosts_404.txt)"
+
+      - name: Probe new subdomains
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          touch new_live_hosts.txt
+          NEW="new_subs_dl/new_subdomains.txt"
+          if [ -s "$NEW" ]; then
+            httpx -l "$NEW" \
+              -silent \
+              -timeout 15 \
+              -retries 1 \
+              -rl 10 \
+              -threads 25 \
+              -mc 200,201,301,302,303,401,403,404,405,500 \
+              -status-code \
+              -no-color \
+              -o httpx_new.txt || true
+            awk '{print $1}' httpx_new.txt | sort -u > new_live_hosts.txt || true
+            echo "New live hosts: $(wc -l < new_live_hosts.txt)"
+          else
+            echo "No new subdomains"
+          fi
+
+      - name: Cleanup batch files from domains branch
+        run: |
+          # Remove per-batch files now that we've merged them
+          git config --global user.email "bugbountybot@github.com"
+          git config --global user.name "BugBountyBot"
+          git rm -f batch_subs_*.txt 2>/dev/null || true
+
+      - name: Commit final results
+        run: |
+          git config --global user.email "bugbountybot@github.com"
+          git config --global user.name "BugBountyBot"
+          git add \
+            live_hosts.txt \
+            live_hosts_403.txt \
+            live_hosts_404.txt \
+            new_live_hosts.txt || true
+          git diff --staged --quiet || git commit -m "Weekly recon FINAL $(date +'%Y-%m-%d') — $(wc -l < live_hosts.txt) live | $(wc -l < new_live_hosts.txt) new live hosts"
+          git push origin domains
