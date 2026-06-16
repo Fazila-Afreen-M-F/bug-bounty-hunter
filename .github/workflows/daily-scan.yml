@@ -1,7 +1,7 @@
 name: Daily Scan
 on:
   schedule:
-    - cron: '30 2 * * *'
+    - cron: '0 18 * * *'   # 11:30pm IST every day (UTC 18:00)
   workflow_dispatch:
 
 jobs:
