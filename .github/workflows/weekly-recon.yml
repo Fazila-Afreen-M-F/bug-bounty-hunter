@@ -67,7 +67,7 @@ jobs:
           export PATH=$PATH:$(go env GOPATH)/bin
           touch subs_passive.txt
           if [ ! -s batch_domains.txt ]; then echo "No domains, skipping"; exit 0; fi
-          subfinder -dL batch_domains.txt \
+          timeout 600 subfinder -dL batch_domains.txt \
             -silent \
             -timeout 30 \
             -t 5 \
@@ -84,12 +84,13 @@ jobs:
             -o wordlist.txt || true
           > subs_active.txt
           while IFS= read -r domain; do
-            dnsx -d "$domain" \
+            echo "Bruteforcing: $domain"
+            timeout 120 dnsx -d "$domain" \
               -w wordlist.txt \
               -silent \
               -resp-only \
               -t 20 \
-              >> subs_active.txt || true
+              >> subs_active.txt || echo "  -> timed out or failed, skipping to next domain"
           done < batch_domains.txt
           echo "Active subdomains: $(wc -l < subs_active.txt)"
 
