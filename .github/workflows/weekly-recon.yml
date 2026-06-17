@@ -90,6 +90,7 @@ jobs:
               -silent \
               -resp-only \
               -t 20 \
+              < /dev/null \
               >> subs_active.txt || echo "  -> timed out or failed, skipping to next domain"
           done < batch_domains.txt
           echo "Active subdomains: $(wc -l < subs_active.txt)"
