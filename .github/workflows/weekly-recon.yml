@@ -82,6 +82,12 @@ jobs:
           if [ ! -s batch_domains.txt ]; then echo "No domains, skipping"; exit 0; fi
           curl -sL "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/subdomains-top1million-5000.txt" \
             -o wordlist.txt || true
+
+          # --- DEBUG: confirm wordlist actually downloaded ---
+          echo "Wordlist size: $(wc -l < wordlist.txt 2>/dev/null || echo 'FILE MISSING')"
+          head -3 wordlist.txt 2>/dev/null || echo "Cannot read wordlist"
+          # --- END DEBUG ---
+
           > subs_active.txt
           while IFS= read -r domain; do
             echo "Bruteforcing: $domain"
