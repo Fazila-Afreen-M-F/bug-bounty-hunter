@@ -202,6 +202,14 @@ jobs:
             grep "^OUT:" scope.txt | sed 's/^OUT://' > scope_out.txt || true
             echo "IN patterns: $(wc -l < scope_in.txt) | OUT patterns: $(wc -l < scope_out.txt)"
 
+            # Sanity check: flag any wildcard-looking pattern missing the dot (e.g. "*foo.com" instead of "*.foo.com")
+            # These silently fall through to literal-match instead of wildcard-match — easy to miss since nothing errors.
+            bad_patterns=$(grep -nE '^\*[^.]' scope_in.txt scope_out.txt 2>/dev/null || true)
+            if [ -n "$bad_patterns" ]; then
+              echo "::warning::Malformed scope pattern(s) found — starts with * but missing the dot (should be *.domain.com). These are being treated as literal strings, not wildcards:"
+              echo "$bad_patterns"
+            fi
+
             > in_grep.txt
             while IFS= read -r pattern; do
               if [[ "$pattern" == \*.* ]]; then
