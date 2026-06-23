@@ -387,7 +387,7 @@ IN:*.sba.marriott.com
 IN:*.artifactory.marriott.com
 IN:*.apigwc.marriott.com
 IN:*.apigatewayc.marriott.com
-IN:*gateway-apc.marriott.com
+IN:*.gateway-apc.marriott.com
 IN:traveler.marriott.com
 IN:travelagents.marriott.com
 IN:ssm-marriottms.saviyntcloud.com
@@ -399,7 +399,7 @@ IN:bpa2.marriott.com
 IN:auth-apc.marriott.com
 IN:apcgateway.marriott.com
 IN:activities.marriott.com
-IN:*uat.marriott.com
+IN:*.uat.marriott.com
 IN:help.marriott.com
 IN:jobs.marriott.com
 IN:esupplier.marriott.com
