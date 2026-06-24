@@ -57,7 +57,7 @@ jobs:
         with:
           name: weekly-hosts
           path: combined.txt
-          retention-days: 1
+          retention-days: 7
 
   # ─── WEEKLY COMBINED: always 20 parallel jobs ──────────────────────────────
   weekly_combined:
