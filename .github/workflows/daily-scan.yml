@@ -386,7 +386,7 @@ jobs:
   # ─── NOTIFY: one email after all jobs finish ───────────────────
   notify:
     needs: [daily_main, bypass_403, takeover]
-    if: always() && (needs.daily_main.result == 'success' || needs.bypass_403.result == 'success' || needs.takeover.result == 'success')
+    if: always()
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
