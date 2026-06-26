@@ -66,7 +66,7 @@ jobs:
             combined.txt
             live_hosts_403.txt
             live_hosts_404.txt
-          retention-days: 1
+          retention-days: 7
 
   # ─── TAKEOVER ──────────────────────────────────────────────────
   takeover:
@@ -152,7 +152,7 @@ jobs:
         with:
           name: takeover-results
           path: results.txt
-          retention-days: 1
+          retention-days: 7
 
   # ─── MAIN DAILY: always 20 parallel jobs ───────────────────────
   daily_main:
@@ -271,7 +271,7 @@ jobs:
         with:
           name: daily-results-${{ matrix.batch }}
           path: results.txt
-          retention-days: 1
+          retention-days: 7
 
   # ─── 403 BYPASS: always 20 parallel jobs ───────────────────────
   bypass_403:
@@ -381,7 +381,7 @@ jobs:
         with:
           name: bypass-results-${{ matrix.batch }}
           path: results.txt
-          retention-days: 1
+          retention-days: 7
 
   # ─── NOTIFY: one email after all jobs finish ───────────────────
   notify:
