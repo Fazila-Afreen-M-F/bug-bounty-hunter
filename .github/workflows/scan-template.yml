@@ -179,9 +179,9 @@ jobs:
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
 
-          head -50 input.txt > katana_input.txt
+          cp input.txt katana_input.txt
 
-          timeout 1800 katana -list katana_input.txt \
+          timeout 5400 katana -list katana_input.txt \
             -silent \
             -js-crawl \
             -depth 1 \
@@ -213,7 +213,8 @@ jobs:
           USE_CUSTOM_ONLY="${{ inputs.use_custom_only }}"
 
           if [ "${{ inputs.use_katana }}" = "true" ] && [ -f urls.txt ] && [ -s urls.txt ]; then
-            INPUT_FILE="urls.txt"
+            cat input.txt urls.txt | sort -u > combined_input.txt
+            INPUT_FILE="combined_input.txt"
           else
             INPUT_FILE="input.txt"
           fi
