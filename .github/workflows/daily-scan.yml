@@ -391,6 +391,11 @@ jobs:
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
+      - name: Checkout domains branch
+        uses: actions/checkout@v4
+        with:
+          ref: domains
+          fetch-depth: 1
       - name: Download all daily results
         uses: actions/download-artifact@v4
         with:
@@ -412,15 +417,17 @@ jobs:
           pattern: takeover-results
         continue-on-error: true
 
-      - name: Merge and deduplicate all findings
+      - name: Merge, deduplicate, and filter against seen findings
         id: merge
         run: |
           find all_results -name "results.txt" | xargs cat 2>/dev/null | \
             sort -u > final_findings.txt || true
-          count=$(wc -l < final_findings.txt)
+          touch seen_findings.txt
+          comm -23 <(sort final_findings.txt) <(sort seen_findings.txt) > new_findings.txt || true
+          count=$(wc -l < new_findings.txt)
           echo "count=$count" >> $GITHUB_OUTPUT
-          echo "Total unique findings: $count"
-          if [ "$count" -gt 0 ]; then cat final_findings.txt; fi
+          echo "Total findings today: $(wc -l < final_findings.txt) | New (never emailed): $count"
+          if [ "$count" -gt 0 ]; then cat new_findings.txt; fi
 
       - name: Send summary email
         if: steps.merge.outputs.count != '0'
@@ -430,7 +437,18 @@ jobs:
           server_port: 465
           username: ${{ secrets.EMAIL_USER }}
           password: ${{ secrets.EMAIL_PASS }}
-          subject: "[Daily Scan] ${{ steps.merge.outputs.count }} Unique Finding(s) — $(date +'%Y-%m-%d')"
-          body: file://final_findings.txt
+          subject: "[Daily Scan] ${{ steps.merge.outputs.count }} New Finding(s) — $(date +'%Y-%m-%d')"
+          body: file://new_findings.txt
           to: ${{ secrets.EMAIL_TO }}
           from: BugBountyBot
+
+      - name: Update seen findings and push
+        if: always()
+        run: |
+          cat final_findings.txt >> seen_findings.txt
+          sort -u seen_findings.txt -o seen_findings.txt
+          git config --global user.email "bugbountybot@github.com"
+          git config --global user.name "BugBountyBot"
+          git add seen_findings.txt
+          git diff --staged --quiet || git commit -m "Daily scan seen findings update $(date +'%Y-%m-%d') — $(wc -l < seen_findings.txt) total seen"
+          git push origin domains || (git pull --rebase origin domains && git push origin domains) || true
