@@ -48,8 +48,8 @@ jobs:
             echo "batches=[]" >> $GITHUB_OUTPUT
           else
             echo "has_hosts=true" >> $GITHUB_OUTPUT
-            num_batches=20
-            if [ "$total" -lt 20 ]; then num_batches=$total; fi
+            num_batches=40
+            if [ "$total" -lt 40 ]; then num_batches=$total; fi
             batches=$(seq 1 $num_batches | jq -R . | jq -sc .)
             echo "batches=$batches" >> $GITHUB_OUTPUT
             echo "Batches: $num_batches (~$(( (total + num_batches - 1) / num_batches )) hosts each)"
