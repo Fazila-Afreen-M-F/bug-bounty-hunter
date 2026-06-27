@@ -1,7 +1,7 @@
 name: Daily Scan
 on:
   schedule:
-    - cron: '0 18 * * *'   # 11:30pm IST every day (UTC 18:00)
+    - cron: '30 18 * * *'   # 12:00am IST every day (UTC 18:30)
   workflow_dispatch:
 
 jobs:
@@ -204,7 +204,7 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       fail-fast: false
-      max-parallel: 20
+      max-parallel: 10
       matrix:
         batch: ${{ fromJson(needs.prepare.outputs.batches) }}
     steps:
@@ -323,7 +323,7 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       fail-fast: false
-      max-parallel: 20
+      max-parallel: 10
       matrix:
         batch: ${{ fromJson(needs.prepare.outputs.batches) }}
     steps:

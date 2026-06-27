@@ -12,7 +12,7 @@ name: Weekly Recon Pipeline
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 0 * * 6'   # Saturday 06:00 IST
+    - cron: '30 13 * * 5'   # Friday 19:00 IST
 
 jobs:
 

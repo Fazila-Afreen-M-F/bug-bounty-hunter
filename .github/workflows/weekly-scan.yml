@@ -1,7 +1,7 @@
 name: Weekly Scan
 on:
   schedule:
-    - cron: '30 4 * * 0'   # Sunday 10:00am IST (UTC 04:30)
+    - cron: '30 18 * * 5'   # Saturday 00:00 IST (UTC Friday 18:30)
   workflow_dispatch:
 
 jobs:
@@ -98,7 +98,7 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       fail-fast: false
-      max-parallel: 20
+      max-parallel: 10
       matrix:
         batch: ${{ fromJson(needs.prepare.outputs.batches) }}
     steps:
