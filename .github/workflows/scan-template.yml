@@ -45,7 +45,7 @@ on:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 420
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
@@ -326,7 +326,7 @@ jobs:
             -concurrency 50 \
             -rate-limit 5 \
             -fhr \
-            -max-host-error 5 \
+            -max-host-error 30 \
             -no-color \
             -o results.txt || true
 
