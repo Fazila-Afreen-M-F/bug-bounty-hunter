@@ -323,7 +323,7 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       fail-fast: false
-      max-parallel: 10
+      max-parallel: 5
       matrix:
         batch: ${{ fromJson(needs.prepare.outputs.batches) }}
     steps:
