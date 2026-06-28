@@ -37,6 +37,10 @@ on:
         required: true
       EMAIL_TO:
         required: true
+      HACKERONE_TOKEN:
+        required: false
+      INTIGRITI_TOKEN:
+        required: false
 
 jobs:
   scan:
@@ -146,6 +150,32 @@ jobs:
           else
             touch input.txt
           fi
+
+          echo "Hosts before suspension filter: $(wc -l < input.txt)"
+
+          export HACKERONE_TOKEN="${{ secrets.HACKERONE_TOKEN }}"
+          export INTIGRITI_TOKEN="${{ secrets.INTIGRITI_TOKEN }}"
+          export MAPPING_CSV_PATH="main-repo/domain_program_map.csv"
+          export EXCLUDED_OUTPUT_PATH="excluded_domains.txt"
+          if [ -f main-repo/check_program_status.py ]; then
+            python3 main-repo/check_program_status.py || echo "WARNING: status check failed, proceeding without filter"
+          else
+            echo "WARNING: checker script not found, proceeding without filter"
+          fi
+
+          if [ -s excluded_domains.txt ]; then
+            > exclude_grep.txt
+            while IFS= read -r d; do
+              [ -z "$d" ] && continue
+              escaped=$(echo "$d" | sed 's/\./\\./g')
+              echo "\\.${escaped}\$|^${escaped}\$" >> exclude_grep.txt
+            done < excluded_domains.txt
+            grep -vEf exclude_grep.txt input.txt > input_filtered.txt || cp input.txt input_filtered.txt
+            echo "Excluded $(( $(wc -l < input.txt) - $(wc -l < input_filtered.txt) )) hosts belonging to suspended/paused programs"
+            mv input_filtered.txt input.txt
+          fi
+
+          echo "Hosts after suspension filter: $(wc -l < input.txt)"
 
           # ── 4-way split support ──
           if [ -n "$SPLIT" ] && [ -s input.txt ]; then

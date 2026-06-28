@@ -229,6 +229,8 @@ jobs:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
+      INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
 
   # ─── CUSTOM TEMPLATES ──────────────────────────────────────────
   weekly_custom:
@@ -242,3 +244,5 @@ jobs:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
+      INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
