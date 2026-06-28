@@ -176,7 +176,7 @@ jobs:
             -H "X-YesWeHack-Research: Chemical, Oxidizer" \
             -silent -retries 0 -timeout 3 \
             -bulk-size 50 -concurrency 50 \
-            -rate-limit 5 -fhr -max-host-error 5 \
+            -rate-limit 5 -fhr -max-host-error 30 \
             -no-color -o results.txt || true
           echo "Findings: $(wc -l < results.txt)"
 
@@ -194,7 +194,7 @@ jobs:
           path: results.txt
           retention-days: 7
 
-  # ─── MAIN DAILY: always 20 parallel jobs ───────────────────────
+  # ─── MAIN DAILY: max-parallel 10 ───────────────────────
   daily_main:
     needs: prepare
     if: needs.prepare.outputs.has_hosts == 'true'
@@ -293,7 +293,7 @@ jobs:
             -H "X-YesWeHack-Research: Chemical, Oxidizer" \
             -silent -retries 0 -timeout 3 \
             -bulk-size 50 -concurrency 50 \
-            -rate-limit 5 -fhr -max-host-error 5 \
+            -rate-limit 5 -fhr -max-host-error 30 \
             -no-color -o results.txt || true
 
           echo "Findings: $(wc -l < results.txt)"
@@ -403,7 +403,7 @@ jobs:
             -H "X-YesWeHack-Research: Chemical, Oxidizer" \
             -silent -retries 0 -timeout 3 \
             -bulk-size 50 -concurrency 50 \
-            -rate-limit 5 -fhr -max-host-error 5 \
+            -rate-limit 5 -fhr -max-host-error 30 \
             -no-color -o results.txt || true
 
           echo "Findings: $(wc -l < results.txt)"
