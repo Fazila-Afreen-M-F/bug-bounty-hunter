@@ -217,14 +217,63 @@ jobs:
           from: BugBountyBot
 
   # ─── JS SECRETS ────────────────────────────────────────────────
-  weekly_js_secrets:
+  weekly_js_secrets_q1:
     uses: ./.github/workflows/scan-template.yml
     with:
-      scan_name: "JS Secrets"
+      scan_name: "JS Secrets Q1"
       tags: "token,secret,api-key,generic-tokens"
       severity: "low,medium,high,critical"
       use_katana: true
       input_file: "new_first"
+      split: "first"
+    secrets:
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
+      INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
+
+  weekly_js_secrets_q2:
+    uses: ./.github/workflows/scan-template.yml
+    with:
+      scan_name: "JS Secrets Q2"
+      tags: "token,secret,api-key,generic-tokens"
+      severity: "low,medium,high,critical"
+      use_katana: true
+      input_file: "new_first"
+      split: "second"
+    secrets:
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
+      INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
+
+  weekly_js_secrets_q3:
+    uses: ./.github/workflows/scan-template.yml
+    with:
+      scan_name: "JS Secrets Q3"
+      tags: "token,secret,api-key,generic-tokens"
+      severity: "low,medium,high,critical"
+      use_katana: true
+      input_file: "new_first"
+      split: "third"
+    secrets:
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
+      INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
+
+  weekly_js_secrets_q4:
+    uses: ./.github/workflows/scan-template.yml
+    with:
+      scan_name: "JS Secrets Q4"
+      tags: "token,secret,api-key,generic-tokens"
+      severity: "low,medium,high,critical"
+      use_katana: true
+      input_file: "new_first"
+      split: "fourth"
     secrets:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}
       EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
