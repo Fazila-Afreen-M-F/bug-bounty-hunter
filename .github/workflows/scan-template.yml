@@ -53,7 +53,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: domains
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Checkout custom templates from main
         uses: actions/checkout@v4
@@ -339,12 +339,26 @@ jobs:
           echo "Total findings: $count"
           if [ "$count" -gt "0" ]; then cat results.txt; else echo "No findings"; fi
 
+      - name: Filter against previously seen findings
+        id: dedupe
+        run: |
+          SAFE_NAME=$(echo "${{ inputs.scan_name }}" | tr -c 'a-zA-Z0-9' '_')
+          SEEN_FILE="seen_findings_${SAFE_NAME}.txt"
+          touch "$SEEN_FILE"
+          if [ -f results.txt ]; then
+            comm -23 <(sort -u results.txt) <(sort -u "$SEEN_FILE") > new_results.txt || true
+          else
+            touch new_results.txt
+          fi
+          echo "Total findings: $(wc -l < results.txt 2>/dev/null || echo 0) | New (never emailed): $(wc -l < new_results.txt)"
+          echo "seen_file=$SEEN_FILE" >> $GITHUB_OUTPUT
+
       - name: Check for results
         id: check
         run: |
-          if [ -s results.txt ]; then
+          if [ -s new_results.txt ]; then
             echo "found=true" >> $GITHUB_OUTPUT
-            echo "count=$(wc -l < results.txt)" >> $GITHUB_OUTPUT
+            echo "count=$(wc -l < new_results.txt)" >> $GITHUB_OUTPUT
           else
             echo "found=false" >> $GITHUB_OUTPUT
             echo "count=0" >> $GITHUB_OUTPUT
@@ -359,6 +373,24 @@ jobs:
           username: ${{ secrets.EMAIL_USER }}
           password: ${{ secrets.EMAIL_PASS }}
           subject: "[${{ inputs.scan_name }}] ${{ steps.check.outputs.count }} Finding(s)"
-          body: file://results.txt
+          body: file://new_results.txt
           to: ${{ secrets.EMAIL_TO }}
           from: BugBountyBot
+
+      - name: Update seen findings and push
+        if: always()
+        run: |
+          SEEN_FILE="${{ steps.dedupe.outputs.seen_file }}"
+          if [ -z "$SEEN_FILE" ]; then
+            echo "No seen file determined, skipping"
+            exit 0
+          fi
+          if [ -f results.txt ]; then
+            cat results.txt >> "$SEEN_FILE"
+            sort -u "$SEEN_FILE" -o "$SEEN_FILE"
+          fi
+          git config --global user.email "bugbountybot@github.com"
+          git config --global user.name "BugBountyBot"
+          git add "$SEEN_FILE"
+          git diff --staged --quiet || git commit -m "Update seen findings for ${{ inputs.scan_name }} - $(date +'%Y-%m-%d')"
+          git push origin domains || (git pull --rebase origin domains && git push origin domains) || echo "::warning::Push failed - seen findings for ${{ inputs.scan_name }} may be stale, could re-email same findings next week"
