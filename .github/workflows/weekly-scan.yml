@@ -180,7 +180,7 @@ jobs:
             -H "X-YesWeHack-Research: Chemical, Oxidizer" \
             -silent -retries 0 -timeout 3 \
             -bulk-size 50 -concurrency 50 \
-            -rate-limit 5 -fhr -max-host-error 5 \
+            -rate-limit 5 -fhr -max-host-error 30 \
             -no-color -o results.txt || true
 
           echo "Findings: $(wc -l < results.txt)"
@@ -218,6 +218,7 @@ jobs:
 
   # ─── JS SECRETS ────────────────────────────────────────────────
   weekly_js_secrets_q1:
+    needs: weekly_combined
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "JS Secrets Q1"
@@ -234,6 +235,7 @@ jobs:
       INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
 
   weekly_js_secrets_q2:
+    needs: weekly_combined
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "JS Secrets Q2"
@@ -250,6 +252,7 @@ jobs:
       INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
 
   weekly_js_secrets_q3:
+    needs: weekly_combined
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "JS Secrets Q3"
@@ -266,6 +269,7 @@ jobs:
       INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
 
   weekly_js_secrets_q4:
+    needs: weekly_combined
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "JS Secrets Q4"
@@ -283,6 +287,7 @@ jobs:
 
   # ─── CUSTOM TEMPLATES ──────────────────────────────────────────
   weekly_custom:
+    needs: weekly_combined
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "Custom Templates"
