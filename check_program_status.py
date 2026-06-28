@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import csv, json, urllib.request, os, sys, base64
+import csv, json, urllib.request, urllib.error, re, os, sys, base64
 
 HOME = os.path.expanduser("~")
 MAPPING_PATH = os.environ.get("MAPPING_CSV_PATH") or os.path.join(HOME, "bug-bounty-hunter", "domain_program_map.csv")
@@ -42,6 +42,37 @@ def find_match(programs, keyword):
         return exact
     return [p for p in programs if keyword.lower() in p["name"].lower()]
 
+def check_yeswehack(slug):
+    url = f"https://api.yeswehack.com/programs/{slug}"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.loads(resp.read().decode())
+        disabled = data.get("disabled", False)
+        title = data.get("title", slug)
+        return ("blocked" if disabled else "open", title)
+    except urllib.error.HTTPError as e:
+        return ("error", f"HTTP {e.code}")
+    except Exception as e:
+        return ("error", str(e))
+
+def check_bugcrowd(slug):
+    url = f"https://bugcrowd.com/engagements/{slug}"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            html = resp.read().decode()
+        match = re.search(r"&quot;state&quot;:&quot;([^&]+)&quot;", html)
+        if not match:
+            match = re.search(r'"state":"([^"]+)"', html)
+        if not match:
+            return ("error", "state field not found")
+        state = match.group(1)
+        return ("open" if state == "in_progress" else "blocked", state)
+    except urllib.error.HTTPError as e:
+        return ("error", f"HTTP {e.code}")
+    except Exception as e:
+        return ("error", str(e))
 def main():
     try:
         h1_token = get_token("HACKERONE_TOKEN", os.path.join(HOME, ".hackerone_token"))
@@ -77,6 +108,28 @@ def main():
     ambiguous = []
 
     for (platform, keyword), domains in sorted(groups.items()):
+        if platform == "yeswehack":
+            status, detail = check_yeswehack(keyword)
+            if status == "error":
+                print(f"[ERROR]   {platform}/{keyword} -> {detail} ({len(domains)} domain(s))")
+                no_match.append((platform, keyword, domains))
+            else:
+                tag = "OPEN  " if status == "open" else "BLOCKED"
+                print(f"[{tag}]  {platform}/{keyword} -> {detail} ({len(domains)} domain(s))")
+                if status == "blocked":
+                    excluded_domains.extend(domains)
+            continue
+        if platform == "bugcrowd":
+            status, detail = check_bugcrowd(keyword)
+            if status == "error":
+                print(f"[ERROR]   {platform}/{keyword} -> {detail} ({len(domains)} domain(s))")
+                no_match.append((platform, keyword, domains))
+            else:
+                tag = "OPEN  " if status == "open" else "BLOCKED"
+                print(f"[{tag}]  {platform}/{keyword} -> state={detail} ({len(domains)} domain(s))")
+                if status == "blocked":
+                    excluded_domains.extend(domains)
+            continue
         programs = h1_programs if platform == "hackerone" else intigriti_programs
         matches = find_match(programs, keyword)
 
@@ -112,3 +165,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

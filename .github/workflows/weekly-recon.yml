@@ -33,6 +33,12 @@ jobs:
         with:
           ref: domains
           fetch-depth: 1
+      - name: Checkout status checker from main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: checker
+          fetch-depth: 1
 
       - name: Install tools
         run: |
@@ -45,6 +51,19 @@ jobs:
           BATCH_SIZE=25
 
           grep -vEi "^#|^$" domains.txt | grep -v '^\*\.' | sort -u > domains_clean.txt
+          export EXCLUDED_OUTPUT_PATH="excluded_domains.txt"
+          python3 checker/check_program_status.py || echo "WARNING: status check failed, proceeding without filter"
+          if [ -s excluded_domains.txt ]; then
+            > exclude_grep.txt
+            while IFS= read -r d; do
+              [ -z "$d" ] && continue
+              escaped=$(echo "$d" | sed 's/\./\\./g')
+              echo "\\.${escaped}\$|^${escaped}\$" >> exclude_grep.txt
+            done < excluded_domains.txt
+            grep -vEf exclude_grep.txt domains_clean.txt > domains_clean_filtered.txt || cp domains_clean.txt domains_clean_filtered.txt
+            echo "Excluded $(( $(wc -l < domains_clean.txt) - $(wc -l < domains_clean_filtered.txt) )) domains belonging to suspended/paused programs"
+            mv domains_clean_filtered.txt domains_clean.txt
+          fi
           total=$(wc -l < domains_clean.txt)
           echo "Total clean domains: $total"
 
