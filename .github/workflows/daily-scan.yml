@@ -315,7 +315,7 @@ jobs:
           path: results.txt
           retention-days: 7
 
-  # ─── 403 BYPASS: always 20 parallel jobs ───────────────────────
+  # ─── 403 BYPASS: max-parallel 5 ───────────────────────
   bypass_403:
     needs: prepare
     if: needs.prepare.outputs.has_403 == 'true'
