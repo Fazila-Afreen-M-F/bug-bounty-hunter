@@ -1,4 +1,5 @@
 [github-takeover] [http] [high] https://actions.tooling.travix.com ["xivart.github.io"]
 [node-express-dev-env] [http] [medium] https://prod-blue.optionsbackup.logitech.com
 [node-express-dev-env] [http] [medium] https://prod-green.optionsbackup.logitech.com
+[unauthenticated-varnish-cache-purge] [http] [low] http://cc.kayak.com
 [unauthenticated-varnish-cache-purge] [http] [low] https://cc.kayak.com
