@@ -26,6 +26,26 @@ def fetch_hackerone_programs(token):
         url = data.get("links", {}).get("next")
     return programs
 
+def fetch_hackerone_scope(handle, token):
+    auth = base64.b64encode(f"oxidizer:{token}".encode()).decode()
+    url = f"https://api.hackerone.com/v1/hackers/programs/{handle}"
+    req = urllib.request.Request(url, headers={"Authorization": f"Basic {auth}", "Accept": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.loads(resp.read().decode())
+    except Exception as e:
+        return {"scope": [], "safe_harbor": None, "error": str(e)}
+
+    scopes = data.get("relationships", {}).get("structured_scopes", {}).get("data", [])
+    in_scope_domains = []
+    for s in scopes:
+        a = s.get("attributes", {})
+        if a.get("asset_type") in ("URL", "WILDCARD") and a.get("eligible_for_submission") is True:
+            in_scope_domains.append(a.get("asset_identifier"))
+
+    safe_harbor = data.get("attributes", {}).get("gold_standard_safe_harbor")
+    return {"scope": in_scope_domains, "safe_harbor": safe_harbor, "error": None}
+
 def fetch_intigriti_programs(token):
     url = "https://api.intigriti.com/external/researcher/v1/programs?limit=500"
     req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}"})
@@ -33,8 +53,64 @@ def fetch_intigriti_programs(token):
         data = json.loads(resp.read().decode())
     programs = []
     for p in data.get("records", []):
-        programs.append({"handle": p["handle"], "name": p["name"], "status": p["status"]["value"]})
+        programs.append({"handle": p["handle"], "name": p["name"], "status": p["status"]["value"], "id": p["id"]})
     return programs
+
+import itertools
+
+def extract_ywh_domains(scope_entries):
+    domains = []
+    skip_hosts = ("apps.apple.com", "play.google.com", "itunes.apple.com")
+    for entry in scope_entries:
+        s = entry.get("scope", "")
+        if not s:
+            continue
+        # strip protocol
+        s2 = re.sub(r'^https?://', '', s)
+        # skip app store / play store links
+        if any(h in s2 for h in skip_hosts):
+            continue
+        # skip pure prose (no dot, or starts with a capital word + space, no domain-like token)
+        if not re.search(r'[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}', s2):
+            continue
+        # strip path/query after domain
+        s2 = re.split(r'[/?]', s2)[0]
+        # strip trailing junk like ") (see ...)" already handled by split below
+        # find group syntax: prefix(a|b|c)suffix
+        m = re.match(r'^([a-zA-Z0-9_\-\.\*]+)\(([a-zA-Z0-9\-\.\|]+)\)([a-zA-Z0-9_\-\.]*)$', s2)
+        if m:
+            prefix, group, suffix = m.groups()
+            for opt in group.split('|'):
+                domains.append(f"{prefix}{opt}{suffix}")
+            continue
+        # plain wildcard or domain (strip any leftover parens/junk)
+        s3 = re.sub(r'[()"].*$', '', s2).strip()
+        if re.match(r'^[a-zA-Z0-9\*][a-zA-Z0-9\-\.\*]*\.[a-zA-Z]{2,}$', s3):
+            domains.append(s3)
+    return sorted(set(domains))
+
+def fetch_intigriti_scope(program_id, token):
+    url = f"https://api.intigriti.com/external/researcher/v1/programs/{program_id}"
+    req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}"})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.loads(resp.read().decode())
+    except Exception as e:
+        return {"scope": [], "safe_harbor": None, "rate_limit": None, "error": str(e)}
+
+    domains = data.get("domains", {}).get("content", [])
+    in_scope = []
+    for d in domains:
+        asset_type = d.get("type", {}).get("value", "")
+        endpoint = d.get("endpoint")
+        if asset_type in ("Wildcard", "Url") and endpoint:
+            in_scope.append(endpoint)
+
+    roe = data.get("rulesOfEngagement", {}).get("content", {})
+    safe_harbor = roe.get("safeHarbour")
+    rate_limit = roe.get("testingRequirements", {}).get("automatedTooling")
+
+    return {"scope": in_scope, "safe_harbor": safe_harbor, "rate_limit": rate_limit, "error": None}
 
 def find_match(programs, keyword):
     exact = [p for p in programs if p["handle"].lower() == keyword.lower()]
@@ -106,6 +182,9 @@ def main():
     excluded_domains = []
     no_match = []
     ambiguous = []
+    hackerone_scope_lines = []
+    intigriti_scope_lines = []
+    yeswehack_scope_lines = []
 
     for (platform, keyword), domains in sorted(groups.items()):
         if platform == "yeswehack":
@@ -118,6 +197,18 @@ def main():
                 print(f"[{tag}]  {platform}/{keyword} -> {detail} ({len(domains)} domain(s))")
                 if status == "blocked":
                     excluded_domains.extend(domains)
+                elif status == "open":
+                    ywh_url = f"https://api.yeswehack.com/programs/{keyword}"
+                    ywh_req = urllib.request.Request(ywh_url, headers={"Accept": "application/json"})
+                    try:
+                        with urllib.request.urlopen(ywh_req, timeout=15) as resp:
+                            ywh_data = json.loads(resp.read().decode())
+                        ywh_domains = extract_ywh_domains(ywh_data.get("scopes", []))
+                        for d in ywh_domains:
+                            yeswehack_scope_lines.append(d)
+                        print(f"    [SCOPE] {len(ywh_domains)} in-scope asset(s) found")
+                    except Exception as e:
+                        print(f"    [SCOPE ERROR] {e}")
             continue
         if platform == "bugcrowd":
             status, detail = check_bugcrowd(keyword)
@@ -151,6 +242,24 @@ def main():
         if not is_open:
             excluded_domains.extend(domains)
 
+        if platform == "hackerone" and is_open:
+            scope_result = fetch_hackerone_scope(m["handle"], h1_token)
+            if scope_result["error"]:
+                print(f"    [SCOPE ERROR] {scope_result['error']}")
+            else:
+                for asset in scope_result["scope"]:
+                    hackerone_scope_lines.append(asset)
+                print(f"    [SCOPE] {len(scope_result['scope'])} in-scope asset(s) found")
+
+        if platform == "intigriti" and is_open:
+            scope_result = fetch_intigriti_scope(m["id"], intigriti_token)
+            if scope_result["error"]:
+                print(f"    [SCOPE ERROR] {scope_result['error']}")
+            else:
+                for asset in scope_result["scope"]:
+                    intigriti_scope_lines.append(asset)
+                print(f"    [SCOPE] {len(scope_result['scope'])} in-scope asset(s) found | safe_harbor={scope_result['safe_harbor']} | rate_limit={scope_result['rate_limit']}")
+
     print("=" * 70)
     print(f"\nSUMMARY: {len(excluded_domains)} domains would be EXCLUDED")
     for d in excluded_domains:
@@ -162,6 +271,27 @@ def main():
         for d in excluded_domains:
             f.write(d + "\n")
     print(f"\nWrote {len(excluded_domains)} domains to {EXCLUDE_OUTPUT_PATH}")
+
+    hackerone_scope_lines = sorted(set(hackerone_scope_lines))
+    scope_output_path = os.environ.get("HACKERONE_SCOPE_OUTPUT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "hackerone_scope.txt")
+    with open(scope_output_path, "w") as f:
+        for asset in hackerone_scope_lines:
+            f.write(f"IN:{asset}\n")
+    print(f"Wrote {len(hackerone_scope_lines)} HackerOne in-scope assets to {scope_output_path}")
+
+    intigriti_scope_lines = sorted(set(intigriti_scope_lines))
+    intigriti_scope_output_path = os.environ.get("INTIGRITI_SCOPE_OUTPUT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "intigriti_scope.txt")
+    with open(intigriti_scope_output_path, "w") as f:
+        for asset in intigriti_scope_lines:
+            f.write(f"IN:{asset}\n")
+    print(f"Wrote {len(intigriti_scope_lines)} Intigriti in-scope assets to {intigriti_scope_output_path}")
+
+    yeswehack_scope_lines = sorted(set(yeswehack_scope_lines))
+    yeswehack_scope_output_path = os.environ.get("YESWEHACK_SCOPE_OUTPUT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "yeswehack_scope.txt")
+    with open(yeswehack_scope_output_path, "w") as f:
+        for asset in yeswehack_scope_lines:
+            f.write(f"IN:{asset}\n")
+    print(f"Wrote {len(yeswehack_scope_lines)} YesWeHack in-scope assets to {yeswehack_scope_output_path}")
 
 if __name__ == "__main__":
     main()
