@@ -1,11 +1,17 @@
 name: Weekly Scan
 on:
-  schedule:
-    - cron: '30 18 * * 5'   # Saturday 00:00 IST (UTC Friday 18:30)
+  workflow_run:
+    workflows: ["Daily Scan"]
+    types: [completed]
   workflow_dispatch:
+
+concurrency:
+  group: bug-bounty-pipeline
+  cancel-in-progress: false
 
 jobs:
   prepare:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion != 'cancelled'
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -80,7 +86,18 @@ jobs:
           if [ "$num_batches" -gt 256 ]; then num_batches=256; fi
           if [ "$num_batches" -lt 1 ]; then num_batches=1; fi
           echo "Batches: $num_batches (~$(( (total + num_batches - 1) / num_batches )) hosts each)"
-          batches=$(seq 1 $num_batches | jq -R . | jq -sc .)
+
+          WEEK_TAG=$(date +'%Y-%U')
+          touch weekly_progress.txt
+          STORED_WEEK=$(head -1 weekly_progress.txt 2>/dev/null || echo "")
+          if [ "$STORED_WEEK" != "$WEEK_TAG" ]; then
+            echo "New week ($WEEK_TAG) - resetting progress"
+            echo "$WEEK_TAG" > weekly_progress.txt
+          fi
+          tail -n +2 weekly_progress.txt > done_batches.txt
+          echo "Already completed this week: $(wc -l < done_batches.txt) batch(es)"
+
+          batches=$(seq 1 $num_batches | grep -vFxf done_batches.txt | jq -R . | jq -sc .)
           echo "batches=$batches" >> $GITHUB_OUTPUT
 
       - name: Upload host list
@@ -104,6 +121,13 @@ jobs:
       matrix:
         batch: ${{ fromJson(needs.prepare.outputs.batches) }}
     steps:
+      - name: Checkout domains branch
+        uses: actions/checkout@v4
+        with:
+          ref: domains
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
       - name: Download host list
         uses: actions/download-artifact@v4
         with:
@@ -218,9 +242,21 @@ jobs:
           to: ${{ secrets.EMAIL_TO }}
           from: BugBountyBot
 
+      - name: Mark batch complete
+        if: success()
+        run: |
+          git config --global user.email "bugbountybot@github.com"
+          git config --global user.name "BugBountyBot"
+          echo "${{ matrix.batch }}" >> weekly_progress.txt
+          sort -u weekly_progress.txt -o weekly_progress.txt
+          git add weekly_progress.txt
+          git diff --staged --quiet || git commit -m "Weekly batch ${{ matrix.batch }} complete"
+          git push origin domains || (git pull --rebase origin domains && git push origin domains) || echo "::warning::Push failed for batch ${{ matrix.batch }}"
+
   # ─── JS SECRETS ────────────────────────────────────────────────
   weekly_js_secrets_q1:
     needs: weekly_combined
+    if: always() && !cancelled() && needs.weekly_combined.result != 'failure'
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "JS Secrets Q1"
@@ -238,6 +274,7 @@ jobs:
 
   weekly_js_secrets_q2:
     needs: weekly_combined
+    if: always() && !cancelled() && needs.weekly_combined.result != 'failure'
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "JS Secrets Q2"
@@ -255,6 +292,7 @@ jobs:
 
   weekly_js_secrets_q3:
     needs: weekly_combined
+    if: always() && !cancelled() && needs.weekly_combined.result != 'failure'
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "JS Secrets Q3"
@@ -272,6 +310,7 @@ jobs:
 
   weekly_js_secrets_q4:
     needs: weekly_combined
+    if: always() && !cancelled() && needs.weekly_combined.result != 'failure'
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "JS Secrets Q4"
@@ -290,6 +329,7 @@ jobs:
   # ─── CUSTOM TEMPLATES ──────────────────────────────────────────
   weekly_custom:
     needs: weekly_combined
+    if: always() && !cancelled() && needs.weekly_combined.result != 'failure'
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "Custom Templates"
