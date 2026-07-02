@@ -1,4 +1,7 @@
+[CVE-2024-2473] [http] [medium] https://qa-www.malwarebytes.com/wp-admin/?action=postpass
 [github-takeover] [http] [high] https://actions.tooling.travix.com ["xivart.github.io"]
+[node-express-dev-env] [http] [medium] https://cpgbackup.logitech.com
+[node-express-dev-env] [http] [medium] https://optionsbackup.logitech.com
 [node-express-dev-env] [http] [medium] https://prod-blue.optionsbackup.logitech.com
 [node-express-dev-env] [http] [medium] https://prod-green.optionsbackup.logitech.com
 [unauthenticated-varnish-cache-purge] [http] [low] http://cc.kayak.com
