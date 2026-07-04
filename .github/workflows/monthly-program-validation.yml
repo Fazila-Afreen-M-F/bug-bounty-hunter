@@ -1,0 +1,69 @@
+name: Monthly Program Validation
+# ─────────────────────────────────────────────────────────────────────────────
+# SCHEDULE: 1st of every month, 02:00 IST (previous day 20:30 UTC)
+# Runs discover_all_programs.py — full discovery + ban-detection (regex + Groq)
+# across HackerOne, Intigriti, Bugcrowd, YesWeHack. Updates per-platform scope
+# files and domain_program_map.csv, then commits results to main.
+#
+# Manual trigger: workflow_dispatch with no inputs = runs everything
+# ─────────────────────────────────────────────────────────────────────────────
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 20 28-31 * *'   # fires daily in the 28-31 window; job checks for real "1st"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
+      INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      OUTPUT_DIR: ${{ github.workspace }}
+      MAPPING_CSV_PATH: ${{ github.workspace }}/domain_program_map.csv
+    steps:
+      - name: Check if today is the 1st (IST)
+        id: gate
+        run: |
+          today_ist=$(TZ=Asia/Kolkata date +%d)
+          if [ "$today_ist" != "01" ] && [ "${{ github.event_name }}" == "schedule" ]; then
+            echo "Not the 1st (IST day=$today_ist) — skipping scheduled run."
+            echo "run=false" >> $GITHUB_OUTPUT
+          else
+            echo "run=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout main (script + CSV)
+        if: steps.gate.outputs.run == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Run monthly program validation
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          python3 discover_all_programs.py
+
+      - name: Commit updated CSV and scope files
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git config --global user.email "bugbountybot@github.com"
+          git config --global user.name "BugBountyBot"
+          git add domain_program_map.csv \
+            hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt \
+            2>/dev/null || true
+          git diff --staged --quiet || git commit -m "Monthly program validation $(date +'%Y-%m-%d')"
+          git push origin main || (git pull --rebase origin main && git push origin main) || echo "::warning::Push failed - main may be stale"
+
+      - name: Upload validation logs
+        if: steps.gate.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: monthly-validation-logs
+          path: |
+            groq_review_log.txt
+            groq_429_debug.log
+            groq_token_usage.log
+          retention-days: 30

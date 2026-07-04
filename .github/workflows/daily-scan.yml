@@ -114,10 +114,55 @@ jobs:
             live_hosts_404.txt
           retention-days: 7
 
+  # ─── SUBZY: subdomain takeover (CNAME-fingerprint based) ──────
+  subzy_takeover:
+    needs: prepare
+    if: needs.prepare.outputs.has_hosts == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Download host lists
+        uses: actions/download-artifact@v4
+        with:
+          name: daily-hosts
+      - name: Cache Go tools
+        uses: actions/cache@v4
+        id: cache-go-subzy
+        with:
+          path: ~/go/bin
+          key: go-tools-subzy-${{ runner.os }}-v1
+      - name: Install subzy
+        if: steps.cache-go-subzy.outputs.cache-hit != 'true'
+        run: go install -v github.com/PentestPad/subzy@latest
+      - name: Ensure subzy installed
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          if ! command -v subzy &>/dev/null; then
+            go install -v github.com/PentestPad/subzy@latest
+          fi
+      - name: Run subzy takeover scan
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          touch subzy_results.txt
+          if [ -s combined.txt ]; then
+            timeout 3000 subzy run --targets combined.txt --hide_fails --verify_ssl -o subzy_results.txt || true
+          fi
+          echo "Findings: $(wc -l < subzy_results.txt)"
+      - name: Show results
+        if: always()
+        run: |
+          count=$(wc -l < subzy_results.txt 2>/dev/null || echo 0)
+          echo "Total findings: $count"
+          if [ "$count" -gt "0" ]; then cat subzy_results.txt; else echo "No findings"; fi
+      - name: Upload subzy results
+        uses: actions/upload-artifact@v4
+        with:
+          name: subzy-results
+          path: subzy_results.txt
   # ─── TAKEOVER ──────────────────────────────────────────────────
   takeover:
     needs: prepare
-    if: needs.prepare.outputs.has_404 == 'true'
+    if: needs.prepare.outputs.has_hosts == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
@@ -170,6 +215,10 @@ jobs:
           export PATH=$PATH:$(go env GOPATH)/bin
           TEMPLATES_DIR="$HOME/.local/share/nuclei-templates"
           touch results.txt
+          if [ ! -s live_hosts_404.txt ]; then
+            echo "No targets for this batch"
+            exit 0
+          fi
           timeout 6000 nuclei -l live_hosts_404.txt \
             -t "$TEMPLATES_DIR/http/takeovers" \
             -itags takeover,subdomain-takeover \
@@ -319,7 +368,7 @@ jobs:
           path: results.txt
           retention-days: 7
 
-  # ─── 403 BYPASS: max-parallel 5 ───────────────────────
+  # ─── 403 BYPASS: max-parallel 9 ───────────────────────
   bypass_403:
     needs: prepare
     if: needs.prepare.outputs.has_403 == 'true'
@@ -329,7 +378,7 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       fail-fast: false
-      max-parallel: 5
+      max-parallel: 9
       matrix:
         batch: ${{ fromJson(needs.prepare.outputs.batches) }}
     steps:
@@ -431,7 +480,7 @@ jobs:
 
   # ─── NOTIFY: one email after all jobs finish ───────────────────
   notify:
-    needs: [daily_main, bypass_403, takeover]
+    needs: [daily_main, bypass_403, takeover, subzy_takeover]
     if: always()
     runs-on: ubuntu-latest
     env:

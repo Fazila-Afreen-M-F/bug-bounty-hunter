@@ -149,6 +149,34 @@ def check_bugcrowd(slug):
         return ("error", f"HTTP {e.code}")
     except Exception as e:
         return ("error", str(e))
+
+def fetch_bugcrowd_scope(slug):
+    headers = {"User-Agent": "Mozilla/5.0", "Accept": "application/json"}
+    try:
+        req = urllib.request.Request(f"https://bugcrowd.com/engagements/{slug}/changelog.json", headers=headers)
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            cl_data = json.loads(resp.read().decode())
+        changelogs = cl_data.get("changelogs", [])
+        if not changelogs:
+            return {"scope": [], "error": "no changelog entries"}
+        latest = next((c for c in changelogs if c.get("changelogState") == "Latest"), changelogs[0])
+        req2 = urllib.request.Request(f"https://bugcrowd.com/engagements/{slug}/changelog/{latest['id']}.json", headers=headers)
+        with urllib.request.urlopen(req2, timeout=15) as resp:
+            full = json.loads(resp.read().decode())
+    except Exception as e:
+        return {"scope": [], "error": str(e)}
+    domains = []
+    for grp in full.get("data", {}).get("scope", []):
+        if not grp.get("inScope"):
+            continue
+        for t in grp.get("targets", []):
+            uri = t.get("uri")
+            name = t.get("name", "") or ""
+            if uri:
+                domains.append(re.sub(r"^https?://", "", uri).split("/")[0])
+            elif re.match(r"^[a-zA-Z0-9*][a-zA-Z0-9\-.*]*\.[a-zA-Z]{2,}$", name.strip()):
+                domains.append(name.strip())
+    return {"scope": sorted(set(domains)), "error": None}
 def main():
     try:
         h1_token = get_token("HACKERONE_TOKEN", os.path.join(HOME, ".hackerone_token"))
@@ -185,6 +213,7 @@ def main():
     hackerone_scope_lines = []
     intigriti_scope_lines = []
     yeswehack_scope_lines = []
+    bugcrowd_scope_lines = []
 
     for (platform, keyword), domains in sorted(groups.items()):
         if platform == "yeswehack":
@@ -220,6 +249,14 @@ def main():
                 print(f"[{tag}]  {platform}/{keyword} -> state={detail} ({len(domains)} domain(s))")
                 if status == "blocked":
                     excluded_domains.extend(domains)
+                elif status == "open":
+                    scope_result = fetch_bugcrowd_scope(keyword)
+                    if scope_result["error"]:
+                        print(f"    [SCOPE ERROR] {scope_result['error']}")
+                    else:
+                        for d in scope_result["scope"]:
+                            bugcrowd_scope_lines.append(d)
+                        print(f"    [SCOPE] {len(scope_result['scope'])} in-scope asset(s) found")
             continue
         programs = h1_programs if platform == "hackerone" else intigriti_programs
         matches = find_match(programs, keyword)
@@ -292,6 +329,13 @@ def main():
         for asset in yeswehack_scope_lines:
             f.write(f"IN:{asset}\n")
     print(f"Wrote {len(yeswehack_scope_lines)} YesWeHack in-scope assets to {yeswehack_scope_output_path}")
+
+    bugcrowd_scope_lines = sorted(set(bugcrowd_scope_lines))
+    bugcrowd_scope_output_path = os.environ.get("BUGCROWD_SCOPE_OUTPUT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "bugcrowd_scope.txt")
+    with open(bugcrowd_scope_output_path, "w") as f:
+        for asset in bugcrowd_scope_lines:
+            f.write(f"IN:{asset}\n")
+    print(f"Wrote {len(bugcrowd_scope_lines)} Bugcrowd in-scope assets to {bugcrowd_scope_output_path}")
 
 if __name__ == "__main__":
     main()
