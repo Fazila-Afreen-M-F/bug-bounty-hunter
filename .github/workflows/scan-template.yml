@@ -158,7 +158,7 @@ jobs:
           export MAPPING_CSV_PATH="main-repo/domain_program_map.csv"
           export EXCLUDED_OUTPUT_PATH="excluded_domains.txt"
           if [ -f main-repo/check_program_status.py ]; then
-            python3 main-repo/check_program_status.py || echo "WARNING: status check failed, proceeding without filter"
+            python3 main-repo/check_program_status.py
           else
             echo "WARNING: checker script not found, proceeding without filter"
           fi

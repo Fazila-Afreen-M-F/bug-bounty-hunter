@@ -57,7 +57,7 @@ jobs:
           export INTIGRITI_TOKEN="${{ secrets.INTIGRITI_TOKEN }}"
           export MAPPING_CSV_PATH="checker/domain_program_map.csv"
           export EXCLUDED_OUTPUT_PATH="excluded_domains.txt"
-          python3 checker/check_program_status.py || echo "WARNING: status check failed, proceeding without filter"
+          python3 checker/check_program_status.py
 
           if [ -s excluded_domains.txt ]; then
             > exclude_grep.txt
