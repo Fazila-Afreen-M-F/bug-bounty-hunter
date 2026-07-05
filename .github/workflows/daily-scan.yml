@@ -149,11 +149,25 @@ jobs:
           fi
           echo "Findings: $(wc -l < subzy_results.txt)"
       - name: Show results
+        id: showresults
         if: always()
         run: |
           count=$(wc -l < subzy_results.txt 2>/dev/null || echo 0)
+          echo "count=$count" >> $GITHUB_OUTPUT
           echo "Total findings: $count"
           if [ "$count" -gt "0" ]; then cat subzy_results.txt; else echo "No findings"; fi
+      - name: Immediate email if findings
+        if: steps.showresults.outputs.count != '0'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: "[Subzy Takeover] ${{ steps.showresults.outputs.count }} Finding(s)"
+          body: file://subzy_results.txt
+          to: ${{ secrets.EMAIL_TO }}
+          from: BugBountyBot
       - name: Upload subzy results
         uses: actions/upload-artifact@v4
         with:
@@ -236,11 +250,26 @@ jobs:
           echo "Findings: $(wc -l < results.txt)"
 
       - name: Show results
+        id: showresults
         if: always()
         run: |
           count=$(wc -l < results.txt 2>/dev/null || echo 0)
+          echo "count=$count" >> $GITHUB_OUTPUT
           echo "Total findings: $count"
           if [ "$count" -gt "0" ]; then cat results.txt; else echo "No findings"; fi
+
+      - name: Immediate email if findings
+        if: steps.showresults.outputs.count != '0'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: "[Takeover] ${{ steps.showresults.outputs.count }} Finding(s)"
+          body: file://results.txt
+          to: ${{ secrets.EMAIL_TO }}
+          from: BugBountyBot
 
       - name: Upload takeover results
         uses: actions/upload-artifact@v4
@@ -354,11 +383,26 @@ jobs:
           echo "Findings: $(wc -l < results.txt)"
 
       - name: Show results
+        id: showresults
         if: always()
         run: |
           count=$(wc -l < results.txt 2>/dev/null || echo 0)
+          echo "count=$count" >> $GITHUB_OUTPUT
           echo "Total findings: $count"
           if [ "$count" -gt "0" ]; then cat results.txt; else echo "No findings"; fi
+
+      - name: Immediate email if findings
+        if: steps.showresults.outputs.count != '0'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: "[Daily Main - Batch ${{ matrix.batch }}] ${{ steps.showresults.outputs.count }} Finding(s)"
+          body: file://results.txt
+          to: ${{ secrets.EMAIL_TO }}
+          from: BugBountyBot
 
       - name: Upload batch results
         if: always()
@@ -464,11 +508,26 @@ jobs:
           echo "Findings: $(wc -l < results.txt)"
 
       - name: Show results
+        id: showresults
         if: always()
         run: |
           count=$(wc -l < results.txt 2>/dev/null || echo 0)
+          echo "count=$count" >> $GITHUB_OUTPUT
           echo "Total findings: $count"
           if [ "$count" -gt "0" ]; then cat results.txt; else echo "No findings"; fi
+
+      - name: Immediate email if findings
+        if: steps.showresults.outputs.count != '0'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: "[403 Bypass - Batch ${{ matrix.batch }}] ${{ steps.showresults.outputs.count }} Finding(s)"
+          body: file://results.txt
+          to: ${{ secrets.EMAIL_TO }}
+          from: BugBountyBot
 
       - name: Upload 403 batch results
         if: always()
