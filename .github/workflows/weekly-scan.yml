@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: bug-bounty-pipeline
+  group: weekly-scan-pipeline
   cancel-in-progress: false
 
 jobs:
