@@ -7,6 +7,7 @@ and Bugcrowd. Pulls every public program, applies safety/scope conditions,
 and writes clean, scan-ready domain lists.
 """
 
+import argparse
 import base64
 import csv
 import json
@@ -465,12 +466,16 @@ def update_domain_program_map(h1_results, int_results, ywh_results, bc_results):
     log(f"[CSV] domain_program_map.csv: added {len(new_rows)} new domain/program rows")
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--platform", choices=["hackerone", "intigriti", "yeswehack", "bugcrowd"], default=None,
+                         help="Run only one platform instead of all four")
+    args = parser.parse_args()
     h1_token = os.environ.get("HACKERONE_TOKEN")
     int_token = os.environ.get("INTIGRITI_TOKEN")
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     h1_results = new_results()
-    if h1_token:
+    if args.platform in (None, "hackerone") and h1_token:
         programs, auth = discover_hackerone(h1_token)
         for p in programs:
             vet_hackerone_program(p["handle"], auth, h1_results)
@@ -478,10 +483,13 @@ def main():
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "hackerone_scope.txt"), h1_results["included"])
         log(f"[H1] merge result: {r}")
     else:
-        log("[H1] no HACKERONE_TOKEN set, skipping platform")
+        if args.platform not in (None, "hackerone"):
+            log("[H1] skipped due to --platform filter")
+        else:
+            log("[H1] no HACKERONE_TOKEN set, skipping platform")
 
     int_results = new_results()
-    if int_token:
+    if args.platform in (None, "intigriti") and int_token:
         programs = discover_intigriti(int_token)
         for p in programs:
             vet_intigriti_program(p, int_token, int_results)
@@ -489,23 +497,28 @@ def main():
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "intigriti_scope.txt"), int_results["included"])
         log(f"[Intigriti] merge result: {r}")
     else:
-        log("[Intigriti] no INTIGRITI_TOKEN set, skipping platform")
+        if args.platform not in (None, "intigriti"):
+            log("[Intigriti] skipped due to --platform filter")
+        else:
+            log("[Intigriti] no INTIGRITI_TOKEN set, skipping platform")
 
     ywh_results = new_results()
-    programs = discover_yeswehack()
-    for p in programs:
-        vet_yeswehack_program(p, ywh_results)
-    summarize("YesWeHack", ywh_results)
-    r = merge_scope_file(os.path.join(OUTPUT_DIR, "yeswehack_scope.txt"), ywh_results["included"])
-    log(f"[YWH] merge result: {r}")
+    if args.platform in (None, "yeswehack"):
+        programs = discover_yeswehack()
+        for p in programs:
+            vet_yeswehack_program(p, ywh_results)
+        summarize("YesWeHack", ywh_results)
+        r = merge_scope_file(os.path.join(OUTPUT_DIR, "yeswehack_scope.txt"), ywh_results["included"])
+        log(f"[YWH] merge result: {r}")
 
     bc_results = new_results()
-    programs = discover_bugcrowd()
-    for p in programs:
-        vet_bugcrowd_program(p, bc_results)
-    summarize("Bugcrowd", bc_results)
-    r = merge_scope_file(os.path.join(OUTPUT_DIR, "bugcrowd_scope.txt"), bc_results["included"])
-    log(f"[Bugcrowd] merge result: {r}")
+    if args.platform in (None, "bugcrowd"):
+        programs = discover_bugcrowd()
+        for p in programs:
+            vet_bugcrowd_program(p, bc_results)
+        summarize("Bugcrowd", bc_results)
+        r = merge_scope_file(os.path.join(OUTPUT_DIR, "bugcrowd_scope.txt"), bc_results["included"])
+        log(f"[Bugcrowd] merge result: {r}")
     update_domain_program_map(h1_results, int_results, ywh_results, bc_results)
 
     log("\n=== All platforms complete ===")
