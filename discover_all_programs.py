@@ -430,17 +430,22 @@ def summarize(platform, results):
             log(f"    - {name}: {reason}")
 
 
-def update_domain_program_map(h1_results, int_results, ywh_results, bc_results):
-    """Append newly-discovered programs and their domains to domain_program_map.csv
-    so weekly status checks (check_program_status.py) automatically pick them up."""
-    existing_rows = set()
+def update_domain_program_map(h1_results, int_results, ywh_results, bc_results, ran_platforms):
+    """Rebuild domain_program_map.csv rows for every platform that actually ran this
+    invocation (dropping stale/removed programs for those platforms), while leaving
+    rows for skipped platforms (e.g. a manual --platform test run, or no token set)
+    completely untouched."""
+    existing_rows = []
     if os.path.exists(MAPPING_PATH):
         with open(MAPPING_PATH, newline="") as f:
             reader = csv.DictReader(f)
             for row in reader:
-                existing_rows.add((row["domain"], row["platform"], row["keyword"]))
+                existing_rows.append((row["domain"], row["platform"], row["keyword"]))
 
-    new_rows = []
+    kept_rows = [row for row in existing_rows if row[1] not in ran_platforms]
+
+    fresh_rows = []
+    seen = set()
     platform_sources = [
         ("hackerone", h1_results, "handle"),
         ("intigriti", int_results, "handle"),
@@ -448,28 +453,27 @@ def update_domain_program_map(h1_results, int_results, ywh_results, bc_results):
         ("bugcrowd", bc_results, "slug"),
     ]
     for platform_name, results, key_field in platform_sources:
+        if platform_name not in ran_platforms:
+            continue
         for entry in results.get("included", []):
             keyword = entry.get(key_field)
             if not keyword:
                 continue
             for domain in entry.get("domains", []):
                 row = (domain, platform_name, keyword)
-                if row not in existing_rows:
-                    new_rows.append(row)
-                    existing_rows.add(row)
+                if row not in seen:
+                    fresh_rows.append(row)
+                    seen.add(row)
 
-    if not new_rows:
-        log(f"[CSV] domain_program_map.csv: no new rows to add")
-        return
+    all_rows = kept_rows + fresh_rows
 
-    file_exists = os.path.exists(MAPPING_PATH)
-    with open(MAPPING_PATH, "a", newline="") as f:
+    with open(MAPPING_PATH, "w", newline="") as f:
         writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(["domain", "platform", "keyword"])
-        for row in new_rows:
+        writer.writerow(["domain", "platform", "keyword"])
+        for row in all_rows:
             writer.writerow(row)
-    log(f"[CSV] domain_program_map.csv: added {len(new_rows)} new domain/program rows")
+    log(f"[CSV] domain_program_map.csv: rebuilt {len(fresh_rows)} rows for "
+        f"{sorted(ran_platforms)}, kept {len(kept_rows)} rows untouched for skipped platforms")
 
 def main():
     parser = argparse.ArgumentParser()
@@ -480,8 +484,10 @@ def main():
     int_token = os.environ.get("INTIGRITI_TOKEN")
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
+    ran_platforms = set()
     h1_results = new_results()
     if args.platform in (None, "hackerone") and h1_token:
+        ran_platforms.add("hackerone")
         programs, auth = discover_hackerone(h1_token)
         for p in programs:
             vet_hackerone_program(p["handle"], auth, h1_results)
@@ -496,6 +502,7 @@ def main():
 
     int_results = new_results()
     if args.platform in (None, "intigriti") and int_token:
+        ran_platforms.add("intigriti")
         programs = discover_intigriti(int_token)
         for p in programs:
             vet_intigriti_program(p, int_token, int_results)
@@ -510,6 +517,7 @@ def main():
 
     ywh_results = new_results()
     if args.platform in (None, "yeswehack"):
+        ran_platforms.add("yeswehack")
         programs = discover_yeswehack()
         for p in programs:
             vet_yeswehack_program(p, ywh_results)
@@ -519,13 +527,14 @@ def main():
 
     bc_results = new_results()
     if args.platform in (None, "bugcrowd"):
+        ran_platforms.add("bugcrowd")
         programs = discover_bugcrowd()
         for p in programs:
             vet_bugcrowd_program(p, bc_results)
         summarize("Bugcrowd", bc_results)
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "bugcrowd_scope.txt"), bc_results["included"])
         log(f"[Bugcrowd] merge result: {r}")
-    update_domain_program_map(h1_results, int_results, ywh_results, bc_results)
+    update_domain_program_map(h1_results, int_results, ywh_results, bc_results, ran_platforms)
 
     save_groq_cache(_GROQ_CACHE)
     log(f"[GROQ CACHE] saved {len(_GROQ_CACHE)} cached decisions to {GROQ_CACHE_PATH}")
