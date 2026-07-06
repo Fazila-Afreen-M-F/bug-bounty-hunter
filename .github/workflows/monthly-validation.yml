@@ -54,6 +54,7 @@ jobs:
           git config --global user.name "BugBountyBot"
           git add domain_program_map.csv \
             hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt \
+            groq_ban_cache.json \
             2>/dev/null || true
           git diff --staged --quiet || git commit -m "Monthly program validation $(date +'%Y-%m-%d')"
           git push origin main || (git pull --rebase origin main && git push origin main) || echo "::warning::Push failed - main may be stale"

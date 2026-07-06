@@ -15,6 +15,7 @@ import os
 import shutil
 from datetime import datetime
 import re
+import hashlib
 import socket
 import time
 import urllib.error
@@ -526,6 +527,9 @@ def main():
         log(f"[Bugcrowd] merge result: {r}")
     update_domain_program_map(h1_results, int_results, ywh_results, bc_results)
 
+    save_groq_cache(_GROQ_CACHE)
+    log(f"[GROQ CACHE] saved {len(_GROQ_CACHE)} cached decisions to {GROQ_CACHE_PATH}")
+
     log("\n=== All platforms complete ===")
 
 # ==========================================================================
@@ -535,10 +539,31 @@ def main():
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "llama-3.1-8b-instant"
 GROQ_LOG_PATH = os.path.join(OUTPUT_DIR, "groq_review_log.txt")
+GROQ_CACHE_PATH = os.path.join(OUTPUT_DIR, "groq_ban_cache.json")
+
+def load_groq_cache():
+    if os.path.exists(GROQ_CACHE_PATH):
+        try:
+            with open(GROQ_CACHE_PATH) as f:
+                return json.load(f)
+        except (json.JSONDecodeError, OSError):
+            return {}
+    return {}
+
+def save_groq_cache(cache):
+    with open(GROQ_CACHE_PATH, "w") as f:
+        json.dump(cache, f, indent=2, sort_keys=True)
+
+_GROQ_CACHE = load_groq_cache()
 AMBIGUOUS_SIGNAL_PATTERN = re.compile(
     r"automat\w*|scanner\w*|\bbot\b|\bscript\w*|fuzz\w*", re.I
 )
 def groq_check_ban(snippet, program_name):
+    cache_key = hashlib.sha256(snippet.encode()).hexdigest()
+    if cache_key in _GROQ_CACHE:
+        cached = _GROQ_CACHE[cache_key]
+        log_groq_call(program_name, snippet, cached["is_ban"], cached["reason"] + " [CACHED]", error=None)
+        return cached["is_ban"]
     time.sleep(13)
     if not GROQ_API_KEY:
         return None
@@ -619,6 +644,7 @@ def groq_check_ban(snippet, program_name):
             rm = re.search(r'"reason"\s*:\s*"(.*?)"\s*}', text, re.DOTALL)
             reason = rm.group(1) if rm else text[:150]
             log_groq_call(program_name, snippet, is_ban, reason, error=None)
+            _GROQ_CACHE[cache_key] = {"is_ban": is_ban, "reason": reason}
             return is_ban
         except urllib.error.HTTPError as e:
             last_err = e
