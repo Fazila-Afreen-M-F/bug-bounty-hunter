@@ -180,6 +180,12 @@ jobs:
           fi
 
           echo "Hosts after suspension filter: $(wc -l < input.txt)"
+          if [ -f main-repo/filter_to_scope.py ]; then
+            python3 main-repo/filter_to_scope.py
+          else
+            echo "WARNING: filter_to_scope.py not found, proceeding without scope filter"
+          fi
+          echo "Hosts after scope filter: $(wc -l < input.txt)"
 
           # ── 4-way split support ──
           if [ -n "$SPLIT" ] && [ -s input.txt ]; then

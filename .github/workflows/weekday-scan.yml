@@ -85,6 +85,16 @@ jobs:
           echo "Hosts after suspension filter: $(wc -l < combined.txt)"
           echo "403 after filter: $(wc -l < live_hosts_403.txt)"
           echo "404 after filter: $(wc -l < live_hosts_404.txt)"
+          if [ -f checker/filter_to_scope.py ]; then
+            SCOPE_FILTER_INPUT=combined.txt SCOPE_FILTER_OUTPUT=combined.txt python3 checker/filter_to_scope.py
+            SCOPE_FILTER_INPUT=live_hosts_403.txt SCOPE_FILTER_OUTPUT=live_hosts_403.txt python3 checker/filter_to_scope.py
+            SCOPE_FILTER_INPUT=live_hosts_404.txt SCOPE_FILTER_OUTPUT=live_hosts_404.txt python3 checker/filter_to_scope.py
+          else
+            echo "WARNING: filter_to_scope.py not found, proceeding without scope filter"
+          fi
+          echo "Hosts after scope filter: $(wc -l < combined.txt)"
+          echo "403 after scope filter: $(wc -l < live_hosts_403.txt)"
+          echo "404 after scope filter: $(wc -l < live_hosts_404.txt)"
 
           total=$(wc -l < combined.txt)
           total_403=$(wc -l < live_hosts_403.txt)
