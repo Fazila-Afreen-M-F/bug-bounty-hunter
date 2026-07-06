@@ -162,6 +162,8 @@ accounts.reddit.com
 accounts.shopify.com
 accountshomolog.acesso.io
 acemaint.com
+aces.northropgrumman.com
+acesprogram.northropgrumman.com
 acetheclass.com
 acetheclass.net
 acetheclass.org
@@ -263,6 +265,8 @@ alecto.com
 alecto.net
 alecto.us
 alert.logitech.com
+alertus-east.northropgrumman.com
+alertus-west.northropgrumman.com
 alex-as.com
 alexamerican.com
 alexanderst.com
@@ -350,6 +354,7 @@ apcgateway.marriott.com
 apgrada.ca
 api*.hubapi.com
 api*.hubspot.com
+api-app.telenor.se
 api-cip-sgw-dc01-vip.it.hpe.com
 api-cip-sgw-dc01.it.hpe.com
 api-cip-sgw.ext.hpe.com
@@ -380,6 +385,7 @@ api-gw-ext-pro.support.hpe.com
 api-gw-ext-pro.wip.it.hpe.com
 api-gw-ext.support.hpe.com
 api-gw.support.hpe.com
+api-js.datadome.co
 api-mtls-itg-vip.it.hpe.com
 api-mtls-itg.it.hpe.com
 api-openbanking.starlingbank.com
@@ -534,6 +540,7 @@ api.truelayer[-sandbox].com
 api.tumblr.com
 api.ua.com
 api.vault.chiatest.net
+api.vimla.se
 api.watsons.co.id
 api.watsons.co.th
 api.watsons.com.hk
@@ -559,6 +566,7 @@ apigw.prod.quintoandar.com.br
 apigwc.marriott.com
 apim-mtls-itg.it.hpe.com
 apiqa.ciam-na.daimlertruck.com
+apis.telenor.se
 apix.vodafone.om
 aplica.oportun.com
 apollo.oportun.com
@@ -730,6 +738,7 @@ aussiecreditscore.com.au
 australianbusinessresearch.com.au
 auth-apc.marriott.com
 auth-www.cbre.co.nz
+auth-ywh.it.authentification.si.gouv.qc.ca
 auth.blablacar.be
 auth.blablacar.co.uk
 auth.blablacar.com
@@ -997,6 +1006,10 @@ boredapeyachtclub.com
 borrowerportal.qa.cbre.com
 borrowerservices.qa.cbre.com
 bose.xx
+bounty-fastly.datashield.co
+bounty-nginx.datashield.co
+bounty-nodejs.datashield.co
+bounty.cryptobox.com
 boxer.ca.essd.northgrum.com
 boyd.ca.essd.northgrum.com
 bpa2.marriott.com
@@ -1040,6 +1053,7 @@ bykea.com
 bykea.net
 c-hunteruat.cbre.eu
 c2153s625.emea.cbre.net
+c2fsefp.ms.northropgrumman.com
 c3.fleetboard.com
 c4ionline.northgrum.com
 c88075b5-f05f-47a3-85d0-336f8d02cfb0.ops.reverse.svc.fleetboard.com
@@ -1066,6 +1080,7 @@ campaignmanagement.com.au
 campaigns-qa.dtbsa.co.za
 campaigns.dtbsa.co.za
 capncrunch.com
+captcha-delivery.com
 captureexec.amewas.com
 cardalert.co.nz
 cardalert.com.au
@@ -1502,6 +1517,7 @@ curts.ca.essd.northgrum.com
 cvtheque-dev.cbre.fr
 cvtheque-tst.cbre.fr
 cvtheque.cbre.fr
+cyber.gouv.qc.ca
 cyrus-security.com
 cz-qa.nonprod.cbre.com
 da-direkt.de
@@ -2126,6 +2142,7 @@ folder.kruidvat.nl
 folder.trekpleister.nl
 foremost.com
 foremoststar.com
+foretagsportalen.telenor.se
 fortress.com.hk
 forums.malwarebytes.com
 foto.kruidvat.be
@@ -2382,6 +2399,7 @@ home.privy.io
 homes-and-villas.marriott.com
 horwitzandcompany.com
 hosted.weblate.org
+hosting.ownit.nu
 hostportal.cbre.com
 hotcopy.cbre.com
 hotel-deals.marriott.com
@@ -3214,6 +3232,7 @@ jovemdefuturo.org.br
 joy-pepsico.eu
 joyapp.mx
 joypepsico.com
+js.datadome.co
 js.stripe.com
 jstars.northgrum.com
 juicer.lime.bike
@@ -3601,6 +3620,8 @@ miroyalcanin.cl
 miroyalcanin.com.ar
 mirusonline.co.nz
 missvickies.com
+mitt.vimla.se
+mittforetag.telenor.se
 mivetshop.com.ar
 mjrtheatres.com
 mlb-vpn-1.l3harris.com
@@ -4015,6 +4036,7 @@ plataformaurinary.com
 platform.infiniteathlete.ai
 play.google.com
 play.immutable.com
+play.ownit.se
 plusreportapi.cbre.eu
 pm-cf.*.aws.indriverapp.com
 pm-gw-cf.*.aws.indriverapp.com
@@ -4094,6 +4116,7 @@ prod.omnipodapps.com
 prod.omnipodcloud.com
 prodscpq.vip.it.hpe.com
 profile-api.eu-east-1.indriverapp.com
+profile.telenor.se
 profiler.firefox.com
 projectbaseline.com
 promo.tw.coupang.com
@@ -4462,6 +4485,7 @@ signalpath.com
 signature-insights.api.cx.metamask.io
 signfs-qa.dtbsa.co.za
 signfs.dtbsa.co.za
+signin.telenor.se
 signin.truelayer.com
 siilo.com
 simnetonline.com
@@ -4610,6 +4634,7 @@ store.usps.com
 stp.wien.gv.at
 strapi.reddit.com
 stream.launchdarkly.com
+stream.telenor.se
 streaming-api.iris.acceptance.forescoutcloud.net
 streaming-api.iris.production.forescoutcloud.net
 streaming-gw.iris.production.forescoutcloud.net
@@ -4838,6 +4863,7 @@ tucowsdomains.com
 tumblr.com
 tumoto.com
 turbotax.com
+tv.telenor.se
 tvg.com
 tw.coupang.com
 tw.coupangcorp.com
@@ -4847,6 +4873,8 @@ txm-cf.*.aws.indriverapp.com
 tyo-masters.co.jp
 uae.voxcinemas.com
 uag-east.myngc.com
+uag-plte-east.myngc.com
+uag-west.myngc.com
 uat-landx.cbre.co.uk
 uat-malware-scanner-harbour-api.cbreapps.com
 uat-workplace.cbre.fr
@@ -4942,6 +4970,7 @@ uscdctfs19.us.cbre.net
 uscdcvfi01.clarion.cbre.net
 uscdcvfi02.clarion.cbre.net
 usdstandard.com
+usempportal.cc2.myngc.com
 usend.com
 usendbrazil.com
 user-authentication-api.truelayer[-sandbox].com
@@ -5031,6 +5060,8 @@ vinted.com
 vinted.fr
 vinted.net
 vintedgo.com
+virtual-dev.myngc.com
+vis-is.myngc.com
 vliegwinkel.nl
 vm-gw-cf.*.aws.indriverapp.com
 vm.co.mz
@@ -5131,6 +5162,7 @@ webmail.cbre.com.pe
 webmail.cbre.com.sg
 webmail.cbreesi.com
 webmail.optusnet.com.au
+webmail.ownit.nu
 webofscience-authorconnect.com
 webofscience.app
 webofscience.asia
@@ -5267,6 +5299,15 @@ wobo.cbresi.com
 wordpress.com
 workplace-innovation.com
 workplace-innovation.net
+workspace-c.nsgslb.myngc.com
+workspace-dev.myngc.com
+workspace-dr.myngc.com
+workspace-plte.nsgslbt.myngc.com
+workspace.amer.myngc.com
+workspace.gc1.nsgslb.myngc.com
+workspace.myngc.com
+workspace2.gc1.myngc.com
+workspace2.myngc.com
 worldfirst.com
 wpscan.com
 ws-support-itg.wip.it.hpe.com
@@ -5509,6 +5550,7 @@ www.myhcmadgwy.cbre.com
 www.myhcmmauatext.cbre.com
 www.myhcmspgwy.cbre.com
 www.myhremployeefeedback-qa.cbre.com
+www.myngc.com
 www.myocs.cbre.com
 www.mypc.cbre.com
 www.myporib.cbre.com
@@ -5780,6 +5822,7 @@ zendesk.com
 zona-i-uat.itau.co
 zona-i.itau.co
 zooplus.net
+ztna.myngc.com
 zurich-connect.at
 zurich.at
 zurich.co.ae
