@@ -262,14 +262,16 @@ def main():
         matches = find_match(programs, keyword)
 
         if len(matches) == 0:
-            print(f"[NO MATCH]  {platform}/{keyword} -> 0 programs found for {len(domains)} domain(s)")
+            print(f"[NO MATCH]  {platform}/{keyword} -> 0 programs found for {len(domains)} domain(s) - EXCLUDING (program may be removed/renamed, needs manual review)")
             no_match.append((platform, keyword, domains))
+            excluded_domains.extend(domains)
             continue
 
         if len(matches) > 1:
             names = [m["name"] for m in matches]
-            print(f"[AMBIGUOUS] {platform}/{keyword} -> {len(matches)} programs matched: {names}")
+            print(f"[AMBIGUOUS] {platform}/{keyword} -> {len(matches)} programs matched: {names} - EXCLUDING (needs manual review)")
             ambiguous.append((platform, keyword, matches, domains))
+            excluded_domains.extend(domains)
             continue
 
         m = matches[0]
