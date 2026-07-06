@@ -338,6 +338,10 @@ def vet_bugcrowd_program(program, results):
     if banned:
         results["excluded"].append((slug, f"automation ban: {snippet[:80]}"))
         return
+    rate = check_rate_limit(text)
+    if rate is not None and rate < MIN_RATE_LIMIT:
+        results["excluded"].append((slug, f"rate limit too strict: {rate}/s"))
+        return
     domains = []
     for grp in full.get("data", {}).get("scope", []):
         if not grp.get("inScope"):
