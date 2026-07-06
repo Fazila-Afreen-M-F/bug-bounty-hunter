@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import csv, json, urllib.request, urllib.error, re, os, sys, base64
+from discover_all_programs import extract_ywh_domains
 
 HOME = os.path.expanduser("~")
 MAPPING_PATH = os.environ.get("MAPPING_CSV_PATH") or os.path.join(HOME, "bug-bounty-hunter", "domain_program_map.csv")
@@ -58,36 +59,6 @@ def fetch_intigriti_programs(token):
 
 import itertools
 
-def extract_ywh_domains(scope_entries):
-    domains = []
-    skip_hosts = ("apps.apple.com", "play.google.com", "itunes.apple.com")
-    for entry in scope_entries:
-        s = entry.get("scope", "")
-        if not s:
-            continue
-        # strip protocol
-        s2 = re.sub(r'^https?://', '', s)
-        # skip app store / play store links
-        if any(h in s2 for h in skip_hosts):
-            continue
-        # skip pure prose (no dot, or starts with a capital word + space, no domain-like token)
-        if not re.search(r'[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}', s2):
-            continue
-        # strip path/query after domain
-        s2 = re.split(r'[/?]', s2)[0]
-        # strip trailing junk like ") (see ...)" already handled by split below
-        # find group syntax: prefix(a|b|c)suffix
-        m = re.match(r'^([a-zA-Z0-9_\-\.\*]+)\(([a-zA-Z0-9\-\.\|]+)\)([a-zA-Z0-9_\-\.]*)$', s2)
-        if m:
-            prefix, group, suffix = m.groups()
-            for opt in group.split('|'):
-                domains.append(f"{prefix}{opt}{suffix}")
-            continue
-        # plain wildcard or domain (strip any leftover parens/junk)
-        s3 = re.sub(r'[()"].*$', '', s2).strip()
-        if re.match(r'^[a-zA-Z0-9\*][a-zA-Z0-9\-\.\*]*\.[a-zA-Z]{2,}$', s3):
-            domains.append(s3)
-    return sorted(set(domains))
 
 def fetch_intigriti_scope(program_id, token):
     url = f"https://api.intigriti.com/external/researcher/v1/programs/{program_id}"
