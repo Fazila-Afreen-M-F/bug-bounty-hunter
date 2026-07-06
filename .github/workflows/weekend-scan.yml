@@ -1,7 +1,7 @@
 name: Weekend Scan
 on:
   workflow_run:
-    workflows: ["Weekday Scan"]
+    workflows: ["Weekend Recon"]
     types: [completed]
   workflow_dispatch:
 
