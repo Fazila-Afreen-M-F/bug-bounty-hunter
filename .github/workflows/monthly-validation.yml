@@ -1,6 +1,6 @@
 name: Monthly Validation
 # ─────────────────────────────────────────────────────────────────────────────
-# SCHEDULE: 1st Saturday of every month, 02:00 IST (Friday 20:30 UTC)
+# SCHEDULE: 1st Saturday of every month, 00:30 IST (Friday 19:00 UTC)
 # Runs discover_all_programs.py — full discovery + ban-detection (regex + Groq)
 # across HackerOne, Intigriti, Bugcrowd, YesWeHack. Updates per-platform scope
 # files and domain_program_map.csv, then commits results to main.
@@ -10,7 +10,7 @@ name: Monthly Validation
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 20 * * 5'   # every Friday 20:30 UTC = Saturday 02:00 IST; gate checks 1st Saturday
+    - cron: '0 19 * * 5'   # every Friday 19:00 UTC = Saturday 00:30 IST; gate checks 1st Saturday
 
 jobs:
   validate:
