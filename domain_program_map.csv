@@ -1,3 +1,4 @@
+domain,platform,keyword
 *-asia-south1.truecaller.com,hackerone,truecaller
 *-eu.truecaller.com,hackerone,truecaller
 *-noneu.truecaller.com,hackerone,truecaller
@@ -2077,7 +2078,6 @@ docs.tempus-ex.com,bugcrowd,tempusex-public-mbb-og
 docuflow.stg.inspectorio.com,hackerone,inspectorio
 docusign-qa12.progressfinservices.com,hackerone,oportun_vdp
 docusign-qa13.progressfinservices.com,hackerone,oportun_vdp
-domain,platform,keyword
 donotcontact.com.au,hackerone,equifax
 doppler.team,hackerone,doppler
 dorado.ca.essd.northgrum.com,hackerone,dib-vdp
