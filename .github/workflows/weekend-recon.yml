@@ -167,7 +167,7 @@ jobs:
           > subs_passive.txt
           while IFS= read -r domain; do
             echo "Subfinder: $domain"
-            timeout 90 subfinder -d "$domain" \
+            timeout -k 10 90 subfinder -d "$domain" \
               -silent \
               -timeout 30 \
               -t 5 \
@@ -192,7 +192,7 @@ jobs:
           > subs_active.txt
           while IFS= read -r domain; do
             echo "Bruteforcing: $domain"
-            timeout 120 dnsx -d "$domain" \
+            timeout -k 10 120 dnsx -d "$domain" \
               -w wordlist.txt \
               -silent \
               -resp-only \
