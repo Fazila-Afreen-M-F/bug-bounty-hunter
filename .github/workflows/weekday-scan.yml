@@ -1,4 +1,4 @@
-name: Daily Scan
+name: Weekday Scan
 on:
   schedule:
     - cron: '30 18 * * *'   # 12:00am IST every day (UTC 18:30)

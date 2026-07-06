@@ -1,4 +1,4 @@
-name: Weekly Recon Pipeline
+name: Weekend Recon
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SCHEDULE: Every Saturday 6:00am IST (Friday 00:30 UTC)
@@ -17,7 +17,7 @@ on:
 jobs:
   prepare:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 60
     env:
       HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
       INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
@@ -43,7 +43,7 @@ jobs:
           export INTIGRITI_SCOPE_OUTPUT_PATH="intigriti_scope.txt"
           export YESWEHACK_SCOPE_OUTPUT_PATH="yeswehack_scope.txt"
           export BUGCROWD_SCOPE_OUTPUT_PATH="bugcrowd_scope.txt"
-          python3 checker/check_program_status.py || echo "WARNING: status check failed, proceeding without filter"
+          python3 checker/check_program_status.py
           touch excluded_domains.txt hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt
       - name: Merge fresh scope into domains.txt
         run: |
@@ -303,29 +303,29 @@ jobs:
               echo "$bad_patterns"
             fi
 
-            > in_grep.txt
-            while IFS= read -r pattern; do
-              if [[ "$pattern" == \*.* ]]; then
-                domain="${pattern:2}"
-                escaped=$(echo "$domain" | sed 's/\./\\./g')
-                echo "\\.${escaped}$|^${escaped}$" >> in_grep.txt
-              else
-                escaped=$(echo "$pattern" | sed 's/\./\\./g')
-                echo "^${escaped}$" >> in_grep.txt
-              fi
-            done < scope_in.txt
+            awk '{
+              if (substr($0,1,2)=="*.") {
+                domain=substr($0,3)
+                gsub(/\./,"\\.",domain)
+                print "\\." domain "$|^" domain "$"
+              } else {
+                escaped=$0
+                gsub(/\./,"\\.",escaped)
+                print "^" escaped "$"
+              }
+            }' scope_in.txt > in_grep.txt
 
-            > out_grep.txt
-            while IFS= read -r pattern; do
-              if [[ "$pattern" == \*.* ]]; then
-                domain="${pattern:2}"
-                escaped=$(echo "$domain" | sed 's/\./\\./g')
-                echo "\\.${escaped}$|^${escaped}$" >> out_grep.txt
-              else
-                escaped=$(echo "$pattern" | sed 's/\./\\./g')
-                echo "^${escaped}$" >> out_grep.txt
-              fi
-            done < scope_out.txt
+            awk '{
+              if (substr($0,1,2)=="*.") {
+                domain=substr($0,3)
+                gsub(/\./,"\\.",domain)
+                print "\\." domain "$|^" domain "$"
+              } else {
+                escaped=$0
+                gsub(/\./,"\\.",escaped)
+                print "^" escaped "$"
+              }
+            }' scope_out.txt > out_grep.txt
 
             grep -Ef in_grep.txt all_subdomains_raw.txt > all_subdomains_inscope.txt || true
             echo "After IN filter: $(wc -l < all_subdomains_inscope.txt)"

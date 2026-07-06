@@ -39,3 +39,4 @@ bugcrowd_skips.txt
 daily_prepare2.txt
 weekly_prepare2.txt
 ywh_exclusions_full.txt
+*.bak.*

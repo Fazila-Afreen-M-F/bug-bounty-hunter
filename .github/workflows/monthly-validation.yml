@@ -1,4 +1,4 @@
-name: Monthly Program Validation
+name: Monthly Validation
 # ─────────────────────────────────────────────────────────────────────────────
 # SCHEDULE: 1st of every month, 02:00 IST (previous day 20:30 UTC)
 # Runs discover_all_programs.py — full discovery + ban-detection (regex + Groq)
