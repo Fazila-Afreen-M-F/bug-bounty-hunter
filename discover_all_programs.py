@@ -281,7 +281,9 @@ def vet_yeswehack_program(program, results):
     results["included"].append({
         "slug": slug,
         "bounty": program.get("bounty"),
-        "safe_harbor": bool(re.search(r"safe.?harbor", rules, re.I)),
+        "safe_harbor": bool(re.search(r"safe.?harbor", rules, re.I)) and not re.search(
+            r"no\s+safe.?harbor|safe.?harbor\s+is\s+not|not\s+provid\w*\s+.{0,20}safe.?harbor|without\s+safe.?harbor",
+            rules, re.I),
         "domains": domains,
     })
 
