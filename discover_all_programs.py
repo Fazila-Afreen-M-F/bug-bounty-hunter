@@ -20,6 +20,7 @@ import socket
 import time
 import urllib.error
 import urllib.request
+import tldextract
 
 HOME = os.path.expanduser("~")
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
@@ -27,6 +28,7 @@ OUTPUT_DIR = os.environ.get("OUTPUT_DIR") or os.path.join(HOME, "bug-bounty-hunt
 MAPPING_PATH = os.environ.get("MAPPING_CSV_PATH") or os.path.join(HOME, "bug-bounty-hunter", "domain_program_map.csv")
 
 MIN_RATE_LIMIT = 5
+DOMAINS_TXT_PATH = os.environ.get("DOMAINS_TXT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "domains.txt")
 
 FETCH_EXCEPTIONS = (
     urllib.error.HTTPError,
@@ -475,6 +477,61 @@ def update_domain_program_map(h1_results, int_results, ywh_results, bc_results, 
     log(f"[CSV] domain_program_map.csv: rebuilt {len(fresh_rows)} rows for "
         f"{sorted(ran_platforms)}, kept {len(kept_rows)} rows untouched for skipped platforms")
 
+def extract_root_domain(asset):
+    """Extract the registrable root domain from a scope asset (URL, wildcard,
+    or bare host). Returns None if it can't be parsed as a domain."""
+    asset = asset.strip()
+    if not asset:
+        return None
+    asset = asset.lstrip("*.").replace("https://", "").replace("http://", "")
+    asset = asset.split("/")[0].split(":")[0]
+    ext = tldextract.extract(asset)
+    if not ext.domain or not ext.suffix:
+        return None
+    return f"{ext.domain}.{ext.suffix}"
+
+
+def update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_platforms):
+    """Collect root domains from all newly-included programs (across platforms
+    that actually ran) and append any genuinely new ones to domains.txt.
+    Never removes existing entries - additive only."""
+    platform_sources = [
+        ("hackerone", h1_results),
+        ("intigriti", int_results),
+        ("yeswehack", ywh_results),
+        ("bugcrowd", bc_results),
+    ]
+    discovered_roots = set()
+    for platform_name, results in platform_sources:
+        if platform_name not in ran_platforms:
+            continue
+        for entry in results.get("included", []):
+            for asset in entry.get("domains", []):
+                root = extract_root_domain(asset)
+                if root:
+                    discovered_roots.add(root)
+
+    existing = set()
+    if os.path.exists(DOMAINS_TXT_PATH):
+        with open(DOMAINS_TXT_PATH) as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#"):
+                    existing.add(line)
+
+    new_roots = sorted(discovered_roots - existing)
+    if not new_roots:
+        log("[DOMAINS.TXT] No new root domains discovered this run")
+        return []
+
+    with open(DOMAINS_TXT_PATH, "a") as f:
+        for d in new_roots:
+            f.write(f"{d}\n")
+    log(f"[DOMAINS.TXT] Added {len(new_roots)} new root domain(s): {new_roots[:10]}"
+        f"{'...' if len(new_roots) > 10 else ''}")
+    return new_roots
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--platform", choices=["hackerone", "intigriti", "yeswehack", "bugcrowd"], default=None,
@@ -535,6 +592,7 @@ def main():
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "bugcrowd_scope.txt"), bc_results["included"])
         log(f"[Bugcrowd] merge result: {r}")
     update_domain_program_map(h1_results, int_results, ywh_results, bc_results, ran_platforms)
+    update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_platforms)
 
     save_groq_cache(_GROQ_CACHE)
     log(f"[GROQ CACHE] saved {len(_GROQ_CACHE)} cached decisions to {GROQ_CACHE_PATH}")

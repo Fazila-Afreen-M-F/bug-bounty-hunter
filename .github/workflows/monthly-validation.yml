@@ -42,8 +42,23 @@ jobs:
           ref: main
           fetch-depth: 1
 
+      - name: Checkout domains branch
+        if: steps.gate.outputs.run == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: domains
+          path: domains-branch
+          fetch-depth: 1
+
+      - name: Install tldextract
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          pip install tldextract --break-system-packages
+
       - name: Run monthly program validation
         if: steps.gate.outputs.run == 'true'
+        env:
+          DOMAINS_TXT_PATH: ${{ github.workspace }}/domains-branch/domains.txt
         run: |
           python3 discover_all_programs.py
 
@@ -58,6 +73,16 @@ jobs:
             2>/dev/null || true
           git diff --staged --quiet || git commit -m "Monthly program validation $(date +'%Y-%m-%d')"
           git push origin main || (git pull --rebase origin main && git push origin main) || echo "::warning::Push failed - main may be stale"
+
+      - name: Commit updated domains.txt to domains branch
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          cd domains-branch
+          git config --global user.email "bugbountybot@github.com"
+          git config --global user.name "BugBountyBot"
+          git add domains.txt
+          git diff --staged --quiet || git commit -m "Monthly validation: add new root domain(s) $(date +'%Y-%m-%d')"
+          git push origin domains || (git pull --rebase origin domains && git push origin domains) || echo "::warning::Push failed - domains branch may be stale"
 
       - name: Upload validation logs
         if: steps.gate.outputs.run == 'true'
