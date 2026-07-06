@@ -48,24 +48,6 @@ jobs:
           export BUGCROWD_SCOPE_OUTPUT_PATH="bugcrowd_scope.txt"
           python3 checker/check_program_status.py
           touch excluded_domains.txt hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt
-      - name: Merge fresh scope into domains.txt
-        run: |
-          git config --global user.email "bugbountybot@github.com"
-          git config --global user.name "BugBountyBot"
-          cat hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt 2>/dev/null | \
-            sed 's/^IN://' | sed 's/^\*\.//' | grep -v '^$' | sort -u > fresh_scope_domains.txt
-          new_domains=$(comm -23 fresh_scope_domains.txt <(sort -u domains.txt) || true)
-          if [ -n "$new_domains" ]; then
-            echo "$new_domains" >> domains.txt
-            sort -u domains.txt -o domains.txt
-            count=$(echo "$new_domains" | grep -c .)
-            git add domains.txt
-            git diff --staged --quiet || git commit -m "Auto-add $count new in-scope domain(s) from weekly vetting $(date +'%Y-%m-%d')"
-            git push origin domains || (git pull --rebase origin domains && git push origin domains) || echo "::warning::Push failed - domains.txt may be stale"
-            echo "Added $count new domain(s) to domains.txt"
-          else
-            echo "No new domains found this week"
-          fi
       - name: Upload vetting results
         uses: actions/upload-artifact@v4
         with:
