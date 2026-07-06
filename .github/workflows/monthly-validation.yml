@@ -1,6 +1,6 @@
 name: Monthly Validation
 # ─────────────────────────────────────────────────────────────────────────────
-# SCHEDULE: 1st of every month, 02:00 IST (previous day 20:30 UTC)
+# SCHEDULE: 1st Saturday of every month, 02:00 IST (Friday 20:30 UTC)
 # Runs discover_all_programs.py — full discovery + ban-detection (regex + Groq)
 # across HackerOne, Intigriti, Bugcrowd, YesWeHack. Updates per-platform scope
 # files and domain_program_map.csv, then commits results to main.
@@ -10,7 +10,7 @@ name: Monthly Validation
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 20 28-31 * *'   # fires daily in the 28-31 window; job checks for real "1st"
+    - cron: '30 20 * * 5'   # every Friday 20:30 UTC = Saturday 02:00 IST; gate checks 1st Saturday
 
 jobs:
   validate:
@@ -23,12 +23,13 @@ jobs:
       OUTPUT_DIR: ${{ github.workspace }}
       MAPPING_CSV_PATH: ${{ github.workspace }}/domain_program_map.csv
     steps:
-      - name: Check if today is the 1st (IST)
+      - name: Check if today is the 1st Saturday (IST)
         id: gate
         run: |
-          today_ist=$(TZ=Asia/Kolkata date +%d)
-          if [ "$today_ist" != "01" ] && [ "${{ github.event_name }}" == "schedule" ]; then
-            echo "Not the 1st (IST day=$today_ist) — skipping scheduled run."
+          today_ist_dow=$(TZ=Asia/Kolkata date +%u)
+          today_ist_day=$(TZ=Asia/Kolkata date +%d)
+          if { [ "$today_ist_dow" != "6" ] || [ "$today_ist_day" -gt 07 ]; } && [ "${{ github.event_name }}" == "schedule" ]; then
+            echo "Not the 1st Saturday (IST dow=$today_ist_dow day=$today_ist_day) — skipping scheduled run."
             echo "run=false" >> $GITHUB_OUTPUT
           else
             echo "run=true" >> $GITHUB_OUTPUT
