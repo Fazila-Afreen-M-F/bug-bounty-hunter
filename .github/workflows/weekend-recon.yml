@@ -38,6 +38,10 @@ jobs:
           ref: main
           path: checker
           fetch-depth: 1
+      - name: Install tldextract
+        run: |
+          pip install tldextract --break-system-packages
+
       - name: Vet programs (status + scope, all 4 platforms)
         run: |
           export MAPPING_CSV_PATH="checker/domain_program_map.csv"
