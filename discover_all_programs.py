@@ -23,7 +23,7 @@ import urllib.request
 import tldextract
 
 HOME = os.path.expanduser("~")
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+CEREBRAS_API_KEY = os.environ.get("CEREBRAS_API_KEY")
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR") or os.path.join(HOME, "bug-bounty-hunter")
 MAPPING_PATH = os.environ.get("MAPPING_CSV_PATH") or os.path.join(HOME, "bug-bounty-hunter", "domain_program_map.csv")
 
@@ -594,157 +594,37 @@ def main():
     update_domain_program_map(h1_results, int_results, ywh_results, bc_results, ran_platforms)
     update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_platforms)
 
-    save_gemini_cache(_GEMINI_CACHE)
-    log(f"[GEMINI CACHE] saved {len(_GEMINI_CACHE)} cached decisions to {GEMINI_CACHE_PATH}")
+    save_cerebras_cache(_CEREBRAS_CACHE)
+    log(f"[CEREBRAS CACHE] saved {len(_CEREBRAS_CACHE)} cached decisions to {CEREBRAS_CACHE_PATH}")
 
     log("\n=== All platforms complete ===")
 
 # ==========================================================================
-# Gemini second-layer automation-ban detection (added this session)
+# Cerebras second-layer automation-ban detection
 # ==========================================================================
 
-GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
-GEMINI_LOG_PATH = os.path.join(OUTPUT_DIR, "gemini_review_log.txt")
-GEMINI_CACHE_PATH = os.path.join(OUTPUT_DIR, "gemini_ban_cache.json")
+CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
+CEREBRAS_LOG_PATH = os.path.join(OUTPUT_DIR, "cerebras_review_log.txt")
+CEREBRAS_CACHE_PATH = os.path.join(OUTPUT_DIR, "cerebras_ban_cache.json")
 
-def load_gemini_cache():
-    if os.path.exists(GEMINI_CACHE_PATH):
+def load_cerebras_cache():
+    if os.path.exists(CEREBRAS_CACHE_PATH):
         try:
-            with open(GEMINI_CACHE_PATH) as f:
+            with open(CEREBRAS_CACHE_PATH) as f:
                 return json.load(f)
         except (json.JSONDecodeError, OSError):
             return {}
     return {}
 
-def save_gemini_cache(cache):
-    with open(GEMINI_CACHE_PATH, "w") as f:
+def save_cerebras_cache(cache):
+    with open(CEREBRAS_CACHE_PATH, "w") as f:
         json.dump(cache, f, indent=2, sort_keys=True)
 
-_GEMINI_CACHE = load_gemini_cache()
+_CEREBRAS_CACHE = load_cerebras_cache()
+
 AMBIGUOUS_SIGNAL_PATTERN = re.compile(
     r"automat\w*|scanner\w*|\bbot\b|\bscript\w*|fuzz\w*", re.I
 )
-def gemini_check_ban(snippet, program_name):
-    cache_key = hashlib.sha256(snippet.encode()).hexdigest()
-    if cache_key in _GEMINI_CACHE:
-        cached = _GEMINI_CACHE[cache_key]
-        log_gemini_call(program_name, snippet, cached["is_ban"], cached["reason"] + " [CACHED]", error=None)
-        return cached["is_ban"]
-    time.sleep(13)
-    if not GEMINI_API_KEY:
-        return None
-    prompt = (
-        "You are reviewing a single snippet from a bug bounty program's "
-        "policy text. Answer ONLY with valid JSON, no other text, in this "
-        'exact format: {"is_ban": true or false, "reason": "one short sentence"}.\n\n'
-        "Question: Does this snippet ban the ACT of using automated "
-        "scanners/tools against their systems?\n\n"
-        "THE KEY TEST - identify the subject of the restriction:\n"
-        "- If the subject is YOU / THE TESTER / THE ACTION ('do not use', "
-        "'avoid scanning', 'don't automate testing', 'no automated attacks "
-        "against our systems') -> this restricts the ACT of scanning -> true.\n"
-        "- If the subject is the REPORT / SUBMISSION / RESULT / OUTPUT "
-        "('reports will be rejected', 'submissions from automated tools "
-        "won't be accepted', 'results without manual confirmation', "
-        "'do not submit unverified output', 'scanner-generated reports', "
-        "'must be validated manually before submission') -> this restricts "
-        "what you may SUBMIT, not what tools you may run -> false. These "
-        "are report-quality/triage rules, not scanning bans, even when the "
-        "word 'automated' or the phrase 'manually' appears.\n\n"
-        "A simple check: could you legally run the scanner and just "
-        "manually verify/write up the finding yourself before submitting? "
-        "If yes, the snippet is NOT a ban (false) - it only gates what "
-        "gets submitted, not what tooling is allowed.\n\n"
-        "Examples:\n"
-        "BAN (true): 'Do not use automated scanners against our applications.'\n"
-        "BAN (true): 'Don't brute-force or automate testing, challenges are "
-        "made for manual solving.'\n"
-        "BAN (true): 'Avoid automated scanning, DAST, fuzzing.'\n"
-        "NOT A BAN (false): 'Reports generated purely by automated tools "
-        "without manual verification will be closed.'\n"
-        "NOT A BAN (false): 'Reports from automated tools or scans without "
-        "a working Proof of Concept.'\n"
-        "NOT A BAN (false): 'All reports must be validated manually, "
-        "submission from automated tools wont be accepted.' (the ban targets "
-        "the submission, not the act of scanning)\n"
-        "NOT A BAN (false): 'Any report generated by automatic tool without "
-        "a POC.' (short form of a submission/report-quality rule, not a "
-        "tool-use ban)\n\n"
-        "Also answer false if the mention of automation is in an unrelated "
-        "context (e.g. CSRF, DoS-only sub-policies, or automated account "
-        "creation) rather than about testing/scanning tools.\n\n"
-        f"Snippet:\n{snippet}"
-    )
-    body = json.dumps({
-        "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": 0, "maxOutputTokens": 300},
-    }).encode()
-    req = urllib.request.Request(
-        f"{GEMINI_URL}?key={GEMINI_API_KEY}",
-        data=body,
-        headers={
-            "Content-Type": "application/json",
-            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Python-urllib-client",
-        },
-        method="POST",
-    )
-    last_err = None
-    for attempt in range(3):
-        try:
-            with urllib.request.urlopen(req, timeout=15) as resp:
-                data = json.loads(resp.read().decode())
-            text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
-            text = text.strip("`")
-            if text.startswith("json"):
-                text = text[4:].strip()
-            m = re.search(r'"is_ban"\s*:\s*(true|false)', text, re.IGNORECASE)
-            if not m:
-                raise ValueError(f"could not find is_ban in response: {text[:150]}")
-            is_ban = m.group(1).lower() == "true"
-            rm = re.search(r'"reason"\s*:\s*"(.*?)"\s*}', text, re.DOTALL)
-            reason = rm.group(1) if rm else text[:150]
-            log_gemini_call(program_name, snippet, is_ban, reason, error=None)
-            _GEMINI_CACHE[cache_key] = {"is_ban": is_ban, "reason": reason}
-            return is_ban
-        except urllib.error.HTTPError as e:
-            last_err = e
-            if e.code == 429:
-                try:
-                    body = e.read().decode()
-                except Exception:
-                    body = "<could not read body>"
-                retry_delay = None
-                try:
-                    err_json = json.loads(body)
-                    for detail in err_json.get("error", {}).get("details", []):
-                        if "retryDelay" in detail:
-                            retry_delay = detail["retryDelay"]
-                except Exception:
-                    pass
-                with open(os.path.join(OUTPUT_DIR, "gemini_429_debug.log"), "a") as df:
-                    df.write(f"--- {program_name} ---\n")
-                    df.write(f"retry_delay: {retry_delay}\n")
-                    df.write(f"body: {body}\n\n")
-            if e.code in (503, 429) and attempt < 2:
-                time.sleep(5 * (attempt + 1))
-                continue
-            break
-        except Exception as e:
-            last_err = e
-            break
-    log_gemini_call(program_name, snippet, None, None, error=str(last_err))
-    return None
-def log_gemini_call(program_name, snippet, is_ban, reason, error):
-    with open(GEMINI_LOG_PATH, "a") as f:
-        f.write(f"--- {program_name} ---\n")
-        f.write(f"snippet: {snippet[:200]!r}\n")
-        if error:
-            f.write(f"ERROR: {error} -> defaulted to REVIEW/SKIP\n")
-        else:
-            f.write(f"decision: {'BAN' if is_ban else 'NOT A BAN'} | reason: {reason}\n")
-        f.write("\n")
-
-
 def check_automation_ban_two_layer(text, program_name):
     banned, snippet = check_automation_ban(text)
     if not banned and text and AMBIGUOUS_SIGNAL_PATTERN.search(text):
@@ -755,11 +635,11 @@ def check_automation_ban_two_layer(text, program_name):
         banned = True
     if not banned:
         return False, None
-    result = gemini_check_ban(snippet, program_name)
+    result = cerebras_check_ban(snippet, program_name)
     if result is None:
-        return "review", f"[Groq call failed — needs manual review] {snippet[:80]}"
+        return "review", f"[Cerebras call failed — needs manual review] {snippet[:80]}"
     if result:
-        return True, f"[Groq-confirmed ban] {snippet[:80]}"
+        return True, f"[Cerebras-confirmed ban] {snippet[:80]}"
     return False, None
 
 if __name__ == "__main__":

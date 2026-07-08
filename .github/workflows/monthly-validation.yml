@@ -1,7 +1,7 @@
 name: Monthly Validation
 # ─────────────────────────────────────────────────────────────────────────────
 # SCHEDULE: 1st Saturday of every month, 00:30 IST (Friday 19:00 UTC)
-# Runs discover_all_programs.py — full discovery + ban-detection (regex + Groq)
+# Runs discover_all_programs.py — full discovery + ban-detection (regex + Cerebras)
 # across HackerOne, Intigriti, Bugcrowd, YesWeHack. Updates per-platform scope
 # files and domain_program_map.csv, then commits results to main.
 #
@@ -19,7 +19,7 @@ jobs:
     env:
       HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
       INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
       OUTPUT_DIR: ${{ github.workspace }}
       MAPPING_CSV_PATH: ${{ github.workspace }}/domain_program_map.csv
     steps:
@@ -69,7 +69,7 @@ jobs:
           git config --global user.name "BugBountyBot"
           git add domain_program_map.csv \
             hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt \
-            gemini_ban_cache.json \
+            cerebras_ban_cache.json \
             2>/dev/null || true
           git diff --staged --quiet || git commit -m "Monthly program validation $(date +'%Y-%m-%d')"
           git push origin main || (git pull --rebase origin main && git push origin main) || echo "::warning::Push failed - main may be stale"
@@ -90,6 +90,6 @@ jobs:
         with:
           name: monthly-validation-logs
           path: |
-            gemini_review_log.txt
-            gemini_429_debug.log
+            cerebras_review_log.txt
+            cerebras_429_debug.log
           retention-days: 30
