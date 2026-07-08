@@ -202,7 +202,7 @@ def vet_intigriti_program(program, token, results):
         if endpoint:
             domains.append(endpoint)
     results["included"].append({
-        "handle": program.get("handle"),
+        "handle": pid,
         "safe_harbor": roe.get("safeHarbour"),
         "rate_limit": rate,
         "domains": domains,
