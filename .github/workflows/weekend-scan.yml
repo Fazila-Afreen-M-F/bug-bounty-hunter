@@ -18,6 +18,7 @@ jobs:
     outputs:
       batches: ${{ steps.split.outputs.batches }}
       has_hosts: ${{ steps.split.outputs.has_hosts }}
+      num_batches: ${{ steps.split.outputs.num_batches }}
     steps:
       - name: Checkout domains branch
         uses: actions/checkout@v4
@@ -91,6 +92,7 @@ jobs:
           if [ "$num_batches" -gt 256 ]; then num_batches=256; fi
           if [ "$num_batches" -lt 1 ]; then num_batches=1; fi
           echo "Batches: $num_batches (~$(( (total + num_batches - 1) / num_batches )) hosts each)"
+          echo "num_batches=$num_batches" >> $GITHUB_OUTPUT
 
           WEEK_TAG=$(date +'%Y-%U')
           touch weekly_progress.txt
@@ -141,7 +143,7 @@ jobs:
       - name: Slice hosts for this batch
         run: |
           total=$(wc -l < combined.txt)
-          num_batches=${{ strategy.job-total }}
+          num_batches=${{ needs.prepare.outputs.num_batches }}
           batch_num=${{ matrix.batch }}
           batch_size=$(( (total + num_batches - 1) / num_batches ))
           start=$(( (batch_num - 1) * batch_size + 1 ))
