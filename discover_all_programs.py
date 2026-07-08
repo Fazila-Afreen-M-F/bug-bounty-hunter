@@ -23,7 +23,7 @@ import urllib.request
 import tldextract
 
 HOME = os.path.expanduser("~")
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR") or os.path.join(HOME, "bug-bounty-hunter")
 MAPPING_PATH = os.environ.get("MAPPING_CSV_PATH") or os.path.join(HOME, "bug-bounty-hunter", "domain_program_map.csv")
 
@@ -594,8 +594,8 @@ def main():
     update_domain_program_map(h1_results, int_results, ywh_results, bc_results, ran_platforms)
     update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_platforms)
 
-    save_groq_cache(_GROQ_CACHE)
-    log(f"[GROQ CACHE] saved {len(_GROQ_CACHE)} cached decisions to {GROQ_CACHE_PATH}")
+    save_gemini_cache(_GEMINI_CACHE)
+    log(f"[GEMINI CACHE] saved {len(_GEMINI_CACHE)} cached decisions to {GEMINI_CACHE_PATH}")
 
     log("\n=== All platforms complete ===")
 
@@ -603,36 +603,35 @@ def main():
 # Gemini second-layer automation-ban detection (added this session)
 # ==========================================================================
 
-GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "llama-3.1-8b-instant"
-GROQ_LOG_PATH = os.path.join(OUTPUT_DIR, "groq_review_log.txt")
-GROQ_CACHE_PATH = os.path.join(OUTPUT_DIR, "groq_ban_cache.json")
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+GEMINI_LOG_PATH = os.path.join(OUTPUT_DIR, "gemini_review_log.txt")
+GEMINI_CACHE_PATH = os.path.join(OUTPUT_DIR, "gemini_ban_cache.json")
 
-def load_groq_cache():
-    if os.path.exists(GROQ_CACHE_PATH):
+def load_gemini_cache():
+    if os.path.exists(GEMINI_CACHE_PATH):
         try:
-            with open(GROQ_CACHE_PATH) as f:
+            with open(GEMINI_CACHE_PATH) as f:
                 return json.load(f)
         except (json.JSONDecodeError, OSError):
             return {}
     return {}
 
-def save_groq_cache(cache):
-    with open(GROQ_CACHE_PATH, "w") as f:
+def save_gemini_cache(cache):
+    with open(GEMINI_CACHE_PATH, "w") as f:
         json.dump(cache, f, indent=2, sort_keys=True)
 
-_GROQ_CACHE = load_groq_cache()
+_GEMINI_CACHE = load_gemini_cache()
 AMBIGUOUS_SIGNAL_PATTERN = re.compile(
     r"automat\w*|scanner\w*|\bbot\b|\bscript\w*|fuzz\w*", re.I
 )
-def groq_check_ban(snippet, program_name):
+def gemini_check_ban(snippet, program_name):
     cache_key = hashlib.sha256(snippet.encode()).hexdigest()
-    if cache_key in _GROQ_CACHE:
-        cached = _GROQ_CACHE[cache_key]
-        log_groq_call(program_name, snippet, cached["is_ban"], cached["reason"] + " [CACHED]", error=None)
+    if cache_key in _GEMINI_CACHE:
+        cached = _GEMINI_CACHE[cache_key]
+        log_gemini_call(program_name, snippet, cached["is_ban"], cached["reason"] + " [CACHED]", error=None)
         return cached["is_ban"]
     time.sleep(13)
-    if not GROQ_API_KEY:
+    if not GEMINI_API_KEY:
         return None
     prompt = (
         "You are reviewing a single snippet from a bug bounty program's "
@@ -677,17 +676,14 @@ def groq_check_ban(snippet, program_name):
         f"Snippet:\n{snippet}"
     )
     body = json.dumps({
-        "model": GROQ_MODEL,
-        "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0,
-        "max_tokens": 300,
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {"temperature": 0, "maxOutputTokens": 300},
     }).encode()
     req = urllib.request.Request(
-        GROQ_URL,
+        f"{GEMINI_URL}?key={GEMINI_API_KEY}",
         data=body,
         headers={
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {GROQ_API_KEY}",
             "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Python-urllib-client",
         },
         method="POST",
@@ -696,11 +692,8 @@ def groq_check_ban(snippet, program_name):
     for attempt in range(3):
         try:
             with urllib.request.urlopen(req, timeout=15) as resp:
-                remaining_tokens = resp.headers.get("x-ratelimit-remaining-tokens", "?")
                 data = json.loads(resp.read().decode())
-            with open(os.path.join(OUTPUT_DIR, "groq_token_usage.log"), "a") as tf:
-                tf.write(f"{program_name}: remaining_tokens={remaining_tokens}\n")
-            text = data["choices"][0]["message"]["content"].strip()
+            text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
             text = text.strip("`")
             if text.startswith("json"):
                 text = text[4:].strip()
@@ -710,8 +703,8 @@ def groq_check_ban(snippet, program_name):
             is_ban = m.group(1).lower() == "true"
             rm = re.search(r'"reason"\s*:\s*"(.*?)"\s*}', text, re.DOTALL)
             reason = rm.group(1) if rm else text[:150]
-            log_groq_call(program_name, snippet, is_ban, reason, error=None)
-            _GROQ_CACHE[cache_key] = {"is_ban": is_ban, "reason": reason}
+            log_gemini_call(program_name, snippet, is_ban, reason, error=None)
+            _GEMINI_CACHE[cache_key] = {"is_ban": is_ban, "reason": reason}
             return is_ban
         except urllib.error.HTTPError as e:
             last_err = e
@@ -720,12 +713,17 @@ def groq_check_ban(snippet, program_name):
                     body = e.read().decode()
                 except Exception:
                     body = "<could not read body>"
-                headers_str = " ".join(f"{h}={e.headers.get(h)}" for h in
-                    ["retry-after", "x-ratelimit-remaining-requests", "x-ratelimit-remaining-tokens",
-                     "x-ratelimit-reset-requests", "x-ratelimit-reset-tokens"] if e.headers.get(h))
-                with open(os.path.join(OUTPUT_DIR, "groq_429_debug.log"), "a") as df:
+                retry_delay = None
+                try:
+                    err_json = json.loads(body)
+                    for detail in err_json.get("error", {}).get("details", []):
+                        if "retryDelay" in detail:
+                            retry_delay = detail["retryDelay"]
+                except Exception:
+                    pass
+                with open(os.path.join(OUTPUT_DIR, "gemini_429_debug.log"), "a") as df:
                     df.write(f"--- {program_name} ---\n")
-                    df.write(f"headers: {headers_str}\n")
+                    df.write(f"retry_delay: {retry_delay}\n")
                     df.write(f"body: {body}\n\n")
             if e.code in (503, 429) and attempt < 2:
                 time.sleep(5 * (attempt + 1))
@@ -734,10 +732,10 @@ def groq_check_ban(snippet, program_name):
         except Exception as e:
             last_err = e
             break
-    log_groq_call(program_name, snippet, None, None, error=str(last_err))
+    log_gemini_call(program_name, snippet, None, None, error=str(last_err))
     return None
-def log_groq_call(program_name, snippet, is_ban, reason, error):
-    with open(GROQ_LOG_PATH, "a") as f:
+def log_gemini_call(program_name, snippet, is_ban, reason, error):
+    with open(GEMINI_LOG_PATH, "a") as f:
         f.write(f"--- {program_name} ---\n")
         f.write(f"snippet: {snippet[:200]!r}\n")
         if error:
@@ -757,7 +755,7 @@ def check_automation_ban_two_layer(text, program_name):
         banned = True
     if not banned:
         return False, None
-    result = groq_check_ban(snippet, program_name)
+    result = gemini_check_ban(snippet, program_name)
     if result is None:
         return "review", f"[Groq call failed — needs manual review] {snippet[:80]}"
     if result:

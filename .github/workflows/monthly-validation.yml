@@ -19,7 +19,7 @@ jobs:
     env:
       HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
       INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
-      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       OUTPUT_DIR: ${{ github.workspace }}
       MAPPING_CSV_PATH: ${{ github.workspace }}/domain_program_map.csv
     steps:
@@ -69,7 +69,7 @@ jobs:
           git config --global user.name "BugBountyBot"
           git add domain_program_map.csv \
             hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt \
-            groq_ban_cache.json \
+            gemini_ban_cache.json \
             2>/dev/null || true
           git diff --staged --quiet || git commit -m "Monthly program validation $(date +'%Y-%m-%d')"
           git push origin main || (git pull --rebase origin main && git push origin main) || echo "::warning::Push failed - main may be stale"
@@ -90,7 +90,6 @@ jobs:
         with:
           name: monthly-validation-logs
           path: |
-            groq_review_log.txt
-            groq_429_debug.log
-            groq_token_usage.log
+            gemini_review_log.txt
+            gemini_429_debug.log
           retention-days: 30
