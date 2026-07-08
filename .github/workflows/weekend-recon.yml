@@ -434,7 +434,7 @@ jobs:
 
   # ── FINALIZE: merge all httpx results, commit live_hosts ───────────────────
   finalize:
-    needs: httpx_parallel
+    needs: [combine_and_probe, httpx_parallel]
     if: needs.combine_and_probe.result == 'success' && needs.httpx_parallel.result != 'cancelled'
     runs-on: ubuntu-latest
     timeout-minutes: 240
