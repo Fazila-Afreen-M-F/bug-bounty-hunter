@@ -45,7 +45,7 @@ on:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 420
+    timeout-minutes: 350
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
@@ -222,7 +222,7 @@ jobs:
 
           cp input.txt katana_input.txt
 
-          timeout 5400 katana -list katana_input.txt \
+          timeout 3600 katana -list katana_input.txt \
             -silent \
             -js-crawl \
             -depth 1 \
@@ -321,7 +321,7 @@ jobs:
           echo "Templates: $T_FLAG"
           echo "Tags: $TAGS_FLAG"
 
-          timeout 18000 nuclei -l "$INPUT_FILE" \
+          timeout 16200 nuclei -l "$INPUT_FILE" \
             $T_FLAG \
             $TAGS_FLAG \
             -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \

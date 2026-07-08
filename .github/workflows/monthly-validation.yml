@@ -15,7 +15,7 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 600
+    timeout-minutes: 350
     env:
       HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
       INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
