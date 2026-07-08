@@ -1,0 +1,1350 @@
+{
+  "001c453c5026ff6ecfec8c576d69e576128fcc4a078e2001c7e6694d77af474b": {
+    "is_ban": false,
+    "reason": "snippet only defines testing requirements (e.g., automatedTooling level) without prohibiting automated scanning"
+  },
+  "00a35bb190e6a452b750e3f0e0e5cb96aa27bc846f153efe2a57d2db58fdc983": {
+    "is_ban": false,
+    "reason": "The snippet contains no restriction on automated scanning tools"
+  },
+  "00e7a3b7a30d16ffcfaf4ca5849c28905447ae4d4ba5362083d658748abea7a2": {
+    "is_ban": false,
+    "reason": "The snippet sets testing requirements for automated tooling, not a prohibition"
+  },
+  "0100aa23c3db9044dda2b50501e58a0eeef1b7a24683d9e2fc8b9cd6cf2a833a": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits using automated scanners."
+  },
+  "013c0eb5115d7bfe8b028b142b4bf854709acaeb01bb57e61f938714f8f1ac14": {
+    "is_ban": true,
+    "reason": "It explicitly forbids using automated testing tools/scanners."
+  },
+  "0176f238ee9f2d9bcef92ddccd1d6faf3551f01e430c668f64bd39169ee55f21": {
+    "is_ban": false,
+    "reason": "The snippet lists vulnerability types and eligibility rules, without restricting automated scanning"
+  },
+  "01e28f32eb993961c63b7ab6a498a6bb2fc83837b256bba812b3740732353d23": {
+    "is_ban": true,
+    "reason": "The snippet directly prohibits the use of automated scanners/tools."
+  },
+  "0259c8c6f4e0a0b8d2cac8667948f89e8c06131ecc2329449ef42bc824629dbd": {
+    "is_ban": false,
+    "reason": "The snippet bans disruptive actions, not the use of automated scanning tools"
+  },
+  "0597a102a435a33c40f5dfee3ef854fafdff6f66f1e022b2255b148c0402eeb1": {
+    "is_ban": false,
+    "reason": "Only destructive automated testing is prohibited, not all automated scanning"
+  },
+  "059ae7687151a7551529e7fa7ae7bf3132aa4265948d8b471f5d4df27f658b66": {
+    "is_ban": false,
+    "reason": "Snippet contains no mention of automated scanning or tool usage restrictions"
+  },
+  "063585a2cd9d87607f487ece6adc2ca8d1379ca333d7b6ed356bdb17513b16e6": {
+    "is_ban": false,
+    "reason": "Snippet only gives reporting instructions and mentions automatic status updates, no ban on using automated scanners"
+  },
+  "069443d36889e63e0395b9d43c70ff1abfc8cee8278c9f1c04ea61ec45b61435": {
+    "is_ban": true,
+    "reason": "The snippet bans the use of automated tools, restricting the act of scanning"
+  },
+  "06c01b4226d2af1a54815e163a7fe07b56410b9c6c30216211d7ca4331df5cab": {
+    "is_ban": true,
+    "reason": "The snippet directly prohibits using automated scanners or tools."
+  },
+  "071882da28eae2a11430b0a6df1548ed2645268627a97eea742537b11939175f": {
+    "is_ban": true,
+    "reason": "The snippet tells testers not to run automated scans, directly restricting the act of using automated tools"
+  },
+  "072033f1e621d660679edff2bcc3be9df24881d5543b5f67dc7ebb7a018dde3a": {
+    "is_ban": false,
+    "reason": "The snippet lists prohibited vulnerability types, not a ban on using automated scanners"
+  },
+  "0811d55b49fb3e0727d16d741272856c828257936d618feca76a2629003e5f0a": {
+    "is_ban": false,
+    "reason": "Snippet contains no mention of automated scanning restrictions"
+  },
+  "08434a037cf260039d0a8baf4532cb23d957d3120b2eed56efdc5c93eb909807": {
+    "is_ban": false,
+    "reason": "Only rate limits are imposed, not a prohibition"
+  },
+  "089fa793b62f5fb46d10b782b9aa9eeec59a3e42d099a7c9dc9e9b9334eb39fe": {
+    "is_ban": true,
+    "reason": "The snippet lists \\\"Running automated scanners\\\" as a prohibited activity, banning the act itself."
+  },
+  "08ef879f48ee26ea6780ddc6e28d85fa559b889dd6a0c8d3dc2194a06a6ee79d": {
+    "is_ban": false,
+    "reason": "Snippet lists out-of-scope issues and bug types, no restriction on using automated tools"
+  },
+  "090895ed218a4925af645e94ae920c1a0f642a82d82d81c8d32bf45e1c1d7e23": {
+    "is_ban": false,
+    "reason": "Snippet contains no prohibition on using automated scanners, only a null automatedTooling field"
+  },
+  "09cb6bf7e06514b9f9cb2cb432b30067648c4ff86e42d264b6a43afcfc832c3d": {
+    "is_ban": false,
+    "reason": "Only bans large-scale automated attacks, not the use of automated scanning tools"
+  },
+  "0a283ceaca673d3e994bd43c2cc55bdd6c4ca6df760fa8a462a98c24642473aa": {
+    "is_ban": false,
+    "reason": "Snippet lists prohibited vulnerabilities and contains no mention of automated scanning tools"
+  },
+  "0b4dd1066eeebf632c857920c604cce81d0b89f0d7609d09cc67db841fb5debc": {
+    "is_ban": false,
+    "reason": "Snippet contains no prohibition on using automated tools, only references testing requirements"
+  },
+  "0b638580002ed910bd07483ae6af0b53e78d9984a3373ac86b745aca43d7c757": {
+    "is_ban": true,
+    "reason": "The snippet explicitly instructs testers not to automatically scan the systems"
+  },
+  "0b968559089502c645d7c9c4fb5a054ea03e8152c9f1f0a84329367e897ec005": {
+    "is_ban": true,
+    "reason": "The snippet tells testers to refrain from using automated scanners/tools, directly banning the act."
+  },
+  "0be8c128c0c4e3b9540556e994c5e78a90a77aaff0ddee5d95f75309fd79fd45": {
+    "is_ban": false,
+    "reason": "Snippet only lists sought vulnerabilities, no mention of banning automated tools"
+  },
+  "0c157d537f23f913640a902854d17aac04e0a2b86795d296e86624c9e832a113": {
+    "is_ban": false,
+    "reason": "Snippet contains no explicit prohibition of using automated scanners, only a testing requirement field"
+  },
+  "0c2eaf3003c426ec2b5cf41ce721d02f658f845a685cbd7f4e5927147051504e": {
+    "is_ban": false,
+    "reason": "snippet does not mention any restriction on automated scanning or tool use"
+  },
+  "0d6876894942a6dbffd246fdac62de67060efd68e0e1b6f17d54320c5c56a54f": {
+    "is_ban": true,
+    "reason": "It restricts the use of automated scanners without prior approval, banning the act itself"
+  },
+  "0da57797f7329a6fec587451d4b5d7d7cfdd726d784ea24e922d5a95870e15a1": {
+    "is_ban": false,
+    "reason": "The snippet mandates a header for automated tools, not prohibiting their use"
+  },
+  "0e88d1039033d1bdd8d622786b0b687709edd1866d56c586011f5b45259cd738": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits running automated scanners against their systems"
+  },
+  "0ff288e2326db21fc050e1d72278a012dc1401518151b1df38b95ffbfb1f224a": {
+    "is_ban": true,
+    "reason": "Explicitly forbids performing automated scans on assets"
+  },
+  "108bfcdf6b0cae0e29f4a1a94a42599494c842aab35aa99f725c193ff7f9cbf8": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits automated vulnerability scans."
+  },
+  "10e4dd37bf8c57829b31bc81b894ccbe94c69a7b7dbae05366097b8527bef660": {
+    "is_ban": false,
+    "reason": "Snippet only lists focus areas, no mention of automated scanning ban"
+  },
+  "11d6711aec2d6fdfabc9e763eea23b2780742da9f4f99e109baa605c834834f1": {
+    "is_ban": false,
+    "reason": "The snippet only outlines report requirements and does not prohibit automated scanning tools"
+  },
+  "14a8d8196fa97d20b406d647f27ae9c1d5a55553d8591f1888c3e3f8263156e0": {
+    "is_ban": false,
+    "reason": "The snippet mentions unrelated topics and does not restrict automated scanning tools"
+  },
+  "150b8aabe52b4a29b58c8df92bd20be9db057b2729dc00ae09b0a933c8e59264": {
+    "is_ban": false,
+    "reason": "The snippet contains no restriction on using automated scanners or tools"
+  },
+  "156f138dc273c7c1877262b20f61fe6c9dbbadadde058394450a64aeda6dd265": {
+    "is_ban": false,
+    "reason": "The snippet only mandates identifiable testing traffic, not a prohibition on automated scanning tools"
+  },
+  "15a88055721405cfd9438c7b27ab35928f43b2a8fe4dd5f48b8b8bf3bcd40a37": {
+    "is_ban": true,
+    "reason": "Snippet bans using automation for brute-force login credentials"
+  },
+  "16b9732aa322aa7601a7994c24b6c63e5ec45c81d72f458ccfacff85e098e189": {
+    "is_ban": false,
+    "reason": "The snippet encourages inspection and fuzzing and contains no restriction on using automated tools"
+  },
+  "1733dd938df7c6d9b0f07532b5f77deffa019aea46b4cf0e104bb09bf144c19d": {
+    "is_ban": true,
+    "reason": "The rule tells testers to avoid using automated web scanners"
+  },
+  "17c14461f135836a6b2783e8c5f3c4a3f5e3018f125dd6e42b978fa9f65a86f6": {
+    "is_ban": false,
+    "reason": "The snippet invites testing and mentions a bot but does not restrict automated scanning tools"
+  },
+  "17c69516f6e9e4cd2cc1ec17380a0088f836bfe0e3885d6891b97f5beb2bbaae": {
+    "is_ban": false,
+    "reason": "Snippet contains only a list of vulnerability types and no mention of automated scanning restrictions"
+  },
+  "188ab45323f3d7ab4e0e32993e86b62b51e8c845fddaf0025c9e42f8e4ca5aa9": {
+    "is_ban": false,
+    "reason": "Snippet only restricts DDOS and high-cost attacks, allowing low\u2011scale fuzzing, no ban on automated scanning tools"
+  },
+  "18b700112d80667ae1689f9369e9adf03e04a374b034fd90a0eda38abea52082": {
+    "is_ban": false,
+    "reason": "Snippet only lists in-scope issues, no restriction on automated scanning"
+  },
+  "1aa8be35a4c676dc24beb2585a710c9f6c5dd6c7362038bc16b66777bcb7ed15": {
+    "is_ban": false,
+    "reason": "The snippet only sets report requirements, not a ban on using automated scanners"
+  },
+  "1ab6efe401079451e11295a4131b9a04825a60be32e6c58918a7c790e2e8ec0a": {
+    "is_ban": false,
+    "reason": "Snippet only discusses activity limits and bans, not a prohibition on using automated scanners"
+  },
+  "1d0e7195e278af7cad9823d284ab1c7491ceb49eb75374f318c3b301342f7a99": {
+    "is_ban": false,
+    "reason": "Snippet only lists out-of-scope issues, no restriction on automated scanning"
+  },
+  "1f49f05227763f37c364fe425ac230ed091299628b748d4127fa905c92b4cbff": {
+    "is_ban": false,
+    "reason": "The snippet restricts testing involving Amazon employees, not the use of automated scanners"
+  },
+  "1f50ca4ea94279e0e86fc3466705014b67f61bc27a4084eb35e514d7f9bd8ae9": {
+    "is_ban": false,
+    "reason": "The snippet limits automated scan reports without proof of concept, not the use of automated scanners"
+  },
+  "21150fdd4d81e73931f513e1d2b3b123da5ef2b0cffe9c2abc39a2c89f3c0fbd": {
+    "is_ban": true,
+    "reason": "Explicit prohibition on using automated scanners."
+  },
+  "22692be3fc4838e6967401fd015fb4a650baa99885967102af0847aa49e974e3": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits using automated scanners or tools"
+  },
+  "2320cab23a0a33c4fdbfa4abbb83065cd44574d4dd14941100fe792767334b7d": {
+    "is_ban": true,
+    "reason": "The snippet tells testers to avoid using automated tools, directly restricting the act of scanning"
+  },
+  "23bb49f2c7d2098657768bdf3e53b0b5684268a8d3b654788f6fa7fbcdb79116": {
+    "is_ban": false,
+    "reason": "The snippet only lists qualifying vulnerabilities and does not restrict automated scanning"
+  },
+  "24d4f2950bd338276da64b95c1f11f9849185a0ef5e37d87dfba806599916c31": {
+    "is_ban": false,
+    "reason": "Only limits report acceptance from automated scanners, not the act of scanning"
+  },
+  "2509d4c501e87361a60058a7cb4f41e60c30baf74e41dd13e6f7f4183983fd62": {
+    "is_ban": false,
+    "reason": "Only restricts submission of unverified automated reports, not the act of using automated tools"
+  },
+  "25dc21f33de89a081c0679a873325a84bcde6c3631d4137e1044bc5fc1c191c5": {
+    "is_ban": false,
+    "reason": "The snippet only lists in-scope targets and does not restrict automated scanning tools"
+  },
+  "25de6d04614cd78f2818fee09950114612d5d1794e960b3b830957ec401f56c1": {
+    "is_ban": false,
+    "reason": "The snippet only lists vulnerability types and contains no restriction on using automated tools."
+  },
+  "27994e785723156c4751c62fd0e009402ca666a29b9d981ce9be1986ef31a5c3": {
+    "is_ban": false,
+    "reason": "Snippet contains no mention of banning automated scanning tools"
+  },
+  "27fab74466de2e3a0e75f3498ea22edf28ec6ed0f7be4cb21e1798a6625e6333": {
+    "is_ban": true,
+    "reason": "Explicitly forbids using automatic scanners, restricting the act itself"
+  },
+  "299384bfcbb47531fe2ca1d62bb122e89ff4150b180b5d63563681e11641ba30": {
+    "is_ban": false,
+    "reason": "Only restricts report submission from automated scanners, not the scanning act"
+  },
+  "2a2a5ad445e9addb24e2e125ae2434b9074bba6e7fddd464777c6e181dbe1b33": {
+    "is_ban": true,
+    "reason": "The snippet tells testers to refrain from automated scanning, directly banning the act."
+  },
+  "2d015ee114c858948d12826f88b608e6109843c9d785a02565eb8222848f131b": {
+    "is_ban": false,
+    "reason": "Snippet contains no mention of scanning or automated tool usage"
+  },
+  "2db8c3b265cd4975b57d4cce513b8f32bcd1d299166700bfb1af51318ba2ff23": {
+    "is_ban": false,
+    "reason": "The snippet only requires a header for automated scanners, not prohibiting their use"
+  },
+  "2fb8a58e115a27f0a0052ab316ccd7943a073f23f7492c92c77f155fef78b3f9": {
+    "is_ban": false,
+    "reason": "The snippet only lists eligible vulnerabilities and does not restrict the use of automated scanning tools."
+  },
+  "30f65ee3d8bae1179e672088eae993a749cda08d323b630a5f365054e1af4183": {
+    "is_ban": false,
+    "reason": "Only disallows report submissions from automated scanners without analysis"
+  },
+  "31766ae133be516315ce65af4ce94db785de31243cbfe12618b34b7d693dd59c": {
+    "is_ban": false,
+    "reason": "Snippet lists out-of-scope items and does not prohibit automated scanning tools"
+  },
+  "33542e9171246e284b9726ac99064b075257b9979db1cce75b0e888d437ed3c7": {
+    "is_ban": false,
+    "reason": "Snippet only describes vulnerability categories, not a ban on automated scanning"
+  },
+  "33f4752d3ea7ec53e1b27b1b120be2d4ea47350743efbadde12ab138a47d5561": {
+    "is_ban": false,
+    "reason": "Snippet contains no explicit prohibition on using automated scanners, only a testingRequirements field"
+  },
+  "340af9b2e4091c226f35339d18474c6c2bad564fdfccb1ae1fc36dd2c6f0dc7c": {
+    "is_ban": false,
+    "reason": "The snippet sets traffic limits but does not prohibit using automated scanning tools"
+  },
+  "340f7ad143c014f4b66a7d412b98f3bf65e0d3029e45131f8c61cfc8870eb435": {
+    "is_ban": true,
+    "reason": "The snippet explicitly prohibits the use of automated tools or scripts."
+  },
+  "344cb0700600148296fe7bf180e59ac76843fd6ec7141a10be3fbae9164bcef4": {
+    "is_ban": true,
+    "reason": "The snippet explicitly bans using automated vulnerability scanners, labeling such activity out of scope."
+  },
+  "3705c9db17fd619996c268e3490af42c48a2a75e9c483f18650385c307c35157": {
+    "is_ban": false,
+    "reason": "The snippet lists scope of issues and does not restrict automated scanning tools"
+  },
+  "37c1d691e30c9245d8c7387f55a77d88ff6f87f83a2c7b0a25ddf9f941ec44c1": {
+    "is_ban": false,
+    "reason": "The snippet only restricts submission of unverified scanner output, not the act of using automated tools"
+  },
+  "38fbd779c50be3ed6adb9b7beb1392487f3d7cfa73ee25cbf2f243dda9a30b2f": {
+    "is_ban": false,
+    "reason": "Snippet sets testing requirements but does not prohibit using automated tools"
+  },
+  "3bc501fa8b8c568bebe1ca26daebdde4da6beb013933df94118ffd8345e70621": {
+    "is_ban": false,
+    "reason": "restriction targets report submission, not tool usage"
+  },
+  "3bed697bc6c1820bc46bf4b50cc08a5dac29396486e0a3bac2ae6b172974cf57": {
+    "is_ban": false,
+    "reason": "The snippet limits report submissions from automated tools, not the act of using scanners"
+  },
+  "3c8a5d928bb0e1557674cca78d436b7b91b8e0cfaff6dad716ac9820f99de64d": {
+    "is_ban": true,
+    "reason": "Explicit prohibition on using automated scanners/tools."
+  },
+  "3c9fbf6972756bed43bb8fc07a333176c73bd5de563bb17b52285c72e079cbba": {
+    "is_ban": false,
+    "reason": "Snippet only lists report exclusions, no restriction on using automated scanners"
+  },
+  "3ca6adfaff9b91b6b75158006d2a54b166f3657e0d88b1517cc4c0d33cf3fda7": {
+    "is_ban": true,
+    "reason": "The snippet explicitly prohibits using large-scale vulnerability scanners or automated tools, banning the act of scanning"
+  },
+  "3d08ca793c5184ad48d7e1f8ae95eaf6dd28eb3eef70c01f942a119343827ac4": {
+    "is_ban": true,
+    "reason": "Explicitly forbids using automated scanners/tools."
+  },
+  "3ddc3d8c3909eb949d8966286acdf8e4f73face892ff915bd2286347ae6d8dee": {
+    "is_ban": true,
+    "reason": "The snippet lists automated testing as prohibited, banning the act of running automated scans/tools."
+  },
+  "3fce57e6b439996b812087af685ebb75674937585992f29b707e40c4238606ca": {
+    "is_ban": false,
+    "reason": "The snippet restricts automated account creation, not the use of automated scanning tools."
+  },
+  "3fe3b8bf217c21edcec77b580001152bcc3c1ba527e1c67e0999b1b19032c5ca": {
+    "is_ban": false,
+    "reason": "Snippet sets a testing requirement for automated tooling, not a prohibition"
+  },
+  "3fec2ef096f090c070031585662f7de1201971b5ebca7a4f1a20ce33746e286e": {
+    "is_ban": true,
+    "reason": "The snippet directly tells testers not to use automated scanners/tools"
+  },
+  "401a1a1d83dbe6234308fbb2d0bd6233e3a6c255d44173c5e3bf8186d1c04598": {
+    "is_ban": false,
+    "reason": "The snippet sets a rate limit for automated tooling, not a prohibition on using automated scanners"
+  },
+  "40c3bc32c3ad617401588b54de55754fdd4569bb7afd4e020af97bcf037b4154": {
+    "is_ban": true,
+    "reason": "It instructs testers to avoid using vulnerability scanners, banning the act of using automated tools"
+  },
+  "42811a3d56320b37abbe5448e7c5aceec41a9448864d5c9423eab72edbae6fa8": {
+    "is_ban": false,
+    "reason": "Only restricts report submission, not tool usage"
+  },
+  "440a9fff5b99493464c26918a336d715c6297387c6ad51e5561d27b3c6f5ff4b": {
+    "is_ban": false,
+    "reason": "The snippet only discusses email alias creation, not scanning or tool usage."
+  },
+  "44f43cc49508f088893b6ed21e63d12e42922ccc753d24c5c40e23fa366e91f6": {
+    "is_ban": false,
+    "reason": "{\"is_ban\": false, \"reason\":"
+  },
+  "453bba1607872628dcc490d6f47d3af6cc2dbbf5f7ce54a9f3b0f29114191aac": {
+    "is_ban": true,
+    "reason": "The snippet bans scripting/automation and brute forcing, restricting the tester's use of automated tools."
+  },
+  "4569bf7ff7af49d37828d4d7ab068b6d67d57bd31cad692647a19bc9cccf0648": {
+    "is_ban": false,
+    "reason": "Only cautions about rate limits, does not prohibit using automated scanners"
+  },
+  "4717ff737bc08c5bb2f60bf98b64b8427103a5e17db4113b5df3cf6f17906e94": {
+    "is_ban": false,
+    "reason": "The snippet only mandates a user-agent string for scanners, not a prohibition on using automated tools"
+  },
+  "4997643ea646f5ca0587971e366968182b08aee92aa44e5edcc350892c705bef": {
+    "is_ban": false,
+    "reason": "The snippet only lists testing requirements and does not prohibit using automated scanners"
+  },
+  "4a08955faee57b3d28b944aeabfe17bf9dbd06efd49d7770e4ad606b5a4cb047": {
+    "is_ban": true,
+    "reason": "Explicitly forbids using automated scanners during testing"
+  },
+  "4bb81c2ecbf689d4dded9da4daff154ecad494e46a998b9d28342c01390447bc": {
+    "is_ban": false,
+    "reason": "The snippet only requires labeling automated activity, not prohibiting its use"
+  },
+  "4c9f0497ac1281fcd2808c2f2caeced9b46ea14691f3f1c7a1107e9191b47db5": {
+    "is_ban": false,
+    "reason": "The snippet only rejects reports from unverified automated scans, not the use of automated tools itself"
+  },
+  "4d13f28474bc1c9da53ae7b3e1f9a723281adfd4f398b64305a428bd0f6fc490": {
+    "is_ban": true,
+    "reason": "Explicit prohibition on using automated tools/scanners."
+  },
+  "4d37f31a50f42d22a548b81abc62e701a39060f424ea33f9e4f3fc3cba93d433": {
+    "is_ban": true,
+    "reason": "The snippet directly tells testers not to use automated tools or scanners, banning the act."
+  },
+  "4e0642da9a30fe44e3d0408d5f8529b2a446c07b6e07132ad9bbf3050176d0f9": {
+    "is_ban": false,
+    "reason": "The snippet only gives header configuration instructions, not a ban on automated scanning"
+  },
+  "4e9a7719deb50249d09679393d77ded37c2adf2bf5166cf3c04d992b70c40ecb": {
+    "is_ban": false,
+    "reason": "The snippet only specifies report reproducibility requirements, not a prohibition on using automated scanning tools"
+  },
+  "4f9f6c0ff5f39fd34a1d43ac227fede35c7be9e97e6f9cefaf3a9a8d418f75fd": {
+    "is_ban": false,
+    "reason": "The snippet discusses fake user creation and spamming, not automated scanning tools"
+  },
+  "502726f1ea19930a966226f46f7a9a23cd99994e063e7927bbdd55992795817d": {
+    "is_ban": false,
+    "reason": "Only out-of-scope reports from automated tools are disallowed, not the use of the tools themselves"
+  },
+  "50d33f783ab09914810874df29fe4b9f1ebeb16eb3c1460d16573e9e8b962273": {
+    "is_ban": true,
+    "reason": "Directly prohibits automated scanning or testing"
+  },
+  "516b7bd3bfa88c6a020e687e9fe3d7eceb28357c252e4ab2d212a1c215a9a63b": {
+    "is_ban": true,
+    "reason": "The snippet explicitly prohibits using large-scale automated scanners/tools."
+  },
+  "516c134b68108df6563976df12a8d403d3dd9539182dbf2bcdc91d4edea0e1c6": {
+    "is_ban": false,
+    "reason": "Only restricts report submission, not tool usage"
+  },
+  "52053f3d4e607fd9d235b3e3f10e3fbe47beb9ac2a5cbcbd201dfe236cf1a229": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits automated security testing against the site or APIs."
+  },
+  "53c4747c873f98dad14217bab848703315f1182fc570fe6a3453d2c06926b146": {
+    "is_ban": false,
+    "reason": "The snippet only requires a header for scanner requests, not a prohibition on using automated tools"
+  },
+  "57662c3ecb037dc67831e835a941ee07b9b7a4ca266f93cd02b5cd1aa62a5525": {
+    "is_ban": false,
+    "reason": "The snippet only instructs adding custom headers, not prohibiting automated scanning tools"
+  },
+  "57e20ec76dbae4d665797eed6870cd39cf7b41172175971a7f925415826dd5bf": {
+    "is_ban": true,
+    "reason": "Explicitly forbids using automated tools or scripted testing."
+  },
+  "5811a084c34a415cc0b182fc89592878fc5196d34b0d9eb774802086790c8463": {
+    "is_ban": false,
+    "reason": "Only restricts forwarding scanner output, not the act of using automated tools"
+  },
+  "581b2a12d126cdb9b2467fa5e75769d535a0f7751793e4acec21afb6f59b6ca0": {
+    "is_ban": true,
+    "reason": "Explicitly forbids using automated testing tools"
+  },
+  "582fb1451ff8c920e89683c8be5901c3af77d962b0863c1fbb1880a4894ea5f1": {
+    "is_ban": false,
+    "reason": "Only limits automation rate, not a prohibition on using automated tools"
+  },
+  "586287acda9b739f9f8e24348abd1f5090563f70a7764d5f9dc626aeb36da42c": {
+    "is_ban": false,
+    "reason": "Snippet lists vulnerability types and severity, with no restriction on using automated scanners"
+  },
+  "58be01a67194b582b9b473bcc56d162660a0dd239e0d545c469c81cf8f56705c": {
+    "is_ban": false,
+    "reason": "It bans scanner-generated reports, not the act of using automated scanners"
+  },
+  "596adc2ce30880763e10cd8db94160a2480367834214186171fcd5b12f6aee82": {
+    "is_ban": false,
+    "reason": "No explicit prohibition of using automated scanners"
+  },
+  "59f67839464c0b01873003b9ec301e0363fc8a3d9219adbaf3a7b6127269efe1": {
+    "is_ban": false,
+    "reason": "The snippet only addresses email aliasing, not scanning or tool usage."
+  },
+  "5a1bdff02977822b0a220b1e9838b4d004f34dbc8600e0d4ccc18632c98f73c0": {
+    "is_ban": false,
+    "reason": "Snippet contains no restriction on automated scanning tools"
+  },
+  "5a3b01bdb58196cb4f05cca4045a95f73db79a0706c8595aa15cb7c7f45d120f": {
+    "is_ban": false,
+    "reason": "The snippet imposes a header requirement for automated scans, not a prohibition"
+  },
+  "5ad3ddd906d8b214bf113976a04e0fbfe39f917b23c5f13229a5d6d3fbab39bb": {
+    "is_ban": false,
+    "reason": "snippet permits automated tooling, no ban on scanning"
+  },
+  "5b41a270280ab5ada9365cc453661f00cabb05d324e6995422e574c32bcd611e": {
+    "is_ban": true,
+    "reason": "The snippet explicitly prohibits making use of any automated scanning software, banning the act of using such tools."
+  },
+  "5b9d9dfd54cd157603ca18617bba2bc8c40dbb79468f38a569a19225c09b8471": {
+    "is_ban": false,
+    "reason": "Only report submission from automated scans is disallowed, not the act of scanning"
+  },
+  "5be4117562f7fee0cd043486d8b0dd6367dd9b00836dbc9d31d16c4c99121305": {
+    "is_ban": true,
+    "reason": "Explicitly instructs testers not to run automated scans, banning the act."
+  },
+  "5c16c2fd9db4fee9b8fea9b945676aabaf7f0702c01d232ae2f68b34d41b49b1": {
+    "is_ban": false,
+    "reason": "It only bans reports from automated tools, not the act of using scanners"
+  },
+  "5ca5969a9dba40ca07a77c3e8bd1b1545e117622a2ac4696673fb123b217e610": {
+    "is_ban": false,
+    "reason": "Only restricts submission of unvalidated automated reports, not the use of scanners"
+  },
+  "5f233cc348d02882aea48347bab305a2a801cc29b6763dd8676c75e61b7e123b": {
+    "is_ban": true,
+    "reason": "The snippet explicitly forbids using security scanners/tools that may cause automated attacks, banning the act of using such tools."
+  },
+  "61145af909275db64bc5f2b058cc3f3a90014ce662465a7e59b79c61f0e903e9": {
+    "is_ban": false,
+    "reason": "Only rejects reports with automated output, not the use of automated scanners"
+  },
+  "613e6dc26ddf3b9f977059c1cfa0dfc63eb1ff2e485e1395a9223b7c8f871dfa": {
+    "is_ban": false,
+    "reason": "Only mandates manual verification before submission, not prohibiting automated scanning"
+  },
+  "61d03a319b5bec0b28b4392ea9f76315b9810939f01ff70fd18615a25891558f": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits using automated scanners or tools"
+  },
+  "62fe78b00f40f5df62a22e1f47c42df8748a044ae6fde59b8d5a81f347236489": {
+    "is_ban": false,
+    "reason": "The snippet only restricts submitting unverified automated tool reports, not the use of automated scanners"
+  },
+  "63b145ed09f05b71308e15cfaed427f1614fa8f29368cc5ed784f003cdaddf2f": {
+    "is_ban": false,
+    "reason": "The snippet bans testing involving Amazon personnel and physical attacks, not the use of automated scanners"
+  },
+  "640ea67bb3605c3c6887082cd6676602d8d2ab92f4d548734366db05358a403e": {
+    "is_ban": false,
+    "reason": "It bans scanner outputs in reports, not the act of using automated scanners"
+  },
+  "65370e845be1643d5d085e339b213570c383bd00bbcae3216c0631113041e98d": {
+    "is_ban": true,
+    "reason": "It explicitly prohibits running automated scans without prior permission."
+  },
+  "6591d4dd2a23d7ada7e953b7d67bc40fc51d6e4ca8e58340b5a7cad9c54b807e": {
+    "is_ban": false,
+    "reason": "The snippet only describes the Drop Workstation functionality and does not restrict automated scanning tools"
+  },
+  "6640502236374f88828ce31133660aa2e96c94fbf9d9010cd445da3ad5f1fc41": {
+    "is_ban": true,
+    "reason": "{\"is_ban\": true"
+  },
+  "6665aff80616100b1331410ca4f524bf73d550156b52a01e57a23ab02aa4781a": {
+    "is_ban": false,
+    "reason": "the snippet restricts reporting unverified automated findings, not the act of scanning"
+  },
+  "6695ccae2fb9938151122783211408f2d52b48f91cd5ccfa010db87739e7ef4b": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits using automated scanners or tools"
+  },
+  "66b115ea35d9be9001c93e2468366291bbe29fd453d1f425ce9b9679af78e8ca": {
+    "is_ban": true,
+    "reason": "It prohibits using automated tools that could generate significant traffic and impair the application"
+  },
+  "670043c28d7321ee997e7f3b7794d1149c3621e535b26199e3c99fd17620d9a1": {
+    "is_ban": true,
+    "reason": "Explicitly forbids using automated tools or scanners."
+  },
+  "6721632b1b508199edc5788b8c3f890d850cf3320363f61183e9c441546ccc80": {
+    "is_ban": false,
+    "reason": "Snippet only references an automatedTooling setting, not a prohibition on using automated scanners"
+  },
+  "676d705372001dd33326c572fb84cbbdbea1691bf727c2a157ff790df7c4538a": {
+    "is_ban": true,
+    "reason": "Explicitly instructs testers not to use automatic scanners"
+  },
+  "688247890cc362d267e2a5eb1513f6b492718a336d058c2ba76290a34edb4564": {
+    "is_ban": true,
+    "reason": "The snippet explicitly prohibits using automated scanners or tools."
+  },
+  "6885556044f959da1ab33e93bdd6f03dd08b2d08b73c5fb0ceb8e0647a9cf7c5": {
+    "is_ban": true,
+    "reason": "The snippet bans the use of automated tools or scans for exploitation, restricting the act itself"
+  },
+  "691c556e279dc565db1fec6f235a1d77ecf37ac48d97685f0105a9888d102f65": {
+    "is_ban": false,
+    "reason": "The snippet only advises assessing isolation before reporting, with no prohibition on using automated tools"
+  },
+  "69d34fceaffbd85f59a56c739a3b6d9d3a150e4689b9fef158eafc236b598fcd": {
+    "is_ban": false,
+    "reason": "Snippet contains no mention of automated scanning or tool usage restrictions"
+  },
+  "6b40f24a2d8ab197a1d2763427ffe968c38edbc8635cc83262bb305deda7fcde": {
+    "is_ban": true,
+    "reason": "Directly forbids the tester from performing automated tests/scans"
+  },
+  "6c508f0da4c7ed6f758df1d26953cb455cd56cbc40552c3e131b092ced496a43": {
+    "is_ban": true,
+    "reason": "The snippet explicitly bans automated scanning as an out-of-scope activity, restricting the tester's use of such tools."
+  },
+  "6c6ff4ff3da4d5a3b21bd19eec3d2368a4ce94d35ad85c86aa6ec1654b911569": {
+    "is_ban": false,
+    "reason": "Only a section heading, no prohibition on using automated scanners"
+  },
+  "6e29098f62a4042b65e411b2686c339de548cdc54727eea9c6df88f5bfe62dc9": {
+    "is_ban": true,
+    "reason": "Explicitly forbids using automated scanners or tools"
+  },
+  "6ef244a8fcfd4fa04efa4a2a3152ed6ae96faf06fd1aad549d27ef3e4a837c8f": {
+    "is_ban": false,
+    "reason": "The snippet only limits aggression and request volume, not a prohibition on using automated scanners"
+  },
+  "6ef2f597454f61a66a69ce6500ee4501ddf4b7791433f646993bf8dd86aba300": {
+    "is_ban": false,
+    "reason": "The snippet only provides guidelines on scalability and automation, not a prohibition on using automated tools"
+  },
+  "6f21a545f8978609dc98a2809dd69ae052724db14ef3445df46f6f78f6b94a6c": {
+    "is_ban": true,
+    "reason": "The snippet tells testers not to run automated tools against live servers, directly restricting the act of using such tools"
+  },
+  "70ea0106e7a9f4beda1cbbcfd39ad94f0dd2f2ebe49b4ea16c5308a057c28422": {
+    "is_ban": true,
+    "reason": "Prohibits automated testing by the tester"
+  },
+  "715eaba7a65c1225d89ae53ef39097e6e8afcd62049c994ba92a66d84d596361": {
+    "is_ban": true,
+    "reason": "Explicitly forbids automated testing actions"
+  },
+  "725933a4bed0439cc5e4fb9bb443aaaa2f01eb0a04d9df0a2fb6c54df82c5f5d": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits using automated scanners or tools."
+  },
+  "72fbfac918c66bde32eff8261b63acfd66418a38bc1dab7ecca43a48d2e27d1d": {
+    "is_ban": false,
+    "reason": "The snippet limits submission of automated scan findings, not the use of automated tools."
+  },
+  "75e8d3affa61ae47766c7c54e8a3b7b7f5da8fb646e41b80505f4d5f7c6c2acb": {
+    "is_ban": false,
+    "reason": "Snippet contains no explicit prohibition of using automated scanners, only a testingRequirements field"
+  },
+  "760a5b83c8852c63f12e7b94831193c44355111437d85f17ce1ef20788516667": {
+    "is_ban": false,
+    "reason": "{\"is_ban\": false, \"reason\": \"Snippet only"
+  },
+  "768410844412baa50d731decef401f81708dbae4e681d1d88ccf718b4cea923b": {
+    "is_ban": false,
+    "reason": "The snippet only lists eligible vulnerability categories and does not restrict the use of automated scanners."
+  },
+  "77043fe73ae16963996d64a24f965fd1c244377a068701fb3a8537330a4dbb10": {
+    "is_ban": false,
+    "reason": "The snippet only lists qualifying vulnerability types and does not restrict the use of automated tools."
+  },
+  "778f5b6a69421cbee60c7ba382c54ec3e7c98b45b42b1c00b93b6fdfa3f7dd7d": {
+    "is_ban": true,
+    "reason": "The snippet tells you to refrain from using automated tools, directly banning the act of scanning with automation"
+  },
+  "7833172229f783d31f43cb00868601145a51c50b9a92f777076d2778c8509e0c": {
+    "is_ban": false,
+    "reason": "restricts report submission, not tool usage"
+  },
+  "786568984ed6aa7881cb7797ab1df130250de47b550ca2802e37ad62eb7e423f": {
+    "is_ban": false,
+    "reason": "{\"is_ban\": false, \"reason\": \"Snippet"
+  },
+  "78700c4eab92f75bd25508e47737f50180452190e0c45117fbe212ba56e3f8cc": {
+    "is_ban": false,
+    "reason": "The snippet sets testing requirements and mentions automated tooling but does not prohibit using automated scanners"
+  },
+  "78b70e773ac92eb7286f16413217fadfdf8008682c69ab119d80a90c0d06069d": {
+    "is_ban": true,
+    "reason": "The snippet explicitly bans researchers from using aggressive automated tools."
+  },
+  "78e7608630ed602ed1dfd578cad7f0789092495db978c61b3f8b938dbf8ccf05": {
+    "is_ban": false,
+    "reason": "Only restricts report submissions from automated tools, not the act of scanning"
+  },
+  "79e2f0418a3d527a26f68a3da4cc3213113dbc69bb2c289989c969241cf45c6c": {
+    "is_ban": false,
+    "reason": "The snippet encourages using a scraping bot, not restricting automated tools"
+  },
+  "7a7da941eecf211e754fb5ec955625f78ebe8984916f5b0afd96e44e40c90160": {
+    "is_ban": false,
+    "reason": "snippet only bans DoS and brute\u2011force, not automated scanning"
+  },
+  "7be0c375406fee65aecf460b679b56b6e3336d171d37e22cd1767cf27a30a692": {
+    "is_ban": true,
+    "reason": "The snippet explicitly prohibits the use of scanners, banning the act of using automated tools."
+  },
+  "7d6e1755fab13d5cbfa984da63abcce8229153e6dc5660edb866c5733bac50c0": {
+    "is_ban": false,
+    "reason": "Only bans scanner-generated reports, not the act of using scanners"
+  },
+  "7dea1ac00da27c1b5d96e42946f8ae5e1b6a156e7db6fbd441e61d7e1077c21b": {
+    "is_ban": false,
+    "reason": "Only restricts submission of unverified automated reports, not the use of scanners"
+  },
+  "7e7379327f2f42409dd5b94a5c4699326b4bb58ddba29cd7aafdf01a2d1e71e0": {
+    "is_ban": false,
+    "reason": "The snippet only lists vulnerability categories and severity levels, with no restriction on automated scanning tools."
+  },
+  "7e846c63417f5e5133e7a7aa6af3769a475f4c5000c1dab5f80fc67a87b05879": {
+    "is_ban": false,
+    "reason": "Only restricts report submission, not scanner use"
+  },
+  "7ecdb26c1149b777d93a7d78bbabdcc8fedaffae10cbbcf14afb55b54857bc47": {
+    "is_ban": true,
+    "reason": "It explicitly prohibits using a scanner against their applications"
+  },
+  "7ed92c8772644a4dd969b6b5ce482d36627acfca51e5a1c5f263a0de98e247cb": {
+    "is_ban": false,
+    "reason": "Only limits automated scanning rate, does not prohibit its use"
+  },
+  "7f3fb990400055c4ac6226f2c8ecd17c759cdd224a74ef7e3487098533ef7442": {
+    "is_ban": false,
+    "reason": "Only imposes a rate limit, not a prohibition on using automated scanners"
+  },
+  "7f76a258e2e003a90b152bea791dea7324466ee63bb3239f4db5a0223fb68103": {
+    "is_ban": true,
+    "reason": "The snippet prohibits using automated tools that may generate traffic and impair the application, which bans the act of scanning"
+  },
+  "80cad77850cda5770cc10c412479b249334ffd56b61c1b105ff178c517076e9a": {
+    "is_ban": false,
+    "reason": "The snippet lists prohibited vulnerability types, not a restriction on using automated scanners"
+  },
+  "81467d069230b001f056c985e74e29bbd94bf550692bf5d5c855e605e458847b": {
+    "is_ban": true,
+    "reason": "Explicitly forbids using automated scanners, restricting the act itself"
+  },
+  "8156a94433467a0795ca369aaacae43b6f326664d80677dd6db92d0c035d3a04": {
+    "is_ban": true,
+    "reason": "It explicitly prohibits large\u2011scale automated testing and high\u2011frequency scanning, banning the act of using automated tools."
+  },
+  "81755931a57a60ea272556458b0f989ca3cc65dbaad413ca46e9c39593dd8001": {
+    "is_ban": true,
+    "reason": "The snippet explicitly prohibits using automated scanners or tools."
+  },
+  "81893772573222dd84667d7f9927cd62f26cf28a7ef466408a9a5f174c5ff18e": {
+    "is_ban": false,
+    "reason": "the snippet restricts report acceptance, not tool usage"
+  },
+  "81e707b71efc5fa6b4e48c6bc8c95e18834a675b3d8639024c110da7a5b265e6": {
+    "is_ban": true,
+    "reason": "It instructs testers to avoid using web application scanners, banning the act of automated scanning."
+  },
+  "82201ef1e601564a73f14311a227d167b5a7a8433fff601d2a455b95da27e237": {
+    "is_ban": false,
+    "reason": "The snippet only lists vulnerability categories and does not prohibit automated scanning tools."
+  },
+  "8487034f50e4521bfe8474c65d52cf57f194981f24d3aa71373d64488b6ffd38": {
+    "is_ban": false,
+    "reason": "Snippet only lists services and contains no restriction on automated scanning"
+  },
+  "85357ebb12fe3cabb08194274486eb6f3bc80be8bfea758301ecc03630efc2fb": {
+    "is_ban": false,
+    "reason": "the snippet restricts report submission, not the use of automated scanners"
+  },
+  "877fefc49efc76500465572ed660d2a91d9c7b5c001d5122a55489ad1d27da68": {
+    "is_ban": false,
+    "reason": "snippet does not prohibit automated tools, only references an automatedTooling setting"
+  },
+  "88788f7f0a841504ae7363e065175cfb18ef8e87e024f314aa3ec66a37b17ff8": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits performing any automated scanning"
+  },
+  "8ad51af0910b1fa5c37ea6b14f69b0602b49f0f32f52bbb285e3a5cbf283d645": {
+    "is_ban": false,
+    "reason": "restricts scanner output/reports, not the act of using automated tools"
+  },
+  "8b54f4199f5e6b18604cf212d4d3046c122c4fb5dc09c21509b7942ed48b5d5f": {
+    "is_ban": false,
+    "reason": "The snippet only rejects unconfirmed reports from automated scanners, not the use of such tools"
+  },
+  "8c02c6d561e34f7b83bfc0e990bddab7588a09329e1247767e65f575a7689566": {
+    "is_ban": false,
+    "reason": "Only bans scanner-generated reports for submission, not the act of using scanners"
+  },
+  "8da1abc1c163729a7919b58a42f80c4985d002094811aaa6ce603e4f77a06372": {
+    "is_ban": false,
+    "reason": "Snippet only restricts report eligibility, no mention of automated scanning tools"
+  },
+  "8da6c0ccf7efb4a123894c0e23c1a5171f8555a5ea0f3b6d9b9ac259406c4478": {
+    "is_ban": true,
+    "reason": "Explicitly forbids using automatic scanners"
+  },
+  "8ebffc0cdf21b16f836294de8ee6385cdc0b705aaa13a81a079b52fd2a46acb7": {
+    "is_ban": true,
+    "reason": "The snippet explicitly tells testers not to use automatic scanners, banning the act of using them"
+  },
+  "8f82baa4c925ac57cdb15864d98e682d4fcdd77853ca046109e1ad672043d234": {
+    "is_ban": false,
+    "reason": "It only requires email when using automated scanning, not prohibiting the act"
+  },
+  "915dbc21514e10b114a85e8f76c54ad66d652c07649eab551241a766b8ce40b2": {
+    "is_ban": false,
+    "reason": "The snippet permits lightweight automation and only restricts specific functions, not a blanket ban on automated scanning"
+  },
+  "919788459113a72c8b1f198d447d5ff001ff76223c3b5f420d06c751bdd37a50": {
+    "is_ban": false,
+    "reason": "the snippet only restricts report submission, not the act of using automated scanners"
+  },
+  "91c3600deb04653ddb2656bbc14aab961e97792da1ac820f7d230c9b1bb61bb1": {
+    "is_ban": false,
+    "reason": "The snippet does not mention or restrict automated scanning tools, only describes certain attack types"
+  },
+  "9213f927985aa0c87befd5cb6d6172428f902706faee3d219b8cb4e100b23638": {
+    "is_ban": true,
+    "reason": "The snippet explicitly tells testers not to use automated tools, banning the act of scanning with them"
+  },
+  "924f2babe13088eb712871ae2f403c7495eb3fdf1a3ead616f8e50336f33ded2": {
+    "is_ban": false,
+    "reason": "{\"is_ban\": false,"
+  },
+  "92553cfdc7d1bb78fc8a4a759c873c4ed99ac07b159e8b317450b5c51e21dd3f": {
+    "is_ban": false,
+    "reason": "The snippet gives reporting guidelines and header suggestions, not a restriction on using automated tools"
+  },
+  "93b0f1a5e21f62fbcf1d234eb44c5746894c60139b28f0da6152f97ac870e63f": {
+    "is_ban": false,
+    "reason": "Snippet lists testing requirements (including automatedTooling) without prohibiting the use of automated scanners"
+  },
+  "943af996c6f6d1c9f0730eee431468a4f79c28e1b070f163336b3b8dec1f7ed2": {
+    "is_ban": false,
+    "reason": "Snippet only lists sought vulnerabilities, no restriction on automated scanning"
+  },
+  "94d1ff82574dcf2a06706450c2eb3f849d041565be54ada3a66f164574b2be69": {
+    "is_ban": true,
+    "reason": "The snippet tells testers to refrain from testing rate limiting or anti-automation, banning the act of using automated tools."
+  },
+  "951d3e8f6bed419f4116079e2d3ead9c0c24bbeccd0597c63b20b163a9117d15": {
+    "is_ban": false,
+    "reason": "The snippet encourages automation and does not restrict scanning or tool use"
+  },
+  "9534042488fbb6b3e569a173c667b315576f6c8c93b1964976d4853a0bc3a82e": {
+    "is_ban": false,
+    "reason": "Only requires throttling of automated scans, not a prohibition"
+  },
+  "9555923f5ece75cecaf6359f6866d6eddde54d91bad166050b9cb70b297c9e6e": {
+    "is_ban": true,
+    "reason": "The snippet explicitly bans high-volume automated scanning as an activity"
+  },
+  "95e145840091ccfc697b09dcf8065fdd95a237c558722a9c24d184a8b30c70c7": {
+    "is_ban": false,
+    "reason": "The snippet lists prohibited data and vulnerabilities, not a ban on using automated scanners"
+  },
+  "9607a61fa7a3812f5eabf6fa8a8b7ac6c037098b5177f80462c53dd36d253eab": {
+    "is_ban": false,
+    "reason": "The snippet only describes a vulnerability type and severity, with no mention of automated scanning restrictions."
+  },
+  "9782bbfd7c5671ae2687a42a8ec51893a4092e78e4853f03e33f54bdf8b831aa": {
+    "is_ban": true,
+    "reason": "The snippet tells testers to avoid using scanners that generate high traffic, banning the act of using automated tools."
+  },
+  "989cd14499888091492de8dfb088c37200c4912b428e6c8ea64ac914f6d040fd": {
+    "is_ban": false,
+    "reason": "No prohibition on using automated tools is stated"
+  },
+  "98a9603e8ffc246104563363124800a779dc0f9356546b8eefea7edfcf6b7ca7": {
+    "is_ban": false,
+    "reason": "The text describes the provider's automated scanning, not a restriction on tester tool use"
+  },
+  "9a034b8eb7bd2f0f7d9b1802747d8c683eb88c8ac3a50ce86aa807169437f48b": {
+    "is_ban": false,
+    "reason": "The snippet only restricts reporting XSS findings, not the use of automated scanners"
+  },
+  "9dafe245fe7b69784ebf97f4248e744b1acb3343c08c573f532bde2d2ae7eb30": {
+    "is_ban": false,
+    "reason": "Only bans unconfirmed automated scanner findings in reports, not the act of using scanners"
+  },
+  "9e1d76890bc91884f2f2ed68d6e8f6ad700efa7497ff996ace1f6a89ae9e0a3c": {
+    "is_ban": true,
+    "reason": "Explicitly forbids using automated scanners."
+  },
+  "9ecb26199b438765a61233c7a9641ec07e80d9639fc9f91421a73f78a24f0519": {
+    "is_ban": true,
+    "reason": "The snippet explicitly bans the use of automated scanning tools"
+  },
+  "9f87b4510b71d1ae8a3a58e6f9623d7ef7e5dff75b804eba48be3d3e5de1bcdc": {
+    "is_ban": false,
+    "reason": "Snippet contains only target info and no restriction on automated scanning"
+  },
+  "9fb2c6857da8f80463fec36e52f5c2c4cfd0868aeef8d6780d2dca86bcc66d38": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits automated testing/scanners."
+  },
+  "a02b6b9bbe1d558ce57331f3f1dea9e22485e5a2b0b80dac56a49ed41d9b575b": {
+    "is_ban": false,
+    "reason": "Only requires rate limiting, not a ban on automated testing"
+  },
+  "a0e6692337013c836e30fb89d13ef0ba3e5d0c5c7e9c2ac53fcbbe80e750af7d": {
+    "is_ban": false,
+    "reason": "Only imposes a rate limit on scanners, not a ban on using automated tools"
+  },
+  "a1f2139941ba673c10674dca4445940f0efad6e6d5d676d86a11ebb1c081e391": {
+    "is_ban": false,
+    "reason": "Only restricts report content (automated spam), not the use of automated scanning tools"
+  },
+  "a23a3f43844bf4c8e1939eb3005d6f3da54748813cb56b0b0084de69b46acf6b": {
+    "is_ban": false,
+    "reason": "Only restricts unconfirmed reports from automated scanners, not the act of using scanners"
+  },
+  "a272b07f75cfba30db271ea3dbef009abd9041afc46999cb08246cd515a11a8a": {
+    "is_ban": false,
+    "reason": "Snippet contains no prohibition on using automated tools, only neutral testing requirement fields"
+  },
+  "a2a567bc55d3a405584d33da74731f2cf88c9ff6f0023a1a2f967afda0061185": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits automated tools/scripts that overload the infrastructure, banning the act of using such scanners"
+  },
+  "a3258cf3778aae59d2db1a45fd291d7778117a6c2d2b1230c2ec7af7301c74d4": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits automated scanning attacks"
+  },
+  "a349441dbc3c643542c5b6d11be113cf9dd1f7dff90294af0d5e504d133d321d": {
+    "is_ban": false,
+    "reason": "The snippet contains no restriction on automated scanning tools"
+  },
+  "a42bca7fbd0abaf3a7757726229bb118ae6edfdc91de09bca3094499a7cd943a": {
+    "is_ban": true,
+    "reason": "It explicitly forbids running automated scans without prior permission"
+  },
+  "a45f112cd77931b15495475b8456900acbafe714030a0e8dfc38a3d37aec373e": {
+    "is_ban": false,
+    "reason": "Snippet contains no restriction on automated scanning tools"
+  },
+  "a4e0a2c3ac505e234cd0049a1bc13c2b84d26b013bf4eae69c7b9be0f0fe5093": {
+    "is_ban": false,
+    "reason": "Only restricts report submission, not tool usage"
+  },
+  "a53505714c909a43ec7a58fe7e13cc52b6c8723a11dc3ecf4373527827a880db": {
+    "is_ban": false,
+    "reason": "Snippet lists vulnerability categories without any restriction on automated scanning"
+  },
+  "a5b5cf8800094054b34596f9f4c05200801255b02f7ef9cbcca5bbe1a85c47a2": {
+    "is_ban": false,
+    "reason": "The snippet limits report submissions from automated tools, not the use of scanners themselves"
+  },
+  "a80f48e5cc171e86eb8f0729346aaf7594c41f9109b908145bb24313e83c0a20": {
+    "is_ban": true,
+    "reason": "It forbids using large\u2011scale automated scanners that generate excessive traffic"
+  },
+  "ab3bd81b293afd04c39e5b4a9220a5d70aa2eb906f9604d40182aeba0066c2c9": {
+    "is_ban": false,
+    "reason": "The snippet only limits failed code entry attempts, not the use of automated scanning tools."
+  },
+  "ab9900306dc8b7a6552f03d6c3e41dfb40d9a6deff226c0167583f49bbf27efe": {
+    "is_ban": false,
+    "reason": "Only restricts unconfirmed reports from automated scanners, not the act of scanning"
+  },
+  "aba651ccc62bb90d3535d3452af639f3f42645ea66deaf81fcc0d07d9f7ea449": {
+    "is_ban": false,
+    "reason": "Allows automated tools with throttling, not a prohibition"
+  },
+  "ad2402328a700f0caf4fe5dd364447140ca017173afbb96329fa67ae96848baf": {
+    "is_ban": true,
+    "reason": "The snippet directly tells testers to avoid using automated tools, banning the act of scanning with them"
+  },
+  "adf4c816f7f6caf4a20078245c278e6c34244eb52f4157332fef0d69ce436cba": {
+    "is_ban": false,
+    "reason": "Only rate-limits automated scanning, does not prohibit its use"
+  },
+  "b02aa3162090b076737e526db7bb278dd30e30aeebf9058cb166afd50dac1d87": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits the use of automated scanners/tools"
+  },
+  "b1758a24cbe38547e2d2633bacec085cc2c8cd12fda9eba88e132fdbb83f9420": {
+    "is_ban": false,
+    "reason": "restricts report submission, not scanner use"
+  },
+  "b199b31a9169fee86a48e2d2d34338e94fc96b933e054cf7748cc32ec5ae2d35": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits aggressive automated scans"
+  },
+  "b1a16c853a4c67a93276e889208fc78dac06511c23e72b2efbb2c4cb0aacdd29": {
+    "is_ban": false,
+    "reason": "The snippet contains no mention of automated scanning or tool usage restrictions"
+  },
+  "b644ee1933ea3461263e3ddc8e451d6f3f5d87330a1b604609e6d0bb9f6639d5": {
+    "is_ban": true,
+    "reason": "The snippet directly prohibits using automated scanners or tools, restricting the tester's actions."
+  },
+  "b64881f37524190db76f247543e699051a7657c37341e4d9f67f3c52ddf15da2": {
+    "is_ban": true,
+    "reason": "It explicitly prohibits performing automated security testing or scanning"
+  },
+  "b7af681a707fc38bc24b4604ebb9284bfcb7054445c505a8544bbf683fe5a7c5": {
+    "is_ban": false,
+    "reason": "The snippet only disallows submitting automated scanner output without explanation, not the act of using automated tools"
+  },
+  "b8bcb93a25f8c76aa898d6ca37581ef856ebd217fe3eb82c9887b801f70c88db": {
+    "is_ban": false,
+    "reason": "restricts report submission, not tool usage"
+  },
+  "b8c23d084d752162a4b8c50ae417c301c61e7462f2e9f4906b3cdaa2ca89c273": {
+    "is_ban": false,
+    "reason": "The snippet bans disruptive automated traffic, not the use of automated scanning tools"
+  },
+  "b95aa6199c63c92c220aec0b6d71a6659a2d710b3e39fdc2d12e90a3756abb52": {
+    "is_ban": false,
+    "reason": "snippet lists prohibited actions and does not restrict automated scanning tools"
+  },
+  "ba85a09b35624b998b8a6497ae2b8319bee00bcf5b9942920c4296e56d3d560a": {
+    "is_ban": false,
+    "reason": "{\"is_ban\": false,"
+  },
+  "babc04b63c3558b2bd5610454c4c912732ec964a5899255bd81962416ae66223": {
+    "is_ban": false,
+    "reason": "Snippet contains no mention of automated scanning restrictions"
+  },
+  "badc940239f774c2ac84f365455cf0d44d77711377999d4ab81f4fd9c888fee7": {
+    "is_ban": false,
+    "reason": "Snippet contains no restriction on using automated scanners"
+  },
+  "bc22c100f440e1ccc765ff42e33a38974dae493bb535029db8e743e3800a188d": {
+    "is_ban": true,
+    "reason": "The snippet explicitly prohibits the use of automated vulnerability scanners, banning the act of scanning with such tools."
+  },
+  "bc91d30a45994dd16caff88eb463408d48243dc12555a011eae66b332520e530": {
+    "is_ban": true,
+    "reason": "The snippet explicitly tells testers not to run automated vulnerability scanners, banning the act."
+  },
+  "bd2ed99b82300fbc339498d286e157d6daacba113c76018f8023caa94fcffdf9": {
+    "is_ban": false,
+    "reason": "{\"is_ban\": false, \"reason"
+  },
+  "bd364dd5bd1715b2ec6cb035f52f40906939752c524fd48a3b68f722fdb871a4": {
+    "is_ban": false,
+    "reason": "Snippet only mentions automatic enrollment, not a ban on scanning tools"
+  },
+  "bda52ab0637e0ea36c1082971350be1579e1927fc6cfc9d7baf04f923b6130c9": {
+    "is_ban": false,
+    "reason": "Snippet contains no explicit prohibition of using automated scanners; it only lists testing requirements with automatedTooling set to null"
+  },
+  "be6bd85166d2e3d3e592610d8c2ef1db95e30e63e8b22929793c859de97b2256": {
+    "is_ban": false,
+    "reason": "The snippet only rejects automated tool data dumps in submissions, not prohibiting the use of such tools."
+  },
+  "be8f4d1e3460cbc6f8a58b9fc2972ee71cbb011f5e16667da70425d8421f9e1a": {
+    "is_ban": false,
+    "reason": "The snippet contains no restriction on using automated scanners, only registration steps"
+  },
+  "beea336129203e9ebf0630a11172676a7db040000aee14ece1b7df1dbae32bb7": {
+    "is_ban": false,
+    "reason": "It warns that automated scanners may trigger rate limiting, but does not forbid using them"
+  },
+  "bf48ebb5a9f9b4c4508b433749430e6a320ee638a344726988e8ff6ea8bd2f2c": {
+    "is_ban": false,
+    "reason": "The snippet only lists vulnerability categories and contains no restriction on using automated tools"
+  },
+  "c010236e0ba24a3ccf00e38ed00e9ba2e1a4c469e7be7da6f5a126e88284713c": {
+    "is_ban": true,
+    "reason": "It explicitly prohibits automated scanning."
+  },
+  "c14eadad41a52c41fc9be560e3147a3d58e59760d69a5a8d52abb1ee466be49b": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits automated testing"
+  },
+  "c2172fe185f9d7084f141c55a598e3fb0ffc837e834d085f6b4e3ed9d1d02285": {
+    "is_ban": false,
+    "reason": "the snippet restricts report submissions, not the act of scanning"
+  },
+  "c285e2d0ea4bf102d57cdea34bac3a06b6adc354ce2b787a4c7b656244f09696": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits automated scanning/testing."
+  },
+  "c2cac995f8da2271f6dca971d8f1edc61811ee86b40e3f2a80a6084b24bcc04f": {
+    "is_ban": false,
+    "reason": "Only restricts report submission, not scanning"
+  },
+  "c4da15859e8873f3fadadb27a1c12f45dd794726924bdac954645f238d04ef13": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits the tester from using automated scanning or penetration testing tools."
+  },
+  "c7c76e2a41547c1ec52fba8888eb1e3e4cb696bb69fbb3aa53ba65369437059e": {
+    "is_ban": false,
+    "reason": "Snippet contains reporting guidelines and no prohibition on automated scanning"
+  },
+  "c944c775de558399886dc5bb4706027ab4f226ea988117dd57ec2576554cd7fd": {
+    "is_ban": false,
+    "reason": "The snippet describes product features and contains no restriction on automated scanning tools."
+  },
+  "c976de7784900f46f93f93ab17c7baf02e59fcbd9ae5eee1b19345775a6b4aa1": {
+    "is_ban": false,
+    "reason": "No prohibition of automated scanning is stated"
+  },
+  "cc5871c9aae153d0347ed6b00bac94859070fe9b5fe15a587a1190ab59e334e6": {
+    "is_ban": false,
+    "reason": "Only advises reasonable use of automated tools, not a prohibition"
+  },
+  "cd00e75969a2a9d3cbcee57a5fcb6f11c5809cb44dcb65bc3879522d3c91fa3b": {
+    "is_ban": false,
+    "reason": "The snippet only instructs adding a custom header, not banning automated scanning tools"
+  },
+  "cd40b42e3ce2a27b80a39e107e6b316ee84788d00722d0d75bbfb476b684c0b3": {
+    "is_ban": true,
+    "reason": "The snippet explicitly prohibits using automated vulnerability testing tools that generate significant traffic."
+  },
+  "cdbfe9331b6fc2e5d92fd789a0447b17ec22f7ac4010d73c1c6b068a07ddd4f8": {
+    "is_ban": false,
+    "reason": "The snippet only restricts report content (unverified scanner output), not the use of automated tools"
+  },
+  "cec2f5950d1337825521cbc790cfeb19ca0b6d85fb633d2e7bae976acf4d08dc": {
+    "is_ban": true,
+    "reason": "The snippet explicitly prohibits automated vulnerability scanning tools."
+  },
+  "d0035110facbb2d4bc08b5ce2b44a83368c4f4b2fe3d216b6f7b96bce1c44971": {
+    "is_ban": true,
+    "reason": "It explicitly tells testers not to use automated scanning tools."
+  },
+  "d0641b52163df0eceab49a9673333fe5c8b335c05f62fd0b2fec4ee2186530a9": {
+    "is_ban": false,
+    "reason": "The snippet lists automated attacks as vulnerabilities, not a prohibition on using automated scanners"
+  },
+  "d0e17a149e93ed17e76a194d5696f59ebdb0936db50a8ac5ff9c35e50cd38cf3": {
+    "is_ban": true,
+    "reason": "The snippet directly tells testers not to use scanners or automated tools, banning the act."
+  },
+  "d25e19c612d79814d4e45a9e29bff91e3e4780610d61cf3ad4455f0cfc31d259": {
+    "is_ban": false,
+    "reason": "Only advises reasonable use of automated scanning, not a prohibition"
+  },
+  "d361ce1bc5d43b1e7983672bf54efc95caaf19a3f5ae9594af18c5c266b0da88": {
+    "is_ban": false,
+    "reason": "Only restricts report submissions from automated tools, not the scanning act"
+  },
+  "d42d7a90b7e7133ab9aee5d3ad32a954865694f64696cebddd3344bc5a6ca784": {
+    "is_ban": false,
+    "reason": "The snippet only limits automated scanning rate, not prohibiting its use"
+  },
+  "d5f2a771db60f7c5eea8daa1480b1549f784b025d4e8f2a765b19424285277a0": {
+    "is_ban": false,
+    "reason": "The snippet only lists vulnerability types and does not restrict automated scanning"
+  },
+  "d73e2a1e28fea1c6a2b8cb168fc33d5fc0cba8a3a1002eff5864667dd7c8b8cb": {
+    "is_ban": true,
+    "reason": "It explicitly forbids conducting automated testing without prior coordination"
+  },
+  "d86bc904f3083bb860b4010b719a937cf5af7fb376e98229e8e0291f5b4d0196": {
+    "is_ban": true,
+    "reason": "Explicitly bans the use of noisy automated tools, restricting the act of scanning"
+  },
+  "d8ffd1118b9f06f3c9b4e89d1c46fab1968b1a883111d33ea224b847f5b25c8c": {
+    "is_ban": false,
+    "reason": "Snippet contains no mention of automated scanning or tool usage restrictions"
+  },
+  "d90c353ec67a92e899a00b31411ec1027d42a67b3a2198479851c17c1ab99ead": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits using automated scanners/tools."
+  },
+  "d9a21d23dd354c784234a9778a919b7d6e86b75d4e658e27123868b019953894": {
+    "is_ban": false,
+    "reason": "The snippet only bans unverified automated tool output in submissions, not the use of automated scanners themselves"
+  },
+  "d9ab67dcfadddd8ed298b7273f8c31ce83750fecf5e5851cd8db485fb6952d88": {
+    "is_ban": false,
+    "reason": "Only restricts submission of unverified automated results, not tool usage"
+  },
+  "d9fe36822a48165fbe382ac20a0459f0a8e563299c321aeb3bd4116f9ecacd4a": {
+    "is_ban": false,
+    "reason": "The snippet discusses an XSS attack scenario and does not mention scanning or tool usage restrictions."
+  },
+  "db79c16e4e5f293b2370bc9edf36fa92522f20fd52fe9aa205399c59c49fbd9f": {
+    "is_ban": false,
+    "reason": "The snippet only lists sought vulnerabilities and does not restrict automated scanning"
+  },
+  "dbd25cd683bd89c2be3bd4934d2035cdbb6f4aa77f1c24d69dd9635d427fd149": {
+    "is_ban": false,
+    "reason": "The snippet only restricts reports from automated tools without a PoC, not the use of automated scanners"
+  },
+  "dbfa690f9261fd0f787d2750d7d1ee78b0aa19c3ff43d40144fc62c045f4da2d": {
+    "is_ban": false,
+    "reason": "It merely limits automation and permits it with a rate limit, not a prohibition"
+  },
+  "dc0c64fe47314d868ac9274fd936934e8e2d02ad93a03a097713955109b2f462": {
+    "is_ban": false,
+    "reason": "The snippet lists vulnerability types and contains no restriction on using automated scanners"
+  },
+  "dc119450857b4a17623b454e8e6a27cb255055b4796f1a8a3fa87bd68a55fc7b": {
+    "is_ban": false,
+    "reason": "The snippet permits automated tools and only advises against overly broad scans, not banning their use"
+  },
+  "dc54fe4c0841a5f928a035200491b0887125778a4c7bc8756ea15d0ef670470a": {
+    "is_ban": false,
+    "reason": "Only advises a rate limit for automated scanners, not prohibiting their use"
+  },
+  "dde7c3d9221282f3bf2ad1c0ae1abde4df3d5d1beb9239121ca8566ea1dfc099": {
+    "is_ban": false,
+    "reason": "Snippet contains no mention of automated scanning or tool usage restrictions"
+  },
+  "de44c39a3d36e19bf838501045a7afea4c6aa3c88fed0b4b1a75fdb6effae988": {
+    "is_ban": false,
+    "reason": "the restriction applies to report submission, not to using automated scanners"
+  },
+  "de5734c885513b79522af2eb8230fd1107fd30863e8a14a800adb273fa83db94": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits automated scanning as an action"
+  },
+  "dec0819f4326d09b4eeb3297819036115b29efcc7b968762072abc91e7147623": {
+    "is_ban": false,
+    "reason": "Snippet only defines scope, no mention of banning automated scanning"
+  },
+  "dec407379ee1d8f0757de211ace31a9e41438e21aa83967db108dd1db12b573b": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits heavily automated scanning as a testing action"
+  },
+  "df59bd8761f7f561cf82684fe24206e7780a90836ffafd87cc6bc2117751c35e": {
+    "is_ban": false,
+    "reason": "It restricts reports from automated tools, not the act of using scanners"
+  },
+  "df704b73a158d02c28c178733c3405ff86c570bf5f0c753312d0b47e18ea40d9": {
+    "is_ban": false,
+    "reason": "Only bans automated scan results submissions, not the act of scanning"
+  },
+  "e08c32153374891f5e9de8de9d5782f306d9f97f77fba2db932cb74236304a85": {
+    "is_ban": false,
+    "reason": "The snippet contains no restriction on automated scanning tools, only guidance on copying exposed data and allowed RCE actions"
+  },
+  "e2226cdedeb92a08332ec52ee06de4581f1fb1d0a914b9b6b8365c2e713e554e": {
+    "is_ban": false,
+    "reason": "Only restricts submission of automated tool reports, not the act of scanning"
+  },
+  "e4e33beb5c4d5847195d36210ca95b555ccc981027a7abe948d379c7550b518e": {
+    "is_ban": true,
+    "reason": "Automation against form submissions is prohibited, banning the act of using automated tools"
+  },
+  "e600608c7d54f522ee9b86d7422a7a513f5c7a4279c61fc6842330c39f03a2a0": {
+    "is_ban": false,
+    "reason": "The snippet only mandates adding a custom header, not restricting automated scanning tools"
+  },
+  "e636197732b6bc2d9b12bba4c41d1279b2414cbed6a26514643e35e1a60182e9": {
+    "is_ban": false,
+    "reason": "Snippet lists out-of-scope vulnerabilities and does not restrict automated scanning"
+  },
+  "e6556b44b28f4064c77727f013868fee1b44b7ff5ce324fc34f1e833cdba80ae": {
+    "is_ban": false,
+    "reason": "The snippet limits report scope to concrete attacks beyond automated scanner output, not prohibiting the use of automated tools"
+  },
+  "e717a3979852ebbccba914acb20d06ba6ae3476af84894961437fc2af88ff90e": {
+    "is_ban": true,
+    "reason": "The snippet explicitly prohibits using noisy automated tools."
+  },
+  "e7e77e52e78e53bd5311f79319cb542d77e8931ab0c4f49900dbd52fbf3d7bf0": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits automated scanning against their properties"
+  },
+  "e909884acb03e4562ad434c1c62c07708561bd98d9e7e555ec46ff7e9bd1d206": {
+    "is_ban": false,
+    "reason": "Only restricts report submission, not use of automated scanners"
+  },
+  "e938bdbfea85026f1c6018c4f10adab5b2fa01fc0bc9b71b4761d82fa51f8bc6": {
+    "is_ban": false,
+    "reason": "Only limits request rate for automated tools, not prohibiting their use"
+  },
+  "ec510d6dc54cb7b390af07f8ccb245504150b5a832af5da2d29342bcf21ddbb3": {
+    "is_ban": false,
+    "reason": "Snippet provides testing environments and does not restrict automated scanning"
+  },
+  "ecfa82884d3ad969a7201e5ba00a01044ef5841c6f38d350afd7c987b7c41f6c": {
+    "is_ban": false,
+    "reason": "Snippet only references automated tool output for submissions, not prohibiting the use of automated scanners"
+  },
+  "ed3a8e09a798bb9c4b9b1cc0f470efb776f8dd94428021350c86dfeee32319a4": {
+    "is_ban": false,
+    "reason": "restriction applies to reports, not tool usage"
+  },
+  "ed6605f16225aeaefedca00c8643b616946323cb935e4aed4bfb81e498b0f2fc": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits using automated scanners/tools"
+  },
+  "ee4b31be4bf9f6b7650c3b1bfb945bc61b9c605b7924b1883af0ee8a0f579af5": {
+    "is_ban": false,
+    "reason": "The snippet only limits report submissions from automated tools, not the act of using scanners"
+  },
+  "ef057547f94b5fb5a76ad7fb4f295e8c3f1e855f65bfb845487c17093565714b": {
+    "is_ban": true,
+    "reason": "Explicitly forbids using common vulnerability scanners, restricting automated scanning"
+  },
+  "efafb06c900a5c253915d668b4fb78b3a5906d838293956eff0f9b084215a4b0": {
+    "is_ban": false,
+    "reason": "Snippet only lists bounty severities and does not restrict automated scanning"
+  },
+  "efd47597ff2bce67e2f070066b8675216af1c4f639a0563334a338bef1592bd7": {
+    "is_ban": false,
+    "reason": "Only disallows reporting scanner\u2011only findings, not the use of scanners"
+  },
+  "f0a394b9417450b323454e5f1f3e867e96fb794f42e74860d64a67b668d0813e": {
+    "is_ban": false,
+    "reason": "The snippet only restricts submission of automated scan output, not the act of using automated scanners."
+  },
+  "f14035fbb2c85ee06244d6b9a43ad8ca54b144ce0b302c27ab6db4e56b04d43e": {
+    "is_ban": false,
+    "reason": "The snippet permits automated scanners but imposes rate limits, not a prohibition"
+  },
+  "f2451312bbcfad1b13d14e326a6bb3bed80d6150741de98d3c94db842935d47d": {
+    "is_ban": true,
+    "reason": "It explicitly prohibits aggressive automated scans"
+  },
+  "f2e5cf5eb57111b96a832a5d8ed38b87da818461e7f7eb1cf40e6c17d65b19f2": {
+    "is_ban": false,
+    "reason": "The snippet contains no restriction on using automated scanners, only reward criteria"
+  },
+  "f388b8eaa5849705dd48746b29094ccb3a7bf71280642102a42bfce12117cba8": {
+    "is_ban": false,
+    "reason": "Only limits scanner QPS, does not prohibit using automated tools"
+  },
+  "f4d5ca7032ae9a20bc0ef609519cc72f8bef6237624aa106962542c0ddc3f5e4": {
+    "is_ban": true,
+    "reason": "Explicitly instructs testers to refrain from conducting automated scans"
+  },
+  "f4fdec0d727116d2c11bfac1cf478d63a767142c879a55b67e7b577f11ece52b": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits automated tests/scans against the network"
+  },
+  "f59c617efb8bd7ec2a0db907930b3f7e9c8d88c2283fb4a541fc9349e0b22350": {
+    "is_ban": false,
+    "reason": "Snippet contains no prohibition on using automated scanners; it only mentions discussion rules and testing requirements"
+  },
+  "f61c536fb418a12027ff5ee310c6fd5fb972380045dce8f7bf9f68886e13d2b5": {
+    "is_ban": true,
+    "reason": "{\"is_ban\": true, \"reason\": \"The snippet discourages use of automated scanning tools and"
+  },
+  "f68920c918b94dc464544900b76452a80107151402c88987f15932b8db42957e": {
+    "is_ban": false,
+    "reason": "The snippet restricts actions like altering grades, not the use of automated scanning tools"
+  },
+  "f7bf36ab182e6a3a7917206572b60fff4c8075367b82cad8f680d0ef283dd889": {
+    "is_ban": true,
+    "reason": "Explicitly prohibits use of vulnerability scanners, banning the act of using automated tools"
+  },
+  "f97e6f36956deedb822c11df150f98bb2bd062741f7425d07d424678bd40c91b": {
+    "is_ban": true,
+    "reason": "Explicitly tells testers not to use automated scanning tools"
+  },
+  "f9d1a773d44cb6b9cb9ebf62faf80227f824124aaddf214d2bc165c6ede72d5a": {
+    "is_ban": true,
+    "reason": "The snippet tells you to refrain from using automated scanners, directly restricting the act of scanning"
+  },
+  "fbc29eba2289bf6eb85995e8af203ffa4932fc2635275f0ecb8208561d980dcf": {
+    "is_ban": true,
+    "reason": "The clause 'No automated scanning' directly prohibits the act of using automated scanners"
+  },
+  "fbf7f2213a3ca7f4f00b45a56f31dcb028ddad78ac4860de982c3232b867009f": {
+    "is_ban": false,
+    "reason": "The snippet discusses privilege escalation and does not mention automated scanning or tool usage restrictions"
+  },
+  "fc2892eb0c24aa06de786947d5b5789e53fd94e411e5e1596a99f3266f3305b2": {
+    "is_ban": false,
+    "reason": "The snippet only bans automated report submissions, not the use of automated scanning tools."
+  },
+  "fc3b01f92cbe8ce0a624b5e7c6a95beff706cc562d0dd666380f9131b01c1d89": {
+    "is_ban": false,
+    "reason": "the snippet limits disclosure and sets testing requirements, not a prohibition on using automated scanners"
+  },
+  "fcfeef22f90b144b4328eec99132c9c797bd12b420c9236e5722ece53b2b87aa": {
+    "is_ban": false,
+    "reason": "Only restricts submission of automated reports, not the act of scanning"
+  },
+  "fd127ad3e5824cda711d103771762f1bd1e53683dca3e5d17b4094ac685f189b": {
+    "is_ban": false,
+    "reason": "Snippet contains no language banning automated scanning or tool use"
+  }
+}
