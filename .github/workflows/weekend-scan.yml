@@ -87,7 +87,7 @@ jobs:
           fi
 
           echo "has_hosts=true" >> $GITHUB_OUTPUT
-          target_per_batch=50
+          target_per_batch=25
           num_batches=$(( (total + target_per_batch - 1) / target_per_batch ))
           if [ "$num_batches" -gt 256 ]; then num_batches=256; fi
           if [ "$num_batches" -lt 1 ]; then num_batches=1; fi
@@ -114,12 +114,12 @@ jobs:
           path: combined.txt
           retention-days: 7
 
-  # ─── WEEKLY COMBINED: max-parallel 5 ──────────────────────────────
+  # ─── WEEKLY COMBINED: max-parallel 20 ─────────────────────────────
   weekly_combined:
     needs: prepare
     if: needs.prepare.outputs.has_hosts == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 350
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
