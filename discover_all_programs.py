@@ -31,6 +31,7 @@ EXCLUDED_OUTPUT_PATH = os.environ.get("EXCLUDED_OUTPUT_PATH") or os.path.join(HO
 MIN_RATE_LIMIT = 5
 DOMAINS_TXT_PATH = os.environ.get("DOMAINS_TXT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "domains.txt")
 CANDIDATE_DOMAINS_PATH = os.environ.get("CANDIDATE_DOMAINS_PATH") or os.path.join(HOME, "bug-bounty-hunter", "candidate_domains.txt")
+CANDIDATE_DOMAINS_REVIEW_CAP = int(os.environ.get("CANDIDATE_DOMAINS_REVIEW_CAP") or 100)
 
 FETCH_EXCEPTIONS = (
     urllib.error.HTTPError,
@@ -570,6 +571,11 @@ def update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_pla
     log(f"[CANDIDATES] {len(new_roots)} new root domain(s) queued for manual review "
         f"in {CANDIDATE_DOMAINS_PATH}: {new_roots[:10]}"
         f"{'...' if len(new_roots) > 10 else ''}")
+    if len(new_roots) > CANDIDATE_DOMAINS_REVIEW_CAP:
+        log(f"[WARNING] {len(new_roots)} new domains exceeds review cap of "
+            f"{CANDIDATE_DOMAINS_REVIEW_CAP} - this may indicate a bug (e.g. an "
+            f"entire program's scope being dumped instead of genuinely new domains). "
+            f"Review carefully before vetting any of these into domains.txt.")
     return new_roots
 
 
