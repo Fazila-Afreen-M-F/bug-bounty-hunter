@@ -30,6 +30,7 @@ EXCLUDED_OUTPUT_PATH = os.environ.get("EXCLUDED_OUTPUT_PATH") or os.path.join(HO
 
 MIN_RATE_LIMIT = 5
 DOMAINS_TXT_PATH = os.environ.get("DOMAINS_TXT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "domains.txt")
+CANDIDATE_DOMAINS_PATH = os.environ.get("CANDIDATE_DOMAINS_PATH") or os.path.join(HOME, "bug-bounty-hunter", "candidate_domains.txt")
 
 FETCH_EXCEPTIONS = (
     urllib.error.HTTPError,
@@ -549,15 +550,25 @@ def update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_pla
                 if line and not line.startswith("#"):
                     existing.add(line)
 
+    if os.path.exists(CANDIDATE_DOMAINS_PATH):
+        with open(CANDIDATE_DOMAINS_PATH) as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#"):
+                    existing.add(line)
+
     new_roots = sorted(discovered_roots - existing)
     if not new_roots:
-        log("[DOMAINS.TXT] No new root domains discovered this run")
+        log("[CANDIDATES] No new root domains discovered this run")
         return []
 
-    with open(DOMAINS_TXT_PATH, "a") as f:
+    # SAFETY: never auto-append to domains.txt (the live recon input).
+    # New domains go to a review queue and require manual vetting first.
+    with open(CANDIDATE_DOMAINS_PATH, "a") as f:
         for d in new_roots:
             f.write(f"{d}\n")
-    log(f"[DOMAINS.TXT] Added {len(new_roots)} new root domain(s): {new_roots[:10]}"
+    log(f"[CANDIDATES] {len(new_roots)} new root domain(s) queued for manual review "
+        f"in {CANDIDATE_DOMAINS_PATH}: {new_roots[:10]}"
         f"{'...' if len(new_roots) > 10 else ''}")
     return new_roots
 
