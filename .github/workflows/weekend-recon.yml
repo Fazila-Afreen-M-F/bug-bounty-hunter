@@ -265,6 +265,39 @@ jobs:
           path: batch_artifacts
           pattern: batch-subs-*
 
+      - name: Download vetting results
+        uses: actions/download-artifact@v4
+        with:
+          name: vetting-results
+
+      - name: Build and normalize scope.txt from platform scope files
+        run: |
+          > scope_raw.txt
+          for f in hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt; do
+            if [ -s "$f" ]; then
+              cat "$f" >> scope_raw.txt
+            fi
+          done
+          echo "Raw scope entries: $(wc -l < scope_raw.txt)"
+
+          awk '
+          {
+            line=$0
+            sub(/^IN: /, "IN:", line)
+            sub(/^OUT: /, "OUT:", line)
+            prefix=""
+            if (line ~ /^IN:/) { prefix="IN:"; sub(/^IN:/, "", line) }
+            else if (line ~ /^OUT:/) { prefix="OUT:"; sub(/^OUT:/, "", line) }
+            else next
+            gsub(/^https?:\/\//, "", line)
+            sub(/\/.*$/, "", line)
+            if (line ~ /^\*?[A-Za-z0-9.*()|_-]+\.[A-Za-z]{2,}$/) {
+              print prefix line
+            }
+          }' scope_raw.txt | sort -u > scope.txt
+
+          echo "scope.txt entries after normalization: $(wc -l < scope.txt)"
+
       - name: Combine all batch files + apply scope filter
         id: prep
         run: |
