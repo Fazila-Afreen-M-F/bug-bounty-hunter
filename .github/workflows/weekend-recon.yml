@@ -42,7 +42,7 @@ jobs:
         run: |
           pip install tldextract --break-system-packages
 
-      - name: Vet programs (status + scope, all 4 platforms)
+      - name: Vet programs (status check only - fresh)
         run: |
           export MAPPING_CSV_PATH="checker/domain_program_map.csv"
           export EXCLUDED_OUTPUT_PATH="excluded_domains.txt"
@@ -52,6 +52,22 @@ jobs:
           export BUGCROWD_SCOPE_OUTPUT_PATH="bugcrowd_scope.txt"
           python3 checker/check_program_status.py
           touch excluded_domains.txt hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt
+
+      - name: Use pre-vetted scope from monthly validation (trust Cerebras+regex ban-detection, not this run's regen)
+        run: |
+          for f in hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt; do
+            if [ -s "checker/$f" ]; then
+              cp "checker/$f" "$f"
+              echo "Using vetted $f from main ($(wc -l < $f) entries)"
+            else
+              echo "No vetted $f found on main, keeping freshly-generated version"
+            fi
+          done
+          if [ -s "checker/excluded_domains.txt" ]; then
+            cat "checker/excluded_domains.txt" >> excluded_domains.txt
+            sort -u excluded_domains.txt -o excluded_domains.txt
+            echo "Merged monthly-validation excluded list ($(wc -l < excluded_domains.txt) total excluded)"
+          fi
       - name: Upload vetting results
         uses: actions/upload-artifact@v4
         with:

@@ -22,6 +22,7 @@ jobs:
       CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
       OUTPUT_DIR: ${{ github.workspace }}
       MAPPING_CSV_PATH: ${{ github.workspace }}/domain_program_map.csv
+      EXCLUDED_OUTPUT_PATH: ${{ github.workspace }}/excluded_domains.txt
     steps:
       - name: Check if today is the 1st Saturday (IST)
         id: gate
@@ -69,6 +70,7 @@ jobs:
           git config --global user.name "BugBountyBot"
           git add domain_program_map.csv \
             hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt \
+            excluded_domains.txt \
             cerebras_ban_cache.json \
             2>/dev/null || true
           git diff --staged --quiet || git commit -m "Monthly program validation $(date +'%Y-%m-%d')"

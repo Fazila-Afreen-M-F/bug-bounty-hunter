@@ -26,6 +26,7 @@ HOME = os.path.expanduser("~")
 CEREBRAS_API_KEY = os.environ.get("CEREBRAS_API_KEY")
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR") or os.path.join(HOME, "bug-bounty-hunter")
 MAPPING_PATH = os.environ.get("MAPPING_CSV_PATH") or os.path.join(HOME, "bug-bounty-hunter", "domain_program_map.csv")
+EXCLUDED_OUTPUT_PATH = os.environ.get("EXCLUDED_OUTPUT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "excluded_domains.txt")
 
 MIN_RATE_LIMIT = 5
 DOMAINS_TXT_PATH = os.environ.get("DOMAINS_TXT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "domains.txt")
@@ -476,6 +477,35 @@ def update_domain_program_map(h1_results, int_results, ywh_results, bc_results, 
             writer.writerow(row)
     log(f"[CSV] domain_program_map.csv: rebuilt {len(fresh_rows)} rows for "
         f"{sorted(ran_platforms)}, kept {len(kept_rows)} rows untouched for skipped platforms")
+
+    write_excluded_domains_file(EXCLUDED_OUTPUT_PATH, existing_rows, platform_sources, ran_platforms)
+
+def write_excluded_domains_file(path, existing_rows, platform_sources, ran_platforms):
+    """Write every domain whose program was excluded/skipped this run
+    (for platforms that actually ran) to a persisted file, so downstream
+    workflows (recon/scan) can trust this instead of re-vetting."""
+    included_keywords = {}
+    for platform_name, results, key_field in platform_sources:
+        if platform_name not in ran_platforms:
+            continue
+        included_keywords[platform_name] = {
+            entry.get(key_field) for entry in results.get("included", []) if entry.get(key_field)
+        }
+
+    excluded_domains = set()
+    for domain, platform, keyword in existing_rows:
+        if platform not in ran_platforms:
+            continue
+        if keyword not in included_keywords.get(platform, set()):
+            excluded_domains.add(domain)
+
+    with open(path, "w") as f:
+        for d in sorted(excluded_domains):
+            f.write(f"{d}\n")
+    log(f"[EXCLUDED] {path}: {len(excluded_domains)} domain(s) excluded this run "
+        f"(closed/banned/rate-limited programs)")
+    return len(excluded_domains)
+
 
 def extract_root_domain(asset):
     """Extract the registrable root domain from a scope asset (URL, wildcard,
