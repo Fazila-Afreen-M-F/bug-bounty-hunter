@@ -571,6 +571,10 @@
     "is_ban": true,
     "reason": "Explicit prohibition on using automated tools"
   },
+  "4875d6d0c6a32398a051fd1255b891b8f93d2f244e38a7418a21a1e41b1c3e1c": {
+    "is_ban": true,
+    "reason": "The snippet tells testers not to continue fuzzing, which bans the act of using automated scanning tools."
+  },
   "490996d3de79015d01ecff992925f2ebadbfbc0b4986e3bcf9449df2bc97d20f": {
     "is_ban": false,
     "reason": "No statement bans using automated scanning tools; only mentions automation of platform functionality"
@@ -1438,6 +1442,10 @@
   "b02aa3162090b076737e526db7bb278dd30e30aeebf9058cb166afd50dac1d87": {
     "is_ban": true,
     "reason": "Explicitly prohibits the use of automated scanners/tools"
+  },
+  "b0f9634404473de536fc5cea82ab5c086c38d2a3b6fb5d2a3161e5249b15e932": {
+    "is_ban": false,
+    "reason": "{\"is_ban\": false, \""
   },
   "b1758a24cbe38547e2d2633bacec085cc2c8cd12fda9eba88e132fdbb83f9420": {
     "is_ban": false,
