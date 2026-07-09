@@ -130,8 +130,8 @@ def vet_hackerone_program(handle, auth, results):
         return
     a = data.get("attributes", {})
     policy = a.get("policy", "") or ""
-    if a.get("submission_state") != "open":
-        results["excluded"].append((handle, "not open"))
+    if a.get("offers_bounties") is not True:
+        results["excluded"].append((handle, "not BBP (VDP or other)"))
         return
     banned, snippet = check_automation_ban_two_layer(policy, handle)
     if banned == "review":
@@ -175,8 +175,8 @@ def vet_intigriti_program(program, token, results):
     if program.get("confidentialityLevel", {}).get("value") == "Application":
         results["excluded"].append((name, "Application tier, no access"))
         return
-    if program.get("status", {}).get("value") != "Open":
-        results["excluded"].append((name, "not open"))
+    if program.get("type", {}).get("value") != "Bug Bounty":
+        results["excluded"].append((name, "not BBP (VDP or other)"))
         return
     headers = {"Authorization": f"Bearer {token}", "Accept": "application/json"}
     data, err = fetch_json(
@@ -201,6 +201,12 @@ def vet_intigriti_program(program, token, results):
         return
     domains = []
     for d in data.get("domains", {}).get("content", []):
+        asset_type = d.get("type", {}).get("value")
+        tier = d.get("tier", {}).get("value")
+        if asset_type not in ("Url", "Wildcard"):
+            continue
+        if tier == "No Bounty":
+            continue
         endpoint = d.get("endpoint") or d.get("content")
         if endpoint:
             domains.append(endpoint)
@@ -214,8 +220,11 @@ def vet_intigriti_program(program, token, results):
 
 def extract_ywh_domains(scope_entries):
     domains = []
+    skip_types = ("mobile-application", "mobile-application-android", "mobile-application-ios")
     skip_hosts = ("apps.apple.com", "play.google.com", "itunes.apple.com")
     for entry in scope_entries:
+        if entry.get("scope_type") in skip_types:
+            continue
         s = entry.get("scope", "")
         if not s:
             continue
@@ -268,8 +277,8 @@ def vet_yeswehack_program(program, results):
     if err:
         results["skipped"].append((slug, err))
         return
-    if data.get("disabled", False):
-        results["excluded"].append((slug, "disabled"))
+    if program.get("bounty") is not True:
+        results["excluded"].append((slug, "not BBP (VDP or other)"))
         return
     rules = data.get("rules", "") or ""
     banned, snippet = check_automation_ban_two_layer(rules, slug)
@@ -331,10 +340,6 @@ def vet_bugcrowd_program(program, results):
     if err2:
         results["skipped"].append((slug, err2))
         return
-    state = full.get("data", {}).get("engagement", {}).get("state")
-    if state != "in_progress":
-        results["excluded"].append((slug, f"state={state}"))
-        return
     brief = full.get("data", {}).get("brief", {})
     desc = clean_html(brief.get("description", ""))
     overview = clean_html(brief.get("targetsOverview", ""))
@@ -350,11 +355,14 @@ def vet_bugcrowd_program(program, results):
     if rate is not None and rate < MIN_RATE_LIMIT:
         results["excluded"].append((slug, f"rate limit too strict: {rate}/s"))
         return
+    skip_categories = ("android", "ios", "ip_address", "network")
     domains = []
     for grp in full.get("data", {}).get("scope", []):
         if not grp.get("inScope"):
             continue
         for t in grp.get("targets", []):
+            if t.get("category") in skip_categories:
+                continue
             uri = t.get("uri")
             name = t.get("name", "") or ""
             if uri:
@@ -562,36 +570,13 @@ def update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_pla
     if not new_roots:
         log("[CANDIDATES] No new root domains discovered this run")
         return []
-    # Validate each new root domain against real scope data in
-    # domain_program_map.csv (freshly rebuilt this run) instead of guessing
-    # by count. Only promote domains backed by an actual in-scope entry.
-    scoped_roots = set()
-    if os.path.exists(MAPPING_PATH):
-        import csv as _csv
-        with open(MAPPING_PATH) as f:
-            reader = _csv.DictReader(f)
-            for row in reader:
-                root = extract_root_domain(row.get("domain", ""))
-                if root:
-                    scoped_roots.add(root)
-    validated = sorted(r for r in new_roots if r in scoped_roots)
-    rejected = sorted(r for r in new_roots if r not in scoped_roots)
-    if validated:
-        with open(DOMAINS_TXT_PATH, "a") as f:
-            for d in validated:
-                f.write(f"{d}\n")
-        log(f"[CANDIDATES] {len(validated)} new root domain(s) auto-promoted to "
-            f"{DOMAINS_TXT_PATH} (scope-validated): {validated[:10]}"
-            f"{'...' if len(validated) > 10 else ''}")
-    if rejected:
-        with open(CANDIDATE_DOMAINS_PATH, "a") as f:
-            for d in rejected:
-                f.write(f"{d}\n")
-        log(f"[CANDIDATES] {len(rejected)} new root domain(s) had no matching "
-            f"scope entry in {MAPPING_PATH} - queued in {CANDIDATE_DOMAINS_PATH} "
-            f"for review instead of auto-promoting: {rejected[:10]}"
-            f"{'...' if len(rejected) > 10 else ''}")
-    return validated
+    with open(DOMAINS_TXT_PATH, "a") as f:
+        for d in new_roots:
+            f.write(f"{d}\n")
+    log(f"[CANDIDATES] {len(new_roots)} new root domain(s) auto-promoted to "
+        f"{DOMAINS_TXT_PATH}: {new_roots[:10]}"
+        f"{'...' if len(new_roots) > 10 else ''}")
+    return new_roots
 
 
 def main():
@@ -789,6 +774,9 @@ def cerebras_check_ban(snippet, program_name):
             break
         except Exception as e:
             last_err = e
+            if attempt < 2:
+                time.sleep(5 * (attempt + 1))
+                continue
             break
     log_cerebras_call(program_name, snippet, None, None, error=str(last_err))
     return None

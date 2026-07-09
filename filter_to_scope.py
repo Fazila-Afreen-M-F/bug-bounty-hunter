@@ -58,7 +58,9 @@ def main():
 
     patterns = load_patterns()
     if not patterns:
-        print("[SCOPE FILTER] No scope patterns loaded (scope files missing/empty) - leaving input untouched")
+        print("[SCOPE FILTER] No scope patterns loaded (scope files missing/empty) - failing closed, writing empty output")
+        with open(OUTPUT_PATH, "w") as f:
+            pass
         return
 
     with open(INPUT_PATH) as f:

@@ -23,7 +23,7 @@ def fetch_hackerone_programs(token):
             data = json.loads(resp.read().decode())
         for p in data.get("data", []):
             a = p["attributes"]
-            programs.append({"handle": a["handle"], "name": a["name"], "status": a["submission_state"]})
+            programs.append({"handle": a["handle"], "name": a["name"], "status": a["submission_state"], "offers_bounties": a.get("offers_bounties")})
         url = data.get("links", {}).get("next")
     return programs
 
@@ -54,7 +54,7 @@ def fetch_intigriti_programs(token):
         data = json.loads(resp.read().decode())
     programs = []
     for p in data.get("records", []):
-        programs.append({"handle": p["handle"], "name": p["name"], "status": p["status"]["value"], "id": p["id"]})
+        programs.append({"handle": p["handle"], "name": p["name"], "status": p["status"]["value"], "id": p["id"], "type": p.get("type", {}).get("value")})
     return programs
 
 import itertools
@@ -73,8 +73,9 @@ def fetch_intigriti_scope(program_id, token):
     in_scope = []
     for d in domains:
         asset_type = d.get("type", {}).get("value", "")
+        tier = d.get("tier", {}).get("value", "")
         endpoint = d.get("endpoint")
-        if asset_type in ("Wildcard", "Url") and endpoint:
+        if asset_type in ("Wildcard", "Url") and tier != "No Bounty" and endpoint:
             in_scope.append(endpoint)
 
     roe = data.get("rulesOfEngagement", {}).get("content", {})
@@ -247,12 +248,17 @@ def main():
 
         m = matches[0]
         is_open = (m["status"].lower() == "open")
+        is_bbp = True
+        if platform == "hackerone":
+            is_bbp = m.get("offers_bounties") is True
+        elif platform == "intigriti":
+            is_bbp = m.get("type") == "Bug Bounty"
         tag = "OPEN  " if is_open else "BLOCKED"
-        print(f"[{tag}]  {platform}/{keyword} -> '{m['name']}' (handle={m['handle']}) status={m['status']} ({len(domains)} domain(s))")
-        if not is_open:
+        print(f"[{tag}]  {platform}/{keyword} -> '{m['name']}' (handle={m['handle']}) status={m['status']} bbp={is_bbp} ({len(domains)} domain(s))")
+        if not is_open or not is_bbp:
             excluded_domains.extend(domains)
 
-        if platform == "hackerone" and is_open:
+        if platform == "hackerone" and is_open and is_bbp:
             scope_result = fetch_hackerone_scope(m["handle"], h1_token)
             if scope_result["error"]:
                 print(f"    [SCOPE ERROR] {scope_result['error']}")
@@ -261,7 +267,7 @@ def main():
                     hackerone_scope_lines.append(asset)
                 print(f"    [SCOPE] {len(scope_result['scope'])} in-scope asset(s) found")
 
-        if platform == "intigriti" and is_open:
+        if platform == "intigriti" and is_open and is_bbp:
             scope_result = fetch_intigriti_scope(m["id"], intigriti_token)
             if scope_result["error"]:
                 print(f"    [SCOPE ERROR] {scope_result['error']}")
