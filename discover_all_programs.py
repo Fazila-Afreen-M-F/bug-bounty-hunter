@@ -562,21 +562,36 @@ def update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_pla
     if not new_roots:
         log("[CANDIDATES] No new root domains discovered this run")
         return []
-
-    # SAFETY: never auto-append to domains.txt (the live recon input).
-    # New domains go to a review queue and require manual vetting first.
-    with open(CANDIDATE_DOMAINS_PATH, "a") as f:
-        for d in new_roots:
-            f.write(f"{d}\n")
-    log(f"[CANDIDATES] {len(new_roots)} new root domain(s) queued for manual review "
-        f"in {CANDIDATE_DOMAINS_PATH}: {new_roots[:10]}"
-        f"{'...' if len(new_roots) > 10 else ''}")
-    if len(new_roots) > CANDIDATE_DOMAINS_REVIEW_CAP:
-        log(f"[WARNING] {len(new_roots)} new domains exceeds review cap of "
-            f"{CANDIDATE_DOMAINS_REVIEW_CAP} - this may indicate a bug (e.g. an "
-            f"entire program's scope being dumped instead of genuinely new domains). "
-            f"Review carefully before vetting any of these into domains.txt.")
-    return new_roots
+    # Validate each new root domain against real scope data in
+    # domain_program_map.csv (freshly rebuilt this run) instead of guessing
+    # by count. Only promote domains backed by an actual in-scope entry.
+    scoped_roots = set()
+    if os.path.exists(MAPPING_PATH):
+        import csv as _csv
+        with open(MAPPING_PATH) as f:
+            reader = _csv.DictReader(f)
+            for row in reader:
+                root = extract_root_domain(row.get("domain", ""))
+                if root:
+                    scoped_roots.add(root)
+    validated = sorted(r for r in new_roots if r in scoped_roots)
+    rejected = sorted(r for r in new_roots if r not in scoped_roots)
+    if validated:
+        with open(DOMAINS_TXT_PATH, "a") as f:
+            for d in validated:
+                f.write(f"{d}\n")
+        log(f"[CANDIDATES] {len(validated)} new root domain(s) auto-promoted to "
+            f"{DOMAINS_TXT_PATH} (scope-validated): {validated[:10]}"
+            f"{'...' if len(validated) > 10 else ''}")
+    if rejected:
+        with open(CANDIDATE_DOMAINS_PATH, "a") as f:
+            for d in rejected:
+                f.write(f"{d}\n")
+        log(f"[CANDIDATES] {len(rejected)} new root domain(s) had no matching "
+            f"scope entry in {MAPPING_PATH} - queued in {CANDIDATE_DOMAINS_PATH} "
+            f"for review instead of auto-promoting: {rejected[:10]}"
+            f"{'...' if len(rejected) > 10 else ''}")
+    return validated
 
 
 def main():
