@@ -562,6 +562,12 @@ jobs:
             echo "No new subdomains"
           fi
 
+      - name: Filter out-of-scope hosts
+        run: |
+          git show main:domain_program_map.csv > domain_program_map.csv 2>/dev/null || touch domain_program_map.csv
+          git show main:filter_scope.py > filter_scope.py 2>/dev/null
+          python3 filter_scope.py
+
       - name: Commit final results
         run: |
           git config --global user.email "bugbountybot@github.com"

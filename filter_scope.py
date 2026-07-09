@@ -1,0 +1,48 @@
+import csv
+import tldextract
+
+MAPPING_PATH = "domain_program_map.csv"
+FILES_TO_FILTER = [
+    "live_hosts.txt",
+    "live_hosts_403.txt",
+    "live_hosts_404.txt",
+    "live_hosts_405.txt",
+    "live_hosts_500.txt",
+    "new_live_hosts.txt",
+]
+
+def root_of(value):
+    ext = tldextract.extract(value)
+    if not ext.domain or not ext.suffix:
+        return None
+    return f"{ext.domain}.{ext.suffix}"
+
+def load_scoped_roots(path):
+    scoped = set()
+    try:
+        with open(path) as f:
+            for row in csv.DictReader(f):
+                r = root_of(row.get("domain", ""))
+                if r:
+                    scoped.add(r)
+    except FileNotFoundError:
+        pass
+    return scoped
+
+def main():
+    scoped_roots = load_scoped_roots(MAPPING_PATH)
+    print(f"[FILTER] Loaded {len(scoped_roots)} scoped root domains from {MAPPING_PATH}")
+    for fname in FILES_TO_FILTER:
+        try:
+            with open(fname) as f:
+                hosts = [h.strip() for h in f if h.strip()]
+        except FileNotFoundError:
+            continue
+        kept = [h for h in hosts if root_of(h) in scoped_roots]
+        dropped = len(hosts) - len(kept)
+        with open(fname, "w") as f:
+            f.write("\n".join(kept) + ("\n" if kept else ""))
+        print(f"[FILTER] {fname}: kept {len(kept)}, dropped {dropped} (no scope match)")
+
+if __name__ == "__main__":
+    main()
