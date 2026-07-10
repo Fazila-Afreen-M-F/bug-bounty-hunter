@@ -30,7 +30,6 @@ EXCLUDED_OUTPUT_PATH = os.environ.get("EXCLUDED_OUTPUT_PATH") or os.path.join(HO
 
 MIN_RATE_LIMIT = 5
 DOMAINS_TXT_PATH = os.environ.get("DOMAINS_TXT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "domains.txt")
-CANDIDATE_DOMAINS_PATH = os.environ.get("CANDIDATE_DOMAINS_PATH") or os.path.join(HOME, "bug-bounty-hunter", "candidate_domains.txt")
 CANDIDATE_DOMAINS_REVIEW_CAP = int(os.environ.get("CANDIDATE_DOMAINS_REVIEW_CAP") or 100)
 
 FETCH_EXCEPTIONS = (
@@ -209,7 +208,7 @@ def vet_intigriti_program(program, token, results):
             continue
         endpoint = d.get("endpoint") or d.get("content")
         if endpoint:
-            domains.append(endpoint)
+            domains.append(endpoint.strip())
     results["included"].append({
         "handle": pid,
         "safe_harbor": roe.get("safeHarbour"),
@@ -394,7 +393,8 @@ def merge_scope_file(path, entries_by_program, max_removal_pct=20):
     added = new_domains - old_domains
     removed = old_domains - new_domains
     removal_pct = (len(removed) / len(old_domains) * 100) if old_domains else 0
-    if removal_pct > max_removal_pct:
+    force_apply = os.environ.get("SCOPE_GUARD_OVERRIDE") == "true"
+    if removal_pct > max_removal_pct and not force_apply:
         log(f"  [GUARD] {path}: would remove {len(removed)}/{len(old_domains)} "
             f"({removal_pct:.1f}%) - exceeds {max_removal_pct}% threshold. "
             f"NOT applying. Old scope file left untouched.")
@@ -433,6 +433,20 @@ def summarize(platform, results):
     log(f"  included: {len(results['included'])}")
     log(f"  excluded (failed a condition): {len(results['excluded'])}")
     log(f"  skipped (fetch/parse error): {len(results['skipped'])}")
+
+    excluded_path = f"{platform.lower()}_excluded_full.txt"
+    skipped_path = f"{platform.lower()}_skipped_full.txt"
+    with open(excluded_path, "w") as ef:
+        for name, reason in results["excluded"]:
+            ef.write(f"{name}\t{reason}\n")
+    with open(skipped_path, "w") as sf:
+        for name, reason in results["skipped"]:
+            sf.write(f"{name}\t{reason}\n")
+    n_excluded = len(results["excluded"])
+    n_skipped = len(results["skipped"])
+    log(f"  [FULL LIST] excluded -> {excluded_path} ({n_excluded} rows)")
+    log(f"  [FULL LIST] skipped -> {skipped_path} ({n_skipped} rows)")
+
     if results["excluded"]:
         log("  exclusion reasons (first 10):")
         for name, reason in results["excluded"][:10]:
@@ -524,7 +538,13 @@ def extract_root_domain(asset):
     if not asset:
         return None
     asset = asset.lstrip("*.").replace("https://", "").replace("http://", "")
-    asset = asset.split("/")[0].split(":")[0]
+    asset = asset.split("/")[0].split(":")[0].lower()
+    if "*" in asset:
+        print(f"[SKIP] malformed asset (embedded wildcard, not parseable): {asset!r}")
+        return None
+    if "[" in asset or "]" in asset:
+        print(f"[SKIP] malformed asset (bracket/optional-group notation, not parseable): {asset!r}")
+        return None
     ext = tldextract.extract(asset)
     if not ext.domain or not ext.suffix:
         return None
@@ -559,13 +579,6 @@ def update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_pla
                 if line and not line.startswith("#"):
                     existing.add(line)
 
-    if os.path.exists(CANDIDATE_DOMAINS_PATH):
-        with open(CANDIDATE_DOMAINS_PATH) as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith("#"):
-                    existing.add(line)
-
     new_roots = sorted(discovered_roots - existing)
     if not new_roots:
         log("[CANDIDATES] No new root domains discovered this run")
@@ -589,6 +602,7 @@ def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     ran_platforms = set()
+    applied_platforms = set()
     h1_results = new_results()
     if args.platform in (None, "hackerone") and h1_token:
         ran_platforms.add("hackerone")
@@ -598,6 +612,8 @@ def main():
         summarize("HackerOne", h1_results)
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "hackerone_scope.txt"), h1_results["included"])
         log(f"[H1] merge result: {r}")
+        if r["applied"]:
+            applied_platforms.add("hackerone")
     else:
         if args.platform not in (None, "hackerone"):
             log("[H1] skipped due to --platform filter")
@@ -613,6 +629,8 @@ def main():
         summarize("Intigriti", int_results)
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "intigriti_scope.txt"), int_results["included"])
         log(f"[Intigriti] merge result: {r}")
+        if r["applied"]:
+            applied_platforms.add("intigriti")
     else:
         if args.platform not in (None, "intigriti"):
             log("[Intigriti] skipped due to --platform filter")
@@ -628,6 +646,8 @@ def main():
         summarize("YesWeHack", ywh_results)
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "yeswehack_scope.txt"), ywh_results["included"])
         log(f"[YWH] merge result: {r}")
+        if r["applied"]:
+            applied_platforms.add("yeswehack")
 
     bc_results = new_results()
     if args.platform in (None, "bugcrowd"):
@@ -638,8 +658,10 @@ def main():
         summarize("Bugcrowd", bc_results)
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "bugcrowd_scope.txt"), bc_results["included"])
         log(f"[Bugcrowd] merge result: {r}")
-    update_domain_program_map(h1_results, int_results, ywh_results, bc_results, ran_platforms)
-    update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_platforms)
+        if r["applied"]:
+            applied_platforms.add("bugcrowd")
+    update_domain_program_map(h1_results, int_results, ywh_results, bc_results, applied_platforms)
+    update_domains_txt(h1_results, int_results, ywh_results, bc_results, applied_platforms)
 
     save_cerebras_cache(_CEREBRAS_CACHE)
     log(f"[CEREBRAS CACHE] saved {len(_CEREBRAS_CACHE)} cached decisions to {CEREBRAS_CACHE_PATH}")
@@ -726,7 +748,7 @@ def cerebras_check_ban(snippet, program_name):
         "model": "gpt-oss-120b",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0,
-        "max_tokens": 300,
+        "max_tokens": 700,
     }).encode()
     req = urllib.request.Request(
         CEREBRAS_URL,
@@ -743,12 +765,21 @@ def cerebras_check_ban(snippet, program_name):
         try:
             with urllib.request.urlopen(req, timeout=15) as resp:
                 data = json.loads(resp.read().decode())
+            finish_reason = data["choices"][0].get("finish_reason")
+            if finish_reason and finish_reason != "stop":
+                with open(os.path.join(OUTPUT_DIR, "cerebras_parse_fail_debug.log"), "a") as pf:
+                    pf.write(f"--- {program_name} ---\n")
+                    pf.write(f"finish_reason: {finish_reason}\n")
+                    pf.write(f"RAW: {json.dumps(data)}\n\n")
             text = data["choices"][0]["message"]["content"].strip()
             text = text.strip("`")
             if text.startswith("json"):
                 text = text[4:].strip()
             m = re.search(r'"is_ban"\s*:\s*(true|false)', text, re.IGNORECASE)
             if not m:
+                with open(os.path.join(OUTPUT_DIR, "cerebras_parse_fail_debug.log"), "a") as pf:
+                    pf.write(f"--- {program_name} ---\n")
+                    pf.write(f"FULL RESPONSE: {text!r}\n\n")
                 raise ValueError(f"could not find is_ban in response: {text[:150]}")
             is_ban = m.group(1).lower() == "true"
             rm = re.search(r'"reason"\s*:\s*"(.*?)"\s*}', text, re.DOTALL)
@@ -769,7 +800,15 @@ def cerebras_check_ban(snippet, program_name):
                     df.write(f"retry_after: {retry_after}\n")
                     df.write(f"body: {body}\n\n")
             if e.code in (503, 429) and attempt < 2:
-                time.sleep(5 * (attempt + 1))
+                wait = 5 * (attempt + 1)
+                if e.code == 429:
+                    try:
+                        ra = e.headers.get("Retry-After") if e.headers else None
+                        if ra is not None:
+                            wait = max(wait, min(int(float(ra)) + 1, 90))
+                    except (TypeError, ValueError):
+                        pass
+                time.sleep(wait)
                 continue
             break
         except Exception as e:

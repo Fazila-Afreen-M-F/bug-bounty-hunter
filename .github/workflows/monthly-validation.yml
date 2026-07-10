@@ -60,9 +60,15 @@ jobs:
         if: steps.gate.outputs.run == 'true'
         env:
           DOMAINS_TXT_PATH: ${{ github.workspace }}/domains-branch/domains.txt
-          CANDIDATE_DOMAINS_PATH: ${{ github.workspace }}/candidate_domains.txt
         run: |
           python3 discover_all_programs.py
+
+      - name: Validate pipeline output
+        if: steps.gate.outputs.run == 'true'
+        env:
+          DOMAINS_TXT_PATH: ${{ github.workspace }}/domains-branch/domains.txt
+        run: |
+          python3 validate_pipeline.py
 
       - name: Commit updated CSV and scope files
         if: steps.gate.outputs.run == 'true'
@@ -72,7 +78,6 @@ jobs:
           git add domain_program_map.csv \
             hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt \
             excluded_domains.txt \
-            candidate_domains.txt \
             cerebras_ban_cache.json \
             2>/dev/null || true
           git diff --staged --quiet || git commit -m "Monthly program validation $(date +'%Y-%m-%d')"
