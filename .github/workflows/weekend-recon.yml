@@ -619,6 +619,9 @@ jobs:
             awk '{print $1}' | sort -u > new_live_hosts.txt || true
           echo "New live hosts: $(wc -l < new_live_hosts.txt)"
 
+      - name: Install tldextract
+        run: |
+          pip install tldextract --break-system-packages
       - name: Filter out-of-scope hosts
         run: |
           cp main-branch/domain_program_map.csv domain_program_map.csv 2>/dev/null || touch domain_program_map.csv
