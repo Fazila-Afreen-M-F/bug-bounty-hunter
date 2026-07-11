@@ -7,7 +7,7 @@ name: Weekend Recon
 # Total time: ~2.5h. One trigger, fully automated.
 #
 # Manual trigger: workflow_dispatch with no inputs = runs everything
-# ─────────────────────────────────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────────────────
 
 on:
   workflow_dispatch:
@@ -407,11 +407,25 @@ jobs:
           path: httpx_chunk_*.txt
           retention-days: 1
 
-      - name: Upload new_subdomains for finalize
+      - name: Split new_subdomains for parallel probing
+        run: |
+          if [ -s new_subdomains.txt ]; then
+            split -n l/10 new_subdomains.txt new_sub_chunk_
+            i=1
+            for chunk in new_sub_chunk_*; do
+              mv "$chunk" "new_sub_chunk_${i}.txt"
+              echo "New-sub chunk $i: $(wc -l < new_sub_chunk_${i}.txt) subdomains"
+              i=$((i+1))
+            done
+          else
+            for i in 1 2 3 4 5 6 7 8 9 10; do touch "new_sub_chunk_${i}.txt"; done
+          fi
+
+      - name: Upload new_subdomains chunks for parallel probing
         uses: actions/upload-artifact@v4
         with:
-          name: new-subdomains
-          path: new_subdomains.txt
+          name: new-subdomains-chunks
+          path: new_sub_chunk_*.txt
           retention-days: 1
 
       - name: Commit interim results
@@ -481,12 +495,67 @@ jobs:
           path: httpx_results_${{ matrix.chunk }}.txt
           retention-days: 1
 
+  # ── PROBE NEW SUBDOMAINS PARALLEL: 10 jobs, each probes 1/10th of new subs ─
+  probe_new_subdomains_parallel:
+    needs: combine_and_probe
+    if: needs.combine_and_probe.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        chunk: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    steps:
+      - name: Download new_subdomains chunks
+        uses: actions/download-artifact@v4
+        with:
+          name: new-subdomains-chunks
+
+      - name: Install httpx
+        run: go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+
+      - name: Probe new_sub chunk ${{ matrix.chunk }}
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          CHUNK="new_sub_chunk_${{ matrix.chunk }}.txt"
+
+          if [ ! -s "$CHUNK" ]; then
+            echo "New-sub chunk ${{ matrix.chunk }} is empty, skipping"
+            touch new_live_${{ matrix.chunk }}.txt
+            exit 0
+          fi
+
+          echo "Probing $(wc -l < $CHUNK) new subdomains in chunk ${{ matrix.chunk }}"
+
+          httpx -l "$CHUNK" \
+            -silent \
+            -timeout 15 \
+            -retries 1 \
+            -rl 10 \
+            -threads 25 \
+            -mc 200,201,301,302,303,401,403,404,405,500 \
+            -status-code \
+            -no-color \
+            -o new_live_${{ matrix.chunk }}.txt || true
+
+          echo "New-sub chunk ${{ matrix.chunk }} live: $(wc -l < new_live_${{ matrix.chunk }}.txt)"
+
+      - name: Upload new-sub probe results
+        uses: actions/upload-artifact@v4
+        with:
+          name: new-live-results-${{ matrix.chunk }}
+          path: new_live_${{ matrix.chunk }}.txt
+          retention-days: 1
+
   # ── FINALIZE: merge all httpx results, commit live_hosts ───────────────────
   finalize:
-    needs: [combine_and_probe, httpx_parallel]
-    if: needs.combine_and_probe.result == 'success' && needs.httpx_parallel.result != 'cancelled'
+    needs: [combine_and_probe, httpx_parallel, probe_new_subdomains_parallel]
+    if: needs.combine_and_probe.result == 'success' && needs.httpx_parallel.result != 'cancelled' && needs.probe_new_subdomains_parallel.result != 'cancelled'
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 60
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
@@ -503,14 +572,11 @@ jobs:
           path: httpx_results
           pattern: httpx-results-*
 
-      - name: Download new subdomains
+      - name: Download new-sub probe results
         uses: actions/download-artifact@v4
         with:
-          name: new-subdomains
-          path: new_subs_dl
-
-      - name: Install httpx
-        run: go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+          path: new_live_results
+          pattern: new-live-results-*
 
       - name: Merge httpx results + build live_hosts
         run: |
@@ -540,27 +606,11 @@ jobs:
           echo "405 hosts:  $(wc -l < live_hosts_405.txt)"
           echo "500 hosts:  $(wc -l < live_hosts_500.txt)"
 
-      - name: Probe new subdomains
+      - name: Merge new-sub probe results
         run: |
-          export PATH=$PATH:$(go env GOPATH)/bin
-          touch new_live_hosts.txt
-          NEW="new_subs_dl/new_subdomains.txt"
-          if [ -s "$NEW" ]; then
-            httpx -l "$NEW" \
-              -silent \
-              -timeout 15 \
-              -retries 1 \
-              -rl 50 \
-              -threads 25 \
-              -mc 200,201,301,302,303,401,403,404,405,500 \
-              -status-code \
-              -no-color \
-              -o httpx_new.txt || true
-            awk '{print $1}' httpx_new.txt | sort -u > new_live_hosts.txt || true
-            echo "New live hosts: $(wc -l < new_live_hosts.txt)"
-          else
-            echo "No new subdomains"
-          fi
+          find new_live_results -name "new_live_*.txt" | xargs cat 2>/dev/null | \
+            awk '{print $1}' | sort -u > new_live_hosts.txt || true
+          echo "New live hosts: $(wc -l < new_live_hosts.txt)"
 
       - name: Filter out-of-scope hosts
         run: |
