@@ -566,6 +566,13 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
+      - name: Checkout main branch (for filter_scope.py + CSV)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-branch
+          fetch-depth: 1
+
       - name: Download all httpx results
         uses: actions/download-artifact@v4
         with:
@@ -614,8 +621,8 @@ jobs:
 
       - name: Filter out-of-scope hosts
         run: |
-          git show main:domain_program_map.csv > domain_program_map.csv 2>/dev/null || touch domain_program_map.csv
-          git show main:filter_scope.py > filter_scope.py 2>/dev/null
+          cp main-branch/domain_program_map.csv domain_program_map.csv 2>/dev/null || touch domain_program_map.csv
+          cp main-branch/filter_scope.py filter_scope.py
           python3 filter_scope.py
 
       - name: Commit final results
