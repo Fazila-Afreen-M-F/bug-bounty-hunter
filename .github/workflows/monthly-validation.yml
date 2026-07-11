@@ -60,7 +60,6 @@ jobs:
         if: steps.gate.outputs.run == 'true'
         env:
           DOMAINS_TXT_PATH: ${{ github.workspace }}/domains-branch/domains.txt
-          CANDIDATE_DOMAINS_TXT_PATH: ${{ github.workspace }}/domains-branch/candidate_domains.txt
         run: |
           python3 discover_all_programs.py
 
@@ -90,7 +89,7 @@ jobs:
           cd domains-branch
           git config --global user.email "bugbountybot@github.com"
           git config --global user.name "BugBountyBot"
-          git add domains.txt candidate_domains.txt
+          git add domains.txt
           git diff --staged --quiet || git commit -m "Monthly validation: add new root domain(s) $(date +'%Y-%m-%d')"
           git push origin domains || (git pull --rebase origin domains && git push origin domains) || echo "::warning::Push failed - domains branch may be stale"
 
