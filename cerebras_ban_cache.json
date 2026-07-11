@@ -931,6 +931,10 @@
     "is_ban": true,
     "reason": "Explicitly instructs testers not to use automatic scanners"
   },
+  "6841cd936373f56a2e7d86ed95163f4678691735339141e048e86dec1d6486ee": {
+    "is_ban": true,
+    "reason": "Clause 7 explicitly bans destructive automated testing, restricting the act of using automated tools"
+  },
   "688247890cc362d267e2a5eb1513f6b492718a336d058c2ba76290a34edb4564": {
     "is_ban": true,
     "reason": "The snippet explicitly prohibits using automated scanners or tools."
