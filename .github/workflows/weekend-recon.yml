@@ -486,7 +486,7 @@ jobs:
     needs: [combine_and_probe, httpx_parallel]
     if: needs.combine_and_probe.result == 'success' && needs.httpx_parallel.result != 'cancelled'
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    timeout-minutes: 360
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
