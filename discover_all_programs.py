@@ -30,7 +30,6 @@ EXCLUDED_OUTPUT_PATH = os.environ.get("EXCLUDED_OUTPUT_PATH") or os.path.join(HO
 
 MIN_RATE_LIMIT = 5
 DOMAINS_TXT_PATH = os.environ.get("DOMAINS_TXT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "domains.txt")
-CANDIDATE_DOMAINS_TXT_PATH = os.environ.get("CANDIDATE_DOMAINS_TXT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "candidate_domains.txt")
 CANDIDATE_DOMAINS_REVIEW_CAP = int(os.environ.get("CANDIDATE_DOMAINS_REVIEW_CAP") or 100)
 
 FETCH_EXCEPTIONS = (
@@ -554,8 +553,8 @@ def extract_root_domain(asset):
 
 def update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_platforms):
     """Collect root domains from all newly-included programs (across platforms
-    that actually ran) and queue any genuinely new ones into candidate_domains.txt
-    for human review. Never writes directly to domains.txt."""
+    that actually ran) and append any genuinely new ones to domains.txt.
+    Never removes existing entries - additive only."""
     platform_sources = [
         ("hackerone", h1_results),
         ("intigriti", int_results),
@@ -580,29 +579,20 @@ def update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_pla
                 if line and not line.startswith("#"):
                     existing.add(line)
 
-    existing_candidates = set()
-    if os.path.exists(CANDIDATE_DOMAINS_TXT_PATH):
-        with open(CANDIDATE_DOMAINS_TXT_PATH) as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith("#"):
-                    existing_candidates.add(line)
-
-    new_roots = sorted(discovered_roots - existing - existing_candidates)
+    new_roots = sorted(discovered_roots - existing)
     if not new_roots:
         log("[CANDIDATES] No new root domains discovered this run")
         return []
 
     if len(new_roots) > CANDIDATE_DOMAINS_REVIEW_CAP:
-        log(f"[CANDIDATES] WARNING: {len(new_roots)} new root domain(s) exceeds "
-            f"review cap of {CANDIDATE_DOMAINS_REVIEW_CAP} - all will still be queued "
-            f"for review, but this batch size warrants a manual look")
+        log(f"[CANDIDATES] NOTE: {len(new_roots)} new root domain(s) exceeds "
+            f"the usual batch size of {CANDIDATE_DOMAINS_REVIEW_CAP} - large discovery run")
 
-    with open(CANDIDATE_DOMAINS_TXT_PATH, "a") as f:
+    with open(DOMAINS_TXT_PATH, "a") as f:
         for d in new_roots:
             f.write(f"{d}\n")
-    log(f"[CANDIDATES] {len(new_roots)} new root domain(s) queued to "
-        f"{CANDIDATE_DOMAINS_TXT_PATH} for review: {new_roots[:10]}"
+    log(f"[CANDIDATES] {len(new_roots)} new root domain(s) auto-promoted to "
+        f"{DOMAINS_TXT_PATH}: {new_roots[:10]}"
         f"{'...' if len(new_roots) > 10 else ''}")
     return new_roots
 
