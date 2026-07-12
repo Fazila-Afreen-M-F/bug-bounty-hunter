@@ -307,15 +307,9 @@ jobs:
           git config --global user.email "bugbountybot@github.com"
           git config --global user.name "BugBountyBot"
           touch weekend_progress.txt
-          WEEK_TAG=$(date +'%Y-%U')
-          STORED_WEEK=$(head -1 weekend_progress.txt 2>/dev/null || echo "")
-          if [ "$STORED_WEEK" != "$WEEK_TAG" ]; then
-            echo "$WEEK_TAG" > weekend_progress.txt
-          fi
           find batch_markers -name "batch_marker.txt" -exec cat {} \; >> weekend_progress.txt
-          { head -1 weekend_progress.txt; tail -n +2 weekend_progress.txt | sort -n -u; } > weekend_progress_sorted.txt
-          mv weekend_progress_sorted.txt weekend_progress.txt
-          echo "Batches marked complete this run: $(tail -n +2 weekend_progress.txt | wc -l)"
+          sort -n -u weekend_progress.txt -o weekend_progress.txt
+          echo "Batches marked complete this run: $(wc -l < weekend_progress.txt)"
           git add weekend_progress.txt
           git diff --staged --quiet || git commit -m "Weekend scan progress update $(date +'%Y-%m-%d')"
           git push origin domains || (git pull --rebase origin domains && git push origin domains) || echo "::warning::Push failed for weekend_progress.txt"
