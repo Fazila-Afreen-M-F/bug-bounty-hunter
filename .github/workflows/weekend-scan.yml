@@ -152,6 +152,13 @@ jobs:
           sed -n "${start},${end}p" combined.txt > input.txt
           echo "Batch $batch_num/$num_batches: $(wc -l < input.txt) of $total hosts"
 
+      - name: Pre-filter dead hosts (liveness check)
+        run: |
+          echo "Hosts before liveness filter: $(wc -l < input.txt)"
+          cat input.txt | xargs -P 30 -I @@H@@ bash -c 'code=$(curl -s -o /dev/null -m 2 -w "%{http_code}" "@@H@@" 2>/dev/null || echo 000); if [ "$code" != "000" ]; then echo "@@H@@"; fi' > input_live.txt || true
+          if [ -s input_live.txt ]; then mv input_live.txt input.txt; fi
+          echo "Hosts after liveness filter: $(wc -l < input.txt)"
+
       - name: Get week number
         id: date
         run: echo "week=$(date +'%Y-%U')" >> $GITHUB_OUTPUT
@@ -202,7 +209,11 @@ jobs:
 
           TEMPLATE_PATHS="$TEMPLATES_DIR/http/misconfiguration,$TEMPLATES_DIR/http/exposed-panels,$TEMPLATES_DIR/http/exposures,$TEMPLATES_DIR/http/default-logins,$TEMPLATES_DIR/cloud"
 
-          timeout 18000 nuclei -l input.txt \
+          echo "[TIMING] Batch hosts: $(wc -l < input.txt)"
+          echo "[TIMING] Scan start: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          SCAN_START=$(date +%s)
+
+          timeout 20700 nuclei -l input.txt \
             -t "$TEMPLATE_PATHS" \
             -itags jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator \
             -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive,js \
@@ -218,6 +229,9 @@ jobs:
             -stats -si 30 \
             -no-color -o results.txt || true
 
+          SCAN_END=$(date +%s)
+          echo "[TIMING] Scan end: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          echo "[TIMING] Elapsed seconds: $(( SCAN_END - SCAN_START ))"
           echo "Findings: $(wc -l < results.txt)"
 
       - name: Show results
