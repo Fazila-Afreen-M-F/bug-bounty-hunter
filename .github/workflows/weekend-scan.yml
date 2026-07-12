@@ -245,7 +245,7 @@ jobs:
           server_port: 465
           username: ${{ secrets.EMAIL_USER }}
           password: ${{ secrets.EMAIL_PASS }}
-          subject: "[Weekly Combined ${{ matrix.batch }}] ${{ steps.check.outputs.count }} Finding(s)"
+          subject: "[Weekend Combined ${{ matrix.batch }}] ${{ steps.check.outputs.count }} Finding(s)"
           body: file://results.txt
           to: ${{ secrets.EMAIL_TO }}
           from: BugBountyBot
@@ -258,7 +258,7 @@ jobs:
           echo "${{ matrix.batch }}" >> weekend_progress.txt
           sort -u weekend_progress.txt -o weekend_progress.txt
           git add weekend_progress.txt
-          git diff --staged --quiet || git commit -m "Weekly batch ${{ matrix.batch }} complete"
+          git diff --staged --quiet || git commit -m "Weekend batch ${{ matrix.batch }} complete"
           git push origin domains || (git pull --rebase origin domains && git push origin domains) || echo "::warning::Push failed for batch ${{ matrix.batch }}"
 
   # ─── JS SECRETS ────────────────────────────────────────────────
