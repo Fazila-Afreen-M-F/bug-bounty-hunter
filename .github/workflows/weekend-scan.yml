@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: weekly-scan-pipeline
+  group: weekend-scan-pipeline
   cancel-in-progress: false
 
 jobs:
@@ -96,13 +96,13 @@ jobs:
           echo "num_batches=$num_batches" >> $GITHUB_OUTPUT
 
           WEEK_TAG=$(date +'%Y-%U')
-          touch weekly_progress.txt
-          STORED_WEEK=$(head -1 weekly_progress.txt 2>/dev/null || echo "")
+          touch weekend_progress.txt
+          STORED_WEEK=$(head -1 weekend_progress.txt 2>/dev/null || echo "")
           if [ "$STORED_WEEK" != "$WEEK_TAG" ]; then
             echo "New week ($WEEK_TAG) - resetting progress"
-            echo "$WEEK_TAG" > weekly_progress.txt
+            echo "$WEEK_TAG" > weekend_progress.txt
           fi
-          tail -n +2 weekly_progress.txt > done_batches.txt
+          tail -n +2 weekend_progress.txt > done_batches.txt
           echo "Already completed this week: $(wc -l < done_batches.txt) batch(es)"
 
           batches=$(seq 1 $num_batches | grep -vFxf done_batches.txt | jq -R . | jq -sc .)
@@ -111,12 +111,12 @@ jobs:
       - name: Upload host list
         uses: actions/upload-artifact@v4
         with:
-          name: weekly-hosts
+          name: weekend-hosts
           path: combined.txt
           retention-days: 7
 
   # ─── WEEKLY COMBINED: max-parallel 20 ─────────────────────────────
-  weekly_combined:
+  weekend_combined:
     needs: prepare
     if: needs.prepare.outputs.has_hosts == 'true'
     runs-on: ubuntu-latest
@@ -139,7 +139,7 @@ jobs:
       - name: Download host list
         uses: actions/download-artifact@v4
         with:
-          name: weekly-hosts
+          name: weekend-hosts
 
       - name: Slice hosts for this batch
         run: |
@@ -255,16 +255,16 @@ jobs:
         run: |
           git config --global user.email "bugbountybot@github.com"
           git config --global user.name "BugBountyBot"
-          echo "${{ matrix.batch }}" >> weekly_progress.txt
-          sort -u weekly_progress.txt -o weekly_progress.txt
-          git add weekly_progress.txt
+          echo "${{ matrix.batch }}" >> weekend_progress.txt
+          sort -u weekend_progress.txt -o weekend_progress.txt
+          git add weekend_progress.txt
           git diff --staged --quiet || git commit -m "Weekly batch ${{ matrix.batch }} complete"
           git push origin domains || (git pull --rebase origin domains && git push origin domains) || echo "::warning::Push failed for batch ${{ matrix.batch }}"
 
   # ─── JS SECRETS ────────────────────────────────────────────────
-  weekly_js_secrets_q1:
-    needs: weekly_combined
-    if: always() && !cancelled() && needs.weekly_combined.result != 'failure'
+  weekend_js_secrets_q1:
+    needs: weekend_combined
+    if: always() && !cancelled() && needs.weekend_combined.result != 'failure'
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "JS Secrets Q1"
@@ -280,9 +280,9 @@ jobs:
       HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
       INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
 
-  weekly_js_secrets_q2:
-    needs: weekly_combined
-    if: always() && !cancelled() && needs.weekly_combined.result != 'failure'
+  weekend_js_secrets_q2:
+    needs: weekend_combined
+    if: always() && !cancelled() && needs.weekend_combined.result != 'failure'
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "JS Secrets Q2"
@@ -298,9 +298,9 @@ jobs:
       HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
       INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
 
-  weekly_js_secrets_q3:
-    needs: weekly_combined
-    if: always() && !cancelled() && needs.weekly_combined.result != 'failure'
+  weekend_js_secrets_q3:
+    needs: weekend_combined
+    if: always() && !cancelled() && needs.weekend_combined.result != 'failure'
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "JS Secrets Q3"
@@ -316,9 +316,9 @@ jobs:
       HACKERONE_TOKEN: ${{ secrets.HACKERONE_TOKEN }}
       INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
 
-  weekly_js_secrets_q4:
-    needs: weekly_combined
-    if: always() && !cancelled() && needs.weekly_combined.result != 'failure'
+  weekend_js_secrets_q4:
+    needs: weekend_combined
+    if: always() && !cancelled() && needs.weekend_combined.result != 'failure'
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "JS Secrets Q4"
@@ -335,9 +335,9 @@ jobs:
       INTIGRITI_TOKEN: ${{ secrets.INTIGRITI_TOKEN }}
 
   # ─── CUSTOM TEMPLATES ──────────────────────────────────────────
-  weekly_custom:
-    needs: weekly_combined
-    if: always() && !cancelled() && needs.weekly_combined.result != 'failure'
+  weekend_custom:
+    needs: weekend_combined
+    if: always() && !cancelled() && needs.weekend_combined.result != 'failure'
     uses: ./.github/workflows/scan-template.yml
     with:
       scan_name: "Custom Templates"
