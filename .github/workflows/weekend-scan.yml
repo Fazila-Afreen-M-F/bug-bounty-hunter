@@ -215,6 +215,7 @@ jobs:
             -silent -retries 0 -timeout 3 \
             -bulk-size 50 -concurrency 50 \
             -rate-limit 5 -fhr -max-host-error 30 \
+            -stats -si 30 \
             -no-color -o results.txt || true
 
           echo "Findings: $(wc -l < results.txt)"
