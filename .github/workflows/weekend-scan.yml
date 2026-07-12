@@ -88,22 +88,22 @@ jobs:
           fi
 
           echo "has_hosts=true" >> $GITHUB_OUTPUT
-          target_per_batch=25
+          target_per_batch=20
           num_batches=$(( (total + target_per_batch - 1) / target_per_batch ))
           if [ "$num_batches" -gt 256 ]; then num_batches=256; fi
           if [ "$num_batches" -lt 1 ]; then num_batches=1; fi
           echo "Batches: $num_batches (~$(( (total + num_batches - 1) / num_batches )) hosts each)"
           echo "num_batches=$num_batches" >> $GITHUB_OUTPUT
 
-          WEEK_TAG=$(date +'%Y-%U')
           touch weekend_progress.txt
-          STORED_WEEK=$(head -1 weekend_progress.txt 2>/dev/null || echo "")
-          if [ "$STORED_WEEK" != "$WEEK_TAG" ]; then
-            echo "New week ($WEEK_TAG) - resetting progress"
-            echo "$WEEK_TAG" > weekend_progress.txt
+          cp weekend_progress.txt done_batches.txt
+          done_count=$(wc -l < done_batches.txt)
+          if [ "$done_count" -ge "$num_batches" ]; then
+            echo "Full cycle complete ($done_count/$num_batches) - resetting for new cycle"
+            > weekend_progress.txt
+            > done_batches.txt
           fi
-          tail -n +2 weekend_progress.txt > done_batches.txt
-          echo "Already completed this week: $(wc -l < done_batches.txt) batch(es)"
+          echo "Already completed this cycle: $(wc -l < done_batches.txt) of $num_batches batch(es)"
 
           batches=$(seq 1 $num_batches | grep -vFxf done_batches.txt | jq -R . | jq -sc .)
           echo "batches=$batches" >> $GITHUB_OUTPUT
@@ -212,6 +212,7 @@ jobs:
           echo "[TIMING] Batch hosts: $(wc -l < input.txt)"
           echo "[TIMING] Scan start: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
           SCAN_START=$(date +%s)
+          set +e
 
           timeout 20700 nuclei -l input.txt \
             -t "$TEMPLATE_PATHS" \
@@ -227,11 +228,16 @@ jobs:
             -bulk-size 50 -concurrency 50 \
             -rate-limit 5 -fhr -max-host-error 30 \
             -stats -si 30 \
-            -no-color -o results.txt || true
+            -no-color -o results.txt
+          NUCLEI_EXIT=$?
+          echo "$NUCLEI_EXIT" > nuclei_exit_code.txt
 
           SCAN_END=$(date +%s)
           echo "[TIMING] Scan end: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
           echo "[TIMING] Elapsed seconds: $(( SCAN_END - SCAN_START ))"
+          if [ "$NUCLEI_EXIT" -eq 124 ]; then
+            echo "[TIMING] WARNING: nuclei was killed by timeout - scan incomplete, batch will NOT be marked done"
+          fi
           echo "Findings: $(wc -l < results.txt)"
 
       - name: Show results
