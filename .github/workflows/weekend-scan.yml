@@ -255,6 +255,10 @@ jobs:
             -no-color -o results.txt
           NUCLEI_EXIT=$?
           echo "$NUCLEI_EXIT" > nuclei_exit_code.txt
+          if [ "$NUCLEI_EXIT" -eq 124 ]; then
+            echo "::error::Nuclei timed out (exit 124) - failing step so batch is NOT marked done"
+            exit 1
+          fi
 
           SCAN_END=$(date +%s)
           echo "[TIMING] Scan end: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
