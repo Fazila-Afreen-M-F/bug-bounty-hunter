@@ -249,7 +249,7 @@ jobs:
             -H "X-Intigriti-Research: Chemical, Oxidizer" \
             -H "X-YesWeHack-Research: Chemical, Oxidizer" \
             -silent -retries 0 -timeout 3 \
-            -bulk-size 50 -concurrency 50 \
+            -bulk-size 5 -concurrency 5 \
             -rate-limit 5 -fhr -max-host-error 30 \
             -stats -si 30 \
             -no-color -o results.txt
