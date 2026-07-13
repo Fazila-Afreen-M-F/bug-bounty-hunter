@@ -89,7 +89,7 @@ jobs:
             exit 0
           fi
 
-          target_per_batch=25
+          target_per_batch=20
           max_batches=256
           chunk_size=$(( target_per_batch * max_batches ))
 
