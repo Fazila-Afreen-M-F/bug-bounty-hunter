@@ -88,7 +88,7 @@ jobs:
           fi
 
           echo "has_hosts=true" >> $GITHUB_OUTPUT
-          target_per_batch=20
+          target_per_batch=10
           num_batches=$(( (total + target_per_batch - 1) / target_per_batch ))
           if [ "$num_batches" -gt 256 ]; then num_batches=256; fi
           if [ "$num_batches" -lt 1 ]; then num_batches=1; fi
