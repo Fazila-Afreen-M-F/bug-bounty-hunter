@@ -339,7 +339,12 @@ jobs:
             -fhr \
             -max-host-error 30 \
             -no-color \
-            -o results.txt || true
+            -o results.txt
+          NUCLEI_EXIT=$?
+          if [ "$NUCLEI_EXIT" -eq 124 ]; then
+            echo "::error::Nuclei timed out (exit 124) - failing step, results.txt may be incomplete"
+            exit 1
+          fi
 
           echo "Findings: $(wc -l < results.txt 2>/dev/null || echo 0)"
 
