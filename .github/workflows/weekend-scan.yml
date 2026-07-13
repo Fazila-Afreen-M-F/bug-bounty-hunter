@@ -20,6 +20,8 @@ jobs:
       batches: ${{ steps.split.outputs.batches }}
       has_hosts: ${{ steps.split.outputs.has_hosts }}
       num_batches: ${{ steps.split.outputs.num_batches }}
+      chunk_end: ${{ steps.split.outputs.chunk_end }}
+      full_total: ${{ steps.split.outputs.full_total }}
     steps:
       - name: Checkout domains branch
         uses: actions/checkout@v4
@@ -78,22 +80,44 @@ jobs:
 
           echo "Hosts after suspension filter: $(wc -l < combined.txt)"
 
-          total=$(wc -l < combined.txt)
-          echo "Total hosts: $total"
+          full_total=$(wc -l < combined.txt)
+          echo "Total hosts (full list): $full_total"
 
-          if [ "$total" -eq 0 ]; then
+          if [ "$full_total" -eq 0 ]; then
             echo "has_hosts=false" >> $GITHUB_OUTPUT
             echo "batches=[]" >> $GITHUB_OUTPUT
             exit 0
           fi
 
+          target_per_batch=25
+          max_batches=256
+          chunk_size=$(( target_per_batch * max_batches ))
+
+          touch weekend_offset.txt
+          offset=$(cat weekend_offset.txt 2>/dev/null)
+          if [ -z "$offset" ] || [ "$offset" -gt "$full_total" ]; then
+            offset=1
+          fi
+
+          chunk_end=$(( offset + chunk_size - 1 ))
+          if [ "$chunk_end" -gt "$full_total" ]; then
+            chunk_end=$full_total
+          fi
+
+          sed -n "${offset},${chunk_end}p" combined.txt > combined_chunk.txt
+          mv combined_chunk.txt combined.txt
+
+          total=$(wc -l < combined.txt)
+          echo "Chunk: hosts $offset-$chunk_end of $full_total (this trigger: $total hosts)"
+
           echo "has_hosts=true" >> $GITHUB_OUTPUT
-          target_per_batch=10
           num_batches=$(( (total + target_per_batch - 1) / target_per_batch ))
-          if [ "$num_batches" -gt 256 ]; then num_batches=256; fi
+          if [ "$num_batches" -gt $max_batches ]; then num_batches=$max_batches; fi
           if [ "$num_batches" -lt 1 ]; then num_batches=1; fi
           echo "Batches: $num_batches (~$(( (total + num_batches - 1) / num_batches )) hosts each)"
           echo "num_batches=$num_batches" >> $GITHUB_OUTPUT
+          echo "chunk_end=$chunk_end" >> $GITHUB_OUTPUT
+          echo "full_total=$full_total" >> $GITHUB_OUTPUT
 
           touch weekend_progress.txt
           cp weekend_progress.txt done_batches.txt
@@ -285,7 +309,7 @@ jobs:
           retention-days: 1
 
   finalize_progress:
-    needs: weekend_combined
+    needs: [prepare, weekend_combined]
     if: always() && needs.weekend_combined.result != 'cancelled'
     runs-on: ubuntu-latest
     steps:
@@ -306,11 +330,29 @@ jobs:
         run: |
           git config --global user.email "bugbountybot@github.com"
           git config --global user.name "BugBountyBot"
-          touch weekend_progress.txt
+          touch weekend_progress.txt weekend_offset.txt
           find batch_markers -name "batch_marker.txt" -exec cat {} \; >> weekend_progress.txt
           sort -n -u weekend_progress.txt -o weekend_progress.txt
-          echo "Batches marked complete this run: $(wc -l < weekend_progress.txt)"
-          git add weekend_progress.txt
+          done_count=$(wc -l < weekend_progress.txt)
+          echo "Batches marked complete this run: $done_count"
+
+          NUM_BATCHES="${{ needs.prepare.outputs.num_batches }}"
+          CHUNK_END="${{ needs.prepare.outputs.chunk_end }}"
+          FULL_TOTAL="${{ needs.prepare.outputs.full_total }}"
+
+          if [ -n "$NUM_BATCHES" ] && [ "$done_count" -ge "$NUM_BATCHES" ]; then
+            NEW_OFFSET=$(( CHUNK_END + 1 ))
+            if [ "$NEW_OFFSET" -gt "$FULL_TOTAL" ]; then
+              NEW_OFFSET=1
+            fi
+            echo "Chunk complete ($done_count/$NUM_BATCHES) - advancing offset to $NEW_OFFSET"
+            echo "$NEW_OFFSET" > weekend_offset.txt
+            > weekend_progress.txt
+          else
+            echo "Chunk not yet complete ($done_count/$NUM_BATCHES) - offset unchanged, resuming same chunk next trigger"
+          fi
+
+          git add weekend_progress.txt weekend_offset.txt
           git diff --staged --quiet || git commit -m "Weekend scan progress update $(date +'%Y-%m-%d')"
           git push origin domains || (git pull --rebase origin domains && git push origin domains) || echo "::warning::Push failed for weekend_progress.txt"
 
