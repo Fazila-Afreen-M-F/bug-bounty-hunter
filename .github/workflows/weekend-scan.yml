@@ -597,14 +597,6 @@ jobs:
           ref: main
           fetch-depth: 1
 
-      - name: Checkout domains branch host list
-        uses: actions/checkout@v4
-        with:
-          ref: domains
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-          path: domains-branch
-
       - name: Download host list
         uses: actions/download-artifact@v4
         with:
