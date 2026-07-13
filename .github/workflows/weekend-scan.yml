@@ -474,7 +474,11 @@ jobs:
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
             -H "X-Intigriti-Research: Chemical, Oxidizer" \
             -H "X-YesWeHack-Research: Chemical, Oxidizer" \
-            -o urls.txt || true
+            -o urls.txt
+          KATANA_EXIT=$?
+          if [ "$KATANA_EXIT" -eq 124 ]; then
+            echo "::warning::Katana timed out (exit 124) - proceeding with partial/no crawled URLs, nuclei will still run"
+          fi
           if [ -f urls.txt ]; then
             sort -u urls.txt | head -1000 > urls_capped.txt
             mv urls_capped.txt urls.txt
