@@ -106,14 +106,20 @@ def discover_hackerone(token):
         if err:
             log(f"[H1] pagination fetch failed: {err}")
             break
+        skipped_private = 0
         for p in data.get("data", []):
             a = p["attributes"]
+            if a.get("state") != "public_mode":
+                skipped_private += 1
+                continue
             programs.append({
                 "handle": a.get("handle"),
                 "name": a.get("name"),
                 "submission_state": a.get("submission_state"),
                 "offers_bounties": a.get("offers_bounties"),
             })
+        if skipped_private:
+            log(f"[H1] skipped {skipped_private} non-public (private/invite-only) programs this page")
         url = data.get("links", {}).get("next")
         time.sleep(0.3)
     log(f"[H1] discovered {len(programs)} total programs")
