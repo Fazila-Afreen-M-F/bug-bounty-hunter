@@ -79,6 +79,9 @@ jobs:
             hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt \
             excluded_domains.txt \
             cerebras_ban_cache.json \
+            discovery_stats.csv \
+            hackerone_excluded_full.txt intigriti_excluded_full.txt yeswehack_excluded_full.txt bugcrowd_excluded_full.txt \
+            hackerone_skipped_full.txt intigriti_skipped_full.txt yeswehack_skipped_full.txt bugcrowd_skipped_full.txt \
             2>/dev/null || true
           git diff --staged --quiet || git commit -m "Monthly program validation $(date +'%Y-%m-%d')"
           git push origin main || (git pull --rebase origin main && git push origin main) || echo "::warning::Push failed - main may be stale"

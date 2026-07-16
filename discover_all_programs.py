@@ -13,7 +13,7 @@ import csv
 import json
 import os
 import shutil
-from datetime import datetime
+from datetime import datetime, timezone
 import re
 import hashlib
 import socket
@@ -475,8 +475,9 @@ def write_scope_file(path, entries_by_program):
     return len(all_domains)
 
 
-def summarize(platform, results):
+def summarize(platform, results, total_discovered):
     log(f"\n=== {platform} summary ===")
+    log(f"  total discovered from platform: {total_discovered}")
     log(f"  included: {len(results['included'])}")
     log(f"  excluded (failed a condition): {len(results['excluded'])}")
     log(f"  skipped (fetch/parse error): {len(results['skipped'])}")
@@ -502,6 +503,22 @@ def summarize(platform, results):
         log("  skip reasons (first 10):")
         for name, reason in results["skipped"][:10]:
             log(f"    - {name}: {reason}")
+
+    stats_path = os.path.join(OUTPUT_DIR, "discovery_stats.csv")
+    is_new = not os.path.exists(stats_path)
+    with open(stats_path, "a", newline="") as sf:
+        w = csv.writer(sf)
+        if is_new:
+            w.writerow(["timestamp_utc", "platform", "total_discovered", "included", "excluded", "skipped"])
+        w.writerow([
+            datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            platform,
+            total_discovered,
+            len(results["included"]),
+            n_excluded,
+            n_skipped,
+        ])
+    log(f"  [STATS] appended to {stats_path}")
 
 
 def update_domain_program_map(h1_results, int_results, ywh_results, bc_results, ran_platforms):
@@ -660,7 +677,7 @@ def main():
         programs, auth = discover_hackerone(h1_token)
         for p in programs:
             vet_hackerone_program(p["handle"], auth, h1_results)
-        summarize("HackerOne", h1_results)
+        summarize("HackerOne", h1_results, len(programs))
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "hackerone_scope.txt"), h1_results["included"])
         log(f"[H1] merge result: {r}")
         if r["applied"]:
@@ -677,7 +694,7 @@ def main():
         programs = discover_intigriti(int_token)
         for p in programs:
             vet_intigriti_program(p, int_token, int_results)
-        summarize("Intigriti", int_results)
+        summarize("Intigriti", int_results, len(programs))
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "intigriti_scope.txt"), int_results["included"])
         log(f"[Intigriti] merge result: {r}")
         if r["applied"]:
@@ -694,7 +711,7 @@ def main():
         programs = discover_yeswehack()
         for p in programs:
             vet_yeswehack_program(p, ywh_results)
-        summarize("YesWeHack", ywh_results)
+        summarize("YesWeHack", ywh_results, len(programs))
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "yeswehack_scope.txt"), ywh_results["included"])
         log(f"[YWH] merge result: {r}")
         if r["applied"]:
@@ -706,7 +723,7 @@ def main():
         programs = discover_bugcrowd()
         for p in programs:
             vet_bugcrowd_program(p, bc_results)
-        summarize("Bugcrowd", bc_results)
+        summarize("Bugcrowd", bc_results, len(programs))
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "bugcrowd_scope.txt"), bc_results["included"])
         log(f"[Bugcrowd] merge result: {r}")
         if r["applied"]:
