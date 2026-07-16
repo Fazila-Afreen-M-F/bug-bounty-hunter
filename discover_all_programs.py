@@ -54,6 +54,20 @@ RATE_LIMIT_PATTERN = re.compile(
     r"(\d+)\s*(?:requests?|reqs?)\s*(?:per|/)\s*(?:second|sec|s\b)", re.I
 )
 
+ID_VERIFICATION_PATTERNS = [
+    r"government[- ]issued id",
+    r"proof of identity",
+    r"\bkyc\b",
+    r"know your customer",
+    r"identity verification",
+    r"verify your identity",
+    r"upload (?:a )?(?:copy of )?(?:your )?(?:passport|id\b|national id|driver)",
+    r"background check",
+    r"social security number",
+    r"\bssn\b",
+]
+ID_VERIFICATION_PATTERN = re.compile("|".join(ID_VERIFICATION_PATTERNS), re.I)
+
 
 def log(msg):
     print(msg, flush=True)
@@ -80,6 +94,17 @@ def check_automation_ban(text):
             start = max(0, m.start() - 100)
             end = min(len(text), m.end() + 100)
             return True, text[start:end].strip()
+    return False, None
+
+
+def check_id_verification_required(text):
+    if not text:
+        return False, None
+    m = ID_VERIFICATION_PATTERN.search(text)
+    if m:
+        start = max(0, m.start() - 100)
+        end = min(len(text), m.end() + 100)
+        return True, text[start:end].strip()
     return False, None
 
 
@@ -145,6 +170,10 @@ def vet_hackerone_program(handle, auth, results):
     if banned:
         results["excluded"].append((handle, f"automation ban: {snippet[:80]}"))
         return
+    id_req, id_snippet = check_id_verification_required(policy)
+    if id_req:
+        results["excluded"].append((handle, f"requires ID verification: {id_snippet[:80]}"))
+        return
     rate = check_rate_limit(policy)
     if rate is not None and rate < MIN_RATE_LIMIT:
         results["excluded"].append((handle, f"rate limit too strict: {rate}/s"))
@@ -203,6 +232,10 @@ def vet_intigriti_program(program, token, results):
         return
     if banned:
         results["excluded"].append((name, f"automation ban: {snippet[:80]}"))
+        return
+    id_req, id_snippet = check_id_verification_required(roe_text)
+    if id_req:
+        results["excluded"].append((name, f"requires ID verification: {id_snippet[:80]}"))
         return
     domains = []
     for d in data.get("domains", {}).get("content", []):
@@ -293,6 +326,10 @@ def vet_yeswehack_program(program, results):
     if banned:
         results["excluded"].append((slug, f"automation ban: {snippet[:80]}"))
         return
+    id_req, id_snippet = check_id_verification_required(rules)
+    if id_req:
+        results["excluded"].append((slug, f"requires ID verification: {id_snippet[:80]}"))
+        return
     rate = check_rate_limit(rules)
     if rate is not None and rate < MIN_RATE_LIMIT:
         results["excluded"].append((slug, f"rate limit too strict: {rate}/s"))
@@ -355,6 +392,10 @@ def vet_bugcrowd_program(program, results):
         return
     if banned:
         results["excluded"].append((slug, f"automation ban: {snippet[:80]}"))
+        return
+    id_req, id_snippet = check_id_verification_required(text)
+    if id_req:
+        results["excluded"].append((slug, f"requires ID verification: {id_snippet[:80]}"))
         return
     rate = check_rate_limit(text)
     if rate is not None and rate < MIN_RATE_LIMIT:
