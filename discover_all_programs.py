@@ -256,8 +256,9 @@ def vet_intigriti_program(program, token, results):
     })
 
 
-def extract_ywh_domains(scope_entries):
+def extract_ywh_domains(scope_entries, slug="unknown"):
     domains = []
+    unmatched = []
     skip_types = ("mobile-application", "mobile-application-android", "mobile-application-ios")
     skip_hosts = ("apps.apple.com", "play.google.com", "itunes.apple.com")
     for entry in scope_entries:
@@ -270,6 +271,7 @@ def extract_ywh_domains(scope_entries):
         if any(h in s2 for h in skip_hosts):
             continue
         if not re.search(r"[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}", s2):
+            unmatched.append(s)
             continue
         s2 = re.split(r"[/?]", s2)[0]
         m = re.match(r"^([a-zA-Z0-9_\-.*]+)\(([a-zA-Z0-9\-.|]+)\)([a-zA-Z0-9_\-.]*)$", s2)
@@ -281,6 +283,12 @@ def extract_ywh_domains(scope_entries):
         s3 = re.sub(r'[()"].*$', "", s2).strip()
         if re.match(r"^[a-zA-Z0-9*][a-zA-Z0-9\-.*]*\.[a-zA-Z]{2,}$", s3):
             domains.append(s3)
+        else:
+            unmatched.append(s)
+    if unmatched:
+        with open("yeswehack_unmatched.log", "a") as f:
+            for u in unmatched:
+                f.write(f"{slug}\t{u}\n")
     return sorted(set(domains))
 
 
@@ -291,7 +299,7 @@ def discover_yeswehack():
     while page <= nb_pages:
         data, err = fetch_json(
             f"https://api.yeswehack.com/programs?page={page}",
-            {"Accept": "application/json"},
+            {"User-Agent": "Mozilla/5.0", "Accept": "application/json"},
         )
         if err:
             log(f"[YWH] page {page} fetch failed: {err}")
@@ -334,7 +342,7 @@ def vet_yeswehack_program(program, results):
     if rate is not None and rate < MIN_RATE_LIMIT:
         results["excluded"].append((slug, f"rate limit too strict: {rate}/s"))
         return
-    domains = extract_ywh_domains(data.get("scopes", []))
+    domains = extract_ywh_domains(data.get("scopes", []), slug)
     results["included"].append({
         "slug": slug,
         "bounty": program.get("bounty"),
