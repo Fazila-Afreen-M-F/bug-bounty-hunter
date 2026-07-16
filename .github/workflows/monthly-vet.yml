@@ -1,4 +1,4 @@
-name: Monthly Validation
+name: Monthly Vet
 # ─────────────────────────────────────────────────────────────────────────────
 # SCHEDULE: 1st Saturday of every month, 00:30 IST (Friday 19:00 UTC)
 # Runs discover_all_programs.py — full discovery + ban-detection (regex + Cerebras)
@@ -97,7 +97,7 @@ jobs:
         if: steps.gate.outputs.run == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: monthly-validation-logs
+          name: monthly-vet-logs
           path: |
             cerebras_review_log.txt
             cerebras_429_debug.log

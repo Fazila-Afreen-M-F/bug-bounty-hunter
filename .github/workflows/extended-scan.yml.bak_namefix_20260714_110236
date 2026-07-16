@@ -1,8 +1,8 @@
-name: Extended Scan
+name: Weekend Scan
 # NOTE: workflow_run auto-trigger off Weekend Recon removed intentionally.
 # Validation -> Recon -> Scan are being timed manually first; once durations
 # are known, this will get an explicit cron offset instead of a reactive
-# trigger, for consistency with triday-scan and monthly-vet.
+# trigger, for consistency with weekday-scan and monthly-validation.
 on:
   workflow_dispatch:
 

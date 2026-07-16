@@ -1,8 +1,8 @@
-name: Extended Scan
+name: Weekend Scan
 # NOTE: workflow_run auto-trigger off Weekend Recon removed intentionally.
 # Validation -> Recon -> Scan are being timed manually first; once durations
 # are known, this will get an explicit cron offset instead of a reactive
-# trigger, for consistency with triday-scan and monthly-vet.
+# trigger, for consistency with weekday-scan and monthly-validation.
 on:
   workflow_dispatch:
 
@@ -89,7 +89,7 @@ jobs:
             exit 0
           fi
 
-          target_per_batch=20
+          target_per_batch=25
           max_batches=256
           chunk_size=$(( target_per_batch * max_batches ))
 
@@ -474,11 +474,7 @@ jobs:
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
             -H "X-Intigriti-Research: Chemical, Oxidizer" \
             -H "X-YesWeHack-Research: Chemical, Oxidizer" \
-            -o urls.txt
-          KATANA_EXIT=$?
-          if [ "$KATANA_EXIT" -eq 124 ]; then
-            echo "::warning::Katana timed out (exit 124) - proceeding with partial/no crawled URLs, nuclei will still run"
-          fi
+            -o urls.txt || true
           if [ -f urls.txt ]; then
             sort -u urls.txt | head -1000 > urls_capped.txt
             mv urls_capped.txt urls.txt
@@ -600,6 +596,14 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
+
+      - name: Checkout domains branch host list
+        uses: actions/checkout@v4
+        with:
+          ref: domains
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          path: domains-branch
 
       - name: Download host list
         uses: actions/download-artifact@v4
