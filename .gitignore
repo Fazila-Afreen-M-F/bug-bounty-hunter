@@ -41,3 +41,11 @@ weekly_prepare2.txt
 ywh_exclusions_full.txt
 *.bak.*
 domains.txt
+*.bak_*
+fix_*.py
+add_*.py
+remove_*.py
+*.json
+*.js
+*.html
+es.txt
