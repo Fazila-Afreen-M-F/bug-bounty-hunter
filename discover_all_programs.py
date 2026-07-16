@@ -216,6 +216,7 @@ def vet_intigriti_program(program, token, results):
     data, err = fetch_json(
         f"https://api.intigriti.com/external/researcher/v1/programs/{pid}", headers
     )
+    time.sleep(0.3)
     if err:
         results["skipped"].append((name, err))
         return
@@ -375,6 +376,7 @@ def vet_bugcrowd_program(program, results):
         f"https://bugcrowd.com/engagements/{slug}/changelog.json",
         {"User-Agent": "Mozilla/5.0", "Accept": "application/json"},
     )
+    time.sleep(0.3)
     if err:
         results["skipped"].append((slug, err))
         return
@@ -387,6 +389,7 @@ def vet_bugcrowd_program(program, results):
         f"https://bugcrowd.com/engagements/{slug}/changelog/{latest['id']}.json",
         {"User-Agent": "Mozilla/5.0", "Accept": "application/json"},
     )
+    time.sleep(0.3)
     if err2:
         results["skipped"].append((slug, err2))
         return
