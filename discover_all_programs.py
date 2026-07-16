@@ -73,16 +73,26 @@ def log(msg):
     print(msg, flush=True)
 
 
-def fetch_json(url, headers=None, timeout=15):
+def fetch_json(url, headers=None, timeout=15, max_retries=5):
     req = urllib.request.Request(url, headers=headers or {})
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            body = resp.read().decode()
-        data = json.loads(body)
-        return data, None
-    except FETCH_EXCEPTIONS as e:
-        code = getattr(e, "code", None)
-        return None, f"{type(e).__name__}" + (f" {code}" if code else f": {e}")
+    for attempt in range(max_retries):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                body = resp.read().decode()
+            data = json.loads(body)
+            return data, None
+        except urllib.error.HTTPError as e:
+            if e.code in (403, 429) and attempt < max_retries - 1:
+                retry_after = e.headers.get("Retry-After") if e.headers else None
+                wait = float(retry_after) if retry_after else (2 ** attempt)
+                log(f"[RATE LIMIT] {url} -> {e.code}, retrying in {wait}s (attempt {attempt+1}/{max_retries})")
+                time.sleep(wait)
+                continue
+            return None, f"HTTPError {e.code}"
+        except FETCH_EXCEPTIONS as e:
+            code = getattr(e, "code", None)
+            return None, f"{type(e).__name__}" + (f" {code}" if code else f": {e}")
+    return None, "HTTPError max_retries_exceeded"
 
 
 def check_automation_ban(text):
@@ -214,11 +224,14 @@ def vet_intigriti_program(program, token, results):
         return
     headers = {"Authorization": f"Bearer {token}", "Accept": "application/json"}
     data, err = fetch_json(
-        f"https://api.intigriti.com/external/researcher/v1/programs/{pid}", headers
+        f"https://api.intigriti.com/external/researcher/v1/programs/{pid}", headers, max_retries=1
     )
     time.sleep(0.3)
     if err:
-        results["skipped"].append((name, err))
+        if "403" in err:
+            results["excluded"].append((name, "private/invite-gated program, no API access"))
+        else:
+            results["skipped"].append((name, err))
         return
     roe = data.get("rulesOfEngagement", {}).get("content", {})
     testing = roe.get("testingRequirements", {})
