@@ -1,6 +1,6 @@
-name: Monthly Vet
+name: Weekly Vet
 # ─────────────────────────────────────────────────────────────────────────────
-# SCHEDULE: 1st Saturday of every month, 00:30 IST (Friday 19:00 UTC)
+# SCHEDULE: every Saturday, 00:00 IST (Friday 18:30 UTC)
 # Runs discover_all_programs.py — full discovery + ban-detection (regex + Cerebras)
 # across HackerOne, Intigriti, Bugcrowd, YesWeHack. Updates per-platform scope
 # files and domain_program_map.csv, then commits results to main.
@@ -10,7 +10,7 @@ name: Monthly Vet
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 19 * * 5'   # every Friday 19:00 UTC = Saturday 00:30 IST; gate checks 1st Saturday
+    - cron: '30 18 * * 5'   # every Friday 18:30 UTC = Saturday 00:00 IST
 
 jobs:
   validate:
@@ -24,13 +24,12 @@ jobs:
       MAPPING_CSV_PATH: ${{ github.workspace }}/domain_program_map.csv
       EXCLUDED_OUTPUT_PATH: ${{ github.workspace }}/excluded_domains.txt
     steps:
-      - name: Check if today is the 1st Saturday (IST)
+      - name: Check if today is Saturday (IST)
         id: gate
         run: |
           today_ist_dow=$(TZ=Asia/Kolkata date +%u)
-          today_ist_day=$(TZ=Asia/Kolkata date +%d)
-          if { [ "$today_ist_dow" != "6" ] || [ "$today_ist_day" -gt 07 ]; } && [ "${{ github.event_name }}" == "schedule" ]; then
-            echo "Not the 1st Saturday (IST dow=$today_ist_dow day=$today_ist_day) — skipping scheduled run."
+          if [ "$today_ist_dow" != "6" ] && [ "${{ github.event_name }}" == "schedule" ]; then
+            echo "Not Saturday (IST dow=$today_ist_dow) — skipping scheduled run."
             echo "run=false" >> $GITHUB_OUTPUT
           else
             echo "run=true" >> $GITHUB_OUTPUT
@@ -56,7 +55,7 @@ jobs:
         run: |
           pip install tldextract --break-system-packages
 
-      - name: Run monthly validation
+      - name: Run weekly validation
         if: steps.gate.outputs.run == 'true'
         env:
           DOMAINS_TXT_PATH: ${{ github.workspace }}/domains-branch/domains.txt
@@ -83,7 +82,7 @@ jobs:
             hackerone_excluded_full.txt intigriti_excluded_full.txt yeswehack_excluded_full.txt bugcrowd_excluded_full.txt \
             hackerone_skipped_full.txt intigriti_skipped_full.txt yeswehack_skipped_full.txt bugcrowd_skipped_full.txt \
             2>/dev/null || true
-          git diff --staged --quiet || git commit -m "Monthly program validation $(date +'%Y-%m-%d')"
+          git diff --staged --quiet || git commit -m "Weekly program validation $(date +'%Y-%m-%d')"
           git push origin main || (git pull --rebase origin main && git push origin main) || echo "::warning::Push failed - main may be stale"
 
       - name: Commit updated domains.txt to domains branch
@@ -93,14 +92,14 @@ jobs:
           git config --global user.email "bugbountybot@github.com"
           git config --global user.name "BugBountyBot"
           git add domains.txt domains_diff.log 2>/dev/null || true
-          git diff --staged --quiet || git commit -m "Monthly validation: rebuild domains.txt (added/removed) $(date +'%Y-%m-%d')"
+          git diff --staged --quiet || git commit -m "Weekly validation: rebuild domains.txt (added/removed) $(date +'%Y-%m-%d')"
           git push origin domains || (git pull --rebase origin domains && git push origin domains) || echo "::warning::Push failed - domains branch may be stale"
 
       - name: Upload validation logs
         if: steps.gate.outputs.run == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: monthly-vet-logs
+          name: weekly-vet-logs
           path: |
             cerebras_review_log.txt
             cerebras_429_debug.log
