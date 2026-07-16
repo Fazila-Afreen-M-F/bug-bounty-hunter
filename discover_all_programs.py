@@ -615,50 +615,64 @@ def extract_root_domain(asset):
     return f"{ext.domain}.{ext.suffix}"
 
 
-def update_domains_txt(h1_results, int_results, ywh_results, bc_results, ran_platforms):
-    """Collect root domains from all newly-included programs (across platforms
-    that actually ran) and append any genuinely new ones to domains.txt.
-    Never removes existing entries - additive only."""
-    platform_sources = [
-        ("hackerone", h1_results),
-        ("intigriti", int_results),
-        ("yeswehack", ywh_results),
-        ("bugcrowd", bc_results),
-    ]
-    discovered_roots = set()
-    for platform_name, results in platform_sources:
-        if platform_name not in ran_platforms:
+def rebuild_domains_txt(scope_paths, max_removal_pct=20):
+    """Fresh rebuild: domains.txt = root domains derived from the union of the
+    4 committed scope files (already individually guarded). Never built from a
+    single run's ran_platforms results, so a manual --platform run can't wipe
+    out the other platforms' domains. Same 20% removal guard + backup as
+    merge_scope_file."""
+    new_roots = set()
+    for path in scope_paths:
+        if not os.path.exists(path):
             continue
-        for entry in results.get("included", []):
-            for asset in entry.get("domains", []):
-                root = extract_root_domain(asset)
-                if root:
-                    discovered_roots.add(root)
+        with open(path) as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith("IN:"):
+                    root = extract_root_domain(line[3:])
+                    if root:
+                        new_roots.add(root)
 
-    existing = set()
+    old_roots = set()
     if os.path.exists(DOMAINS_TXT_PATH):
         with open(DOMAINS_TXT_PATH) as f:
             for line in f:
                 line = line.strip()
                 if line and not line.startswith("#"):
-                    existing.add(line)
+                    old_roots.add(line)
 
-    new_roots = sorted(discovered_roots - existing)
-    if not new_roots:
-        log("[CANDIDATES] No new root domains discovered this run")
-        return []
+    added = new_roots - old_roots
+    removed = old_roots - new_roots
+    removal_pct = (len(removed) / len(old_roots) * 100) if old_roots else 0
+    force_apply = os.environ.get("SCOPE_GUARD_OVERRIDE") == "true"
+    if removal_pct > max_removal_pct and not force_apply:
+        log(f"[GUARD] {DOMAINS_TXT_PATH}: would remove {len(removed)}/{len(old_roots)} "
+            f"({removal_pct:.1f}%) - exceeds {max_removal_pct}% threshold. "
+            f"NOT applying. Old domains.txt left untouched.")
+        log(f"[GUARD] Would-be added: {len(added)}, would-be removed: {len(removed)}")
+        return {"applied": False, "added": len(added), "removed": len(removed), "total": len(old_roots)}
 
-    if len(new_roots) > CANDIDATE_DOMAINS_REVIEW_CAP:
-        log(f"[CANDIDATES] NOTE: {len(new_roots)} new root domain(s) exceeds "
-            f"the usual batch size of {CANDIDATE_DOMAINS_REVIEW_CAP} - large discovery run")
+    if os.path.exists(DOMAINS_TXT_PATH):
+        backup_path = f"{DOMAINS_TXT_PATH}.bak.{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        shutil.copy2(DOMAINS_TXT_PATH, backup_path)
+        log(f"[BACKUP] {DOMAINS_TXT_PATH} -> {backup_path}")
 
-    with open(DOMAINS_TXT_PATH, "a") as f:
-        for d in new_roots:
+    with open(DOMAINS_TXT_PATH, "w") as f:
+        for d in sorted(new_roots):
             f.write(f"{d}\n")
-    log(f"[CANDIDATES] {len(new_roots)} new root domain(s) auto-promoted to "
-        f"{DOMAINS_TXT_PATH}: {new_roots[:10]}"
-        f"{'...' if len(new_roots) > 10 else ''}")
-    return new_roots
+
+    if added or removed:
+        diff_path = DOMAINS_TXT_PATH.replace(".txt", "_diff.log")
+        with open(diff_path, "a") as f:
+            f.write(f"\n=== {datetime.now().isoformat()} ===\n")
+            for d in sorted(added):
+                f.write(f"+ {d}\n")
+            for d in sorted(removed):
+                f.write(f"- {d}\n")
+        log(f"[DIFF] logged to {diff_path}")
+
+    log(f"[APPLIED] {DOMAINS_TXT_PATH}: {len(new_roots)} total ({len(added)} added, {len(removed)} removed)")
+    return {"applied": True, "added": len(added), "removed": len(removed), "total": len(new_roots)}
 
 def main():
     parser = argparse.ArgumentParser()
@@ -729,7 +743,10 @@ def main():
         if r["applied"]:
             applied_platforms.add("bugcrowd")
     update_domain_program_map(h1_results, int_results, ywh_results, bc_results, applied_platforms)
-    update_domains_txt(h1_results, int_results, ywh_results, bc_results, applied_platforms)
+    scope_paths = [os.path.join(OUTPUT_DIR, f"{p}_scope.txt")
+                   for p in ("hackerone", "intigriti", "yeswehack", "bugcrowd")]
+    r = rebuild_domains_txt(scope_paths)
+    log(f"[domains.txt] rebuild result: {r}")
 
     save_cerebras_cache(_CEREBRAS_CACHE)
     log(f"[CEREBRAS CACHE] saved {len(_CEREBRAS_CACHE)} cached decisions to {CEREBRAS_CACHE_PATH}")
