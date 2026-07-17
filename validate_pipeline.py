@@ -51,7 +51,7 @@ def check_file(path, is_root_domain_file):
     problems = []
 
     if not os.path.exists(path):
-        return True, []
+        return False, ["file does not exist"]
 
     with open(path, "r", encoding="utf-8", errors="replace") as f:
         raw_lines = f.read().splitlines()
