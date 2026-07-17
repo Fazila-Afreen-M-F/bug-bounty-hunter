@@ -67,7 +67,10 @@ jobs:
             yeswehack_unmatched.log \
             2>/dev/null || true
           git diff --staged --quiet || git commit -m "Weekly program validation $(date +'%Y-%m-%d')"
-          git push origin main || (git pull --rebase origin main && git push origin main) || echo "::warning::Push failed - main may be stale"
+          git push origin main || (git pull --rebase origin main && git push origin main) || {
+            echo "::error::Push to main failed after rebase retry"
+            exit 1
+          }
 
       - name: Commit updated domains.txt to domains branch
         run: |
@@ -76,7 +79,10 @@ jobs:
           git config --global user.name "BugBountyBot"
           git add -f domains.txt domains_diff.log 2>/dev/null || true
           git diff --staged --quiet || git commit -m "Weekly validation: rebuild domains.txt (added/removed) $(date +'%Y-%m-%d')"
-          git push origin domains || (git pull --rebase origin domains && git push origin domains) || echo "::warning::Push failed - domains branch may be stale"
+          git push origin domains || (git pull --rebase origin domains && git push origin domains) || {
+            echo "::error::Push to domains branch failed after rebase retry"
+            exit 1
+          }
 
       - name: Upload validation logs
         if: always()
