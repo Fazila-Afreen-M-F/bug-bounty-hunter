@@ -831,9 +831,6 @@ def save_cerebras_cache(cache):
 
 _CEREBRAS_CACHE = load_cerebras_cache()
 
-AMBIGUOUS_SIGNAL_PATTERN = re.compile(
-    r"automat\w*|scanner\w*|\bbot\b|\bscript\w*|fuzz\w*", re.I
-)
 def cerebras_check_ban(snippet, program_name):
     cache_key = hashlib.sha256(snippet.encode()).hexdigest()
     if cache_key in _CEREBRAS_CACHE:
@@ -972,19 +969,22 @@ def log_cerebras_call(program_name, snippet, is_ban, reason, error):
 
 def check_automation_ban_two_layer(text, program_name):
     banned, snippet = check_automation_ban(text)
-    if not banned and text and AMBIGUOUS_SIGNAL_PATTERN.search(text):
-        m = AMBIGUOUS_SIGNAL_PATTERN.search(text)
-        start = max(0, m.start() - 150)
-        end = min(len(text), m.end() + 150)
-        snippet = text[start:end].strip()
-        banned = True
-    if not banned:
+    if banned:
+        result = cerebras_check_ban(snippet, program_name)
+        if result is None:
+            return "review", f"[Cerebras call failed — needs manual review] {snippet[:80]}"
+        if result:
+            return True, f"[Cerebras-confirmed ban] {snippet[:80]}"
         return False, None
-    result = cerebras_check_ban(snippet, program_name)
+    if not text:
+        return False, None
+    # Regex found no explicit ban language — send full policy to Cerebras
+    # for a real read instead of guessing off loose keywords.
+    result = cerebras_check_ban(text[:2000], program_name)
     if result is None:
-        return "review", f"[Cerebras call failed — needs manual review] {snippet[:80]}"
+        return "review", "[Cerebras call failed on full-text check — needs manual review]"
     if result:
-        return True, f"[Cerebras-confirmed ban] {snippet[:80]}"
+        return True, "[Cerebras-confirmed ban, no regex match]"
     return False, None
 
 if __name__ == "__main__":
