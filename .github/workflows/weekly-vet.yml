@@ -79,6 +79,7 @@ jobs:
           git push origin domains || (git pull --rebase origin domains && git push origin domains) || echo "::warning::Push failed - domains branch may be stale"
 
       - name: Upload validation logs
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: weekly-vet-logs
