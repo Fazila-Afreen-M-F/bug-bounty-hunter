@@ -57,15 +57,16 @@ jobs:
         run: |
           git config --global user.email "bugbountybot@github.com"
           git config --global user.name "BugBountyBot"
-          git add -f domain_program_map.csv \
+          for f in domain_program_map.csv \
             hackerone_scope.txt intigriti_scope.txt yeswehack_scope.txt bugcrowd_scope.txt \
             excluded_domains.txt \
             cerebras_ban_cache.json \
             discovery_stats.csv \
             hackerone_excluded_full.txt intigriti_excluded_full.txt yeswehack_excluded_full.txt bugcrowd_excluded_full.txt \
             hackerone_skipped_full.txt intigriti_skipped_full.txt yeswehack_skipped_full.txt bugcrowd_skipped_full.txt \
-            yeswehack_unmatched.log \
-            2>/dev/null || true
+            yeswehack_unmatched.log; do
+            git add -f "$f" 2>/dev/null || echo "::warning::Skipped staging $f (not found)"
+          done
           git diff --staged --quiet || git commit -m "Weekly program validation $(date +'%Y-%m-%d')"
           git push origin main || (git pull --rebase origin main && git push origin main) || {
             echo "::error::Push to main failed after rebase retry"
