@@ -830,6 +830,14 @@ def save_cerebras_cache(cache):
         json.dump(cache, f, indent=2, sort_keys=True)
 
 _CEREBRAS_CACHE = load_cerebras_cache()
+_CEREBRAS_LAST_CALL_TS = [0.0]
+CEREBRAS_MIN_INTERVAL_S = 12.5  # stay under 5 req/min free-tier cap with margin
+
+def _cerebras_pace():
+    elapsed = time.time() - _CEREBRAS_LAST_CALL_TS[0]
+    if elapsed < CEREBRAS_MIN_INTERVAL_S:
+        time.sleep(CEREBRAS_MIN_INTERVAL_S - elapsed)
+    _CEREBRAS_LAST_CALL_TS[0] = time.time()
 
 def cerebras_check_ban(snippet, program_name):
     cache_key = hashlib.sha256(snippet.encode()).hexdigest()
@@ -839,6 +847,7 @@ def cerebras_check_ban(snippet, program_name):
         return cached["is_ban"]
     if not CEREBRAS_API_KEY:
         return None
+    _cerebras_pace()
     prompt = (
         "You are reviewing a single snippet from a bug bounty program's "
         "policy text. Answer ONLY with valid JSON, no other text, in this "
