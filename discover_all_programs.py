@@ -192,7 +192,7 @@ def vet_hackerone_program(handle, auth, results):
     for s in data.get("relationships", {}).get("structured_scopes", {}).get("data", []):
         sa = s.get("attributes", {})
         if sa.get("eligible_for_submission") and sa.get("asset_type") in ("URL", "WILDCARD"):
-            domains.append(sa.get("asset_identifier"))
+            domains.append((sa.get("asset_identifier") or "").lower())
     results["included"].append({
         "handle": handle,
         "offers_bounties": a.get("offers_bounties"),
@@ -261,7 +261,7 @@ def vet_intigriti_program(program, token, results):
             continue
         endpoint = d.get("endpoint") or d.get("content")
         if endpoint:
-            domains.append(endpoint.strip())
+            domains.append(endpoint.strip().lower())
     results["included"].append({
         "handle": pid,
         "safe_harbor": roe.get("safeHarbour"),
@@ -292,11 +292,11 @@ def extract_ywh_domains(scope_entries, slug="unknown"):
         if m:
             prefix, group, suffix = m.groups()
             for opt in group.split("|"):
-                domains.append(f"{prefix}{opt}{suffix}")
+                domains.append(f"{prefix}{opt}{suffix}".lower())
             continue
         s3 = re.sub(r'[()"].*$', "", s2).strip()
         if re.match(r"^[a-zA-Z0-9*][a-zA-Z0-9\-.*]*\.[a-zA-Z]{2,}$", s3):
-            domains.append(s3)
+            domains.append(s3.lower())
         else:
             unmatched.append(s)
     if unmatched:
@@ -369,15 +369,35 @@ def vet_yeswehack_program(program, results):
 
 def discover_bugcrowd():
     programs = []
-    for page in range(1, 11):
+    page = 1
+    total_pages = None
+    while total_pages is None or page <= total_pages:
         data, err = fetch_json(
             f"https://bugcrowd.com/engagements?category=bug_bounty&page={page}",
             {"User-Agent": "Mozilla/5.0", "Accept": "application/json"},
         )
         if err:
             log(f"[Bugcrowd] page {page} fetch failed: {err}")
+            page += 1
+            if total_pages is None and page > 50:
+                log("[Bugcrowd] giving up after 50 failed pages with no pagination info")
+                break
             continue
-        programs.extend(data.get("engagements", []))
+        batch = data.get("engagements", [])
+        if not batch:
+            log(f"[Bugcrowd] page {page} empty, stopping")
+            break
+        programs.extend(batch)
+        if total_pages is None:
+            meta = data.get("paginationMeta") or {}
+            limit = meta.get("limit")
+            total_count = meta.get("totalCount")
+            if limit and total_count is not None:
+                total_pages = -(-total_count // limit)  # ceil division
+                log(f"[Bugcrowd] paginationMeta: {total_count} total, {limit}/page -> {total_pages} pages")
+            else:
+                log("[Bugcrowd] no paginationMeta found, falling back to empty-page stop condition")
+        page += 1
         time.sleep(0.3)
     log(f"[Bugcrowd] discovered {len(programs)} total programs")
     return programs
@@ -385,6 +405,16 @@ def discover_bugcrowd():
 
 def vet_bugcrowd_program(program, results):
     slug = program["briefUrl"].rstrip("/").split("/")[-1]
+    if program.get("isDemo"):
+        results["excluded"].append((slug, "demo engagement"))
+        return
+    if program.get("isBanned"):
+        results["excluded"].append((slug, "banned engagement"))
+        return
+    engagement_type = (program.get("productEngagementType") or {}).get("label")
+    if engagement_type != "Bug Bounty":
+        results["excluded"].append((slug, f"not BBP (type: {engagement_type})"))
+        return
     cl_data, err = fetch_json(
         f"https://bugcrowd.com/engagements/{slug}/changelog.json",
         {"User-Agent": "Mozilla/5.0", "Accept": "application/json"},
@@ -436,9 +466,9 @@ def vet_bugcrowd_program(program, results):
             uri = t.get("uri")
             name = t.get("name", "") or ""
             if uri:
-                domains.append(re.sub(r"^https?://", "", uri).split("/")[0])
+                domains.append(re.sub(r"^https?://", "", uri).split("/")[0].lower())
             elif re.match(r"^[a-zA-Z0-9*][a-zA-Z0-9\-.*]*\.[a-zA-Z]{2,}$", name.strip()):
-                domains.append(name.strip())
+                domains.append(name.strip().lower())
     results["included"].append({
         "slug": slug,
         "safe_harbor": (brief.get("safeHarborStatus") or {}).get("status"),
@@ -489,16 +519,6 @@ def merge_scope_file(path, entries_by_program, max_removal_pct=20):
         log(f"  [DIFF] logged to {diff_path}")
     log(f"  [APPLIED] {path}: {len(new_domains)} total ({len(added)} added, {len(removed)} removed)")
     return {"applied": True, "added": len(added), "removed": len(removed), "total": len(new_domains)}
-def write_scope_file(path, entries_by_program):
-    all_domains = set()
-    for p in entries_by_program:
-        all_domains.update(p.get("domains", []))
-    with open(path, "w") as f:
-        for d in sorted(all_domains):
-            f.write(f"IN:{d}\n")
-    return len(all_domains)
-
-
 def summarize(platform, results, total_discovered):
     log(f"\n=== {platform} summary ===")
     log(f"  total discovered from platform: {total_discovered}")
