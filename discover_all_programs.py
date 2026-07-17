@@ -595,7 +595,17 @@ def update_domain_program_map(h1_results, int_results, ywh_results, bc_results, 
 def write_excluded_domains_file(path, existing_rows, platform_sources, ran_platforms):
     """Write every domain whose program was excluded/skipped this run
     (for platforms that actually ran) to a persisted file, so downstream
-    workflows (recon/scan) can trust this instead of re-vetting."""
+    workflows (recon/scan) can trust this instead of re-vetting.
+    Domains belonging only to platforms that did NOT run this invocation
+    are carried forward from the old file untouched (mirrors the 'kept'
+    logic in update_domain_program_map)."""
+    old_excluded = set()
+    if os.path.exists(path):
+        with open(path) as f:
+            old_excluded = {line.strip() for line in f if line.strip()}
+    domains_on_ran_platforms = {domain for domain, platform, keyword in existing_rows if platform in ran_platforms}
+    kept_excluded = old_excluded - domains_on_ran_platforms
+
     included_keywords = {}
     for platform_name, results, key_field in platform_sources:
         if platform_name not in ran_platforms:
@@ -604,18 +614,19 @@ def write_excluded_domains_file(path, existing_rows, platform_sources, ran_platf
             entry.get(key_field) for entry in results.get("included", []) if entry.get(key_field)
         }
 
-    excluded_domains = set()
+    fresh_excluded = set()
     for domain, platform, keyword in existing_rows:
         if platform not in ran_platforms:
             continue
         if keyword not in included_keywords.get(platform, set()):
-            excluded_domains.add(domain)
+            fresh_excluded.add(domain)
 
+    excluded_domains = kept_excluded | fresh_excluded
     with open(path, "w") as f:
         for d in sorted(excluded_domains):
             f.write(f"{d}\n")
-    log(f"[EXCLUDED] {path}: {len(excluded_domains)} domain(s) excluded this run "
-        f"(closed/banned/rate-limited programs)")
+    log(f"[EXCLUDED] {path}: {len(excluded_domains)} domain(s) excluded total "
+        f"({len(fresh_excluded)} from this run's platforms, {len(kept_excluded)} kept from skipped platforms)")
     return len(excluded_domains)
 
 
