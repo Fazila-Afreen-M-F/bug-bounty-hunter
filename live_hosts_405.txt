@@ -5,17 +5,14 @@ https://auth-public.rdf-dev.gov.anduril.dev
 https://auth-public.rdf-prod.gov.anduril.dev
 https://autoupdate.geo.opera.com
 https://autoupdate.opera.com
-https://chain-proxy.wallet.coinbase.com
 https://client-telemetry.roblox.com
 https://crashstats-collector-2.opera.com
 https://cspreport.threatdown.com
 https://fsp.smartcontract.com
 https://fsps.smartcontract.com
-https://ichnaea.netflix.com
+https://gsp.smartcontract.com
 https://jobs.mgm.mo
-https://mainnet-infura.wallet.coinbase.com
-https://navigator.antom.com
-https://objects-origin.githubusercontent.com
+https://marketing-uni-app-uat.worldfirst.com
 https://pspp.smartcontract.com
 https://rpc.blockdaemon.testnet.arc.network
 https://rpc.drpc.testnet.arc.network
@@ -30,6 +27,7 @@ https://thumbnails-photos.amazon.in
 https://thumbnails-photos.amazon.it
 https://webservices.amazon.com.br
 https://webservices.amazon.com.mx
+https://worldchain-sepolia.worldcoin.org
 https://worldchain.worldcoin.org
 https://www22.amazon.cn
 https://www22.amazon.com.au
@@ -37,4 +35,3 @@ https://www22.amazon.com.br
 https://www22.amazon.com.mx
 https://www22.amazon.es
 https://www22.amazon.fr
-https://www22.amazon.it
