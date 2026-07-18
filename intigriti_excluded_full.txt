@@ -1,0 +1,123 @@
+Canada Post - Responsible Disclosure Program	rate limit too strict: 1/s
+Enviso Ticketing	automation ban: [Cerebras-confirmed ban, no regex match]
+Capture Our Flag	private/invite-gated program, no API access
+Ideals Bug Bounty Program	Application tier, no access
+Lansweeper Bug Bounty Program	automation ban: [Cerebras-confirmed ban, no regex match]
+Ubisoft Game Security BBP	Application tier, no access
+Atolls Vulnerability Disclosure Program (VDP)	rate limit too strict: 2/s
+Wireless Logic	Application tier, no access
+House of HR	private/invite-gated program, no API access
+Torfs	rate limit too strict: 1/s
+SimScale	rate limit too strict: 2/s
+De Volkskrant	automation ban: [Cerebras-confirmed ban, no regex match]
+RAMPF Bug Bounty	Application tier, no access
+Doccle Bug Bounty program	Application tier, no access
+Cyber Security Coalition	automation ban: [Cerebras-confirmed ban, no regex match]
+Newpharma	Application tier, no access
+Salto CloudWorks	rate limit too strict: 3/s
+Social Deal	rate limit too strict: 2/s
+SBB - Swiss Federal Railways	automation ban: [Cerebras-confirmed ban, no regex match]
+DHL Group Vulnerability Disclosure Program	rate limit too strict: 2/s
+Coveo VDP	private/invite-gated program, no API access
+MijnJessa	private/invite-gated program, no API access
+WP Engine VDP	rate limit too strict: 3/s
+RIPE NCC	rate limit too strict: 2/s
+Monzo Public Bug Bounty Program	rate limit too strict: 2/s
+My bpost app	private/invite-gated program, no API access
+Uphold	automation ban: [Cerebras-confirmed ban] ing Proof-of-Concepts on YouTube, Vimeo, or other platf
+UZ Leuven	automation ban: [Cerebras-confirmed ban, no regex match]
+Kahoot Bug Bounty Program	Application tier, no access
+Algemeen Dagblad	automation ban: [Cerebras-confirmed ban, no regex match]
+VRT	automation ban: [Cerebras-confirmed ban, no regex match]
+Uitgeverij Deviant Bug Bounty	Application tier, no access
+KU Leuven Vulnerability Disclosure Program (VDP)	rate limit too strict: 0/s
+Het Parool	automation ban: [Cerebras-confirmed ban, no regex match]
+TrafficJunky Bug Bounty Program	private/invite-gated program, no API access
+Libelle	automation ban: [Cerebras-confirmed ban, no regex match]
+SolarWinds Serv-U 	rate limit too strict: 2/s
+Telenet - Base - Wyre - Tadaam	private/invite-gated program, no API access
+Bühler Group VDP	automation ban: [Cerebras-confirmed ban, no regex match]
+GlobalSign	private/invite-gated program, no API access
+Coveo Public Bug Bounty	private/invite-gated program, no API access
+Mobile Vikings	rate limit too strict: 1/s
+Pornhub Bug Bounty Program	private/invite-gated program, no API access
+Het Laatste Nieuws	automation ban: [Cerebras-confirmed ban, no regex match]
+Port of Antwerp-Bruges VIP	private/invite-gated program, no API access
+Farfetch Bug Bounty	Application tier, no access
+VMware Workstation, Fusion, and Tools	private/invite-gated program, no API access
+OURA Vulnerability Disclosure Program	private/invite-gated program, no API access
+Engel & Völkers	private/invite-gated program, no API access
+Sqills	automation ban: [Cerebras-confirmed ban, no regex match]
+Bpost	automation ban: [Cerebras-confirmed ban, no regex match]
+Mediahuis Corporate Domains	private/invite-gated program, no API access
+BMW Group	rate limit too strict: 2/s
+Leapsome	Application tier, no access
+PDQ bug bounty program	automation ban: [Cerebras-confirmed ban, no regex match]
+Humo	automation ban: [Cerebras-confirmed ban, no regex match]
+CARIAD VDP	private/invite-gated program, no API access
+Personio	rate limit too strict: 2/s
+12Build Bug Bounty Program	Application tier, no access
+Probiller Bug Bounty Program	private/invite-gated program, no API access
+Posti Bug Bounty 	private/invite-gated program, no API access
+ZOwonen	private/invite-gated program, no API access
+Belfius	Application tier, no access
+Webnode	Application tier, no access
+Sqills S3 Passenger	automation ban: [Cerebras-confirmed ban, no regex match]
+Nutaku Bug Bounty Program	private/invite-gated program, no API access
+Water-Link	automation ban: [Cerebras-confirmed ban, no regex match]
+DPG Media	automation ban: [Cerebras-confirmed ban, no regex match]
+Mediahuis Noord Domains	private/invite-gated program, no API access
+Water-Link VDP	automation ban: [Cerebras-confirmed ban, no regex match]
+De Morgen	automation ban: [Cerebras-confirmed ban, no regex match]
+Toyota Motor Europe	private/invite-gated program, no API access
+Speakap Responsible Disclosure	automation ban: [Cerebras-confirmed ban, no regex match]
+Colruyt Group	private/invite-gated program, no API access
+Odoo 19.0 Bug Bounty program	private/invite-gated program, no API access
+VTM GO	automation ban: [Cerebras-confirmed ban, no regex match]
+Liferay VDP	automation ban: [Cerebras-confirmed ban, no regex match]
+Argenta	private/invite-gated program, no API access
+Revolut VDP	rate limit too strict: 2/s
+VCF - VMware Cloud Director	private/invite-gated program, no API access
+Colruyt Group Registered	private/invite-gated program, no API access
+SolarWinds SaaS	private/invite-gated program, no API access
+Too Good To Go - Marketplace	private/invite-gated program, no API access
+Bank J.Van Breda & C°	private/invite-gated program, no API access
+Daytona Bug Bounty	Application tier, no access
+Veriff Bug Bounty	rate limit too strict: 2/s
+VCF - vCenter Server	private/invite-gated program, no API access
+Kaufland Marketplace Bug Bounty	Application tier, no access
+WP Engine Bug Bounty	rate limit too strict: 3/s
+InnoGames	rate limit too strict: 1/s
+Randstad	automation ban: [Cerebras-confirmed ban, no regex match]
+MyDirtyHobby Bug Bounty Program	private/invite-gated program, no API access
+MLB Vulnerability Disclosure Program	private/invite-gated program, no API access
+Exact Vulnerability Disclosure Program	automation ban: [Cerebras-confirmed ban] t reproduction steps\n* Include a clear attack scenario
+Kiwa Vulnerability Disclosure Program	rate limit too strict: 2/s
+OneSpan Transaction Cloud Platform	private/invite-gated program, no API access
+DataCamp	automation ban: [Cerebras-confirmed ban, no regex match]
+UCB -External Perimeter	private/invite-gated program, no API access
+UZ Brussel	private/invite-gated program, no API access
+Venly	automation ban: [Cerebras-confirmed ban, no regex match]
+House of HR Vulnerability Disclosure Program	automation ban: [Cerebras-confirmed ban, no regex match]
+Allekabels	Application tier, no access
+Zimmo	private/invite-gated program, no API access
+Nexuzhealth VDP	rate limit too strict: 2/s
+The Stepstone Group	private/invite-gated program, no API access
+Intertoys	Application tier, no access
+Red Bull	automation ban: [Cerebras-confirmed ban, no regex match]
+Brazzers Bug Bounty Program	private/invite-gated program, no API access
+KBC - Responsible Disclosure	rate limit too strict: 1/s
+Tweakers	automation ban: [Cerebras-confirmed ban, no regex match]
+Here Technologies	automation ban: [Cerebras-confirmed ban, no regex match]
+Driessen Vulnerability Disclosure Program	rate limit too strict: 2/s
+Wolt	rate limit too strict: 3/s
+Ubisoft Responsible Disclosure Program	rate limit too strict: 2/s
+Orbia Responsible Disclosure	rate limit too strict: 2/s
+Intergamma	rate limit too strict: 2/s
+Wärtsilä Vulnerability Disclosure Program	automation ban: [Cerebras-confirmed ban, no regex match]
+Trouw	automation ban: [Cerebras-confirmed ban, no regex match]
+CM.com	rate limit too strict: 2/s
+Arbonia VDP program	rate limit too strict: 2/s
+Vlerick Business School	rate limit too strict: 2/s
+Zabka Group Vulnerability Disclosure Program	rate limit too strict: 3/s
+Fortnox Bug Bounty Program	Application tier, no access

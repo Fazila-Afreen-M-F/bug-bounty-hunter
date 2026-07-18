@@ -1,0 +1,87 @@
+infomaniak-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+doctolib-public-bug-bounty-program	requires ID verification: tures for healthcare professionals
+
+Certain features of Doctolib Pro are free 
+vfs-global-bug-bounty-program	automation ban: [Cerebras-confirmed ban] strictly forbidden.
+- Avoid tests that could cause deg
+teamviewer-bounty-program	automation ban: [Cerebras-confirmed ban, no regex match]
+onedoc-sa-bug-bounty-program	automation ban: [Cerebras-confirmed ban, no regex match]
+dana-bug-bounty-program	automation ban: [Cerebras-confirmed ban] rivacy of our users. 
+- Avoid tests that could cause de
+expressvpn-bug-bounty-program	automation ban: [Cerebras-confirmed ban] strictly forbidden.
+- Avoid tests that could cause deg
+cyberghost-bug-bounty-program	automation ban: [Cerebras-confirmed ban] strictly forbidden.
+- Avoid tests that could cause deg
+private-internet-access-bug-bounty-program	automation ban: [Cerebras-confirmed ban] strictly forbidden.
+- Avoid tests that could cause deg
+zecible-public-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+komoju-public-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+gojek-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+goto-financial-public-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+dojo	not BBP (VDP or other)
+pine-labs-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+otto-de-bug-bounty	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+moneybox-bug-bounty	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+harman-international-web-applications	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+bookbeat	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+mon-espace-sante-mes	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+dossier-medical-partage-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+decathlon	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+coindcx-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+okto-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+bitoasis-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+fdj-united-online-betting-gaming-bug-bounty-program	automation ban: [Cerebras-confirmed ban] perform any social engineering against users or FDJ Uni
+datadome-bug-bounty	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+louis-vuitton-malletier-public-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+harman-international-public-bug-bounty	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+memento-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+digital-flanders-vulnerability-disclosure-program	not BBP (VDP or other)
+xelians-blackbox-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+grw-trading-fze-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+vidaxl-services-open-bug-bounty-program	automation ban: [Cerebras-confirmed ban] strictly forbidden.
+- Avoid tests that could cause deg
+vincisa-public-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+ezviz-bug-bounty-program	automation ban: [Cerebras-confirmed ban] of our users.
+
+- Avoid tests that could cause degradati
+swapcard	automation ban: [Cerebras-confirmed ban, no regex match]
+paddle-com-public-bug-bounty-program	automation ban: [Cerebras-confirmed ban] strictly forbidden.
+- Avoid tests that could cause deg
+ovh	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+imou-public-bug-bounty-program	automation ban: [Cerebras-confirmed ban] strictly forbidden.
+- Avoid tests that could cause deg
+maya-public-bug-bounty-program	automation ban: [Cerebras-confirmed ban] strictly forbidden.
+- Avoid tests that could cause deg
+ooredoo-qpsc-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de
+yes-we-hack	automation ban: [Cerebras-confirmed ban, no regex match]
+qwant	automation ban: [Cerebras-confirmed ban, no regex match]
+sogexia	requires ID verification: customer account, if you can't create an account using your real address, we won
+alasco-gmbh-bug-bounty-program	automation ban: [Cerebras-confirmed ban] n.
+- Tests that could cause degradation or interruptio
+salt-mobile-sa-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
+- Avoid tests that could cause de

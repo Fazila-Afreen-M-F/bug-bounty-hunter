@@ -1,0 +1,62 @@
+chime	requires ID verification: le-spend, etc.) 
+ 
+ 
+  
+  
+ RCE on production systems / backend infra 
+ 
+ 
+  
+  
+okta	automation ban: [Cerebras-confirmed ban] ion of Okta.  
+
+ Rules of Engagement 
+
+ 
+ Employees and
+ynab	automation ban: [Cerebras-confirmed ban, no regex match]
+viator	requires ID verification: ies related to Firebase-native behavior 
+ Any vulnerabilities in regards to a fe
+bitpanda-og-bb	automation ban: [Cerebras-confirmed ban, no regex match]
+recroom-og	automation ban: [Cerebras-confirmed ban, no regex match]
+cms-bbpublic	requires ID verification: unty payments are subject to eligibility requirements. CMS and the vendor (Bugcr
+sap-private-invite	requires ID verification: et the following criteria: 
+🔏 SAP's Customers, Partners &amp; employees excluded
+thousandeyes-og	automation ban: [Cerebras-confirmed ban, no regex match]
+seek-com	automation ban: [Cerebras-confirmed ban] a job ad !! 
+ Denial of Service, Rate Limiting, and oth
+pantheon	rate limit too strict: 1/s
+mastercard	requires ID verification: consumer.finicityreports.com/signup  
+ They can setup their account with the Fir
+wise	requires ID verification: accompanying proof-of-concept attack 
+ Findings related to publicly exposed prom
+seek	automation ban: [Cerebras-confirmed ban] s 
+
+ 
+ Denial of Service, Rate Limiting, and other auto
+personalcapital	requires ID verification: (if the same number is used by two testers, it will lock the enrollment flow for
+etsy	requires ID verification: om/your/shop/create?us_sell_create_value 
+
+ 
+ Please Note: when registering a Se
+irobot	automation ban: [Cerebras-confirmed ban] rabilities.  
+
+  NOTE! [Please Read Fully Before Beginn
+pixabay	automation ban: [Cerebras-confirmed ban, no regex match]
+twentyminuten	automation ban: [Cerebras-confirmed ban] lated submissions 
+ No aggressive automated scans as th
+classdojo	automation ban: [Cerebras-confirmed ban] counts and not modify, access, or affect other users' a
+fis	requires ID verification: taining Personally Identifiable Information (PII). Some examples of PII include 
+kohls	automation ban: [Cerebras-confirmed ban] ith your own test account) 
+ Deserialization vulnerabil
+originenergy-og1	automation ban: [Cerebras-confirmed ban, no regex match]
+bitdefender	automation ban: [Cerebras-confirmed ban, no regex match]
+volkswagen-og	automation ban: [Cerebras-confirmed ban] to be created, please use your @bugcrowdninja.com email
+cfr	rate limit too strict: 2/s
+kucoin	requires ID verification: owdninja.com email address, and if you want access all product features , you ne
+intercom	automation ban: [Cerebras-confirmed ban, no regex match]
+codefortynine	automation ban: [Cerebras-confirmed ban, no regex match]
+trm-labs-public-mbb	automation ban: [Cerebras-confirmed ban, no regex match]
+myapp-mbb-og	requires ID verification: ed by the ETN-Network. 
+
+ To comply with global financial standards and ensure p
