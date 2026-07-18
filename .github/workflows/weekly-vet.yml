@@ -93,4 +93,5 @@ jobs:
           path: |
             cerebras_review_log.txt
             cerebras_429_debug.log
+            cerebras_parse_fail_debug.log
           retention-days: 30
