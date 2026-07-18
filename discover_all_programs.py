@@ -51,7 +51,7 @@ AUTOMATION_BAN_PATTERNS = [
 ]
 
 RATE_LIMIT_PATTERN = re.compile(
-    r"(\d+)\s*(?:requests?|reqs?)\s*(?:per|/)\s*(?:second|sec|s\b)", re.I
+    r"(\d+)\s*(?:requests?|reqs?)\s*(?:per|/)\s*(second|sec|s|minute|min|m|hour|hr|h)\b", re.I
 )
 
 ID_VERIFICATION_PATTERNS = [
@@ -117,14 +117,109 @@ def check_id_verification_required(text):
         return True, text[start:end].strip()
     return False, None
 
+def cerebras_check_id_verification(snippet, program_name):
+    cache_key = hashlib.sha256(("idcheck:" + snippet).encode()).hexdigest()
+    if cache_key in _CEREBRAS_CACHE:
+        cached = _CEREBRAS_CACHE[cache_key]
+        log_cerebras_call(program_name, snippet, cached["is_ban"], cached["reason"] + " [CACHED]", error=None)
+        return cached["is_ban"]
+    if not CEREBRAS_API_KEY:
+        return None
+    _cerebras_pace()
+    prompt = (
+        "You are reviewing policy text from a bug bounty program. Answer "
+        "ONLY with valid JSON, no other text, in this exact format: "
+        '{"is_ban": true or false, "reason": "one short sentence"}.\n\n'
+        "Question: Does this text require a researcher to submit personal "
+        "identity documents or undergo identity verification (e.g. "
+        "government ID, passport, KYC, background check, SSN) before they "
+        "are allowed to participate or get paid?\n\n"
+        "Answer true only if real personal identity verification is "
+        "required. Answer false for unrelated mentions (e.g. verifying "
+        "the identity of a vulnerability, or account/session identifiers "
+        "that are not personal ID documents).\n\n"
+        f"Text:\n{snippet}"
+    )
+    body = json.dumps({
+        "model": "gpt-oss-120b",
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0,
+        "max_tokens": 300,
+    }).encode()
+    req = urllib.request.Request(
+        CEREBRAS_URL,
+        data=body,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {CEREBRAS_API_KEY}",
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Python-urllib-client",
+        },
+        method="POST",
+    )
+    last_err = None
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read().decode())
+            text = data["choices"][0]["message"]["content"].strip().strip("`")
+            if text.startswith("json"):
+                text = text[4:].strip()
+            m = re.search(r'"is_ban"\s*:\s*(true|false)', text, re.IGNORECASE)
+            if not m:
+                raise ValueError(f"could not find is_ban in response: {text[:150]}")
+            is_ban = m.group(1).lower() == "true"
+            rm = re.search(r'"reason"\s*:\s*"(.*?)"\s*}', text, re.DOTALL)
+            reason = rm.group(1) if rm else text[:150]
+            log_cerebras_call(program_name, snippet, is_ban, reason, error=None)
+            _CEREBRAS_CACHE[cache_key] = {"is_ban": is_ban, "reason": reason}
+            return is_ban
+        except urllib.error.HTTPError as e:
+            last_err = e
+            if e.code in (503, 429) and attempt < 2:
+                time.sleep(5 * (attempt + 1))
+                continue
+            break
+        except Exception as e:
+            last_err = e
+            if attempt < 2:
+                time.sleep(5 * (attempt + 1))
+                continue
+            break
+    log_cerebras_call(program_name, snippet, None, None, error=str(last_err))
+    return None
+
+def check_id_verification_two_layer(text, program_name):
+    matched, snippet = check_id_verification_required(text)
+    if matched:
+        result = cerebras_check_id_verification(snippet, program_name)
+        if result is None:
+            return "review", f"[Cerebras call failed — needs manual review] {snippet[:80]}"
+        if result:
+            return True, f"[Cerebras-confirmed ID requirement] {snippet[:80]}"
+        return False, None
+    if not text:
+        return False, None
+    result = cerebras_check_id_verification(text[:2000], program_name)
+    if result is None:
+        return "review", "[Cerebras call failed on full-text check — needs manual review]"
+    if result:
+        return True, "[Cerebras-confirmed ID requirement, no regex match]"
+    return False, None
+
 
 def check_rate_limit(text):
     if not text:
         return None
     m = RATE_LIMIT_PATTERN.search(text)
-    if m:
-        return int(m.group(1))
-    return None
+    if not m:
+        return None
+    value = int(m.group(1))
+    unit = m.group(2).lower()
+    if unit in ("minute", "min", "m"):
+        return value / 60
+    if unit in ("hour", "hr", "h"):
+        return value / 3600
+    return value
 
 
 def clean_html(text):
@@ -180,7 +275,10 @@ def vet_hackerone_program(handle, auth, results):
     if banned:
         results["excluded"].append((handle, f"automation ban: {snippet[:80]}"))
         return
-    id_req, id_snippet = check_id_verification_required(policy)
+    id_req, id_snippet = check_id_verification_two_layer(policy, handle)
+    if id_req == "review":
+        results["skipped"].append((handle, id_snippet))
+        return
     if id_req:
         results["excluded"].append((handle, f"requires ID verification: {id_snippet[:80]}"))
         return
@@ -247,7 +345,10 @@ def vet_intigriti_program(program, token, results):
     if banned:
         results["excluded"].append((name, f"automation ban: {snippet[:80]}"))
         return
-    id_req, id_snippet = check_id_verification_required(roe_text)
+    id_req, id_snippet = check_id_verification_two_layer(roe_text, name)
+    if id_req == "review":
+        results["skipped"].append((name, id_snippet))
+        return
     if id_req:
         results["excluded"].append((name, f"requires ID verification: {id_snippet[:80]}"))
         return
@@ -348,7 +449,10 @@ def vet_yeswehack_program(program, results):
     if banned:
         results["excluded"].append((slug, f"automation ban: {snippet[:80]}"))
         return
-    id_req, id_snippet = check_id_verification_required(rules)
+    id_req, id_snippet = check_id_verification_two_layer(rules, slug)
+    if id_req == "review":
+        results["skipped"].append((slug, id_snippet))
+        return
     if id_req:
         results["excluded"].append((slug, f"requires ID verification: {id_snippet[:80]}"))
         return
@@ -447,7 +551,10 @@ def vet_bugcrowd_program(program, results):
     if banned:
         results["excluded"].append((slug, f"automation ban: {snippet[:80]}"))
         return
-    id_req, id_snippet = check_id_verification_required(text)
+    id_req, id_snippet = check_id_verification_two_layer(text, slug)
+    if id_req == "review":
+        results["skipped"].append((slug, id_snippet))
+        return
     if id_req:
         results["excluded"].append((slug, f"requires ID verification: {id_snippet[:80]}"))
         return
@@ -480,7 +587,7 @@ def new_results():
     return {"included": [], "excluded": [], "skipped": []}
 
 
-def merge_scope_file(path, entries_by_program, max_removal_pct=20):
+def merge_scope_file(path, entries_by_program, max_removal_pct=15):
     new_domains = set()
     for p in entries_by_program:
         new_domains.update(p.get("domains", []))
@@ -670,7 +777,7 @@ def extract_root_domain(asset):
     return f"{ext.domain}.{ext.suffix}"
 
 
-def rebuild_domains_txt(scope_paths, max_removal_pct=20):
+def rebuild_domains_txt(scope_paths, max_removal_pct=15):
     """Fresh rebuild: domains.txt = root domains derived from the union of the
     4 committed scope files (already individually guarded). Never built from a
     single run's ran_platforms results, so a manual --platform run can't wipe
@@ -830,6 +937,8 @@ def save_cerebras_cache(cache):
         json.dump(cache, f, indent=2, sort_keys=True)
 
 _CEREBRAS_CACHE = load_cerebras_cache()
+_CEREBRAS_QUOTA_EXHAUSTED_UNTIL = 0
+_CEREBRAS_CALLS_SINCE_SAVE = 0
 _CEREBRAS_LAST_CALL_TS = [0.0]
 CEREBRAS_MIN_INTERVAL_S = 12.5  # stay under 5 req/min free-tier cap with margin
 
@@ -846,6 +955,9 @@ def cerebras_check_ban(snippet, program_name):
         log_cerebras_call(program_name, snippet, cached["is_ban"], cached["reason"] + " [CACHED]", error=None)
         return cached["is_ban"]
     if not CEREBRAS_API_KEY:
+        return None
+    global _CEREBRAS_QUOTA_EXHAUSTED_UNTIL, _CEREBRAS_CALLS_SINCE_SAVE
+    if time.time() < _CEREBRAS_QUOTA_EXHAUSTED_UNTIL:
         return None
     _cerebras_pace()
     prompt = (
@@ -932,6 +1044,10 @@ def cerebras_check_ban(snippet, program_name):
             reason = rm.group(1) if rm else text[:150]
             log_cerebras_call(program_name, snippet, is_ban, reason, error=None)
             _CEREBRAS_CACHE[cache_key] = {"is_ban": is_ban, "reason": reason}
+            _CEREBRAS_CALLS_SINCE_SAVE += 1
+            if _CEREBRAS_CALLS_SINCE_SAVE >= 50:
+                save_cerebras_cache(_CEREBRAS_CACHE)
+                _CEREBRAS_CALLS_SINCE_SAVE = 0
             return is_ban
         except urllib.error.HTTPError as e:
             last_err = e
@@ -945,6 +1061,13 @@ def cerebras_check_ban(snippet, program_name):
                     df.write(f"--- {program_name} ---\n")
                     df.write(f"retry_after: {retry_after}\n")
                     df.write(f"body: {body}\n\n")
+                try:
+                    ra_val = float(retry_after) if retry_after is not None else None
+                except (TypeError, ValueError):
+                    ra_val = None
+                if ra_val is not None and ra_val > 300:
+                    _CEREBRAS_QUOTA_EXHAUSTED_UNTIL = time.time() + ra_val
+                    break
             if e.code in (503, 429) and attempt < 2:
                 wait = 5 * (attempt + 1)
                 if e.code == 429:
