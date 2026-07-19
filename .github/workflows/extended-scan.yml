@@ -238,7 +238,7 @@ jobs:
           SCAN_START=$(date +%s)
           set +e
 
-          timeout 20700 nuclei -l input.txt \
+          timeout 16200 nuclei -l input.txt \
             -t "$TEMPLATE_PATHS" \
             -itags jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator \
             -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive,js \
@@ -666,7 +666,7 @@ jobs:
           SCAN_START=$(date +%s)
           set +e
 
-          timeout 20700 nuclei -l input.txt \
+          timeout 16200 nuclei -l input.txt \
             -t custom-templates \
             -severity low,medium,high,critical \
             -H "User-Agent: Mozilla/5.0 BugBounty/42 (YWH) Chemical Oxidizer CS_YWH/BB" \
