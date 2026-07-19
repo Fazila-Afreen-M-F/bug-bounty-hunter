@@ -374,7 +374,7 @@ jobs:
   # ─── JS SECRETS ────────────────────────────────────────────────
   weekend_js_secrets_batched:
     needs: [prepare, weekend_custom_batched]
-    if: always() && !cancelled() && needs.weekend_custom_batched.result != 'failure' && needs.prepare.outputs.has_hosts == 'true'
+    if: always() && !cancelled() && needs.prepare.outputs.has_hosts == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
@@ -584,7 +584,7 @@ jobs:
   # ─── CUSTOM TEMPLATES ──────────────────────────────────────────
   weekend_custom_batched:
     needs: [prepare, weekend_combined]
-    if: always() && !cancelled() && needs.weekend_combined.result != 'failure' && needs.prepare.outputs.has_hosts == 'true'
+    if: always() && !cancelled() && needs.prepare.outputs.has_hosts == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
