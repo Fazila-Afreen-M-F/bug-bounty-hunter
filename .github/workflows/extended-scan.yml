@@ -480,7 +480,7 @@ jobs:
             echo "::warning::Katana timed out (exit 124) - proceeding with partial/no crawled URLs, nuclei will still run"
           fi
           if [ -f urls.txt ]; then
-            sort -u urls.txt | head -1000 > urls_capped.txt
+            sort -u urls.txt | head -200 > urls_capped.txt
             mv urls_capped.txt urls.txt
           else
             touch urls.txt
@@ -510,7 +510,7 @@ jobs:
           SCAN_START=$(date +%s)
           set +e
 
-          timeout 20700 nuclei -l "$INPUT_FILE" \
+          timeout 16200 nuclei -l "$INPUT_FILE" \
             -t "$TEMPLATES_DIR/http/exposures" \
             -itags token,secret,api-key,generic-tokens \
             -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \
