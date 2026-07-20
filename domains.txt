@@ -9,6 +9,7 @@
 37signals.com
 3cx.com
 3lateral.com
+4njbets.com
 5nine.com
 8x8.co.uk
 8x8.com
@@ -37,7 +38,6 @@ adsrvr.org
 adstruc.com
 afterpay.com
 agency360.com
-agoda.com
 aikido.dev
 airbnb-aws.com
 airbnb.com
@@ -119,7 +119,6 @@ apex-football.com
 apexnews.com
 apexscores.io
 apple.com
-applevacations.com
 aqtooling.com
 aquiris.com.br
 aquiris.studio
@@ -177,7 +176,6 @@ barracuda.com
 basecamp.com
 battles.tv
 bcny.com
-beachbound.com
 beamitmobile.com
 berush.com
 betfair.com
@@ -239,7 +237,6 @@ blockchain.info
 blofin.com
 blox.link
 bluehost.com
-blueskytours.com
 blueskytravelvietnam.com
 bokundemo.com
 bokuntest.com
@@ -249,7 +246,6 @@ bookabach.co.nz
 booking.com
 bookingholdings-coe.com
 bookingholdings.com
-booktandl.com
 booth.pm
 boozt.com
 booztlet.com
@@ -266,8 +262,8 @@ bugcrowd.net
 bullish-test.com
 bullish.com
 bullsheet.me
+bumba.global
 bumble.com
-buschgardens.com
 butlerfortrello.com
 buyersedge.co.nz
 bwin.com
@@ -301,8 +297,8 @@ carrentals.com
 carsdirect.com
 cash.app
 cashstaging.app
-cb.dev
 cb2.ae
+cbhq.net
 ccnag.com
 ccpsx.com
 cdn-code.org
@@ -311,8 +307,6 @@ certos.com
 chain.link
 chatdate.app
 chatspot.ai
-chaturbate.com
-cheapcaribbean.com
 cheaptickets.com
 cheaptickets.nl
 chiatest.net
@@ -346,6 +340,8 @@ codacontent.io
 codahosted.io
 code.gov
 cognitiveperformer.com
+coinbase-corp.com
+coinbase.com
 coindesk.com
 coinmarketcap.com
 coinspot.com.au
@@ -392,6 +388,7 @@ das.eu
 dash.ai
 dashlane.com
 data.gov
+databricks.com
 datadome.co
 datashield.co
 ddfcontent.com
@@ -423,7 +420,6 @@ digitaloceanspaces.com
 digitaloceanstatus.com
 digitaloceantest.com
 discourse.org
-discoverycove.com
 dns.eu
 do-ai.run
 do.co
@@ -571,6 +567,7 @@ fab.com
 falcon-sandbox.com
 fallguys.com
 fanbox.cc
+fanduel.com
 faraday.ai
 fareharbor.com
 fareharbor.engineering
@@ -603,6 +600,7 @@ flourish.studio
 flowsecurity.app
 flugladen.de
 flyiin.com
+fndlsb.net
 foliofn.com
 forescout.cloud
 forescout.com
@@ -616,7 +614,6 @@ fromspotify.com
 frontapp.com
 frontegg.com
 fstr.rocks
-funjet.com
 furycloud.io
 furydocs.io
 fuze.com
@@ -644,13 +641,15 @@ getsling.com
 getsurenow.com
 github.com
 github.io
+github.net
+githubapp.com
+githubusercontent.com
 gitlab.com
 gitlab.net
 gitlab.org
 gitlap.com
 glean.com
 globalacademycme.com
-globalbookingsolutions.com
 gnip.com
 gocardless-cicd.io
 gocardless-lab.io
@@ -704,11 +703,6 @@ helloworks.com
 hey.com
 heytap.com
 hhc247.org
-highwebmedia.com
-hilton.com
-hilton.io
-hiltonbusinessonline.com
-hiltonlocalbiz.com
 hmh247.org
 hmxservices.com
 hmxwebservices.com
@@ -737,10 +731,6 @@ hubspotpagebuilder.com
 hubspotpagebuilder.eu
 humio.com
 hungrygowhere.com
-hyatt.com
-hyattconnect.com
-hyattdev.com
-hyattinclusivecollection.com
 hybrid-analysis.com
 hypermint.com
 hypr.com
@@ -838,6 +828,7 @@ klaviyo-dev.com
 klaviyo.com
 klaviyomsv.com
 klubcinema.fr
+koho.ca
 konghq.com
 korta.is
 kortathjonustan.is
@@ -928,9 +919,6 @@ lululemon.me
 luno.com
 luno.com.ng
 luxuryretreats.com
-lyst.co
-lyst.com
-lystit.com
 m-pesa.africa
 m-pesa.com
 mafshoppingmalls.com
@@ -1053,8 +1041,6 @@ miwifi.com
 mjrtheatres.com
 mlife.mo
 mlstatic.com
-mmcdn.com
-mmwebc.dev
 mobile.monash
 modefestival.com
 moderntreasury.com
@@ -1142,6 +1128,7 @@ northwesternmutual.com
 notion.so
 novanthealthvirtualprimarycare.org
 npmjs.com
+npmjs.org
 nr-data.net
 nr-ops.net
 nsvcs.net
@@ -1425,13 +1412,10 @@ scopely.com
 scopely.io
 sdx.com
 search.gov
-seaworld.com
 sec-tunnel.com
 secnews.gr
-secretsresorts.com
 securecircle.com
 securegateway.com
-securegatewayaccess.com
 securityservices.io
 securitytrails.com
 segment.com
@@ -1443,7 +1427,6 @@ sendgrid.com
 seoab.io
 seoquake.com
 service-now.com
-sesameplace.com
 sgnl.ai
 sgnl.cloud
 sgnl.team
@@ -1498,7 +1481,6 @@ skygamingcontent.com
 skypoker.com
 skyscanner.net
 skysports.com
-skyteam.com
 skyvegas.com
 slimdevices.com
 smartcontract.com
@@ -1562,6 +1544,7 @@ superpal.com
 superpal.io
 sustentabilidadmercadolibre.com
 swiftype.com
+syfe.com
 t-mobile.com
 t.co
 tabac-info-service.fr
@@ -1629,7 +1612,6 @@ transparentadvertising.com
 transparentadvertising.eu
 travelbook.de
 travelcash.money
-travelimpressions.com
 travelocity.ca
 travelocity.com
 travix.com
@@ -1644,10 +1626,6 @@ trip.biz
 trip.com
 tripadvisor.com
 triplinkintl.com
-trisept.travel
-triseptapi.com
-triseptdemo.com
-triseptsolutions.com
 truecaller.com
 truelayer.cloud
 truelayer.com
@@ -1658,6 +1636,7 @@ tucarro.com
 tucarro.com.co
 tumblr.com
 tumoto.com
+tvg.com
 twilio.com
 twimg.com
 twinmotion.com
@@ -1698,11 +1677,8 @@ unikrn.ly
 unique.be
 uniqueselect.be
 unit4cloud.com
-united.com
 unity.com
 unity3d.com
-universalorlandovacations.com
-universalstudioshollywood.com
 unkrn.com
 unreal-agents.com
 unrealengine.com
@@ -1734,7 +1710,6 @@ valvesoftware.com
 varonis.com
 varonis.io
 varonis.net
-vaxvacationaccess.com
 vayama.com
 vendhq.com
 venturatvos.com
@@ -1849,7 +1824,6 @@ worldfirst.com
 wotif.com
 wowjobs.ca
 wpscan.com
-wynnvacations.com
 wyze.com
 wyzecam.com
 x.ai
