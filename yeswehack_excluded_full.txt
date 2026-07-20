@@ -1,8 +1,6 @@
+dojo	not BBP (VDP or other)
 infomaniak-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
 - Avoid tests that could cause de
-doctolib-public-bug-bounty-program	requires ID verification: tures for healthcare professionals
-
-Certain features of Doctolib Pro are free 
 vfs-global-bug-bounty-program	automation ban: [Cerebras-confirmed ban] strictly forbidden.
 - Avoid tests that could cause deg
 teamviewer-bounty-program	automation ban: [Cerebras-confirmed ban, no regex match]
@@ -23,7 +21,6 @@ gojek-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly for
 - Avoid tests that could cause de
 goto-financial-public-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
 - Avoid tests that could cause de
-dojo	not BBP (VDP or other)
 pine-labs-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
 - Avoid tests that could cause de
 otto-de-bug-bounty	automation ban: [Cerebras-confirmed ban] e strictly forbidden.
@@ -80,7 +77,7 @@ ooredoo-qpsc-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e stric
 - Avoid tests that could cause de
 yes-we-hack	automation ban: [Cerebras-confirmed ban, no regex match]
 qwant	automation ban: [Cerebras-confirmed ban, no regex match]
-sogexia	requires ID verification: customer account, if you can't create an account using your real address, we won
+sogexia	requires ID verification: [Cerebras-confirmed ID requirement] customer account, if you can't create an acc
 alasco-gmbh-bug-bounty-program	automation ban: [Cerebras-confirmed ban] n.
 - Tests that could cause degradation or interruptio
 salt-mobile-sa-bug-bounty-program	automation ban: [Cerebras-confirmed ban] e strictly forbidden.

@@ -1,0 +1,7 @@
+doctolib-public-bug-bounty-program	[Cerebras call failed on full-text check — needs manual review]
+telenor-sweden-public-bug-bounty-program	[Cerebras call failed on full-text check — needs manual review]
+programmes-de-primes-aux-bogues-du-gouvernement-du-quebec-cgcd	[Cerebras call failed on full-text check — needs manual review]
+datadome-bot-bounty	[Cerebras call failed on full-text check — needs manual review]
+swiss-post	[Cerebras call failed on full-text check — needs manual review]
+atg-public-bug-bounty-program	[Cerebras call failed on full-text check — needs manual review]
+withings-public-program	[Cerebras call failed on full-text check — needs manual review]

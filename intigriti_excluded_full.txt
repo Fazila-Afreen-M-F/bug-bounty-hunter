@@ -33,6 +33,7 @@ Uitgeverij Deviant Bug Bounty	Application tier, no access
 KU Leuven Vulnerability Disclosure Program (VDP)	rate limit too strict: 0/s
 Het Parool	automation ban: [Cerebras-confirmed ban, no regex match]
 TrafficJunky Bug Bounty Program	private/invite-gated program, no API access
+Skoda Auto Bug Bounty Program	requires ID verification: [Cerebras-confirmed ID requirement, no regex match]
 Libelle	automation ban: [Cerebras-confirmed ban, no regex match]
 SolarWinds Serv-U 	rate limit too strict: 2/s
 Telenet - Base - Wyre - Tadaam	private/invite-gated program, no API access

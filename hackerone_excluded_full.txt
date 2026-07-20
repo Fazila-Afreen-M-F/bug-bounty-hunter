@@ -13,7 +13,6 @@ vimeo	automation ban: [Cerebras-confirmed ban] be happy to take a look and might
 concretecms	not BBP (VDP or other)
 slack	automation ban: [Cerebras-confirmed ban, no regex match]
 publitas	not BBP (VDP or other)
-coinbase	requires ID verification: inbase fee structures impacting the majority of users, PII leaks affecting <15% 
 khanacademy	not BBP (VDP or other)
 irccloud	automation ban: [Cerebras-confirmed ban, no regex match]
 stopthehacker	not BBP (VDP or other)
@@ -32,8 +31,6 @@ coursera	not BBP (VDP or other)
 udemy	automation ban: [Cerebras-confirmed ban] * and against assets **in scope** will be eligible for 
 goodrx	automation ban: [Cerebras-confirmed ban, no regex match]
 nokogiri	not BBP (VDP or other)
-github	requires ID verification: ne numbers or email addresses
-  * health or financial information (including ins
 paypal	automation ban: [Cerebras-confirmed ban] ing the service unavailable to others do not constitute
 matomo	automation ban: [Cerebras-confirmed ban, no regex match]
 trellix	not BBP (VDP or other)
@@ -50,6 +47,7 @@ bestbuy	not BBP (VDP or other)
 msd	not BBP (VDP or other)
 gm	not BBP (VDP or other)
 monero	not BBP (VDP or other)
+hyatt	rate limit too strict: 1.6666666666666667/s
 rubygems	not BBP (VDP or other)
 kiwicom	rate limit too strict: 2/s
 mariadb	not BBP (VDP or other)
@@ -68,6 +66,7 @@ toyota	not BBP (VDP or other)
 plaid	automation ban: [Cerebras-confirmed ban, no regex match]
 deptofdefense	not BBP (VDP or other)
 disclosure-assistance	not BBP (VDP or other)
+lyst	rate limit too strict: 2.6666666666666665/s
 alvosec	automation ban: [Cerebras-confirmed ban, no regex match]
 sony	not BBP (VDP or other)
 mapsmarker_com_e_u	not BBP (VDP or other)
@@ -91,21 +90,20 @@ kartpay	not BBP (VDP or other)
 deconf_com	not BBP (VDP or other)
 fig	not BBP (VDP or other)
 smule	not BBP (VDP or other)
-bitmex	requires ID verification: * Once the account is created, verify the email associated
-* Login twice - this 
+bitmex	requires ID verification: [Cerebras-confirmed ID requirement] * Once the account is created, verify the em
 ed	not BBP (VDP or other)
 jamieweb	not BBP (VDP or other)
-databricks	requires ID verification: your-username>@wearehackerone.com`). When you contact us in another way, we have
 coalition	not BBP (VDP or other)
-affirm	requires ID verification: value, but please REMEMBER it for login)
-* Date of birth (older than 18 please) 
+affirm	requires ID verification: [Cerebras-confirmed ID requirement] value, but please REMEMBER it for login)
+* D
 passhash	not BBP (VDP or other)
 ycombinator	not BBP (VDP or other)
 ratelimited	not BBP (VDP or other)
-crypto	requires ID verification: n access to our main product, the Crypto.com App, you will need to go through a 
+crypto	requires ID verification: [Cerebras-confirmed ID requirement] n access to our main product, the Crypto.com
 liberapay	rate limit too strict: 1/s
 arkadiyt-projects	not BBP (VDP or other)
 hannob	not BBP (VDP or other)
+chaturbate	rate limit too strict: 1.6666666666666667/s
 cfptime	not BBP (VDP or other)
 nisc	not BBP (VDP or other)
 eslint	not BBP (VDP or other)
@@ -113,7 +111,6 @@ defectdojo	not BBP (VDP or other)
 expediagroup	not BBP (VDP or other)
 creditkarma	automation ban: [Cerebras-confirmed ban, no regex match]
 sweatco_ltd	not BBP (VDP or other)
-fanduel	requires ID verification: tored on a FanDuel product or service including, but not limited to, medical or 
 insulet_corporation	not BBP (VDP or other)
 central-security-project	not BBP (VDP or other)
 instacart	automation ban: [Cerebras-confirmed ban, no regex match]
@@ -227,7 +224,6 @@ tesco	not BBP (VDP or other)
 keurigdrpepper	not BBP (VDP or other)
 octopus-energy	not BBP (VDP or other)
 hy-vee	not BBP (VDP or other)
-koho	requires ID verification: s a financial technology company, any customer or user of the KOHO application r
 sega	not BBP (VDP or other)
 fastly-vdp	not BBP (VDP or other)
 tenable	not BBP (VDP or other)
@@ -235,9 +231,6 @@ planet-labs	not BBP (VDP or other)
 oanda	not BBP (VDP or other)
 razorpay	automation ban: [Cerebras-confirmed ban] ll outbound requests.) A header that includes your user
 caterpillar	not BBP (VDP or other)
-blend-labs	requires ID verification: ls (Please select Bank of America):
-    - user/pass: blend\_test
-    - Two Fac
 apnic	not BBP (VDP or other)
 pagerduty	not BBP (VDP or other)
 redis-vdp	not BBP (VDP or other)
@@ -249,18 +242,17 @@ divvy-homes	not BBP (VDP or other)
 mondelez	not BBP (VDP or other)
 fresenius	not BBP (VDP or other)
 allegion	not BBP (VDP or other)
+hilton	rate limit too strict: 1.6666666666666667/s
 moov	not BBP (VDP or other)
 unitigroup	not BBP (VDP or other)
-ripio	requires ID verification: emonstrating impact.** ⭐️
+ripio	requires ID verification: [Cerebras-confirmed ID requirement] emonstrating impact.** ⭐️
 
-### 💰 Payout Conditions
-
-- Payouts are processed via 
+### 💰 Payout Cond
 alohi	not BBP (VDP or other)
 fidelity	not BBP (VDP or other)
 ro	not BBP (VDP or other)
-deribit	requires ID verification: t environment.
-Our live environment (www.deribit.com) contains a few additional 
+deribit	requires ID verification: [Cerebras-confirmed ID requirement] t environment.
+Our live environment (www.der
 prudential-financial	not BBP (VDP or other)
 render	not BBP (VDP or other)
 monarch_money	not BBP (VDP or other)
@@ -303,14 +295,13 @@ lowes	not BBP (VDP or other)
 singlestore	not BBP (VDP or other)
 tomtom	not BBP (VDP or other)
 ion	not BBP (VDP or other)
+agoda-public	rate limit too strict: 0.08333333333333333/s
 mintel	not BBP (VDP or other)
 hpe_vdp	not BBP (VDP or other)
 finnair_vdp	not BBP (VDP or other)
 6sense-vdp	not BBP (VDP or other)
 peloton	not BBP (VDP or other)
 lpl_financial-vdp	not BBP (VDP or other)
-bumba_bbp	requires ID verification: passing Bumba fee structures
-•	A flaw in the system that allows users from a giv
 aws_vdp	not BBP (VDP or other)
 itau_unibanco	not BBP (VDP or other)
 liverpool_victoria	not BBP (VDP or other)
@@ -320,9 +311,6 @@ nba-public	rate limit too strict: 3/s
 pepsico_vdp	not BBP (VDP or other)
 recreation_gov_vdp	not BBP (VDP or other)
 qinetiq	not BBP (VDP or other)
-syfe_bbp	requires ID verification: missing SPF/DKIM/DMARC records, etc.)
-* Self XSS/File Upload XSS
-* Edit own acco
 verily_life_sciences	automation ban: [Cerebras-confirmed ban, no regex match]
 adevinta_vdp	not BBP (VDP or other)
 kaseya	not BBP (VDP or other)

@@ -116,7 +116,7 @@ IN:*.bykea.net
 IN:*.byspotify.com
 IN:*.call-control.ie
 IN:*.carrentals.com
-IN:*.cb.dev
+IN:*.cbhq.net
 IN:*.cceng.8x8.com
 IN:*.chalet.8x8.com
 IN:*.cheaptickets.com
@@ -128,6 +128,8 @@ IN:*.cloudflare.com
 IN:*.coda.io
 IN:*.code.gov
 IN:*.cognitiveperformer.com
+IN:*.coinbase-corp.com
+IN:*.coinbase.com
 IN:*.consumer.worldcoin.org
 IN:*.cornershop.io/*
 IN:*.cornershopapp.com/*
@@ -188,6 +190,7 @@ IN:*.exodus.io
 IN:*.expediapartnercentral.com
 IN:*.fallguys.com
 IN:*.fanbox.cc
+IN:*.fanduel.com
 IN:*.fareharbor.com
 IN:*.fareharbor.engineering
 IN:*.fetlife.com
@@ -203,6 +206,9 @@ IN:*.fuze.com
 IN:*.fuze.site
 IN:*.gateway.marriott.com
 IN:*.gethypr.com
+IN:*.github.net
+IN:*.githubapp.com
+IN:*.githubusercontent.com
 IN:*.gitlab.net
 IN:*.gitlab.org
 IN:*.gitlap.com
@@ -238,11 +244,6 @@ IN:*.harmonixmusic.com
 IN:*.harmonyremote.com
 IN:*.hey.com
 IN:*.hhc247.org
-IN:*.highwebmedia.com
-IN:*.hilton.com
-IN:*.hilton.io
-IN:*.hiltonbusinessonline.com
-IN:*.hiltonlocalbiz.com
 IN:*.hmh247.org
 IN:*.hmxservices.com
 IN:*.hmxwebservices.com
@@ -293,9 +294,6 @@ IN:*.logstash.wtf
 IN:*.lucra.live
 IN:*.lukwerks.com
 IN:*.luxuryretreats.com
-IN:*.lyst.co
-IN:*.lyst.com
-IN:*.lystit.com
 IN:*.m-pesa.com
 IN:*.malwarebytes.com
 IN:*.marcus.co.uk
@@ -323,6 +321,7 @@ IN:*.mercadopago.com.uy
 IN:*.metronome.com
 IN:*.mevo.com
 IN:*.mgbcareconnect.org
+IN:*.mgmt.fndlsb.net
 IN:*.mgs.marriott.com
 IN:*.mi.cn
 IN:*.mi.com
@@ -341,8 +340,6 @@ IN:*.miui.cn
 IN:*.miui.com
 IN:*.miwifi.com
 IN:*.mlstatic.com
-IN:*.mmcdn.com
-IN:*.mmwebc.dev
 IN:*.mongodb.com/*
 IN:*.moonpay.com
 IN:*.moonpaycloud.com
@@ -390,6 +387,7 @@ IN:*.playstation.com
 IN:*.playstation.net
 IN:*.ppb.com
 IN:*.ppbdev.com
+IN:*.prd.fndlsb.net
 IN:*.preempt.com
 IN:*.preemptsecurity.com
 IN:*.prelert.com
@@ -435,7 +433,6 @@ IN:*.scopely.io
 IN:*.search.gov
 IN:*.secnews.gr
 IN:*.securecircle.com
-IN:*.securegatewayaccess.com
 IN:*.securityservices.io
 IN:*.sellzone.com
 IN:*.semrush.com
@@ -519,6 +516,7 @@ IN:*.triplinkintl.com
 IN:*.tstaging.com
 IN:*.tstaging.tools
 IN:*.tumblr.com
+IN:*.tvg.com
 IN:*.twimg.com
 IN:*.twinmotion.com
 IN:*.twitter.biz
@@ -594,6 +592,7 @@ IN:*.zellepay.com
 IN:*.zmifi.com
 IN:*developer.cloud.com
 IN:*gateway-apc.marriott.com
+IN:*inf.fndlsb.net
 IN:*uat.marriott.com
 IN:*vc.logitech.com
 IN:10x.redoxengine.com
@@ -601,6 +600,8 @@ IN:1w.cash
 IN:1w.run
 IN:1win.com
 IN:3d.cs.money
+IN:4njbets.com
+IN:4njbets.us.betfair.com
 IN:8x8.my.site.com
 IN:a4k.amazon.com
 IN:ab-api-cf.*.aws.indriverapp.com
@@ -622,6 +623,7 @@ IN:account.magento.com
 IN:account.ui.com
 IN:accountoffers.wellsfargo.com
 IN:accounts.cloud.com
+IN:accounts.cloud.databricks.com
 IN:accounts.evernote.com
 IN:accounts.firefox.com
 IN:accounts.insightly.com
@@ -660,6 +662,8 @@ IN:alert.logitech.com
 IN:alertmanager.fr.cloud.gov
 IN:alexa.amazon.com
 IN:alexaanswers.amazon.com
+IN:alfred-uat-31.nonprod.syfe.com
+IN:alfred.syfe.com
 IN:all-inclusive.marriott.com
 IN:alternativa.film
 IN:amazon.com/hz/mycd/*
@@ -677,6 +681,7 @@ IN:api-eu.floqast.app
 IN:api-gw-cf.*.aws.indriverapp.com
 IN:api-sandbox.gocardless.com
 IN:api-staging.airtable.com
+IN:api-uat-bugbounty.nonprod.syfe.com
 IN:api-wallet.web3auth.io
 IN:api.8x8.com
 IN:api.adm.cloud.com
@@ -687,6 +692,8 @@ IN:api.anthropic.com
 IN:api.au.frontegg.com
 IN:api.circle.com
 IN:api.cloudflare.com
+IN:api.coinbase.com
+IN:api.custody.coinbase.com
 IN:api.data.gov
 IN:api.deriv.com
 IN:api.dicey.com
@@ -716,6 +723,7 @@ IN:api.fi.dyson.com
 IN:api.foliofn.com
 IN:api.fr.cloud.gov
 IN:api.geneva-staging.com
+IN:api.github.com
 IN:api.grabpay.com
 IN:api.kiwi.ki
 IN:api.klarna.com
@@ -745,6 +753,7 @@ IN:api.stage.evernote.com
 IN:api.steampowered.com
 IN:api.stg.inspectorio.com
 IN:api.stripe.com
+IN:api.syfe.com
 IN:api.taxjar.com
 IN:api.tumblr.com
 IN:api.ukrn.io
@@ -766,6 +775,7 @@ IN:app.frontapp.com
 IN:app.geneva-staging.chat
 IN:app.geneva-staging.com
 IN:app.grammarly.com
+IN:app.koho.ca
 IN:app.krisp.ai
 IN:app.larksuite.com
 IN:app.launchdarkly.com
@@ -797,7 +807,6 @@ IN:arrive-server.shopifycloud.com
 IN:as-cf.*.aws.indriverapp.com
 IN:as-gw-cf.*.aws.indriverapp.com
 IN:assets.airbnb.com
-IN:assets.hyatt.com
 IN:assets.spotify.com
 IN:assets.tumblr.com
 IN:ath-cf.*.aws.indriverapp.com
@@ -832,7 +841,6 @@ IN:beta-cloud.acronis.com
 IN:bid.*.aws.indriverapp.com
 IN:billing-pci.etoro.com
 IN:billing.etoro.com
-IN:billingsupport.chaturbate.com
 IN:bilt.marriott.com
 IN:biolibre.ar
 IN:biolibre.cl
@@ -848,16 +856,8 @@ IN:blog.ui.com
 IN:blog.unico.io
 IN:blox.link
 IN:blueprints.amazon.com
-IN:blueskytours.globalbookingsolutions.com
 IN:bma.badoo.com
 IN:bma.bumble.com
-IN:book.applevacations.com
-IN:book.beachbound.com
-IN:book.booktandl.com
-IN:book.cheapcaribbean.com
-IN:booking.applevacations.com
-IN:booking.beachbound.com
-IN:booking.cheapcaribbean.com
 IN:booking.com
 IN:bookingholdings-coe.com
 IN:booth.pm
@@ -918,7 +918,6 @@ IN:ccardsus1.badoo.com
 IN:cdn.arkoselabs.com
 IN:cdn.localizestaging.com
 IN:cdn.moderntreasury.com
-IN:cdna.lystit.com
 IN:chain.link
 IN:channel-portal.homes-and-villas.marriott.com
 IN:charts.etoro.com
@@ -926,7 +925,6 @@ IN:chat.booking.com
 IN:chat.x.com
 IN:chatdate.app
 IN:chatspot.ai
-IN:chaturbate.com
 IN:checkout.playstation.com
 IN:checkout.tw.coupang.com
 IN:cht-cf.*.aws.indriverapp.com
@@ -935,11 +933,13 @@ IN:ci-propertyconversionportal.marriott.com
 IN:ci.fr.cloud.gov
 IN:circle.logi.com
 IN:circolocorecords.com/
+IN:classroom.github.com
 IN:claude.ai
 IN:clay.earth
 IN:clearme.atlassian.net
 IN:clearme.com
 IN:client-api.arkoselabs.com
+IN:cloud.coinbase.com
 IN:cloud.elastic.co
 IN:cloud.forescout.com
 IN:cloud.gov
@@ -959,9 +959,11 @@ IN:codacontent.io
 IN:codahosted.io
 IN:code.playcanvas.com
 IN:codex.wordpress.org,codex.bbpress.org,codex.buddypress.org
+IN:coinbase.com
 IN:collections.portswigger.net
 IN:comic-indies.pixiv.net
 IN:comic.pixiv.net
+IN:commerce.coinbase.com
 IN:commercemarketplace.adobe.com
 IN:community.8x8.com
 IN:community.forescout.com
@@ -971,7 +973,6 @@ IN:compass.fareharbor.com
 IN:compete.playstation.com
 IN:competitive.fortnite.com
 IN:concierge.clearme.com
-IN:confluence.hyattdev.com
 IN:connect-sandbox.gocardless.com
 IN:connect.8x8.com
 IN:connect.secure.wellsfargo.com
@@ -1002,6 +1003,7 @@ IN:crm.ukrn.io
 IN:cruises.priceline.com
 IN:cs.money
 IN:ct.deriv.com
+IN:custody.coinbase.com
 IN:customer-sessions.arkoselabs.com
 IN:customerevents.netflix.com
 IN:customers.gitlab.com
@@ -1013,6 +1015,7 @@ IN:dashboard.mergify.com
 IN:dashboard.omise.co
 IN:dashboard.privy.io
 IN:dashboard.qa.ai.8x8.com
+IN:databricks.com
 IN:datapod-1-100-druid-ingest.development.forescoutcloud.net
 IN:datapod-1-100-druid-ingest.testing.forescoutcloud.net
 IN:datapod-1-100-druid-query.development.forescoutcloud.net
@@ -1074,8 +1077,8 @@ IN:docuflow.stg.inspectorio.com
 IN:doppler.team
 IN:download.krisp.ai
 IN:dr-cf.*.aws.indriverapp.com
-IN:ebsext.oft.hyatt.com
 IN:editionhotels.com
+IN:education.github.com
 IN:efast.marriott.com
 IN:effecthouse.tiktok.com
 IN:eidhelp.marriott.com
@@ -1159,6 +1162,8 @@ IN:gift.starbucks.co.jp
 IN:giftcards.marriott.com
 IN:gifts.grab.com
 IN:gifts.marriott.com
+IN:gist.github.com
+IN:github.com
 IN:gitlab.com
 IN:global-api.citymapper.com
 IN:gnip.com
@@ -1195,10 +1200,6 @@ IN:helpcenter-tw.coupangcorp.com
 IN:helpers.bullsheet.me
 IN:helpseller.tw.coupangcorp.com
 IN:hg.mozilla.org
-IN:hilton.com
-IN:hilton.io
-IN:hiltonbusinessonline.com
-IN:hiltonlocalbiz.com
 IN:hmxservices.com
 IN:home.privy.io
 IN:homeloans.wellsfargo.com
@@ -1215,11 +1216,15 @@ IN:http1mustdie.com
 IN:http://*.newegg.ca
 IN:http://*.newegg.com
 IN:http://api.insightly.com/v3.1/
+IN:http://api.koho.ca/1.0
+IN:http://api.koho.ca/partner
 IN:http://api.lightspark.com
 IN:http://api.na1.insightly.com/v3.1/
 IN:http://app.lightspark.com
 IN:http://backend-api.devicecloud.production.forescoutcloud.net/api/v1/settings
+IN:http://bumba.global
 IN:http://cloud.konghq.com
+IN:http://coinbase.com
 IN:http://collaboration.rei.com
 IN:http://datapod-1-druid-ingest.production.forescoutcloud.net/v1/upload
 IN:http://datapod-1-druid-query.production.forescoutcloud.net/v1/polling
@@ -1311,6 +1316,7 @@ IN:https://console.neon.tech/api/v2/
 IN:https://console.ort-one-pingone.com/?env=361b34ef-2725-4fd9-af1b-a2b189df3d05
 IN:https://console.ort-one-pingone.com/?env=7f327541-54e0-4ba4-8335-65eac2a25b5e
 IN:https://crosskey.io/stores/s-pankki/apis
+IN:https://dbc-9a3f8ed1-7608.cloud.databricks.com
 IN:https://developers.oppomobile.com/
 IN:https://disclosure-test.six-exchange-regulation.com/
 IN:https://drp.myoppo.com/
@@ -1367,7 +1373,6 @@ IN:https://vault.chiatest.net/
 IN:https://vroid.com/studio
 IN:https://web3.sdx.com
 IN:https://webrtc.8x8.com/
-IN:https://www.agoda.com/book/
 IN:https://www.amazon.com/luna/*
 IN:https://www.coinspot.com.au/v2/api
 IN:https://www.coloros.com/
@@ -1390,7 +1395,6 @@ IN:https://zhongbao.heytap.com/
 IN:hub.vroid.com
 IN:hubspot.net
 IN:hungrygowhere.com
-IN:hyatt.com
 IN:hybrid-analysis.com
 IN:hypermint.com
 IN:ic3.*.indriverapp.com
@@ -1422,6 +1426,7 @@ IN:influencers.tw.coupang.com
 IN:ingest.clairvoyance.indrive.tech
 IN:innersloth.kidswebservices.com
 IN:insight2.tradepmr.com
+IN:institutional.coinbase.com
 IN:insuritly.com
 IN:intensedebate.com
 IN:intercity-*.eu-east-1.indriverapp.com
@@ -1431,6 +1436,7 @@ IN:internal-api-lark-api.larksuite.com
 IN:internal-api.larksuite.com
 IN:internal-docs.netlify.com
 IN:internal.netlify.com
+IN:international.coinbase.com
 IN:inventory.data.gov
 IN:investors.semrush.com
 IN:invisionu.education
@@ -1444,7 +1450,6 @@ IN:isa-cf.*.aws.indriverapp.com
 IN:ispdesign.ui.com
 IN:issuer.idpay-uat.unico.io
 IN:itv7.itv.com
-IN:jira.hyattdev.com
 IN:jira.logitech.com
 IN:job.ryadom.kz
 IN:jobs.marriott.com
@@ -1490,13 +1495,14 @@ IN:ljc-test.tw.coupang.com
 IN:ljc.tw.coupang.com
 IN:localizestaging.com
 IN:logilife.logitech.com
+IN:login-4ngbets.us.betfair.com
+IN:login-4njbets.us.betfair.com
 IN:login.fr.cloud.gov
 IN:login.insightly.com
 IN:login.playcanvas.com
 IN:login.rei.com
 IN:login.remitly.com
 IN:login.starbucks.co.jp
-IN:login.www.vaxvacationaccess.com
 IN:logiq.logitech.io
 IN:logistica.redelcom.cl
 IN:logitech.zendesk.com
@@ -1510,7 +1516,6 @@ IN:loyalty.tw.coupang.com
 IN:m-pesa.africa
 IN:m.airbnb.com
 IN:m.badoo.com
-IN:m.chaturbate.com
 IN:m.reddit.com
 IN:m.tw.coupang.com
 IN:m.ukrn.io
@@ -1522,6 +1527,7 @@ IN:maintenance.logitech.com
 IN:manage-sandbox.gocardless.com
 IN:manage.grab.co
 IN:map.snapchat.com
+IN:mark8.syfe.com
 IN:marketing.fareharbor.com
 IN:marketing.na1.insightly.com
 IN:marketplace.fedramp.gov
@@ -1541,7 +1547,6 @@ IN:mds.marriott.com
 IN:media.indrive.com
 IN:media.remitly.io
 IN:meechum.netflix.com
-IN:meetings.hyatt.com
 IN:meetmarriottbonvoy.marriott.com
 IN:meliplay.com.ar
 IN:meliplay.com.pe
@@ -1577,9 +1582,7 @@ IN:mobile.clearme.com
 IN:mobile.kiwi.ki
 IN:mobile.s-pankki.fi
 IN:mobileapi.insightly.com
-IN:mobileapi.lystit.com
 IN:mobileapi.na1.insightly.com
-IN:mobileapp.hyatt.com
 IN:mod.reddit.com
 IN:modefestival.com
 IN:moments.marriott.com
@@ -1620,10 +1623,9 @@ IN:netlify-rum.netlify.app
 IN:new-order.eu-east-1.indriverapp.com
 IN:new.express.adobe.com
 IN:new.reddit.com
-IN:new.www.vaxvacationaccess.com
 IN:news.remitly.com
-IN:newsroom.images.hyatt.com
 IN:next.airbnb.com
+IN:nft.coinbase.com
 IN:nft.io
 IN:nha-cf.*.aws.indriverapp.com
 IN:nha-gw-cf.*.aws.indriverapp.com
@@ -1634,6 +1636,8 @@ IN:no-gw-cf.*.aws.indriverapp.com
 IN:noti.ukrn.io
 IN:notification-front-web.tw.coupang.com
 IN:novel.pixiv.net
+IN:npmjs.com
+IN:npmjs.org
 IN:nummus.robinhood.com
 IN:oasisprod.marriott.com
 IN:oauth-sandbox.gocardless.com
@@ -1710,7 +1714,6 @@ IN:phone-validation.taxi.booking.com
 IN:photos.adobe.io
 IN:photoshop.adobe.com
 IN:planet.wordpress.org
-IN:plannerrequest.hyatt.com
 IN:platform.8x8.com
 IN:platform.8x8pilot.com
 IN:platform.remix.com
@@ -1746,8 +1749,10 @@ IN:presentationtracking.netflix.com
 IN:press.priceline.com
 IN:priceline.com
 IN:pricerunner.com
+IN:prime.coinbase.com
 IN:primevideo.com/*
 IN:priority.eu-east-1.indriverapp.com
+IN:pro.coinbase.com
 IN:prod-mipaasiaasservices.marriott.com
 IN:prod.ros.rockstargames.com
 IN:profile-api.eu-east-1.indriverapp.com
@@ -1758,7 +1763,6 @@ IN:promotions.unikrn.com
 IN:prow.k8s.io
 IN:ps5.np.playstation.net
 IN:psp.marriott.com
-IN:public.hyatt.com
 IN:publicsafety.ring.com
 IN:pubtools.private.8x8cloud.net
 IN:push-d-gw.cloud.etoro.com
@@ -1827,31 +1831,16 @@ IN:remitlywallet.com
 IN:remitresearch.com
 IN:repo.magento.com
 IN:report-html-sight.stg.inspectorio.com
-IN:res.blueskytours.globalbookingsolutions.com
-IN:res.funjet.com
-IN:res.hyattinclusivecollection.com
-IN:res.secretsresorts.com
-IN:res.skyteam.com
-IN:res.universalorlandovacations.com
-IN:res.vacations.buschgardens.com
-IN:res.vacations.discoverycove.com
-IN:res.vacations.seaworld.com
-IN:res.vacations.sesameplace.com
-IN:res.vacations.united.com
-IN:res.vacations.universalstudioshollywood.com
 IN:research.gs.com
 IN:reservations.all-inclusive.marriott.com
-IN:reservations.wynnvacations.com
 IN:resolve.8x8.com
 IN:resources.krisp.ai
 IN:review.tw.coupang.com
 IN:rewire.com
-IN:rezagent.triseptsolutions.com
 IN:rise-api.stg.inspectorio.com
 IN:rise.stg.inspectorio.com
 IN:rma.ui.com
 IN:rockstarnorth.com
-IN:roominglist.hyatt.com
 IN:router.geneva-staging.com
 IN:row.pro
 IN:rp-cf.*.aws.indriverapp.com
@@ -1867,20 +1856,17 @@ IN:rt.playcanvas.com
 IN:rubygems.org
 IN:ryadom.kz
 IN:safe.tumblr.com
-IN:salesportal.hyatt.com
 IN:sandbox-royal.securegateway.com
 IN:sandbox.fireblocks.io
 IN:sandbox.securegateway.com
 IN:sc-cf.*.aws.indriverapp.com
 IN:scan.clearme.com
 IN:scan.snapchat.com
-IN:scapegoat.hyatt.com
 IN:screenshot-proxy.netlify.app
 IN:sdg.data.gov
 IN:secure-dfadmin.deriv.com
 IN:secure-supply-xml.booking.com
 IN:secure.booking.com
-IN:secure.chaturbate.com
 IN:secure.netflix.com
 IN:secure.newegg.ca
 IN:secure.newegg.com
@@ -1912,7 +1898,6 @@ IN:shop.dyson.tw
 IN:shop.tiktok.com
 IN:shop.tw.coupang.com
 IN:shop.whoop.com
-IN:shop.wyndhamvacationownership.trisept.travel
 IN:shopify.plus
 IN:shopifyinbox.com
 IN:signature-insights.api.cx.metamask.io
@@ -1931,7 +1916,6 @@ IN:sn-api-cf.*.aws.indriverapp.com
 IN:sn-api-gw-cf.*.aws.indriverapp.com
 IN:snappublisher.snapchat.com
 IN:snaps.metamask.io
-IN:soaext.oft.hyatt.com
 IN:social.geneva-staging.chat
 IN:social.geneva-staging.com
 IN:social.playstation.com
@@ -1950,7 +1934,6 @@ IN:sso-sprint.dynatracelabs.com
 IN:sso.8x8.com
 IN:sso.8x8pilot.com
 IN:sso.marriott.com
-IN:sso.oft.hyatt.com
 IN:sso.ryadom.kz
 IN:st*.indriverapp.com
 IN:staging.airtable.com
@@ -2046,6 +2029,7 @@ IN:twinmotion.unrealengine.com
 IN:txm-cf.*.aws.indriverapp.com
 IN:u.ukrn.io
 IN:uapi-front.etoro.com
+IN:uat-bugbounty.nonprod.syfe.com
 IN:uber.com
 IN:uber.marriott.com
 IN:uc.8x8pilot.com
@@ -2059,7 +2043,6 @@ IN:university.marriott.com
 IN:unreal-agents.8x8pilot.com
 IN:updates.forescout.com
 IN:upld.krisp.ai
-IN:upsell.hyatt.com
 IN:urbandictionary.github.io
 IN:url-checker.indrive.com
 IN:us.cloud.com
@@ -2067,11 +2050,9 @@ IN:us.forescout.cloud
 IN:us1.badoo.com
 IN:user-profile-staging.8x8.com
 IN:user-profile.8x8.com
+IN:usercontent.koho.ca
 IN:utils.ukrn.io
 IN:vacation.marriott.com
-IN:vacations.travelimpressions.com
-IN:vacations.united.com
-IN:vacations.universalstudioshollywood.com
 IN:vap.8x8.com
 IN:vault.omise.co
 IN:vault2.faraday.ai
@@ -2104,11 +2085,13 @@ IN:wd2*.indriverapp.com
 IN:web-edge.clearme.com
 IN:web.geneva-staging.com
 IN:web.grindr.com
+IN:web.koho.ca
 IN:web.np.playstation.com
 IN:web.ryadom.kz
 IN:web.snapchat.com
 IN:web.truecaller.com
 IN:web3.moonpay.com
+IN:webgateway.koho.ca
 IN:webhooks.booking.com
 IN:wechat.api.marriott.com
 IN:wga.volans.tech
@@ -2126,11 +2109,11 @@ IN:work-staging.8x8.com
 IN:work.8x8.com
 IN:workflows.semrush.com
 IN:world.hey.com
-IN:world.hyatt.com
 IN:world.org
 IN:worldcoin.org
 IN:wpscan.com
 IN:ws.sorare.com
+IN:www.4njbets.com
 IN:www.abritel.fr
 IN:www.airbnb.com
 IN:www.aiven.io
@@ -2138,14 +2121,11 @@ IN:www.alibabagroup.com
 IN:www.amazon.*
 IN:www.amazon.com/photos/*
 IN:www.analvids.com
-IN:www.applevacations.com
 IN:www.arkoselabs.com
 IN:www.astrogaming.com
-IN:www.beachbound.com
 IN:www.bitmoji.com
 IN:www.bitstamp.net
 IN:www.bitstrips.com
-IN:www.blueskytours.com
 IN:www.bolsasymercados.es
 IN:www.bookabach.co.nz
 IN:www.bookingholdings.com
@@ -2153,7 +2133,6 @@ IN:www.bumble.com
 IN:www.carrentals.com
 IN:www.cart.starbucks.co.jp/
 IN:www.certos.com
-IN:www.cheapcaribbean.com
 IN:www.cheaptickets.com
 IN:www.clearme.com
 IN:www.coinspot.com.au
@@ -2219,7 +2198,6 @@ IN:www.fi.dyson.com
 IN:www.firefox.com
 IN:www.flights.com
 IN:www.forescout.com
-IN:www.funjet.com
 IN:www.fuzemeeting.com
 IN:www.geneva-staging.chat
 IN:www.geneva-staging.com
@@ -2232,10 +2210,8 @@ IN:www.hotels.com
 IN:www.hoteltonight.com
 IN:www.hotwire.com
 IN:www.hotwirepartnercentral.com
-IN:www.hyatt.com
-IN:www.hyattconnect.com
-IN:www.hyattinclusivecollection.com
 IN:www.jaybirdsport.com
+IN:www.koho.ca
 IN:www.lastminute.co.nz
 IN:www.lastminute.com.au
 IN:www.leather.io
@@ -2293,6 +2269,7 @@ IN:www.starbucksreserve.com
 IN:www.stayz.com.au
 IN:www.stripe.partners
 IN:www.supernovas.indrive.com
+IN:www.syfe.com
 IN:www.teamfortress.com
 IN:www.temu.com
 IN:www.tgoyemek.com
@@ -2302,14 +2279,10 @@ IN:www.travelocity.ca
 IN:www.travelocity.com
 IN:www.trendyol-milla.com
 IN:www.trendyol.com
-IN:www.triseptapi.com
-IN:www.triseptdemo.com
-IN:www.triseptsolutions.com
 IN:www.truecaller.com
 IN:www.tumblr.com
 IN:www.tw.coupang.com
 IN:www.ultimateears.com
-IN:www.universalorlandovacations.com
 IN:www.urbanclap.com
 IN:www.urbancompany.com
 IN:www.usa.gov
@@ -2320,7 +2293,6 @@ IN:www.whatismode.com
 IN:www.whatnot.com
 IN:www.wickr.com
 IN:www.wotif.com
-IN:www.wynnvacations.com
 IN:www.xnxx.com
 IN:www.xnxx.gold
 IN:www.xvideos.com

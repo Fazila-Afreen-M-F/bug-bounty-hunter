@@ -15,9 +15,21 @@
     "is_ban": false,
     "reason": "No explicit prohibition of using automated scanners; only testing requirements are listed"
   },
+  "0069fca0acfce2abdb984b11f31f9489c47453942caec458ca563c380471eed4": {
+    "is_ban": false,
+    "reason": "No explicit requirement for personal ID documents or KYC verification is stated"
+  },
+  "008aa9650c4f143d32b312f5ad854165db0a846531c7fd4e081cbf595edc5a45": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "00a35bb190e6a452b750e3f0e0e5cb96aa27bc846f153efe2a57d2db58fdc983": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on automated scanning tools"
+  },
+  "00bd3fb3bbfe31f1ec1e78422caf6ecefb695e05e7be2a45f1cc31217d927812": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "00e7a3b7a30d16ffcfaf4ca5849c28905447ae4d4ba5362083d658748abea7a2": {
     "is_ban": false,
@@ -38,6 +50,10 @@
   "0176f238ee9f2d9bcef92ddccd1d6faf3551f01e430c668f64bd39169ee55f21": {
     "is_ban": false,
     "reason": "The snippet lists vulnerability types and eligibility rules, without restricting automated scanning"
+  },
+  "018061fde3989ff0aee55cca111421c56ef10b29c27dc83f27630535944f8bff": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "01a0433940400c6b2cef6047e08fa9db9698c04601f9e62157a7466b622bba24": {
     "is_ban": false,
@@ -67,6 +83,10 @@
     "is_ban": true,
     "reason": "The snippet explicitly bans the use of automated scanning tools."
   },
+  "0234aa6b893fc9c1149e123f4590e73da62f89a397a937fbb71c3c656046baff": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "0259c8c6f4e0a0b8d2cac8667948f89e8c06131ecc2329449ef42bc824629dbd": {
     "is_ban": false,
     "reason": "The snippet bans disruptive actions, not the use of automated scanning tools"
@@ -95,6 +115,14 @@
     "is_ban": true,
     "reason": "The policy explicitly tells testers to refrain from using automated tools, banning the act of scanning with automation."
   },
+  "0340026efca28fa6605158233329fac4cfea2f2ea4fd823284b111ce16fc9b5f": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "035331438b7bf7106680e0f4e5fedc0f2fc57fd0d4e4370f86dfa74baeda3b53": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "036b6e6aeba094f01834dab12217b6b909ab51a24400e8bf039170295e88965e": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only testing guidelines are provided"
@@ -102,6 +130,14 @@
   "039195c61b2a717b9bd98a40c7025b6033c72f9293cae5534b91abe899d5c972": {
     "is_ban": false,
     "reason": "The snippet does not restrict the use of automated scanners, only report submission criteria"
+  },
+  "03a590027843ae1f640fc163400d91e1e47a4a997a0870b53825fca0c900b9a8": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "03a8200de251a84ed998131f2146fb88a3d13c291ba58a8bc15c385cd7066226": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "040c57912c3cd2d80510ca0d66e7a36fecd334f61e3d88501de1246bd1b82b3f": {
     "is_ban": true,
@@ -143,6 +179,10 @@
     "is_ban": false,
     "reason": "Snippet contains no prohibition on using automated scanners, only scope and reporting rules"
   },
+  "058c75fb626f65d50ae52e27e4f361e1512ab3148c32ed5339a53a3f7847eaf1": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "0597a102a435a33c40f5dfee3ef854fafdff6f66f1e022b2255b148c0402eeb1": {
     "is_ban": false,
     "reason": "Only destructive automated testing is prohibited, not all automated scanning"
@@ -150,6 +190,10 @@
   "059ae7687151a7551529e7fa7ae7bf3132aa4265948d8b471f5d4df27f658b66": {
     "is_ban": false,
     "reason": "Snippet contains no mention of automated scanning or tool usage restrictions"
+  },
+  "05a49c33bc1000dafe0381673da4c216543d5d7751627a37220b0f8dcc040c08": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "05eb25a3635634f5a8bf07412176329df20fadd01c67718ee1c0f75c47791d20": {
     "is_ban": false,
@@ -167,6 +211,10 @@
     "is_ban": true,
     "reason": "The snippet bans the use of automated tools, restricting the act of scanning"
   },
+  "069b2cd216d29147e20b6310cad788df298c323cd616e2fb94f21190fcf16df1": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "069c43b1a850ed578997548a1fdf6805feec5a8f2f73653b783a627a6241edcb": {
     "is_ban": false,
     "reason": "Snippet lists prohibited issue types, no ban on using automated tools"
@@ -174,6 +222,10 @@
   "06c01b4226d2af1a54815e163a7fe07b56410b9c6c30216211d7ca4331df5cab": {
     "is_ban": true,
     "reason": "The snippet directly prohibits using automated scanners or tools."
+  },
+  "06c86b67503163fe58f08e3012ab59c96600b48156bafb8a9de85399ca0bfb55": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "06e6ac8d68b871372a1c56dad60cb1e03397a7dfa33508303448f119e4c5ad2e": {
     "is_ban": true,
@@ -187,6 +239,10 @@
     "is_ban": true,
     "reason": "The snippet tells testers not to run automated scans, directly restricting the act of using automated tools"
   },
+  "071e7e27bd9d568ac5467f09364fcdada0818ace698552dd3869fcd1c19eca89": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "072033f1e621d660679edff2bcc3be9df24881d5543b5f67dc7ebb7a018dde3a": {
     "is_ban": false,
     "reason": "The snippet lists prohibited vulnerability types, not a ban on using automated scanners"
@@ -195,6 +251,14 @@
     "is_ban": false,
     "reason": "No mention of prohibiting automated scanning tools"
   },
+  "0748e7d9528f7fd6be0911a97066e6a427ba615a279f0e2c952cad69608f15bf": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "0759de42d2ac5d50e6ac69aa7d0dbb0606d2719c4f6a6dfa9d9a5b08fa4c50f0": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "075dcace39dc02adca29f548135b68cc0db1dcbcfeb356cfbd636e68ca3c9935": {
     "is_ban": false,
     "reason": "Snippet lists in-scope issues, no prohibition on using automated tools"
@@ -202,6 +266,10 @@
   "07665dab41d2328d0938926f2efa60d082da923ebcdfac5edba6b2a35dc33919": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners, only testing requirements are listed"
+  },
+  "07a2e100bd3bf915a4ab1ef7668279af837af2185bfed2fc13827b1165883b3b": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "07af51f15752214a6353b583e68274d02a66fadf473043c7d23d05ea4b385615": {
     "is_ban": false,
@@ -215,6 +283,10 @@
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only rules about contacting accounts"
   },
+  "08375fc3167c5a82f8a32117f63d5904834939fbf13ec1deb97879582569cc8f": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
   "08434a037cf260039d0a8baf4532cb23d957d3120b2eed56efdc5c93eb909807": {
     "is_ban": false,
     "reason": "Only rate limits are imposed, not a prohibition"
@@ -222,6 +294,14 @@
   "085be863e12177c6cb4fce87ae903e929a4cc47ce52da192b2d24570a6923caa": {
     "is_ban": false,
     "reason": "Snippet contains no prohibition on using automated scanners/tools"
+  },
+  "0882bcd9905b55fcf98dd16f472473e810bb5fe22439cb0e7f761ca79c5e9e9e": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "0882d7611de11e24b295e8ffad7cc319d52b76d2c82f2ac357ed7a1e25228053": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "089fa793b62f5fb46d10b782b9aa9eeec59a3e42d099a7c9dc9e9b9334eb39fe": {
     "is_ban": true,
@@ -231,13 +311,25 @@
     "is_ban": false,
     "reason": "The snippet does not forbid using automated scanners, only mentions other prohibitions and report rules"
   },
+  "08edfd886765cd82bad181a6ab7170b6d2802d6549995cd90b95c92127f19fe0": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "08ef879f48ee26ea6780ddc6e28d85fa559b889dd6a0c8d3dc2194a06a6ee79d": {
     "is_ban": false,
     "reason": "Snippet lists out-of-scope issues and bug types, no restriction on using automated tools"
   },
+  "08fc2e9f782da5fb2230e66e5279b73e8d80d5aefd09a0c1e09e128f58cd1c94": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "090895ed218a4925af645e94ae920c1a0f642a82d82d81c8d32bf45e1c1d7e23": {
     "is_ban": false,
     "reason": "Snippet contains no prohibition on using automated scanners, only a null automatedTooling field"
+  },
+  "09980cb13bd99a0b357c453586d085ec61a10f979374f103a087d7baf7e0ae1d": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "09aa28da3b426256f7195f5d87bc0c3faeedcf47591567332b205205f0cbe089": {
     "is_ban": false,
@@ -263,6 +355,10 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools"
   },
+  "0ac364ea440cd5531dc8d6be146c2be02f2c355d93eb0056c50ba4177935e2ea": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "0ae1ef316e4c346c63e0503a9efc8f8d5cef317c7998f620a775c0bda74ecc4d": {
     "is_ban": false,
     "reason": "The snippet contains no clause prohibiting the use of automated scanners or tools"
@@ -283,6 +379,10 @@
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only rules about exploit enactment and AI-generated POCs"
   },
+  "0b3079eb8ec07ce442187dc88c449cf7eb51584accf2a1ebd095995ada083d97": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required."
+  },
   "0b4dd1066eeebf632c857920c604cce81d0b89f0d7609d09cc67db841fb5debc": {
     "is_ban": false,
     "reason": "Snippet contains no prohibition on using automated tools, only references testing requirements"
@@ -294,6 +394,10 @@
   "0b638580002ed910bd07483ae6af0b53e78d9984a3373ac86b745aca43d7c757": {
     "is_ban": true,
     "reason": "The snippet explicitly instructs testers not to automatically scan the systems"
+  },
+  "0b6e213a8bc82e1e39be04903e7d0f388e0e02b566084ef034c0f71ef035f95f": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "0b968559089502c645d7c9c4fb5a054ea03e8152c9f1f0a84329367e897ec005": {
     "is_ban": true,
@@ -307,6 +411,10 @@
     "is_ban": false,
     "reason": "Snippet only lists sought vulnerabilities, no mention of banning automated tools"
   },
+  "0beea326228fd26c767427be043ff826fce7c70968118862d30a2e9a5446a6c3": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "0c157d537f23f913640a902854d17aac04e0a2b86795d296e86624c9e832a113": {
     "is_ban": false,
     "reason": "Snippet contains no explicit prohibition of using automated scanners, only a testing requirement field"
@@ -319,6 +427,18 @@
     "is_ban": false,
     "reason": "snippet does not mention any restriction on automated scanning or tool use"
   },
+  "0c3f2206b09edd85798c9960b1c3b4f141b51357a1257b9fd24148038cbb961b": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "0c4d3643d0a97c22c9883282d9c342244c59e52ca22f2e40596ebe9899b27a3a": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "0c56e17c244ba0a5578aee6f01e1ff147b50d613867080b102b2c748074b3ea4": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "0c8c39e9bc870361ec6375e084da94c526d39f6058e0d0cd643c93461adf71b4": {
     "is_ban": false,
     "reason": "No prohibition of automated scanning is stated, only testing requirements are listed"
@@ -330,6 +450,14 @@
   "0d0ac277d51956debdfea107ff3b339e418a7c22bf6ac87a05797ded1ee8ab42": {
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners or tools"
+  },
+  "0d104d3f5d2a95ad9788bac3041c0218d7b8dbd58d8b98c667c0ad82a9901a1e": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "0d1eb8517b64b05ca299fe22c084979a03ebe1a6191ec756cb3e21fdcde51b41": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "0d22238bafaca4bc8fcdbde4f8899791c75c1cb77a8902482a705d19f2fdd5d7": {
     "is_ban": false,
@@ -371,6 +499,10 @@
     "is_ban": false,
     "reason": "No restriction on using automated scanners is mentioned"
   },
+  "0f19b8d0b6893feb0c51d6c1a886fe110afc820b1975a6bcc15547881f0bfdc7": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "0f46acc0ec5b6ea19b2cad527a22c6506cb8c97e94c51f21bf03287784522f7f": {
     "is_ban": false,
     "reason": "Snippet lacks any explicit prohibition of using automated scanners, only a null automation field"
@@ -391,6 +523,10 @@
     "is_ban": true,
     "reason": "The snippet tells the tester to refrain from using automated tools, directly banning the act of using them."
   },
+  "1068db7abc8e41ad5db740ef1ed5796bb68c346d30a9d562fb45d1eb9b2d0499": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
   "106c0677a007335a0085766c88a14cd4497e6c6a92b8ae175564d63ec2b5d17f": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners, only mentions scope and demo requests."
@@ -398,6 +534,10 @@
   "108bfcdf6b0cae0e29f4a1a94a42599494c842aab35aa99f725c193ff7f9cbf8": {
     "is_ban": true,
     "reason": "Explicitly prohibits automated vulnerability scans."
+  },
+  "10b65fa04d68d9a4243c31dd9ec1c61d5a7281185772c20a2eb11e63a91e9270": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "10e4dd37bf8c57829b31bc81b894ccbe94c69a7b7dbae05366097b8527bef660": {
     "is_ban": false,
@@ -423,9 +563,17 @@
     "is_ban": true,
     "reason": "Explicitly prohibits using automated scanning tools."
   },
+  "11a8bd96df8643d890c854a5ae609439baf5258fc5be8800c45ee1d95ca29cc1": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "11d6711aec2d6fdfabc9e763eea23b2780742da9f4f99e109baa605c834834f1": {
     "is_ban": false,
     "reason": "The snippet only outlines report requirements and does not prohibit automated scanning tools"
+  },
+  "11fee1f625414d031d33191e7f6e5fbf744897c78390e944ca5daa199ea981b4": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "121d6efee25b85473f1a83ca11b2ebfa27bf9f249f92176218a6c5c1ff36fb73": {
     "is_ban": true,
@@ -435,6 +583,10 @@
     "is_ban": false,
     "reason": "The snippet only lists focus areas and does not restrict the use of automated tools"
   },
+  "1248dc36c8de31c7111fbff70d8f7cb499dd8f32025303a59523ac0fce64430c": {
+    "is_ban": false,
+    "reason": "no personal identity verification required"
+  },
   "126026e13d45f5dc00baf06cd1153a9f29786500f07f3253e8600d73a4cca628": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools"
@@ -442,6 +594,18 @@
   "12788ebb016533e875bea477eea58a782ca80f8bc77dbe0aef4cc7dbe40917a9": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners, only scope and rating details"
+  },
+  "12bab32d211656dbb1d711944a7fd7cd88276a786ea9d79cbdc2ce98ce9033c2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "12ccd889e9d33f4ff5eb96c2f4ea716360bdf4ab680562c9a215b37c61f7ee0d": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "13068fecc66cdcbb923eac08e136a5e05f66ba0f70718f6c547b2871a5904124": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "1323b287d69de36ede635fca145c461bc221084d4fed1155acc19528ae93c971": {
     "is_ban": false,
@@ -479,6 +643,10 @@
     "is_ban": false,
     "reason": "Only rate limits automated tools, does not prohibit their use"
   },
+  "147bedfa34758c3ee5d4565f56d525ff14f7f9abdf7c64f96ab34846170c8cae": {
+    "is_ban": false,
+    "reason": "No identity verification requirement mentioned"
+  },
   "148497f8053b84c82429d3f9c1e0833fbe712d3a35ab6193e0e081da34f49f63": {
     "is_ban": false,
     "reason": "Only rate limits automated tooling, no prohibition on using scanners"
@@ -494,6 +662,14 @@
   "1520cbc6a60464042c692758261c2d09610ad823ad3467fdcfd134c1423d99f7": {
     "is_ban": false,
     "reason": "Snippet contains no statement prohibiting automated scanning tools"
+  },
+  "1553d3007eb57326b97ccc333b9f2d5c36146dbdf8e11ae9e9fbe64a71d268d4": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "15669bc9f3954673af9401b6b3ea0943ab557800483991dce28cf3def0c2ae8f": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "156b93992e144e9e5f943d96d4bccd296595dda86763c76dc7b2caf3e69e1469": {
     "is_ban": false,
@@ -515,6 +691,10 @@
     "is_ban": false,
     "reason": "The snippet contains no explicit prohibition on using automated scanners or tools"
   },
+  "1602d8b011bfe18231d87815238f7e26f49e702cbe0d77f46d48927dbbbf55cc": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "160707116d25691e193d0562cf176a406a256a2ad4956997f4f1aa52bdc784d6": {
     "is_ban": false,
     "reason": "No restriction on using automated tools is stated, only submission guidelines"
@@ -526,6 +706,10 @@
   "16b9732aa322aa7601a7994c24b6c63e5ec45c81d72f458ccfacff85e098e189": {
     "is_ban": false,
     "reason": "The snippet encourages inspection and fuzzing and contains no restriction on using automated tools"
+  },
+  "16e627b46c1ef67d057dbb7592f94108a9f8d0d0465f52da346934e05b8b0ffe": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "171c98496019cf41aeb4f7a5ae5c163390fc922f5c93d91e5c1243ee58fbe7fa": {
     "is_ban": false,
@@ -539,9 +723,17 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools."
   },
+  "176d59376ae43ca87fe86728c9a3a592c55d35f563b167d10f4df5cd84fc4aa6": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "178d3041a10a296573b2ece97a272607a17719bf3ffb0e822ea9d1673de4fa96": {
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanning tools, only report submission rules"
+  },
+  "179b41871d65b523cf2b1c623a1b04b93f875f59405aafdc628bb2b36de3025a": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "17b346e9814a0f40a0987e006214e3bfb61e35e190be5358e7244cb0eceba372": {
     "is_ban": false,
@@ -603,6 +795,10 @@
     "is_ban": false,
     "reason": "Snippet only limits report submission, not the use of automated scanners"
   },
+  "19ac02fefc6492a767c5b05743478ca64a8e5355a710ad06f75263a71a3c5e3b": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "19eefdd306cf18e8de681b5e561166202d80fe2e2ca965ef0ed408f3f99e6344": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only non-destructive testing is required"
@@ -643,6 +839,10 @@
     "is_ban": false,
     "reason": "Allows automated scanning with rate limits, not a ban"
   },
+  "1b77dbe662374877e62cab830ab72b5aa13e9063427e4f892b3fa80f3b14208d": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "1c04fff310f197f7553ea7773a862252bd2c0b79447e306493a2ad033b36a63f": {
     "is_ban": true,
     "reason": "The snippet explicitly prohibits automated vulnerability scans, banning the use of automated tools."
@@ -650,6 +850,14 @@
   "1c0cb21858d54c25f0d63dfe52e9284cf43879f2bd8f1ba20bb7e54fe11e944c": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners is mentioned"
+  },
+  "1c1740c8b26b94e182e894c39fdaa1788f4d07a8acfe14e8693a1ee466cb0f7e": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "1c777cccfd9496c5f9bd916658a4e1a308d4b7bc1c3d78ca5a1211d8202b60d7": {
+    "is_ban": true,
+    "reason": "Requires KYC identity verification before participation"
   },
   "1cf27731f378ca2705bc80088ed7a154f4b8916ab2afe84ef685556669b7c358": {
     "is_ban": false,
@@ -691,6 +899,18 @@
     "is_ban": false,
     "reason": "No restriction on using automated scanners is mentioned"
   },
+  "1e6f9028d4f4ff2f4a65a9e085c337b60a0d225d22f92d05e7bcd2b1c7151c75": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "1e7d7d044b07f7ebf7f4aca3e0363a4c68acb76a6374d345253deeec6b65a4fb": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "1eb64ea03f0ea736b6205d7c539f266da8c1463f9200c6c89ea8924e8547d723": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "1edd22dbf256b268808656ea7d3f185602d01d8f3e3b3adb2359e4bb48c4b06e": {
     "is_ban": false,
     "reason": "The snippet only defines scope and reporting rules, with no restriction on using automated scanners"
@@ -698,6 +918,10 @@
   "1f19b64ea5568d44e4a8caf878e2659f4ad6f735c1f308f1cc70f872dc6819f8": {
     "is_ban": false,
     "reason": "the snippet limits report submissions from automated tools, not the use of scanners"
+  },
+  "1f2d990d7d2ae3434030ee84f8097e3a6a9c7e527ca2646074268bc28120dcc3": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "1f49f05227763f37c364fe425ac230ed091299628b748d4127fa905c92b4cbff": {
     "is_ban": false,
@@ -707,9 +931,17 @@
     "is_ban": false,
     "reason": "The snippet limits automated scan reports without proof of concept, not the use of automated scanners"
   },
+  "1f61c27ebde2ffa135726a0dc24b5645ad5ca4ef04db683b050d593e68bd6bd9": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "1f6beddafe0c15be21e7ce907338a5c78740b5992248d34c619a62163e75d9ac": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners, only general testing permission"
+  },
+  "1f7c476332777e20b3cd236d13ce6c7e3bcc490c8c40df96b76704482f9a3e9f": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "1f8469ee6b64730b2354261f12a200868415a103b36d3f8a5547744bc4e14111": {
     "is_ban": false,
@@ -747,6 +979,14 @@
     "is_ban": false,
     "reason": "The snippet only lists focus areas and contains no restriction on automated scanning"
   },
+  "20571ea3ac26f936bf0a537cba3a74412f0f5fa0893a76db919c37f1fbeabd03": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "2080c3fb3fb1120303d61164dc6a18fbcd807931b9cd26686faea51363bfb294": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "20c1a86454f21d470f7ef0e4bd2f8676ab942a8aced5e0cf8c264e70e3fab715": {
     "is_ban": false,
     "reason": "Only restricts report submission, not scanner use"
@@ -755,6 +995,10 @@
     "is_ban": true,
     "reason": "Explicit prohibition on using automated scanners."
   },
+  "214fd09d072aef998abe8c7592e064f8476417dfcb9e1c041652d94bacc24750": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "21628648abc8c5f13d42d4d5dc7fed548f1d8f3a358df481f7d8a8ba16512298": {
     "is_ban": false,
     "reason": "The snippet contains no rule banning the use of automated scanners, only submission and scope guidelines"
@@ -762,6 +1006,10 @@
   "219fbbc8dcef18f6669e28f10e7bd421d9e89180e54e0d79c441025026952495": {
     "is_ban": false,
     "reason": "snippet does not prohibit automated scanning, only mentions testing requirements"
+  },
+  "21c52f49b7ee9d5a95ba9887f6a7c6a04d43382423fb44ecd3efeb096fdced84": {
+    "is_ban": true,
+    "reason": "Requires personal identity verification for account upgrade"
   },
   "2203dd7724ad66cb1ac472041bd7dc1f5a5efaa378951ee423bc051920d07fb6": {
     "is_ban": true,
@@ -799,13 +1047,33 @@
     "is_ban": false,
     "reason": "snippet bans employee communication and physical attacks, not automated scanning"
   },
+  "239d5334811aca24aecd12185987e01b44b2bb5e5d45fab935f8fb875e29c7b7": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
   "23bb49f2c7d2098657768bdf3e53b0b5684268a8d3b654788f6fa7fbcdb79116": {
     "is_ban": false,
     "reason": "The snippet only lists qualifying vulnerabilities and does not restrict automated scanning"
   },
+  "23e82beab9589c8ee712a61f01d7da1d962a244965903e76aae6e34fb7523a73": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "24087ad3eab3d93941681d19f7f745a5056e8d0313c52c75e978d341ad0b6c27": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "24370072b254f43994ae12733f9062b821186f2b8eb559de7c40c1cbd143b3f8": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "24b38fe01b0b09907be3852e5b8fa61b911da1e00e67682f57e76864e6099458": {
     "is_ban": true,
     "reason": "The snippet explicitly forbids using automated scanners, which bans the act of scanning with such tools."
+  },
+  "24c68e3547ad85bc3d7518f7e9f17463a55e415b40285969ab9dd62ee2587080": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "24d4f2950bd338276da64b95c1f11f9849185a0ef5e37d87dfba806599916c31": {
     "is_ban": false,
@@ -835,6 +1103,10 @@
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only general prohibitions against harming customers"
   },
+  "258c693c1fe89422f3a0ec88330b8e6ac8fc537e448f7e4c6799dc4b450e194e": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "25dc21f33de89a081c0679a873325a84bcde6c3631d4137e1044bc5fc1c191c5": {
     "is_ban": false,
     "reason": "The snippet only lists in-scope targets and does not restrict automated scanning tools"
@@ -850,6 +1122,10 @@
   "262d10be57c98141d27a3ee054361e67e5061255636eef2e0f0ce33d252ffdae": {
     "is_ban": false,
     "reason": "The snippet does not prohibit using automated scanners, it only sets participation rules and submission timelines"
+  },
+  "26774ae13e666ac06c4942880f153c474bff376e4cf5ba1a25bffec2344ba8c6": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "268c6da9e519e7f844d4b75daf6fc24d8e10aeec0da2987b0df974b0dd6cbac8": {
     "is_ban": false,
@@ -870,6 +1146,10 @@
   "279ed18c25d705bb5260ae3736d78f3f56b53d58131088ec7df548ac14658b50": {
     "is_ban": false,
     "reason": "The snippet contains no rule banning the use of automated scanners/tools, only general program rules"
+  },
+  "27aae8b7d2ea6710dd6e7c80c71cbe530f54ee9fa0457beda98bb926a18bd4f2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "27c74945197dced9150feb1fcba1f66920285f57730730f3e73fb00fdfea81e4": {
     "is_ban": false,
@@ -903,6 +1183,10 @@
     "is_ban": false,
     "reason": "No restriction on using automated scanners is mentioned in the snippet"
   },
+  "291de1c2781504436c4f5bbd31eacdd5f112c446e3fd47640e82f6e88e013f0a": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "2981f5deae5f862ce7ad41fd5c231d4412b2f8ccfa83d36aef3df491b8104f2f": {
     "is_ban": false,
     "reason": "The snippet contains no explicit prohibition on using automated scanners; it only lists general rules and a testing requirement field allowing automation"
@@ -919,9 +1203,17 @@
     "is_ban": false,
     "reason": "The snippet lists prohibited vulnerabilities and does not mention automated scanning tools"
   },
+  "2a89d6181548cfcb863ba7b0b03896f61c06bff8274bd9b39bd1bbb17b98b693": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "2a92b451826e6111399fdfda6a11fbf8e77d5235f39de79ed294e979ad8792e6": {
     "is_ban": false,
     "reason": "Only bans rapid form submissions, not the use of automated scanning tools"
+  },
+  "2ab97d7c2b622aaea347cff48639f6f8b946b9524b3ca79bf0b80781d742ae08": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "2b03b1d98cc911dea97d6d83398598774b6dc9a44446988896423b51f3f08188": {
     "is_ban": false,
@@ -931,9 +1223,21 @@
     "is_ban": false,
     "reason": "The snippet contains no mention of automated scanning or tool usage bans."
   },
+  "2b5f462cd0bc50adf8d03b194dd1012d8765da34ef2a2f5379a4d436e20d66ae": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "2b70834918163a9b581e99a7504a3ba6e368a7bf862cf11ceda4e2f777e2d533": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "2b758432f6c6909dea512b7feb07be5f0cfe755976e7919f8ba5770524a75d0d": {
     "is_ban": true,
     "reason": "Explicitly prohibits using automated scanning tools"
+  },
+  "2bb15c17af8a7256c96e3922f4d82d925da0bd19128270576b7587590c13a68a": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "2bbe93a227430f498048e3e64a6e48794ea2eff0ceb7c17f9cf4ad726b45f387": {
     "is_ban": false,
@@ -959,17 +1263,45 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools."
   },
+  "2c856c1a1d3491fc76ab608dc7dc0e71c5db8fb9d163e5cdba0a4a634553abd9": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "2cbfd7b1075162926bf4b63a6c0b2f850b1d7290d7f32fc0f9455f6cd32dc444": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "2ccf04d8a6cd496056cb97381b5ce3404a982de3eda62f054fae141163fcc331": {
     "is_ban": false,
     "reason": "No mention of banning automated scanning tools"
+  },
+  "2cd9ed0892148d866c0d378f0c96d524fa3417c8f4c498b7723a42cbf1b9b6fb": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "2cfeda9d97635dc4e4dd69c233b33cc971fcaf27aac5a327f4b3aa416fc34399": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "2d015ee114c858948d12826f88b608e6109843c9d785a02565eb8222848f131b": {
     "is_ban": false,
     "reason": "Snippet contains no mention of scanning or automated tool usage"
   },
+  "2d3af1071c35eabd3303ba620f4d3a2f9c9455a7943bc2cfc5627ed749fc2d21": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "2d3fbfbec5c7cee08996835f6bf14ff3bac46412d6cef4adb0c86b49ecdb0af8": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "2d64a5a2ffceabe6a9ebe7631a97085375e552529d1701b29b963791e4ca8bca": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only submission and scope rules are mentioned"
+  },
+  "2d9bd836d55dea8460f04ff9e1c217ebf969fced539588fba327e68ce5bdfa95": {
+    "is_ban": true,
+    "reason": "Requires KYC verification (personal ID) to participate"
   },
   "2db8c3b265cd4975b57d4cce513b8f32bcd1d299166700bfb1af51318ba2ff23": {
     "is_ban": false,
@@ -978,6 +1310,10 @@
   "2dcb8c5c2bc0d20ffcac033111706cbbf537c173d21828694ff5d1365b983876": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners is mentioned"
+  },
+  "2ddbc9ab4cda0c0a0aaf581c64613b33308d017270a7e044ffb7a9b5e4fe4032": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "2df4572019ef070eafa9486146fc885ae69cbd52d2513dbe4967bf1df546cd44": {
     "is_ban": false,
@@ -991,6 +1327,10 @@
     "is_ban": false,
     "reason": "The snippet permits automated scanning, only requiring throttling, not banning the act"
   },
+  "2e88f6eff16baa138ca9929bdd223197cd108827dd2e4b87739eee7ee6f0f34f": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "2e9903734949e5ec118b53d0d146101b683414970568b1121284068e1f191f45": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners, only scope and reporting guidelines"
@@ -1003,9 +1343,17 @@
     "is_ban": false,
     "reason": "No mention of banning automated scanning; only scope and reporting rules"
   },
+  "2ee58ecb07b965a7c0c62630e5e7bb595b19930614fa7ab6d4c32c8241866d10": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "2ef78fa9d6e9c1c2e655402da678ae00bab8a05e442b6861aaee0ffa06a6e1c5": {
     "is_ban": false,
     "reason": "{\"is_ban\": false, \"reason\": \"The snippet imposes"
+  },
+  "2f0f64bb9211f7394ebc076f31fb209048e65cbeec1b5a6601a993eb2124229b": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "2f9170bf341428fae8d06327258bfc6654c05fcef1c80d2fe665384031e0c5e1": {
     "is_ban": false,
@@ -1023,9 +1371,25 @@
     "is_ban": true,
     "reason": "The snippet bans any automated attack techniques, restricting the tester's use of automated scanners."
   },
+  "30188c12c2d06569a32c144084d22223a18f585127db9fd01b6898c529d9ce53": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "304ae092599b4bd2604e44953ff65f0f1c476b5a9a80937bc2ab215cd7a52ce1": {
     "is_ban": false,
     "reason": "The snippet allows automated tools with a rate limit, not a prohibition"
+  },
+  "30642252f142a1c92de142f177ade30765e95eb57bb58e957f5ae52f8a14005e": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "3071d49fd84e38b1da826a486f2463c4cc7a22885ca0054ae8a3bf43a9acd631": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "30723f42d9287f3a3e11d12bf2c728a4507a7ab5645dae169317a1593575b3da": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "3089c884823dc3b2594a2ebf77771f43c75e035d27120bc610ee908de4bc4a44": {
     "is_ban": false,
@@ -1038,6 +1402,10 @@
   "30ca132cf2e73d2ef2859eeebef22b12c99c5173d0d88cb25c48d1ef218dfb6d": {
     "is_ban": false,
     "reason": "Only imposes a rate limit, not a prohibition on automated scanning"
+  },
+  "30db9b4ef55a16fe841c2a177d5ae55db87d6bf29a08ded0c9852eecca2a505a": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "30e1fbc5e54583b5611e31b6f4236a198f2c5f7f4ccc83e9907e7dea9bf72d4d": {
     "is_ban": false,
@@ -1063,6 +1431,10 @@
     "is_ban": false,
     "reason": "No mention of banning automated scanning tools; only general program terms"
   },
+  "31bc24959529228f6d8298465b16be5e2e19e28820d3bb35ca9fbc753cb9a670": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "31c9bce9e534379325c85367729b8b7d83c4e30cf713ea4fb1e6744c3cc93865": {
     "is_ban": true,
     "reason": "The snippet explicitly prohibits using automated vulnerability scanners."
@@ -1071,9 +1443,17 @@
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanning tools"
   },
+  "32274a39448d1415aafd269619cb1b2809ce4698c5addf73be81c645ff8e07c2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "3250a324949674c8936985c69b1ce72090acffe0a59c571b840d7e4a0fe2888e": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners, only reporting detail requirements"
+  },
+  "3278602d5c8be91d4441c5278fa3a73d284ee08f10e4b53a4c82e65d4146230f": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "32cef47850ffffd90f6574c4e9ff00cd302766c4f772a58e54c80b0d225d917c": {
     "is_ban": true,
@@ -1083,9 +1463,17 @@
     "is_ban": false,
     "reason": "The snippet contains no statement prohibiting the use of automated scanners or tools"
   },
+  "32d7768967216f651ae9ef632321e8ac89d98cb1f294d7212521da1b209853d2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "330009f51c7e56835acb15c84ba09ad605778e9ec01197b87c561238e5b87982": {
     "is_ban": true,
     "reason": "Explicitly forbids using automated scanners"
+  },
+  "33350d16116122746c48cd006aec3726bd0fe8af19ac7396ece845e6d05b8ed5": {
+    "is_ban": false,
+    "reason": "The policy does not require personal identity documents or verification."
   },
   "33542e9171246e284b9726ac99064b075257b9979db1cce75b0e888d437ed3c7": {
     "is_ban": false,
@@ -1098,6 +1486,10 @@
   "33ac887e89489767385bfdf4a3955ed032215635343642e01f3ba2c0a37d0614": {
     "is_ban": false,
     "reason": "No rule prohibits using automated scanning tools, only general impact restrictions"
+  },
+  "33cf8af3674f08fc6e78b8095251ae848baea4cf18cc9ed80577f96c1df0cca5": {
+    "is_ban": false,
+    "reason": "No identity documents or verification are required"
   },
   "33ef10e325a1dfff034bf7b420086383e56b1d51c8e3d8d3ca9f2fa54fa5f7e7": {
     "is_ban": true,
@@ -1131,9 +1523,29 @@
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanning tools"
   },
+  "3521a44fabe9d4ea3b49f36bf7c399ec5334187596bbb0e6bf704c246f3ba8c1": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "35a8deb8e49b2ced75cba58486fb6d93807978216947896645f58f45ba4f1359": {
     "is_ban": false,
     "reason": "Snippet sets a limit on automated tooling, not a prohibition"
+  },
+  "361e962e89c5f438f9a5f9e8307e08a8f60319844535a45d14102948440c5bc5": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "365e506a294be21b536d907bdf66908578a9e1e19ee9a6eba92c6775a208565f": {
+    "is_ban": false,
+    "reason": "The policy does not require personal identity documents or verification"
+  },
+  "3671f4ae818cb87b34d9eebf8229881f73c2289ac16aa69514d3a2534ab3adc3": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "368da2fedc42290fa46c0bf0ef2abf4176ca59324c4dc0a823e659d91e8b0070": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "36a52ef39e6fd987c2a4459fa73a44465a064c892bb80160671d3ffe6a85fa69": {
     "is_ban": false,
@@ -1147,13 +1559,29 @@
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners or tools"
   },
+  "372f5513d450f96f4f283635e780620bbb0284d45a4590c6781e1c9c376653f2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "374fac1723bd9510f2512acdbd52452eb95a923f889577eec27eae0a40a6545d": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools"
   },
+  "37509b66e539a1666bd9af104d32581467aebe9d13c497b7994f251ed15d27be": {
+    "is_ban": false,
+    "reason": "No personal identity documents or verification are required"
+  },
   "3786393787924b6c0102ad130d6f6f9de7ee06f9f13e9d1af22582413138439d": {
     "is_ban": false,
     "reason": "No statement bans using automated scanners or tools"
+  },
+  "3789b630b2e49a6ffdbea59f09e4d65a5b228a9e43bbb82670cb7f820a2f3c6d": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "37bff8bb433616253a9e5900b5a76ec7ee84776334e8d81be4ba1aba3bb1575a": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "37c056cfc50ebee7d566e0205683c09ea33b0025b0adcabe6b1602c35c58a923": {
     "is_ban": false,
@@ -1163,9 +1591,21 @@
     "is_ban": false,
     "reason": "The snippet only restricts submission of unverified scanner output, not the act of using automated tools"
   },
+  "37ea5f183146a82a1f92bca78b6b99c0a13c7ae42ed53b46ee94c7e35a951303": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "383fdc959f2e96231dfb2ffa534808e07e1f2ce4a3cd0bd667a64314ba22457e": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "38af72f15876e1336d837d219babf5966bc69e58c3830636b70b420beac733cd": {
     "is_ban": false,
     "reason": "Snippet only sets a testing requirement for automated tooling, no prohibition on using scanners"
+  },
+  "38d0a7077df564afb190a358cb0589b9e6c3a315e5b6c4b911096280267579f8": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "38fbd779c50be3ed6adb9b7beb1392487f3d7cfa73ee25cbf2f243dda9a30b2f": {
     "is_ban": false,
@@ -1174,6 +1614,22 @@
   "396dcabce277750ba3b8a55e6e838cd085790af8818e320ba7e01c30cc84f5bc": {
     "is_ban": false,
     "reason": "No rule bans using automated scanners, only report submission criteria are mentioned"
+  },
+  "39956c54c2d651d31e349e83ead5595e9d5fa1251b305cf0ed425d98d7534a4e": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "3b0bf6fb1c27605e19cb8d79fe5344af41cfb944c307b48d338d8c16630dfd77": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "3b378ee5b96ffcef6816865f0a3f99f1ba0e6d4f031081276ccbc55c5122697f": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "3b458365e413e7c2e52a3fa20860bc9f6495de4ce666b981ebe0a6676068539c": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "3ba26b2576063b77eb9fd0f66729b9e29066b7debc05d2566d59e88f236071d2": {
     "is_ban": false,
@@ -1202,6 +1658,10 @@
   "3c1ffdccf268b1ac894703b437b41e689db88a37c80ba903161da54a2442e334": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanning tools"
+  },
+  "3c26f2e175980bb9a1398bd0f2cdf79d8ef9cdca53b6fcbe1b5808f5c41c82b8": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "3c3e72891ffd2f76afe59fc2b4083986df2e98a3ca02211ad168954d3666ef75": {
     "is_ban": false,
@@ -1255,9 +1715,17 @@
     "is_ban": true,
     "reason": "Explicitly forbids using automated scanners/tools."
   },
+  "3d3b42c84af90ee6e4128ebe675f98ac6be63fc468d618fddfd973afd0cfa233": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "3d55d8f3b9014d12cc506dd19fc5a9e69ac56131ffbcdb8d72d980ea0cca3b77": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools."
+  },
+  "3d5c407e9a8321b103d55c898a37581cd9b14d6cd3f06e589c9659dec80b39a0": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "3ddc3d8c3909eb949d8966286acdf8e4f73face892ff915bd2286347ae6d8dee": {
     "is_ban": true,
@@ -1287,6 +1755,10 @@
     "is_ban": false,
     "reason": "No restriction on using automated scanners, only report submission policies"
   },
+  "3ed7c3537de1c891243086ece5b420f698176237a2430105166183dc1837a6c7": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "3ee6590fe983f8a05951cd464f4551d76ff7a9e25383c8c39ec7c5434be9ca87": {
     "is_ban": false,
     "reason": "Only rate\u2011limits automated scanning, does not prohibit using automated tools"
@@ -1298,6 +1770,10 @@
   "3f1bd7caf1fb2ffbcbc19730b0238085ae56b312bed7444d05e789d3afb7764a": {
     "is_ban": false,
     "reason": "Snippet contains no prohibition on using automated scanning tools"
+  },
+  "3f2f8d0ae8377f5c865a2d9760621cf73c33312d328f1549db00152f90787aa3": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "3fb3a2161e2c302ee51d6633b8983b2455ce8f9de30dd84b5468b4a66551914a": {
     "is_ban": false,
@@ -1331,9 +1807,21 @@
     "is_ban": true,
     "reason": "It instructs testers to avoid using vulnerability scanners, banning the act of using automated tools"
   },
+  "40dfd452fb08c7e872de6ed9084e81f5e612f40ea2886a50165b9c03b4c2292a": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "40fd6c916807b1044f2317905c99e9cf17707f5dfc677b2a2b5fa69fa1695e18": {
     "is_ban": false,
     "reason": "No prohibition on automated scanning tools is mentioned, only impact restrictions"
+  },
+  "41267b70ec9df06728e2d66c7a96a540ab61f4875bdcceca68db34e0e0f0ef25": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "412cd892e38ea18e76bdf81ebdc30f9689f0596d3ecacf4f80fcc043344f0fc9": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "413b6fd1884b99499ec22706b516688d5822727f8b94c6893debb917339a1351": {
     "is_ban": false,
@@ -1379,6 +1867,10 @@
     "is_ban": false,
     "reason": "No explicit restriction on using automated scanners is stated"
   },
+  "42fc124d476d14c10461654b3739c187c859cc10167e875ad67d12d820b43621": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "437dbbf9622be50bd9b33039f842bffe3408f39558527d8d93c6c737edad3a76": {
     "is_ban": false,
     "reason": "requires user-agent but does not prohibit automated scanning"
@@ -1386,6 +1878,22 @@
   "440a9fff5b99493464c26918a336d715c6297387c6ad51e5561d27b3c6f5ff4b": {
     "is_ban": false,
     "reason": "The snippet only discusses email alias creation, not scanning or tool usage."
+  },
+  "441cea6bf33cb09f01f44849b03ab59a058d29040947b762d9e100c0615cbbb2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "4422f11b9b665759eda140140185e1da025a03f4bcabf2bfce0e34b134088cbf": {
+    "is_ban": false,
+    "reason": "The policy does not require submitting personal ID documents or verification."
+  },
+  "4425249a4e139af8c7897ca871c2bf2387ef5772d7cd88efc0ad5bca0d7f3f3d": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "4435f8f3125b6652863f94bda4c689855e057e9642e7e2005a64409859c76970": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "4451b8294368b0442142f541ad32ba371b4b078d471da90e416d55bc6da0fa8c": {
     "is_ban": false,
@@ -1398,6 +1906,10 @@
   "446d81ffad80f0a370bda1a6fb21d4f1ebca20adb6a4d74dcfcc74a20391f91f": {
     "is_ban": false,
     "reason": "No prohibition on automated testing, only a cleanup request"
+  },
+  "448b7499c6e9aa8635f22e4ece21e8795ac3eda0d51eb34caa9c8483707fd8a4": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "44a08822f399d4d2482a6b575da564cddd8f1515667c450a98c63cc5564a3e93": {
     "is_ban": false,
@@ -1419,6 +1931,10 @@
     "is_ban": false,
     "reason": "Only cautions about rate limits, does not prohibit using automated scanners"
   },
+  "4586a54ed56e028fc980506a31c03a8366ea7964926880040ff6afebad9ea49a": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "469d04276156b40c8faed45b6dfe4cd71cb7c4c3c715fb52df8003154872d213": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated tools, only describes testing scope"
@@ -1435,6 +1951,14 @@
     "is_ban": true,
     "reason": "Explicit prohibition on using automated tools"
   },
+  "47bc052582636cf50a8628310beb7d2ccb8cb8a540d9c6d3bf9b9e7916fd1c3e": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
+  "481fd8c5f55d844075e83cce5b85a24829e68e97f5b9029a3b12ee0f9548b44c": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "4875d6d0c6a32398a051fd1255b891b8f93d2f244e38a7418a21a1e41b1c3e1c": {
     "is_ban": true,
     "reason": "Prohibits continuing fuzzing (automated scanning) after a 500 error"
@@ -1443,9 +1967,17 @@
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners, only report and disruption rules"
   },
+  "48b4c738f33acb55153c13ba56e03a51b41cf1eb74bab4cf0367f95bba2a7a76": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "48d79066d7c421d1811e4e2cc2211c2c075c9b92448ae74e9d996748eca4fa1a": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanning tools"
+  },
+  "48dbaf90cde9ed51b871ae2db6c09e258f193fc316db0f1b3a8ff996d6263342": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "490996d3de79015d01ecff992925f2ebadbfbc0b4986e3bcf9449df2bc97d20f": {
     "is_ban": false,
@@ -1463,6 +1995,10 @@
     "is_ban": false,
     "reason": "The snippet only lists testing requirements and does not prohibit using automated scanners"
   },
+  "49dd4745dd2ffb0452770609279d4161af751d49c7c3822ef55978df57c1e814": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "49e749004d9b1f087d0e3ea217ecb2747d7d3dfed9f1e74fa7743107cc5bbae0": {
     "is_ban": false,
     "reason": "Only report eligibility is restricted, not tool usage"
@@ -1475,6 +2011,10 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools"
   },
+  "4aa1209bac752b73813935ac96127e0fa7b91312161b31ac4d4d3d068611c298": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
   "4ad32a9be2bce1e3b48d6c0643e94d7f98f981624c724887ce53ea04114394e3": {
     "is_ban": false,
     "reason": "Snippet contains no explicit prohibition on using automated tools, only a null setting in testingRequirements"
@@ -1482,6 +2022,10 @@
   "4adf63c272d6527d50cc02f7f7a145511cad9c04af4b612f88fce009ed9f1dc4": {
     "is_ban": false,
     "reason": "The snippet contains no statement prohibiting the use of automated scanners or tools."
+  },
+  "4b0afae811ddeea1493a98fa35208ab69177333eef4b4929a9f704ed1864ed02": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "4b16b2936a55e07be143218009c468ce33189fc14778a67ffe291d5641b14977": {
     "is_ban": false,
@@ -1498,6 +2042,10 @@
   "4bb81c2ecbf689d4dded9da4daff154ecad494e46a998b9d28342c01390447bc": {
     "is_ban": false,
     "reason": "The snippet only requires labeling automated activity, not prohibiting its use"
+  },
+  "4bc2bc3e8f45e719132222c016086a3d49e770ab9c288d29689a135b923a16e8": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "4c194064a4a274e3b402373f91ee82d2c06940389afaebc2055434739e3890b8": {
     "is_ban": false,
@@ -1531,6 +2079,10 @@
     "is_ban": true,
     "reason": "Explicit prohibition on using automated tools/scanners."
   },
+  "4d22ec2b5f0dfe6c2af35bcb0e52674f46c16937ecef9d8b2d6be7dd7f86eeab": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "4d37f31a50f42d22a548b81abc62e701a39060f424ea33f9e4f3fc3cba93d433": {
     "is_ban": true,
     "reason": "The snippet directly tells testers not to use automated tools or scanners, banning the act."
@@ -1542,6 +2094,14 @@
   "4db0bb539b5e35c341a36f66b4d5c5e64f1c566310ce3b128695ffdba1e1513e": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only DoS and network interference are prohibited"
+  },
+  "4db2c1dfbe533f9dd66ea7bd0f0731e87377a22a8f7a11e5111d33e15ff45ce2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "4dc4e81cc37d40a0611b5f5234996ff343d29ec16ab5a7a6631a64c7b6b50bfb": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "4dcbe2a70f158c5f9abd87eae81722768d4693884230c9e9e8cf58f237d36c78": {
     "is_ban": false,
@@ -1567,9 +2127,17 @@
     "is_ban": false,
     "reason": "The snippet only specifies report reproducibility requirements, not a prohibition on using automated scanning tools"
   },
+  "4eb4528dbce33cfc7b080a5de71468570abc91890eca92b526d588b708382314": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "4ebbd57bcc07463f67d98d7d1ace707e8d382c6e576478a13b0738738db7aa3e": {
     "is_ban": false,
     "reason": "The snippet contains no rule prohibiting automated scanning tools"
+  },
+  "4f296c20a8aeaeeb6750b9cd4f9b843882842466cc81bc84ad90a788d9e68ca6": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "4f7717c88ca141b17b9b176263e54784f68780714fdaf36692c05a761a5ea4e5": {
     "is_ban": false,
@@ -1579,6 +2147,10 @@
     "is_ban": false,
     "reason": "The snippet discusses fake user creation and spamming, not automated scanning tools"
   },
+  "4fa146ced454d162d525fd6ff77e7912cc698dc0e7eb8ab83d3e7e71c57d479c": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "4fa6ec80028a72e0e5a60f87d4c5507cac49c641fc3f11b795968ba447932101": {
     "is_ban": false,
     "reason": "No mention of banning automated scanning, only reporting and usage rules"
@@ -1587,13 +2159,29 @@
     "is_ban": false,
     "reason": "no mention of banning automated scanning"
   },
+  "4fdd78e28d0b78e006251bfdc51c08ffb0ccd0108e0a497f4a1c8244e56484c2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "5008f0c9f6d245d80ba1772b88f2b3176c5ff52bce6ac5fc379ceec37859d181": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "502726f1ea19930a966226f46f7a9a23cd99994e063e7927bbdd55992795817d": {
     "is_ban": false,
     "reason": "Only out-of-scope reports from automated tools are disallowed, not the use of the tools themselves"
   },
+  "50811ecb7e2185ede7c4d14f3b2c0c9883f1350bdf4e6678868d3829ab6cf05b": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "50d33f783ab09914810874df29fe4b9f1ebeb16eb3c1460d16573e9e8b962273": {
     "is_ban": true,
     "reason": "Directly prohibits automated scanning or testing"
+  },
+  "5103b65c30b02608ba5c3a31a168fd31fa75afe8bd7c0d24239f8845d4ebbac4": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "514e0b501c47af1a5cb1e6f68972f6c71aa288214eb66d1aea9fa801e0476ef4": {
     "is_ban": false,
@@ -1627,6 +2215,10 @@
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners, only testing guidelines for Discord."
   },
+  "524aeb705b169a6802a61eee6e7bf4e38fc6ea40dbd71dcff7058e43f044e42e": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "5261b46af8efb935d75ecfe47ac9391849cea35287b8e182ead76d029ce8663e": {
     "is_ban": true,
     "reason": "The rules explicitly forbid using security scanners or automated tools that may cause DoS, DDoS, or scraping-like behavior, banning the act of scanning."
@@ -1659,6 +2251,10 @@
     "is_ban": false,
     "reason": "no mention of scanning or automation restrictions"
   },
+  "5451b129c066a0020c1d77656a776dc7f4e18052f517c3e58e80b69de61a44dc": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "547158ceb1562264c10b52e049ba858447b81099f6774dbf121005849b96f813": {
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners, only a requirement for identifiable testing traffic"
@@ -1675,13 +2271,29 @@
     "is_ban": false,
     "reason": "The snippet only forbids using automated scanner output as the full report, not the act of running scanners."
   },
+  "5552b107e2fdbc98fd2d3be2dd7a903198ea050de7559dd1a95bb9844bdfba04": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "559d2480a0c1ec2dbfb929bfcba9329dc769f2da40eb5266372c1e8114bb709a": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only general disclosure and bounty rules"
   },
+  "55cbe33afe7329a6ae1b52bebbc6d0cd13a2c05d099a93319efbb7a6a0817e1b": {
+    "is_ban": false,
+    "reason": "The policy does not mention any requirement for personal identity documents or verification."
+  },
   "55eb09207c2010318108150749f6ec36f1a55cd4b75ae893828585a72b0d68d1": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only bans harmful actions"
+  },
+  "5603c16e96b8e03ab633ed40444017484a24ee357fc382449b076b550f6c62c1": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
+  "568f402f5c26febea2fed0b5e921ced0f13d62d366543737450f6d6031fca50a": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "56b650ea3ea63192322ab613c7be00a6f0f2dc292590e199de2ab4b1974a29c4": {
     "is_ban": false,
@@ -1690,6 +2302,10 @@
   "56b65c5868edf6df1f5ab4bd258189dd93fc640ff1baed0c7c9c23768494ab8e": {
     "is_ban": false,
     "reason": "The snippet only restricts sending unverified automated tool reports, not the act of using automated scanners"
+  },
+  "56c34685f41a82c02f1ea53120b1bd6f59744c5b993da0a57d2d668689122438": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "571622d1d4d30e15ceeb0e15c26c302e11b88e0e24edabc1d9525f5779a09ff6": {
     "is_ban": false,
@@ -1703,9 +2319,21 @@
     "is_ban": false,
     "reason": "The snippet only instructs adding custom headers, not prohibiting automated scanning tools"
   },
+  "57bd9fc0bef4a40ae01e7b35cb8e58c9288f68f5acd9151555c0997a07ee9e36": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "57c2d2825af3bff2dc535a9a5a2afa966216d6db84eb9b46649c88da9850fb56": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "57e20ec76dbae4d665797eed6870cd39cf7b41172175971a7f925415826dd5bf": {
     "is_ban": true,
     "reason": "Explicitly forbids using automated tools or scripted testing."
+  },
+  "58118be0b48b15f9048eddedbdd3a1dc2b807ea97041de1175f3a889c2aa9b74": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "5811a084c34a415cc0b182fc89592878fc5196d34b0d9eb774802086790c8463": {
     "is_ban": false,
@@ -1723,6 +2351,10 @@
     "is_ban": false,
     "reason": "Only limits automation rate, not a prohibition on using automated tools"
   },
+  "58488e905517959935182c09e914ddb60166f26303cebd93f1544d509fa62979": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "586287acda9b739f9f8e24348abd1f5090563f70a7764d5f9dc626aeb36da42c": {
     "is_ban": false,
     "reason": "Snippet lists vulnerability types and severity, with no restriction on using automated scanners"
@@ -1739,13 +2371,29 @@
     "is_ban": false,
     "reason": "It bans scanner-generated reports, not the act of using automated scanners"
   },
+  "58d661fb9493553e644a00f806f84b760fb001fd69978fdbf48b82b701f6d0eb": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "592f1e661b0acc9d0abcb8d184e1c6cacc78e6bddf8f0e4ce40cfc21fb50f363": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "596adc2ce30880763e10cd8db94160a2480367834214186171fcd5b12f6aee82": {
     "is_ban": false,
     "reason": "No explicit prohibition of using automated scanners"
   },
+  "5977691ed9b9e0b147988ebad77a8acc7163eb86a686d04de4a5bdd1a2fadd9c": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "59952b250172e0fe65ff329258eed075a3394c5b8f8696dfd9e9884e92ad2638": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only other activities are excluded"
+  },
+  "59dcf3f750fec917b5fb83d029d28c77b51bf6b36a700edb92e1e596478867df": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "59f67839464c0b01873003b9ec301e0363fc8a3d9219adbaf3a7b6127269efe1": {
     "is_ban": false,
@@ -1759,6 +2407,10 @@
     "is_ban": false,
     "reason": "The snippet imposes a header requirement for automated scans, not a prohibition"
   },
+  "5a45f14316b89eea97d2f0ad63d5d9eb5f5c74d9c73cc584e5926889e3c49343": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "5ad3ddd906d8b214bf113976a04e0fbfe39f917b23c5f13229a5d6d3fbab39bb": {
     "is_ban": false,
     "reason": "snippet permits automated tooling, no ban on scanning"
@@ -1770,6 +2422,10 @@
   "5b41a270280ab5ada9365cc453661f00cabb05d324e6995422e574c32bcd611e": {
     "is_ban": true,
     "reason": "The snippet explicitly prohibits making use of any automated scanning software, banning the act of using such tools."
+  },
+  "5b49c103d46b67cacacf942d09daf7785a69289549f574ef8d1670a51cfc53ce": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "5b79979df2687a993aff943674f962f7839fb83fe044ce1d731b25ebdb637fd8": {
     "is_ban": false,
@@ -1786,6 +2442,10 @@
   "5bb71b4be6111f7790fe5d8fa8a2569fa6774ad887e90cad16d7b2654c1554bb": {
     "is_ban": false,
     "reason": "The snippet only defines scope and does not forbid using automated scanners"
+  },
+  "5bc18a3ddf2c9e8e0d0a0590168016188728a2d4c9e7ea79abb0af5f846d024d": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "5be4117562f7fee0cd043486d8b0dd6367dd9b00836dbc9d31d16c4c99121305": {
     "is_ban": true,
@@ -1827,6 +2487,14 @@
     "is_ban": false,
     "reason": "The snippet only mandates using a specific account alias for testing, not prohibiting automated tools"
   },
+  "5da0596efce5dd7ce5de5ad84d747a65b7e08f88ff9a157bf8091db547e246e7": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "5dbd6b9bc6857ae63645739801f8ad027997a66417c053f25806a8c1724a5bd6": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "5dca7f799e7353c4ef88a41528ddf88ca9268c38049e561f9ace31d62fe534f7": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners is mentioned, only reporting and scope rules"
@@ -1835,6 +2503,10 @@
     "is_ban": false,
     "reason": "The snippet only addresses report submission, not tool usage"
   },
+  "5e5a35271e1888dc7531897615497a0ed510ecb5e77712b8a2cca28db36aebbd": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "5e5a8b9e82baee791f9c71f4c84e90b919b0f1df5b19cc81720fff9bd75bdfdd": {
     "is_ban": false,
     "reason": "No mention of banning automated scanning or tools"
@@ -1842,6 +2514,14 @@
   "5e5db6a55b8a1ae16c470eceb2bc5872c018fdbc1f54f7ee58168de0add98015": {
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners"
+  },
+  "5eaa9f45f496661ef34225d28fbd5da0f50b45faeb9480c41c9b7220cd10a295": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "5eb69fae6032d8203f78e9c36926e13f7f1611b4102b57108f8b228467a8233a": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "5f1486f51b11857552cf034aa3c4e212fc040d6170f4ead03d83b6969c90679e": {
     "is_ban": false,
@@ -1859,9 +2539,25 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools."
   },
+  "5f84ce8b1c6f334976791b30f2cf96fabf52aca59570b0029bd2195640d9a01f": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "5f95acd81867b518d0cad1175681f0fc52b88f2395d44c70453c0fd6721e3e43": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
   "5fa9a661b06cef4fab9e76e66e03b4239b8c5cd592af6bee64b3468a5f4e5ea3": {
     "is_ban": false,
     "reason": "Only limits submission of automated scan reports, not the act of scanning"
+  },
+  "5fe71ad172c815d8a1b2ea628c85fe6add6bcd8c66322a28c635f6235ac58eb1": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "5ff8d2139666e440e6ca68dc174fbb6d530d4359715e5ebc06cc6dce92324a0e": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "6028dca5c6079eaa0168df5cc45e78ec7e9db03cc0117049320feb183d82b738": {
     "is_ban": false,
@@ -1874,6 +2570,10 @@
   "60c88f35958229c413b52000de5172a36247136b63e857b2e692a97408b6eb76": {
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners, only bans random fuzzing"
+  },
+  "60ce0cc36474b75733ede8528e4a6cefccaccf0b1747c04e1122707220a140c8": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "61145af909275db64bc5f2b058cc3f3a90014ce662465a7e59b79c61f0e903e9": {
     "is_ban": false,
@@ -1907,9 +2607,25 @@
     "is_ban": false,
     "reason": "Snippet does not prohibit using automated scanners, only references automated defense systems"
   },
+  "62595c6e37ed377e909fba7df031d734503bea32ce3f37e6aaa24b32d454b2f3": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "6269a94cd22ab0dccc97a8a45d6b4b4da463aecd459ef63ecea78e336edc8aa4": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "62fe78b00f40f5df62a22e1f47c42df8748a044ae6fde59b8d5a81f347236489": {
     "is_ban": false,
     "reason": "The snippet only restricts submitting unverified automated tool reports, not the use of automated scanners"
+  },
+  "632840d3f61d5616984b541e9fd0fbc848baced8e05db1256490693a9b53fc41": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "632a0ae08d574e1c16e9be2ca9925d287b73632a536315f7bdd47432d651384d": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "63b145ed09f05b71308e15cfaed427f1614fa8f29368cc5ed784f003cdaddf2f": {
     "is_ban": false,
@@ -1943,6 +2659,10 @@
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners, only general testing guidelines"
   },
+  "651bfb834d317914840f6cc88c47132127b0846c16f13b6fbc28fbaf52bc22d8": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "65370e845be1643d5d085e339b213570c383bd00bbcae3216c0631113041e98d": {
     "is_ban": true,
     "reason": "It explicitly prohibits running automated scans without prior permission."
@@ -1958,6 +2678,14 @@
   "659a90fb1f7dba4581fe270608701a8bd955022d1793fce33bf5606143e52f06": {
     "is_ban": false,
     "reason": "The snippet provides test product instructions and does not prohibit using automated scanners"
+  },
+  "65a209582f23f99ad2c862b5ecf6e18150427d1c21e90287a3205e8d991c893b": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "65b82ccf210b8cff69b69c0a17e069012150b5e3cb360d77d2c31ecea858fd72": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "662ec43c0db14a94a743d2724b6a13e5daaaec64b72e77c101cf23e3e246061d": {
     "is_ban": false,
@@ -2003,6 +2731,14 @@
     "is_ban": true,
     "reason": "Explicitly instructs testers not to use automatic scanners"
   },
+  "67f90f2b278a67fff6a4a743f409d7e5201cac66360c9ce97cf67f71e0eddb04": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
+  "68059fd833aa872e7a732e1e5d053b14a925708155dd20d4c6e2629690f75307": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "6841cd936373f56a2e7d86ed95163f4678691735339141e048e86dec1d6486ee": {
     "is_ban": true,
     "reason": "Clause 7 explicitly bans destructive automated testing, restricting the act of using automated tools"
@@ -2047,13 +2783,25 @@
     "is_ban": false,
     "reason": "The snippet only advises assessing isolation before reporting, with no prohibition on using automated tools"
   },
+  "69312c57db2c1b2da8e90017e4ea4a2f0f3933176fb1ee43aede0b74bb47d8d3": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "695a957e4f5a335616861dca0bd6090dfb100517ea6879896a60ff19e8667dcc": {
     "is_ban": false,
     "reason": "The restriction targets testing involving employees, not the use of automated scanners"
   },
+  "699703ec4c49cb765effecbe80dbb35902608a36aac8eb28265f7c21fe35653d": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "69d34fceaffbd85f59a56c739a3b6d9d3a150e4689b9fef158eafc236b598fcd": {
     "is_ban": false,
     "reason": "Snippet contains no mention of automated scanning or tool usage restrictions"
+  },
+  "69e1e317b2eafbad57f7c5bf6f9facd436f99ce325710debadb0df8bb03d77ce": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "6a8b312d4aa1023c7fa68f02d78896f458a409746d845a5866e772ec3d2c39b8": {
     "is_ban": false,
@@ -2079,6 +2827,14 @@
     "is_ban": true,
     "reason": "Directly forbids the tester from performing automated tests/scans"
   },
+  "6b469280d022c7fc04ea9c6c59fe17640e3bddc6e5f8b7d435a790225d759af7": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "6b7ff994ed2770afc98ce0f031a9ee1d484c4944d9f86c0fe8f091ef34f49d96": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "6b8f8ef94ac7383a08ddcc1fb2310f895d6232f467f6add5cb2a9d4313e7bf7a": {
     "is_ban": false,
     "reason": "The snippet only lists scope changes and does not restrict the use of automated tools"
@@ -2099,6 +2855,10 @@
     "is_ban": false,
     "reason": "No explicit prohibition of using automated scanners"
   },
+  "6c79a6f511fe69829d134502fda33b7efa48ab2e92fb4fe950772c8567fca779": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "6c7b373ba6cf76fb585c3e0181b5f54ef51110c96ac5d3fd3e01437f19ff1926": {
     "is_ban": false,
     "reason": "Only submission quality is restricted, not tool use"
@@ -2118,6 +2878,14 @@
   "6d01870d3b907d630a34f7ebdf513f6d22b1fdf55b81c39cd806c0e3c66865f4": {
     "is_ban": false,
     "reason": "Snippet contains no restriction on using automated scanning tools"
+  },
+  "6d19afd6af248b79d838d4c5421785ae2fc3f95a7a4a9325bad7fc9b52df0f5e": {
+    "is_ban": false,
+    "reason": "no personal identity verification required"
+  },
+  "6d9c3ecd48e27e4037eeab511ce36fddd65c25fc8171a45ccf0a21963cc386d6": {
+    "is_ban": false,
+    "reason": "The policy does not mention any requirement for personal ID documents or verification."
   },
   "6da1bbb39e6140a4274da47f19f6b51e9c0c07da3211d810275283096839e482": {
     "is_ban": false,
@@ -2183,9 +2951,17 @@
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners is stated"
   },
+  "6f488fa088dead899d2d593f3c15bd97ceb726838a9238a4b667e5dc2aeec065": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "6f85cd5b5af161fed6cec7ee21a87d8a885118330cdece5399b92d89711de144": {
     "is_ban": false,
     "reason": "No prohibition on using automated scanners; only testing requirements are listed"
+  },
+  "6f864b4460a5f01da1802f814588baf259f173b2bcc2e4b3dba74d13daa223da": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "6fc78cf316821bcda7327015c858fe86e8916b118652c0000af15c9431e45300": {
     "is_ban": true,
@@ -2211,6 +2987,14 @@
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only submission and conduct rules are mentioned"
   },
+  "709bc603928501736907c4504c821fa6c692d5f9af9a757434d6b26f0558e059": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "70ab9f80eca81b2b5a8996fb64fb7521bda2645fa094d653c2d4edee46c2de90": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "70ea0106e7a9f4beda1cbbcfd39ad94f0dd2f2ebe49b4ea16c5308a057c28422": {
     "is_ban": true,
     "reason": "Prohibits automated testing by the tester"
@@ -2235,6 +3019,22 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools"
   },
+  "71cd02ec9281fc3ce9285fc0d06c3734c169023ffbf34f5a068e354295312b90": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "71d0d8be5c5b708d4e8e6341c6a673b91c65b57c0d6cd0da62fe375e7badf9bd": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "71ee78cced0cf6e82f2d8886d555eed72d3b6aa618454d022c0ed5e2e455a66b": {
+    "is_ban": true,
+    "reason": "Requires KYC identity verification to access the product"
+  },
+  "722bf168fba55092c4dcb799cc5302edd3a0b7c2688bd654a08404718555c403": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "725933a4bed0439cc5e4fb9bb443aaaa2f01eb0a04d9df0a2fb6c54df82c5f5d": {
     "is_ban": true,
     "reason": "Explicitly prohibits using automated scanners or tools."
@@ -2251,6 +3051,14 @@
     "is_ban": false,
     "reason": "The snippet limits submission of automated scan findings, not the use of automated tools."
   },
+  "73372b2e7f9ed37db0efee0b99ffad1874ab74e48894c807bc0f6ac3ee7a0639": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "7375cb2a17e6ea91c3d404be215068104e5c671d6703fb0a162cd63c2d51672b": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "7382b9914df8483b0c80a4460e2597d444a9019b250025c20e3300887d510577": {
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners is stated"
@@ -2258,6 +3066,10 @@
   "73ca6751cdcbf9bdcfb6595b831224c0d6e88effb1c1983f771ee11b26f19d87": {
     "is_ban": false,
     "reason": "The snippet contains no rule prohibiting the use of automated scanning tools"
+  },
+  "73ddfa20f649d0d092e4b5a4c7fbe46cd33b167d5a123c02f9997d5bd7e8c45d": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "73f2a95ade469667dca5f825d245d0550255db12ca4a054a9ac794b7915702b6": {
     "is_ban": false,
@@ -2283,6 +3095,22 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners, only rules about reporting and test account usage."
   },
+  "74a0380a93ac90322c7d57cd339ce64e53b3f75a154eee65f5af17117cdf569f": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "758544018e367737e509b515ea02196c777ff1ce8b687c3be48b0bbe98dafac6": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "75a9d63aa860260dab1f95619d97bcf812083b6ed9bfede23ddeef368cfb5906": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "75bfa06dc0e9e6ee612e0d00b657c5efd9c0747b699d41a1194b62079217e65c": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "75c58bd5ec66e0281c7ef6b67f866c042547ae56ca65a3e60e7d00b73b87cb77": {
     "is_ban": false,
     "reason": "The snippet sets a testing requirement for automated tooling, not a prohibition on using it"
@@ -2307,6 +3135,18 @@
     "is_ban": false,
     "reason": "The snippet only lists eligible vulnerability categories and does not restrict the use of automated scanners."
   },
+  "768e0a6850b3d70a263907fed8a58d05c4949328a2bd1520fe6df22c9ab78dbe": {
+    "is_ban": false,
+    "reason": "No identity verification requirement is stated"
+  },
+  "7692b5c6f4f2e38dbf1097f4ecdce3fdbb7ac832d3d78bd39e4a060f8752cdf2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "76992e27a344904a5c0b70c6403a8e15072108977866795940654dc9ddf3935e": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "76a24ff1384076f35dfe7b73eda27ab12d1642f1d1adc119773ef0d961e2cd08": {
     "is_ban": false,
     "reason": "Only rate limits are imposed; no explicit prohibition on using automated scanners"
@@ -2315,6 +3155,10 @@
     "is_ban": false,
     "reason": "The snippet only lists qualifying vulnerability types and does not restrict the use of automated tools."
   },
+  "77371e38a2f8df8dd48914ed0a0c69d739af85dee516a5d7c3e53e88a4997ae8": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
   "778f5b6a69421cbee60c7ba382c54ec3e7c98b45b42b1c00b93b6fdfa3f7dd7d": {
     "is_ban": true,
     "reason": "The snippet tells you to refrain from using automated tools, directly banning the act of scanning with automation"
@@ -2322,6 +3166,10 @@
   "77c6a02078037212a640dea56537a6434be42ad1c63268f2b5301772ef9c2126": {
     "is_ban": false,
     "reason": "The snippet limits report content, not the act of using automated scanners."
+  },
+  "77fd4086656a0f6c0eb4fb5b01d2381db2d969a6ca818b6b80392dd38c836569": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "7833172229f783d31f43cb00868601145a51c50b9a92f777076d2778c8509e0c": {
     "is_ban": false,
@@ -2339,17 +3187,37 @@
     "is_ban": false,
     "reason": "The snippet sets testing requirements and mentions automated tooling but does not prohibit using automated scanners"
   },
+  "78a93ba31a2c44d3b3380ad28769c9cf7c32e16a48db16dd405e00ee20474ec9": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "78b440fd03e1bdeb255cf83b11fe23001b4356a67a98b58a5398fa6e3f622175": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "78b70e773ac92eb7286f16413217fadfdf8008682c69ab119d80a90c0d06069d": {
     "is_ban": true,
     "reason": "The snippet explicitly bans researchers from using aggressive automated tools."
+  },
+  "78d6703de28a7913b154c919fb0f410b5f66cfc457e6f6961cf34fa4e0c06949": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "78e7608630ed602ed1dfd578cad7f0789092495db978c61b3f8b938dbf8ccf05": {
     "is_ban": false,
     "reason": "Only restricts report submissions from automated tools, not the act of scanning"
   },
+  "78f954539ca09447a0310fa7c3c1f36ed0cccd9605c0611da7f2416688e4a848": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "78fe5016a351cac5256f6e9002b59b96b2c6c40d5336bcf6e472475903d23d84": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools"
+  },
+  "7924f87c7292f2370e8f18e566a4d82d35a082d96c4dc7536725efc331a48d97": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "794ba1a7f138cb490bc7f35c2ea97297b8cff1ae79cda66d8b0a56ed57b79561": {
     "is_ban": false,
@@ -2383,6 +3251,10 @@
     "is_ban": false,
     "reason": "snippet only bans DoS and brute\u2011force, not automated scanning"
   },
+  "7ade617645862bc379f5507cbaedbe2acfeed0873e338f8ad37c6f0cf400a968": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "7aeb220e8894cf64e2d0bb5245f382ff3ca4c2b0eb1c1fde52e5bcf8ea55aaf3": {
     "is_ban": false,
     "reason": "The snippet does not forbid using automated scanners, only restricts destructive actions and load testing"
@@ -2390,6 +3262,10 @@
   "7b052b645d32a1c6d55c16b3070e08d8b4ce55a7661e086b57f08b92df1093ce": {
     "is_ban": false,
     "reason": "The snippet contains no explicit prohibition on using automated scanning tools"
+  },
+  "7b9bfa0fb62fd41860a6b42f9ae3f93ed6c9038fe25ab98fa8df2e2365a173d7": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "7bd354c2a92462f4feece7d129dbc840f5ac16ff7894e3136abf969e159120e0": {
     "is_ban": true,
@@ -2403,9 +3279,21 @@
     "is_ban": true,
     "reason": "The snippet explicitly prohibits the use of scanners, banning the act of using automated tools."
   },
+  "7bf4d41e99a8ca270ab437f821d541ccb1b0af6707f5e0177d12dd551844c82b": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "7c08104a8a253375e6a9a681e6aadb2cd4e56b864810f66a50b3d6271b938d18": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "7c17c609230fbd40a80c5d425569dad908c1fa56e935840579d28f8acdac2e54": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools."
+  },
+  "7c7d870fa5fb138132207197487333af320b689ce8fb4b0ac4fb78d0cab58971": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "7c8cfdd3b0db71188e3742ba464bb1c253a80d19a13f679c09b6f5b4da1bf130": {
     "is_ban": false,
@@ -2415,6 +3303,10 @@
     "is_ban": false,
     "reason": "No explicit prohibition of automated scanning; the snippet only lists testing requirements"
   },
+  "7cd8a739d713278af759428a46cc982e26b723e867c6f9e541d1f0f93f0f73de": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "7ce51aabf4a8204e06de6b48aeeb3e944abdd7315cb98cf5dabde80e7c562774": {
     "is_ban": true,
     "reason": "It explicitly prohibits automated vulnerability scans."
@@ -2422,6 +3314,10 @@
   "7d0b64a5de1c696c83e3cc5a4973a64db4ac027574d6faaf3aea314c5f21a72d": {
     "is_ban": false,
     "reason": "No mention of prohibiting automated scanning tools, only general rules"
+  },
+  "7d26e98015ac3a7f92a17906a5a4ff38333e401311e4c67060b1538a8f49ed42": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "7d4261a18a49b6983375b42df716ced02c019638d9badd6b78af53ecd0ad4bd0": {
     "is_ban": false,
@@ -2439,6 +3335,10 @@
     "is_ban": false,
     "reason": "Only restricts submission of unverified automated reports, not the use of scanners"
   },
+  "7dfcdfd9ffaef44667fdcf89fb4a97fccc280752818fe40603fc89aeaef985d5": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "7e098749c1cf26a60df3fe414408d63de45667cedb5137f8dd9d25d38f8f747a": {
     "is_ban": false,
     "reason": "Only bans submitting scanner output, not using scanners"
@@ -2450,6 +3350,10 @@
   "7e846c63417f5e5133e7a7aa6af3769a475f4c5000c1dab5f80fc67a87b05879": {
     "is_ban": false,
     "reason": "Only restricts report submission, not scanner use"
+  },
+  "7ea7232cfa25725927eaa916deba0ea556acc10ab41660bbbbe29dde2f35d4e8": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "7ec90bdd6d719f7ab65c5366fea7e25fdc285ec1e129c613f579c1ff17d9242f": {
     "is_ban": true,
@@ -2463,9 +3367,17 @@
     "is_ban": false,
     "reason": "Only limits automated scanning rate, does not prohibit its use"
   },
+  "7f26c9cdc9f7c9066e0b7ba25a1786807dc922cc515ad75d460d6b65398782ca": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "7f3fb990400055c4ac6226f2c8ecd17c759cdd224a74ef7e3487098533ef7442": {
     "is_ban": false,
     "reason": "Only imposes a rate limit, not a prohibition on using automated scanners"
+  },
+  "7f700c9a97bc9aaf7b7df9099d16e1c698a8110d7424f172107edafcf5763689": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "7f76a258e2e003a90b152bea791dea7324466ee63bb3239f4db5a0223fb68103": {
     "is_ban": true,
@@ -2475,13 +3387,29 @@
     "is_ban": false,
     "reason": "Only restricts report submission, not the use of automated scanners"
   },
+  "7fe2e0d73c6ee818d54b6a5ae742bbf49c9ed2b1e084c069983b6373190aa8ff": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "8006985d7da157a3b48dc2a172772819ee64c685ecf57eda5d821002faa254a7": {
     "is_ban": false,
     "reason": "The snippet lists vulnerability types and contains no restriction on using automated tools"
   },
+  "8055badcf59a666e147868c129e1887e90f6d09514a0e38aeac2075edcdc486e": {
+    "is_ban": false,
+    "reason": "No researcher identity verification required"
+  },
+  "80b76a4dc8b4305e75f9a815b70150be7288d84225657ea0353881c63931936b": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "80cad77850cda5770cc10c412479b249334ffd56b61c1b105ff178c517076e9a": {
     "is_ban": false,
     "reason": "The snippet lists prohibited vulnerability types, not a restriction on using automated scanners"
+  },
+  "80d7056ace693ea9abb73a90ac4d639ff1384f98eb1bb4abb22836bf8c9c6b75": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "80f19abec95e510852b989e9720e5a565228bbea1df1bf0d31ef5dbc5feea6b9": {
     "is_ban": false,
@@ -2498,6 +3426,10 @@
   "8150e59a0253c0f6b3e935f7f1303e0afeaf3c4282f58452238d1f42bc63d096": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools"
+  },
+  "8152744bf447c8f257120087b9cc2c321b5ce4adba0e1ea3cdd1e7538f4acf04": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "8156a94433467a0795ca369aaacae43b6f326664d80677dd6db92d0c035d3a04": {
     "is_ban": true,
@@ -2531,9 +3463,21 @@
     "is_ban": true,
     "reason": "The snippet tells the tester to refrain from using automated tools, directly banning the act of scanning with automation"
   },
+  "82b72c103c9eb23bb8d59d89bcd5849c6cf245570859389b3f1c85cca8d3293b": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "82eaa585338daa07ce677d6444a383b2d3561f77a14211c9a29a9afceabba902": {
     "is_ban": false,
     "reason": "No mention of banning automated scanning tools, only a general avoidance of disruptive tests"
+  },
+  "831c34f5639dafa69da9b34374f681e359b55cda292fffc31f7062f6be13a567": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "83479a1cb89f8a790e15f03c6d9dd35243abd4759da3debe7653c2576f609a07": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "834ec9d068ee05200286adcac86304155530ba100949fd62a9db738270dc4f88": {
     "is_ban": false,
@@ -2543,6 +3487,10 @@
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners, only rules about personal discovery and submission"
   },
+  "839656bee57c833957bb4a0034a775e9e7f55e10e8cb534653d1c4b5057ae9bb": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
   "83b59989c2f1a3ff7394131b241c9e25367e0a95cbba847c40fa79f02ba4431e": {
     "is_ban": true,
     "reason": "Explicitly forbids using automated scanners"
@@ -2551,6 +3499,18 @@
     "is_ban": false,
     "reason": "No restriction on using automated scanners is mentioned"
   },
+  "83d88cd8223a4b625c26241b64b2174576e674deacce6c1a5b850ffd70dca186": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "83f631d3dca37bdf7e1e2c3e0b1e40ed5c242b3a1f13fe8609dc3349b0ed3146": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "8446db3b8984dec166b16b283c9aa94bd266905c0281cd8688661f5dad1955d8": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "844aeeb4078c957c04c56fe0d27451c815a5c4d2b750ff7dd133c02f5d990637": {
     "is_ban": false,
     "reason": "The snippet contains no statement prohibiting the use of automated scanners or tools"
@@ -2558,6 +3518,10 @@
   "8487034f50e4521bfe8474c65d52cf57f194981f24d3aa71373d64488b6ffd38": {
     "is_ban": false,
     "reason": "Snippet only lists services and contains no restriction on automated scanning"
+  },
+  "848f0246d1ff9a884e85224c35494f621d602ec1285552a3241b004259ac0a2f": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "84930a0479f8e4bef195776807e52fbe07993ba16bf3f2852ced4409fc6fec53": {
     "is_ban": false,
@@ -2570,6 +3534,10 @@
   "85357ebb12fe3cabb08194274486eb6f3bc80be8bfea758301ecc03630efc2fb": {
     "is_ban": false,
     "reason": "the snippet restricts report submission, not the use of automated scanners"
+  },
+  "857e861da335e2c8ef3b2f8308b91db315c4789c75a1c6cb03108d529ea95473": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "859d21e5cf6250d9c31b0d582a7925a8aac6d13523fdbb56547958ce74e24ac9": {
     "is_ban": false,
@@ -2599,9 +3567,17 @@
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners, only scope and submission guidelines"
   },
+  "86bf31f4e2bee4070b8221f74e32a398a12464799a9e1baa6c18224ad1486d74": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "86f0017b5319c0d5a22e1ab3d94fc28347f6b182e80da60a9c5340261e9cdc93": {
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners or tools"
+  },
+  "87066cb22d1fe4e8fb15283a39ed286810b4ae009be39e01b5fafd64d2bcd29e": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "87428af9e7f43d7f5e13614d24f327062c6283faea7e38c4eb6b1316ffa509a0": {
     "is_ban": false,
@@ -2631,6 +3607,10 @@
     "is_ban": false,
     "reason": "The snippet only restricts report content, not the use of automated scanning tools"
   },
+  "88559a14fc3f6b94a1a8a337f494b861dbad7e50cff17b18584dd46d5b68556a": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
   "88788f7f0a841504ae7363e065175cfb18ef8e87e024f314aa3ec66a37b17ff8": {
     "is_ban": true,
     "reason": "Explicitly prohibits performing any automated scanning"
@@ -2643,9 +3623,21 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools"
   },
+  "89dc2b140fce88ce07fe194a4de7f459b8c789e402f598fc8afbd788a80fba71": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "89fad05c462fd3992e7fb1b5845fdeee14199c492ca7590ce925622c593c5548": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "8a215961159c013c1b5aab7479d432e4337407c3cc91fd6e06ed06d91869b8fd": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only header requirement is specified"
+  },
+  "8a300b987b3d7b079541a1bcbc3dd98dcd6e112997107e9eecb2a63fbcacad21": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "8a53ca388af7bed6000bf22ce1bb88adec4d2affe452028d86866e5ad46ba486": {
     "is_ban": true,
@@ -2654,6 +3646,10 @@
   "8a543a735b87fdd99217aca854d1bf7e8cf76762736d19a6d0c20c2533932604": {
     "is_ban": false,
     "reason": "The snippet mentions vulnerabilities but does not restrict the use of automated scanners or tools"
+  },
+  "8a84db63155687d023bbb65c071986ed950dc23c60eb88f30291608a2cb09659": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "8ac9bff2d2ea7423cb9ef53a3ebd8d2be1aa8464a505884d38a9c12712a42eb1": {
     "is_ban": false,
@@ -2715,6 +3711,10 @@
     "is_ban": true,
     "reason": "Explicitly forbids using automatic scanners"
   },
+  "8dcede392cb2f8e70c57d7edee7d4cfa4b60ce9286f6cf01c887681a6754f927": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "8df050f9a1ee340a5f7225d59aa1f18421bab07de2b62f6449e60a5ba073466d": {
     "is_ban": true,
     "reason": "Explicitly forbids using automated scanners"
@@ -2726,6 +3726,14 @@
   "8e6c5571fa02035d7860300a0dd232d52143286df34ba09b7a8f1ed338495d27": {
     "is_ban": false,
     "reason": "Snippet only discusses non-automated response, not prohibiting scanner use"
+  },
+  "8e8035da915a01885455dbf4ce164f7758fa1c7e0201519ef11d923d2968efcd": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "8e9e628ee07bfe30aaff28ff252001703b7adca6ede6857eed0bd6b4b270fa32": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "8eb9a672771ebf2bd39d691b72cd12e0aeaa234e9e8d3a7f5f270e3120c4acc0": {
     "is_ban": false,
@@ -2763,6 +3771,10 @@
     "is_ban": false,
     "reason": "The snippet bans unrelated malicious activities and does not restrict automated scanning tools"
   },
+  "9015ece29b5f4c4ec6747a4eaf4505c26a1abe0a656227d10725b00d7a3d0859": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "903a2b1438ff6075fbaf4ed42d8bb90e12e0dbb008dca7ae12f5dff181acf952": {
     "is_ban": false,
     "reason": "No statement bans using automated scanners; only scope and reporting rules are defined"
@@ -2774,6 +3786,14 @@
   "90ab12327483a1ee6bff4373cbcd71ee36bcbb1e4cff2d092f7ce8351acadd62": {
     "is_ban": false,
     "reason": "The snippet only forbids DoS and infrastructure interference, with no restriction on using automated scanners"
+  },
+  "90b84444066fd49795c3bc63c3ae7511b8649c80ef9a8ae3e4b5113dffabc4f2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "9134296ab5a8dcbe3c67d12c75cf78f3742a28ae8b1df61854ec52b9d49c7c5c": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "913741c72822359d7858348d5184caab2e79cb82a569fb22d9e7f0838eeb204c": {
     "is_ban": false,
@@ -2815,6 +3835,10 @@
     "is_ban": false,
     "reason": "No statement bans using automated scanners, only report quality rules"
   },
+  "921e6444a3fa5597f88bf8bc9ade169b4c60225802be5a46bffa292d2296d1f9": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "923b389e457b581d8f080d84166a910a62d88eddb105113bac113e46a6348b94": {
     "is_ban": false,
     "reason": "The snippet contains no statement prohibiting the use of automated scanners or tools."
@@ -2835,9 +3859,25 @@
     "is_ban": false,
     "reason": "The snippet only bans DoS, spamming, and social engineering, with no restriction on using automated scanners"
   },
+  "92f96c12874c98994c1315a9819e1dd1d383daedf7bdfbee9f4ea5cffdd95bc9": {
+    "is_ban": false,
+    "reason": "No researcher identity verification required"
+  },
+  "92fba59239b337fdd499782d1fa381f20c7c28305c902b5de8c06b73c47a1ee2": {
+    "is_ban": true,
+    "reason": "Requires DOB and SSN digits"
+  },
+  "937a0cbd0fec8b50991c692dcdb0ccce93957827d94c0bfcdd59f4219de45527": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
   "93b0f1a5e21f62fbcf1d234eb44c5746894c60139b28f0da6152f97ac870e63f": {
     "is_ban": false,
     "reason": "Snippet lists testing requirements (including automatedTooling) without prohibiting the use of automated scanners"
+  },
+  "93b39febeef4349b85be5a85b9c83dbef776d18344fc2c9cc74b4e2ac80debb4": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "93c29aba5fbda892e2a87111f2317a6c9a198ab0ca0fb5015ad7cb4f57d8dcd3": {
     "is_ban": false,
@@ -2850,6 +3890,10 @@
   "941721340923351710008d40955fecb80f0e807e522fa5cbab8c2f01b97adca9": {
     "is_ban": true,
     "reason": "It explicitly tells testers not to use automated scanners."
+  },
+  "941efe25b4fd79e0e6f1710e927324283b97d65f9f99165e095b86ba95b8ebfd": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "943af996c6f6d1c9f0730eee431468a4f79c28e1b070f163336b3b8dec1f7ed2": {
     "is_ban": false,
@@ -2870,6 +3914,10 @@
   "94d1ff82574dcf2a06706450c2eb3f849d041565be54ada3a66f164574b2be69": {
     "is_ban": true,
     "reason": "The snippet tells testers to refrain from testing rate limiting or anti-automation, banning the act of using automated tools."
+  },
+  "94d5903b8f131546c1f2d5bf0e39c75af487326cc83ad83ca0c4016553ce1d4d": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "951d3e8f6bed419f4116079e2d3ead9c0c24bbeccd0597c63b20b163a9117d15": {
     "is_ban": false,
@@ -2903,6 +3951,14 @@
     "is_ban": false,
     "reason": "The snippet only describes a vulnerability type and severity, with no mention of automated scanning restrictions."
   },
+  "961694505501e3346ce9734fe3e50c9a123e966d85f6bc6a607efba176294123": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "965675fcd3eadb001a850844b12ce13fc78a0a803567526247dcb3bd111d8c2c": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "966ea438817b96f00dc7b5adce1e8bccb09c768a032f7739d5a2db4972f75115": {
     "is_ban": false,
     "reason": "Snippet contains no testing or scanning restrictions, only marketing language"
@@ -2919,13 +3975,25 @@
     "is_ban": false,
     "reason": "Snippet only provides reporting guidelines and does not restrict the use of automated scanners"
   },
+  "96da47c3065dac3ea03b0b51cc4e65f5e5dfa1f4e005e106ab5c4ff1114f3c29": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "96de66cc6b000f55f15cab316358e33af1c52c6aa5b19ccbbcd14dad149f8041": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only scope and submission rules are mentioned"
   },
+  "96fd4d1f2fe64b5ba34aa0b4639488323265cc76106cafd45ff683e7abf96ff2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "9700793fdc4e7fdb51cb3e0fe728bdc131acbc36841c9cb2386b83dd84b44339": {
     "is_ban": false,
     "reason": "Only report submissions from automated tools are disallowed, not the use of scanners"
+  },
+  "97420ae3c137266d711b93e2b22e67c378d664ecf9aa33e9d8be60d1d735312a": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "9782bbfd7c5671ae2687a42a8ec51893a4092e78e4853f03e33f54bdf8b831aa": {
     "is_ban": true,
@@ -2943,6 +4011,14 @@
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners; only submission quality rules are mentioned"
   },
+  "979599c429caa3dbc1eedfc1fc1307c12c02f3a083d1b8c9e9884842815174ad": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "97c743a974666b5153076178f29cf3960ad315cb43e48131cf7dbe68a649c93e": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "97dde5ee5bf11eaf649ad8b1b1e60c841374bdc3e1536c63f276ec263fbb502f": {
     "is_ban": false,
     "reason": "The snippet contains no mention of automated scanning or tool usage restrictions."
@@ -2950,6 +4026,18 @@
   "98094a3ca38bb105c110dd7fb628e17ae407c8fa6e1e8a71bdb1c1a86f02392c": {
     "is_ban": false,
     "reason": "Snippet only references an automatedTooling field, not a prohibition on using automated scanners"
+  },
+  "983e4ceae4c1872470b30f1916f614a90a25146689c310f8dea44d0a4a0703ec": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "98518282dc657b971131e970dbdbd317e8ccf4c20947a0b11ef0397e1e6b6d3f": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "9873bc8ed6a0e72d23937f1594bad5765350c7046595689ee6964da9f0929c8d": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "989cd14499888091492de8dfb088c37200c4912b428e6c8ea64ac914f6d040fd": {
     "is_ban": false,
@@ -2962,6 +4050,18 @@
   "9994ff0d21d981b2239677057bb9ed219d18da191f6eeb08d38ff6c7b075211f": {
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners or tools"
+  },
+  "99a6d0ef8d09471ea3768a88022e56609a350b8ce378b18417c53306640b1875": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "99ae9a49690c34dd53843ba591c8d190f7725b2d36e15517f3b6f349de9afe62": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "99b002316e388fce5930a60b9315b2508ee067c7d90145957a890421ad940b88": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "99d09d6e8f146a38132e6062bdf6841792adbcff7faa750bcb7da6fbeb481760": {
     "is_ban": false,
@@ -2987,6 +4087,22 @@
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners or tools"
   },
+  "9ac60f020b8a6daef285c7ca675b605b17833de94a616cf4920fba431bb80391": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "9b11c3ce9ad2a3cac5565338d45249a92b4493d02f7a5e333d915a5a35b40e8e": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "9b1b467c1a5f4a0e41cae152107b0e140000753bcb1b684a60c323e1e7848cc0": {
+    "is_ban": false,
+    "reason": "{\"is_ban\": false, \"reason\": \"No requirement for personal ID"
+  },
+  "9b23c428cfe2abf8f505878b002a6d7cffc7c56a13864cd8b5783175a3a995d2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "9b332c689ed4f383e81d018bb04e234b32b2190e9f30c950547d95950a8a0de7": {
     "is_ban": false,
     "reason": "The snippet defines scope and requirements but does not prohibit using automated scanners"
@@ -3007,9 +4123,21 @@
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only user targeting is prohibited"
   },
+  "9c66774178875bf6647c7b8ec7b3491d63c319945eced8b53a7e9f6b3cb3674a": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "9cda3d228e83d8d3dcb2b8c9c713f23a0860343ac7997aecc8de6f9331f220c1": {
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners, only mentions consent for publishing vulnerability information"
+  },
+  "9cddf04f21847ac47263163a2d2f245bd885830a10ba214cfac1db9746233361": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "9cdf3bbc5dc3f047c2c8330b8a613955104a97b6ffd7ce946215dcefd68d20ba": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "9cdf612c232a0d7437e3367b388360bf9a09dd7ac6a11586aad11b07087f4361": {
     "is_ban": true,
@@ -3018,6 +4146,18 @@
   "9ce503d4e0183bc37bba76bddd48f10d675cf722c5ded0aa02741c84b49a57ce": {
     "is_ban": false,
     "reason": "Snippet does not mention or restrict automated scanning tools"
+  },
+  "9d2a7456b6fa96245d71c5a66c2c66ba6433cf642f77db20eca012533c62d975": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "9d2d90864bf2828190ecf8032e7fa7764e08a3df445cfd0d8220d169f787e69d": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "9d487e83192ea65fc2046127e47e3ea0b3f1faf1bea993c1baa5498b8fb82e05": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "9da5926aad9ec8fc7318677126f8d01c61e69cecb3be07f0f65ab777965af389": {
     "is_ban": false,
@@ -3031,6 +4171,14 @@
     "is_ban": true,
     "reason": "Explicitly forbids using automated scanners."
   },
+  "9e6dc3af74689d91676247173f53b650a48afff4e6dd21f4058b2409db77e382": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "9e9ce3999cfa0854e4479e5f77a54bd0ced5fcde663f6ef69416185a86f397ec": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "9ebaf23f42acf285993a7d7826daf4322aef2eafcb9d3df2361194b27686afd6": {
     "is_ban": true,
     "reason": "The snippet explicitly forbids using security scanners/tools that could cause automated attacks"
@@ -3042,6 +4190,10 @@
   "9ed4918bb87a5a74973e006c636909e2cafff317df7fdf28e05bbbc29e4c6d9b": {
     "is_ban": false,
     "reason": "The snippet only mentions automation in report evaluation, not prohibiting the use of automated scanning tools"
+  },
+  "9f31315e36b4fe0b1b8ea5a375d591f7af390761787a77014cd23d0cf4c6812e": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "9f39f78922b49794b1c83c9c52075c8d4a86a7ae006ca9e23d63d51421e5a66d": {
     "is_ban": false,
@@ -3059,6 +4211,10 @@
     "is_ban": false,
     "reason": "No mention of prohibiting automated scanning tools; only scope and submission rules"
   },
+  "9f662bee23e83bdd0030e584489c3eec95f4ab3d8950e9a41597923748a3fa9b": {
+    "is_ban": false,
+    "reason": "No personal ID documents are required"
+  },
   "9f87b4510b71d1ae8a3a58e6f9623d7ef7e5dff75b804eba48be3d3e5de1bcdc": {
     "is_ban": false,
     "reason": "Snippet contains only target info and no restriction on automated scanning"
@@ -3075,9 +4231,17 @@
     "is_ban": false,
     "reason": "Only requires rate limiting, not a ban on automated testing"
   },
+  "a07c5e799827bb83df1e582436d402cd641febb302e4f7d676d4b145424bd24c": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "a0a113c63bdbef91fbcce4f30007da64c630ae39199a7c621a666435dc1618d8": {
     "is_ban": false,
     "reason": "The snippet contains no statement restricting the use of automated scanners or tools."
+  },
+  "a0abac85583857c0dbb9cb7d09be76fce55aabe9a6e984ddb775ea3a3e25e87e": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "a0c67fcb015915fe0874ab1007b76821336c7d38db43bfe64627470c360840ac": {
     "is_ban": false,
@@ -3091,6 +4255,10 @@
     "is_ban": false,
     "reason": "Only imposes a rate limit on scanners, not a ban on using automated tools"
   },
+  "a0faf5015c0511fbe8627c3ecb0b1d4c8c650dc82b4e9901cc699d7a0aa556f6": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "a18af422604c2410ae0b0e3901404779231f9a70f186e24c8e7379f5a7aa38e1": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools"
@@ -3102,6 +4270,10 @@
   "a1a167546faf1016cd8a8fcee5a8dd16b89f1a7ab57f1fa84cfc813f0d2b40f0": {
     "is_ban": true,
     "reason": "Prohibits usage of automated scanners"
+  },
+  "a1c6373a2c324465481524d9a0a699946be52fde7c86a6b234ef2fdd7092cd33": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "a1f2139941ba673c10674dca4445940f0efad6e6d5d676d86a11ebb1c081e391": {
     "is_ban": false,
@@ -3115,6 +4287,10 @@
     "is_ban": false,
     "reason": "Snippet contains no prohibition on using automated tools, only neutral testing requirement fields"
   },
+  "a279233268c985bc51e4d0119ccd7b05e5b4e43f9977e4ffcc41738d1c8cad04": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "a2a567bc55d3a405584d33da74731f2cf88c9ff6f0023a1a2f967afda0061185": {
     "is_ban": true,
     "reason": "Explicitly prohibits automated tools/scripts that overload the infrastructure, banning the act of using such scanners"
@@ -3122,6 +4298,10 @@
   "a2c43074217665d54b3707e370969fd74b63c7b246c7b425effc9a68a3d10c39": {
     "is_ban": true,
     "reason": "The snippet tells testers to avoid using automated scanning tools, banning the act."
+  },
+  "a2e958e9f72a03fee6559efb7fad8cdd0ed5c0e22655852fbc4107816c0767bc": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "a3258cf3778aae59d2db1a45fd291d7778117a6c2d2b1230c2ec7af7301c74d4": {
     "is_ban": true,
@@ -3135,13 +4315,25 @@
     "is_ban": false,
     "reason": "The snippet only sets reporting requirements and does not prohibit using automated scanners"
   },
+  "a399fbc358f1772471e11b40d41ce3a79f59e4cf3999f2c0715673accf6e512e": {
+    "is_ban": false,
+    "reason": "The policy does not mention any requirement for personal ID documents or verification."
+  },
   "a3a82b14af99d5838ec517985e7ba27c2c291ba8777203391cb6f9befe2ee45f": {
     "is_ban": false,
     "reason": "No mention of prohibiting automated scanning tools"
   },
+  "a3bd17973dcd66abf891632c3e53004f9c4b97a3e6f71922b7e79826a2a51f96": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "a3c56f4d2772ea2d0e3ee86305a0829f9fac105a6c91983e42e59f2f5352cd6a": {
     "is_ban": true,
     "reason": "The snippet explicitly forbids scanning the Django servers, which bans using automated scanners/tools."
+  },
+  "a3e748007d020be2434aff826637ab8069f69bd3f3a86e20bbebca827f8d7a82": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "a42bca7fbd0abaf3a7757726229bb118ae6edfdc91de09bca3094499a7cd943a": {
     "is_ban": true,
@@ -3151,9 +4343,17 @@
     "is_ban": true,
     "reason": "The policy explicitly prohibits automated vulnerability scans."
   },
+  "a44c30b1ba1019af33ecc426e561df8eb26d1a25c7aa554dc950908775aaa270": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "a45f112cd77931b15495475b8456900acbafe714030a0e8dfc38a3d37aec373e": {
     "is_ban": false,
     "reason": "Snippet contains no restriction on automated scanning tools"
+  },
+  "a46c3d6cc4acd75fa80ac1891910553531f7b23ba17cbac8bf9d667677d4b056": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "a46e627babf07aa346a1684ae64165977965486dc7637878b3fe6dc75c9fa642": {
     "is_ban": false,
@@ -3186,6 +4386,14 @@
   "a5c070470916b25210e73458a40a3cd7ec5f965e250611e25d70ba20aebd1137": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools."
+  },
+  "a651822888d35fc482c8bb585e714355d6a0969047158edb97a10feadd812788": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "a658572b93393907a5ce936f894c592a8879c0b6da948a6bd71ae4520242ff92": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "a65a04286cd920af676ae16c4f341aa67f4703a04dc7c0df947e073758e40fa5": {
     "is_ban": false,
@@ -3231,6 +4439,10 @@
     "is_ban": true,
     "reason": "It forbids using large\u2011scale automated scanners that generate excessive traffic"
   },
+  "a8578a034c77abd5e6b31eb8a63368138d5b594ce64667e6b93a97082fae44cb": {
+    "is_ban": true,
+    "reason": "KYC may be required for payouts exceeding $500"
+  },
   "a8604c1ac31636f91a7dd4735b7b575f93ab7aac53aba202307989960782b51c": {
     "is_ban": false,
     "reason": "{\"is_ban\": false, \"reason\": \"snippet sets a testing requirement (automatedTooling: 10)"
@@ -3251,9 +4463,21 @@
     "is_ban": true,
     "reason": "The snippet explicitly forbids automated scanning of specified URLs"
   },
+  "a9596d78be28689ab6330a3c7d1b0cd08f499c5fb45d5de3a4b0a407aa6c8540": {
+    "is_ban": false,
+    "reason": "The text only mentions KYC bypass as a vulnerability, not a researcher requirement."
+  },
+  "a999a3b5b6daade65b893d7a46aca66b4c38e01d0f61a1ade2cb5aa2c1f77662": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "a9c90da5251ea8e9b1334a435b0098055f271bf5ec7a69e394d095247dcc11a8": {
     "is_ban": false,
     "reason": "Only scanner-generated reports are out-of-scope, not the scanning act"
+  },
+  "a9e8203cfd3febfcec11f9b79797e94b99f0b149561aefad5b9bbf14cfee3450": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "aa54cb0ae9d8f3599a33aa8133898e75c9ad36b62538fc8a9cdbedc04bbb449c": {
     "is_ban": false,
@@ -3275,9 +4499,21 @@
     "is_ban": false,
     "reason": "The snippet only restricts unconfirmed reports from automated scanners, not the act of using such tools"
   },
+  "aaafc8187822a0047885be46b9aa40dc06fd2016f2a9ff2b416bbc6c89113a22": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "aab08b702d79285928882ed74c56c33d8e3ae2d499c6035359a1ecea495b52ad": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "aae350a69ee6d366a17f6192f843f4ad82f52fd42f5433b65fba4f3837d42134": {
     "is_ban": false,
     "reason": "The snippet contains no statement prohibiting the use of automated scanners or tools"
+  },
+  "ab1192e2a6c6b4f292c7edbc7f3873d07e4c57d9cf844bd03243f4ce1b4db5ae": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required in the policy"
   },
   "ab33e2924296ada01653e10b4d7e0069b1f5c8ea5f865b66a3f319e3cb4b0ebd": {
     "is_ban": false,
@@ -3319,9 +4555,17 @@
     "is_ban": false,
     "reason": "The snippet explicitly allows automated scanners/tools with usage limits"
   },
+  "aca968b0437bacf92e17910f0ccc7eaccecc8c5fe3245b556bad6515d55e7f03": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "acb707aac1dd6179e6a1c7b1d7eabe4ff89758a4f708f578190ad3cea2229991": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners is stated"
+  },
+  "acc5e21ebc3b06bbd9273b1b9873a2811cedc954307d6878d1e6283040bb7b86": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "acc86f973511d80ebec57fb9253e97d4537fd98008a2c08ebae56b35ecb499e7": {
     "is_ban": false,
@@ -3347,6 +4591,10 @@
     "is_ban": false,
     "reason": "The snippet allows automated tooling (automatedTooling:5) and does not prohibit using scanners"
   },
+  "adc3f1ebd4d5430c54ab51f3f87a327477777b6cff35591ce7d01960d04ac68b": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "adc4c9c1772accb62a9b9c053f698dcfa272d0e78478e588acab76f8568da885": {
     "is_ban": false,
     "reason": "The snippet does not restrict using automated scanners, only bans DoS, spamming, and physical attacks"
@@ -3363,13 +4611,29 @@
     "is_ban": true,
     "reason": "Explicitly prohibits using automated scanners"
   },
+  "ae6d878cd35f7dffcb603de7d75a4c08569cbafb6072b9965a308183f8e06a86": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "af770cf174c1323aeb032758ec5498464ccfa6ccf23d0d985b688ad01c0751aa": {
     "is_ban": false,
     "reason": "The snippet only requests cleanup after tests, not prohibiting automated scanning"
   },
+  "af85321b8730d086f82cbc69bcf1b13b45c0c8e68ca0c999cc2a87ddbf5bb463": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "af9361f6e6a86316911caee5cd83944a2fdef0d498a05478495b6be77e54fb3f": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "afd8819ccd48c6e35b0d3575d61efa8e0ff9477997ce32bacb146a31230c6f90": {
     "is_ban": false,
     "reason": "no explicit prohibition on using automated tools"
+  },
+  "afe6e1eb95a103ddb691050290db85a003a546c0140b3f98fc1abdd81a3b8306": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "b02aa3162090b076737e526db7bb278dd30e30aeebf9058cb166afd50dac1d87": {
     "is_ban": true,
@@ -3387,6 +4651,10 @@
     "is_ban": false,
     "reason": "restricts report submission, not scanner use"
   },
+  "b18bee6b0f55f9b69021ca1235683d8a01ec4fd5d3eac58f7535048f3fd95b26": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "b199b31a9169fee86a48e2d2d34338e94fc96b933e054cf7748cc32ec5ae2d35": {
     "is_ban": true,
     "reason": "Explicitly prohibits aggressive automated scans"
@@ -3394,6 +4662,10 @@
   "b1a16c853a4c67a93276e889208fc78dac06511c23e72b2efbb2c4cb0aacdd29": {
     "is_ban": false,
     "reason": "The snippet contains no mention of automated scanning or tool usage restrictions"
+  },
+  "b1abf82ca32494ddc06141cbdbc2c856e6c548c693a50ba40e2b2e2ce0cca390": {
+    "is_ban": true,
+    "reason": "Requires ID verification for in-factory hacking participation"
   },
   "b1d37d22d62c7de09962ccbf16cb1a8bdce4bef0eee1f129b7b0d5cd91a678c9": {
     "is_ban": true,
@@ -3407,9 +4679,21 @@
     "is_ban": true,
     "reason": "Explicitly forbids using automated tools."
   },
+  "b2cbec197c9ee1d087d1e018a04717262382bafe75349f02ef680aa28679ab70": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "b2fa5e95aa9793a57e154aee2eb033f61e8cd46b4a6b00ffb00dfd06aafced8f": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "b322c4b7f54cc8ddaefb0a4f93c714f9720e8606e96deacfe2977d6ba58dc073": {
     "is_ban": false,
     "reason": "The snippet contains no statement prohibiting the use of automated scanners or tools."
+  },
+  "b33981cd0524356312a4ce1035b3cdb63e5dea452469df04bdf6b221191999e5": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "b342acb7e97d3c74e97408eeb484e32aa2af50d8513952ad1cd6700f9eda7416": {
     "is_ban": true,
@@ -3423,6 +4707,14 @@
     "is_ban": false,
     "reason": "Snippet contains no mention of scanning or automation restrictions"
   },
+  "b3c78109705b9baa4124667c10dc489093ba63329903475c8c7b3b15745c73ac": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
+  "b3e2ec05c88085e660edac02010cd39b7ade49d81279e40dd41e3e2b63ef88dc": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "b46e2980d169b754cbfd78dfc131fd73df4b5821a27f782f746097d85d2008af": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools"
@@ -3435,6 +4727,10 @@
     "is_ban": false,
     "reason": "The snippet contains no rule prohibiting the use of automated scanners, only submission guidelines"
   },
+  "b4e3eec6a0eff3713bb97a95a824c6b1ebf0aaacd07066233a282f449cededb3": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
   "b4f5066d2b9a3e52478820474cc9fb95b8c90ad1e589d31a12fad757c4c3354a": {
     "is_ban": true,
     "reason": "Explicitly forbids automating testing for manual solving"
@@ -3446,6 +4742,10 @@
   "b582ea4a042a20ea5eef8e922aeabe6b49e74b41f0235c816d29be57746f758e": {
     "is_ban": false,
     "reason": "No explicit prohibition on using automated tools, only reporting guidelines"
+  },
+  "b583f4726f1c9bc12fec1780fe28c5a801837f2e27458e125cbc3e3fccabf670": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "b5b5de556fb5e121757a1034fd04eb4f10022b6f99e4146c280432a9fc380e6c": {
     "is_ban": false,
@@ -3471,6 +4771,10 @@
     "is_ban": false,
     "reason": "The snippet only requires identification for automated tools, not prohibiting their use"
   },
+  "b7522fe4007243f47f53f38215ec38326fc4ea0ed0daeab64c77796915dd8800": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "b75f549adea13c73b490f9997917317d445e53a6bd13673c3a3c5502f22835d3": {
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners, only scope and safe harbor details"
@@ -3482,6 +4786,10 @@
   "b78beb15074603d7f2ce8975d21d64143767cba4b843fcb28f0684b628b8f773": {
     "is_ban": false,
     "reason": "Snippet only restricts testing on live restaurants, no mention of banning automated scanners"
+  },
+  "b7969306c45c13578f3d198c5f273c10f709684edde0a1566adcd8534b20fba3": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "b7af681a707fc38bc24b4604ebb9284bfcb7054445c505a8544bbf683fe5a7c5": {
     "is_ban": false,
@@ -3495,6 +4803,18 @@
     "is_ban": false,
     "reason": "{\"is_ban\": false, \"reason\": \"Snippet contains a configuration field for automated"
   },
+  "b7c91ed218521d8a029886637f2aec3b1692abe324d6594e05652bafdbad1f56": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "b7dacb2df12ff2d2ae4c02055ff4ba2897298faf8051b12d917e906c99e461bd": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "b833547f787f48aa0e35119333cb6df0e97c0535b6cff9a9c8ee5d862253b653": {
+    "is_ban": false,
+    "reason": "no identity verification required"
+  },
   "b86f9e3b445eee0035c8f59c08f056fc524eed391c71ff9afc23a5f61f2be239": {
     "is_ban": false,
     "reason": "No explicit prohibition of automated scanning, only unspecified testing requirements"
@@ -3502,6 +4822,10 @@
   "b87a047ed8576b5a52952baa83bc1873e91130bdacefeb5eea6f77534286a6d3": {
     "is_ban": true,
     "reason": "Explicitly prohibits using automated scanners"
+  },
+  "b87a9a02b27bbbadbeedcfd55d6489666a90bcd2e1f8a1ae09f6d737582b5fde": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "b8bcb93a25f8c76aa898d6ca37581ef856ebd217fe3eb82c9887b801f70c88db": {
     "is_ban": false,
@@ -3511,6 +4835,14 @@
     "is_ban": false,
     "reason": "The snippet bans disruptive automated traffic, not the use of automated scanning tools"
   },
+  "b8f244937dcd0aa5056120606ce1a483fb6df67738df880c74c01c659e016401": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "b929a9dbd8c42c409161bcdd9122ebbdb94b15903e077c83d867e53712410a68": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "b9519c0517e08bf6ddd045431c8906eb9ee1d421e3f91628187ecf2efcf6f26c": {
     "is_ban": false,
     "reason": "The snippet only imposes rate limits on automated tooling, not a prohibition of using such tools"
@@ -3518,6 +4850,10 @@
   "b95aa6199c63c92c220aec0b6d71a6659a2d710b3e39fdc2d12e90a3756abb52": {
     "is_ban": false,
     "reason": "snippet lists prohibited actions and does not restrict automated scanning tools"
+  },
+  "ba6d3f7298cd093aca2375837f1f89affc8bd78e119fd62bdd6d381096d646ac": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "ba85a09b35624b998b8a6497ae2b8319bee00bcf5b9942920c4296e56d3d560a": {
     "is_ban": false,
@@ -3538,6 +4874,10 @@
   "bb13e59ad2839ff4d3ef2ec046010e13409c227bf3b74dddd1d0582910e7ed3a": {
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners, only scope and exclusion rules."
+  },
+  "bb323daab0f07ea209af505d64d0156884d054898dffb758ff5ea958c40ba773": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "bb86c4901d7d8d2fc3e7980051a040eefe004c12db6dc130e4e75ade27074288": {
     "is_ban": false,
@@ -3562,6 +4902,18 @@
   "bc2de18b86597bee00a02d9ebca05d87fc340d0a6044d5530f6f32974287b68a": {
     "is_ban": false,
     "reason": "Only rate\u2011limits automated scanning, not a blanket ban"
+  },
+  "bc2f812a28b5d628631984f5f29fb0ef73f42cd38389b3fce4a0e6827dd72a7b": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "bc680731fdcd12e5a3f00860ade64a7e4da93fcbf3c3524b5aeb82dd68372337": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "bc7b4f8deee23e35cbe355c3464aff05cb87aec7165c61c619e49bc285f2a1d3": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "bc91d30a45994dd16caff88eb463408d48243dc12555a011eae66b332520e530": {
     "is_ban": true,
@@ -3619,9 +4971,17 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners, only reporting guidelines"
   },
+  "be5a5fd06447040e21359394be4f9fbfdce26db5d957091459f7b46fc08785e2": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "be6bd85166d2e3d3e592610d8c2ef1db95e30e63e8b22929793c859de97b2256": {
     "is_ban": false,
     "reason": "The snippet only rejects automated tool data dumps in submissions, not prohibiting the use of such tools."
+  },
+  "be80980bd5d324f026433737bc1ce4a6e37fef80b4a5b87dc16074cca73dd5f9": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "be8d042f76475e042467850d2debaaa05d6043ad8799cf062096c82748c4fbd5": {
     "is_ban": false,
@@ -3631,6 +4991,10 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners, only registration steps"
   },
+  "bee4ad4a515b6cb66c007a8315a508d3e28cc4af821617f37d448b36d653f4eb": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "beea336129203e9ebf0630a11172676a7db040000aee14ece1b7df1dbae32bb7": {
     "is_ban": false,
     "reason": "It warns that automated scanners may trigger rate limiting, but does not forbid using them"
@@ -3639,9 +5003,17 @@
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners/tools is present"
   },
+  "bf24d2904430f67a67c0a239815427ded953108814a9c40ba05c8e168a6c138e": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "bf48ebb5a9f9b4c4508b433749430e6a320ee638a344726988e8ff6ea8bd2f2c": {
     "is_ban": false,
     "reason": "The snippet only lists vulnerability categories and contains no restriction on using automated tools"
+  },
+  "bf4d572f986fd5c8fff5422a34f1a7e9e41f2ecfe77903cb8b24d56c1966105d": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "bf6269fc7f26e439a5bc4d51b9aae6bb2ffe24e587428c929c0003381de3a5a4": {
     "is_ban": false,
@@ -3650,6 +5022,10 @@
   "bfa0f6edfb0415efa413891c41c2b53a01aabb9c46790558602c9c6f0b80ba4c": {
     "is_ban": false,
     "reason": "The snippet only lists vulnerability types and does not restrict the use of automated scanners or tools."
+  },
+  "bfe51729b0ba31de38ac721c22fa5a297a9f84f2474b9ae97ef905e36f1fc0c1": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "c010236e0ba24a3ccf00e38ed00e9ba2e1a4c469e7be7da6f5a126e88284713c": {
     "is_ban": true,
@@ -3679,6 +5055,10 @@
     "is_ban": false,
     "reason": "No explicit prohibition; automatedTooling is allowed"
   },
+  "c0abbfc476c2a0f05b8d8077171c2e07e81b2dedfffadf3e3a4c8d388e93b2fe": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "c0e03c57df5ab5343256fe3cec29395080e80ea415e26783974992ced8d40dc3": {
     "is_ban": true,
     "reason": "Explicitly prohibits using automated testing against their systems"
@@ -3686,6 +5066,10 @@
   "c11ff8e2514de712db9d0b153fb090be3b220c14c7bc522b7df1ec8a48a7dc95": {
     "is_ban": false,
     "reason": "The snippet only lists vulnerability types and contains no restriction on automated scanning tools."
+  },
+  "c1311e844ce45025a5d3c0ea31ca34b3b401c59a527120bca6f923ef1b8b86ff": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "c14eadad41a52c41fc9be560e3147a3d58e59760d69a5a8d52abb1ee466be49b": {
     "is_ban": true,
@@ -3695,13 +5079,25 @@
     "is_ban": false,
     "reason": "The snippet only defines XSS reporting requirements and does not restrict the use of automated scanners"
   },
+  "c181c074df6841d3caa896a0243b289596a8cf0792de916e2eaf165fa1ba905b": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "c184746420e22075bf37c441a7af2d65d47fd08509be3539b82972544038ffa7": {
     "is_ban": false,
     "reason": "no explicit prohibition on using automated scanners"
   },
+  "c1e55ea7782c56bbb18e9c99c431298b36c0cf332b9bf8c19658250cba3d43ca": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "c1f3f435d66e492fb94402272956c2a008ca3d4e652dc397ad27a06324b7fa79": {
     "is_ban": false,
     "reason": "The snippet only sets report requirements, not a ban on using automated scanners"
+  },
+  "c20d813d54197ee5c82d7fbc290922bf4460c89a494163fb18c9540f4671fcc8": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "c2172fe185f9d7084f141c55a598e3fb0ffc837e834d085f6b4e3ed9d1d02285": {
     "is_ban": false,
@@ -3743,13 +5139,29 @@
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners; only general testing guidelines are given"
   },
+  "c3a6be40569323e272d48aa8414e8baa818f35a00dc0ee170e5f4ec38450e204": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
+  "c3afb37797c42d02b1102b62e2f7284bf9d85980c3f2f683e576c2c4edf91202": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "c3d1a4b7719d18069d4bd0e95fb9da0968f4c65531f795714815930a5e2b90eb": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanning tools"
   },
+  "c3d980f4a7d667768d7fb8e84cb021c35f007f54b052b3eedba80438cc03acd1": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "c440f368000a351b6279134d87b4204505ff5e14f3003d1117bc0e647afe01c8": {
     "is_ban": true,
     "reason": "The snippet tells testers not to run automated vulnerability scanners, banning the act of using such tools."
+  },
+  "c4a20e625f80018114a2734b3033129dbd95affff14970c722e5542c3d760233": {
+    "is_ban": false,
+    "reason": "The text only mentions answering identity verification questions, not submitting personal ID documents"
   },
   "c4a92f1db65f12cc2ae2c814d169b5c2bf8d008cc038e34d0031fc71abe6f624": {
     "is_ban": false,
@@ -3795,6 +5207,10 @@
     "is_ban": false,
     "reason": "No mention of banning automated scanning; only lists prohibited activities unrelated to tool use"
   },
+  "c79a16ef0a281b3750395532547d88d373ca139b806e089d242333ff0eab1497": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
   "c7a80da098ed83c03a1db79a39eae3fee5ce9c6429fcefe4e15a0022fda00435": {
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners, only rate limits and good\u2011faith usage rules"
@@ -3806,6 +5222,14 @@
   "c7c76e2a41547c1ec52fba8888eb1e3e4cb696bb69fbb3aa53ba65369437059e": {
     "is_ban": false,
     "reason": "Snippet contains reporting guidelines and no prohibition on automated scanning"
+  },
+  "c82ce3bdc927b8278e93d55c6fb4360fd3210ba3de2aa035d90b6dcd18d9b498": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "c8a45332e233bc71ba7b945c1f247a27a65293fa6297171903493ea5e852b9d6": {
+    "is_ban": false,
+    "reason": "Only testing IP address is required, no personal identity documents are needed"
   },
   "c8c95529b5965649a26442dedf0839a9439f9155092968f0c158c837394dde28": {
     "is_ban": false,
@@ -3823,6 +5247,22 @@
     "is_ban": false,
     "reason": "No restriction on using automated scanners is mentioned"
   },
+  "c9b0c23df9aa706494415f2a3779a2364e1cf8b896bc2231c2be3f5fe6b03788": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "c9b6c177908af56364432b980ecf704d81b9cdf4c9f4ffb3fca4ef71d26c2ddc": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "c9c42f5b14350eff359f2c6fa7067acf159871d7bb235874c2d08278962867ff": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "c9ff8b0207122b7ca6aac6510adfe96714243d96e340b4865f708a6c079d3af9": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "ca72078dbc83f88f50ef8cbf6e6b0c760fbbb2b17b6d937868f54bb649a4267b": {
     "is_ban": false,
     "reason": "snippet only lists vulnerability categories and priorities, no restriction on using automated scanners"
@@ -3830,6 +5270,14 @@
   "cab889b61dc3aa7c806c9d60f9aacc8d45068774ca14cb00fca66515ab16921c": {
     "is_ban": false,
     "reason": "No mention of prohibiting automated scanning tools; only bans DoS and disruptive actions"
+  },
+  "caf25cc5d615a6ff8104508dc3a12a13f549cb6bb00273f2e43c30b2d0a10780": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "cb1fc5f52d20c3a2e368e6a9293e0eb64cc1189d04a897dca6e23b51ae47339f": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "cb41f81ed026c1f7d7a34a7b274440474e37950b39e4ff75e5637a3f780e9490": {
     "is_ban": false,
@@ -3855,6 +5303,10 @@
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners"
   },
+  "cc1c0a91526e0775613b7d52315c94a914b5883bba63e264b33ee34f3e818409": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "cc43978ed0f53af007bb5359a0accdb801da3a58c0582665d79ce335583d394d": {
     "is_ban": true,
     "reason": "Explicitly forbids using automated scanners"
@@ -3875,6 +5327,14 @@
     "is_ban": true,
     "reason": "Explicitly prohibits using automated scanners."
   },
+  "ccc58c33984eed07a826b69b92f429d32866c93b022cd88eec250f2452be9c9a": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "ccd4e46ea480c9494d1001629c3d685ffd73932b8086fcb87f3782d227009b48": {
+    "is_ban": false,
+    "reason": "no personal identity verification required"
+  },
   "ccef99ab61b3a491c0542556bcda98bda4c2e476f7009f5ed2f3e6c3e338bf64": {
     "is_ban": false,
     "reason": "The snippet only lists in\u2011scope vulnerability types and does not restrict automated scanning"
@@ -3887,13 +5347,25 @@
     "is_ban": false,
     "reason": "Snippet contains no prohibition on using automated scanners, only license destruction and a configuration field"
   },
+  "cd1a05967a09d3d54ca3549ed46d6057ca3b5d1f50062776d9ce4d4d1c8735db": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "cd40b42e3ce2a27b80a39e107e6b316ee84788d00722d0d75bbfb476b684c0b3": {
     "is_ban": true,
     "reason": "The snippet explicitly prohibits using automated vulnerability testing tools that generate significant traffic."
   },
+  "cd8dcffaa4e327ca6ee041bfc3a58c5197ebca4cd15e0e5847fcc99cb356971b": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "cd8de8b565b2fc7100b2349f88173c9b6a052d37866ee335d2f884a24e30eabc": {
     "is_ban": false,
     "reason": "Snippet contains no restriction on using automated scanners, only testing scope and email requirements"
+  },
+  "cd8f71794c29296f38d3e28dfca3a261bc424e25e1de8b3f7e2471c6e9e4791f": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "cdbfe9331b6fc2e5d92fd789a0447b17ec22f7ac4010d73c1c6b068a07ddd4f8": {
     "is_ban": false,
@@ -3927,6 +5399,14 @@
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners; only a general request to avoid affecting availability"
   },
+  "cf4027b76d59dfe08b84f4e399b766ca59d24ec953e26db0e65fb0fda0fa436e": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "cfe9f26dc22111f95cdae35005076b8d621a4ca86249341b4682c99efd2027bc": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "d0035110facbb2d4bc08b5ce2b44a83368c4f4b2fe3d216b6f7b96bce1c44971": {
     "is_ban": true,
     "reason": "It explicitly tells testers not to use automated scanning tools."
@@ -3947,6 +5427,10 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools."
   },
+  "d07b3c62c86a7d79f4ed778ec025756ac46b46139be93f4d63cffbfeda9b71e0": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "d080c84cfca1fdc3b55266e802e6d5dfcbe77911c2d902d62fff0303b93b0f14": {
     "is_ban": false,
     "reason": "requires identification of activity, not a prohibition on using automated scanners"
@@ -3954,6 +5438,10 @@
   "d0956380fb55eae6b9e7a6277b010d2c28c9819fbe004b8f11c91934c0a92163": {
     "is_ban": false,
     "reason": "No restriction on automated scanning; only a rule against testing support functionality"
+  },
+  "d098d1187aadfc80f0443c90d5f30c08a925cb64f1ee37af27c45e2217537cf8": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "d0e17a149e93ed17e76a194d5696f59ebdb0936db50a8ac5ff9c35e50cd38cf3": {
     "is_ban": true,
@@ -3971,9 +5459,17 @@
     "is_ban": false,
     "reason": "Only bans submission of automated scan reports, not the act of scanning"
   },
+  "d1ae9ab3ac911b90b6a24dac1a66f7d40bc52e7562e49df3d927d0667c5ca55b": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "d1dc9d378745ec513f22db3d94028d0f733459dfff9c15c0b4c88d1ae0dccaf7": {
     "is_ban": true,
     "reason": "The snippet explicitly prohibits the use of automated scanners."
+  },
+  "d21ce3859e5b056a6514cfc49a835307a1602612f11c0e7ba48a295c978cfa12": {
+    "is_ban": false,
+    "reason": "No personal identity verification required for researchers"
   },
   "d25e19c612d79814d4e45a9e29bff91e3e4780610d61cf3ad4455f0cfc31d259": {
     "is_ban": false,
@@ -3990,6 +5486,10 @@
   "d2d67d8998736817b3555f385e90e39c91fbba9d2413fe7db5ce36999284d5a1": {
     "is_ban": false,
     "reason": "The snippet lists potential issues but does not prohibit using automated scanners"
+  },
+  "d31f2fec1c6ae7976f396922a962911476408d0a82f2a9ed79663f9fb51b7561": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "d32522307286218cff67c9db6834d2e1fc33dec15721fbbc7502aebd748b8d39": {
     "is_ban": false,
@@ -4011,6 +5511,10 @@
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners; only general rules are listed"
   },
+  "d41e407b9b59b9892d724258467f172472166943a6676bea9f02cd1eeef9f5b0": {
+    "is_ban": false,
+    "reason": "no personal identity verification required"
+  },
   "d42d7a90b7e7133ab9aee5d3ad32a954865694f64696cebddd3344bc5a6ca784": {
     "is_ban": false,
     "reason": "The snippet only limits automated scanning rate, not prohibiting its use"
@@ -4022,6 +5526,10 @@
   "d5486333dc3c6f7b2f0467b80dd4a069f119777dc9646dd3f814457a8aeef902": {
     "is_ban": false,
     "reason": "No explicit restriction on using automated scanners; only reporting and account rules are mentioned"
+  },
+  "d57e60221376db1379bf66d93416fd7727dde2311d0e9354a2f5b91cf68e7a2c": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "d57f264ec425b35aa3d1ec7445a474e942cbd82cde79e388d42a7ac97a9b0ec9": {
     "is_ban": false,
@@ -4051,9 +5559,17 @@
     "is_ban": false,
     "reason": "No mention of banning automated scanning tools"
   },
+  "d64635c8a7d42d2e223f31e26c21589312a0980cf093c1fd432018c2dfacecd7": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "d64c656b016be88e7aa6e193d892df304a486baab33850e0b41cd39ccf4f17f6": {
     "is_ban": false,
     "reason": "Only sets a request rate limit, no prohibition on using automated tools"
+  },
+  "d653c64b0d07d1e092ec27e4c48c92a9afe4238a6c2acd7d2f25abd7a58b8dec": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "d66a9f92a33c6d951428d18a41bbab424724bcb4174021e743af6b8ad80f3676": {
     "is_ban": false,
@@ -4075,6 +5591,10 @@
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners or tools"
   },
+  "d6aadc27ca0b2ddd18c62a6f9659080a57002ee3e83105f1a9489582a9629411": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
   "d6f07a4c1b2e15b66d458c560c8adb49602a1f4f242205ae05be116c87ae9000": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners or tools."
@@ -4091,6 +5611,14 @@
     "is_ban": true,
     "reason": "It explicitly forbids conducting automated testing without prior coordination"
   },
+  "d75b04934b695bc30c2f3554630a0d75c4d128de2c33ab986beff6f13c7c9757": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "d7b3554103619d5bf9177c8ff8d4c1ef105193ffc565dfad8c415de6e8a97fff": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "d7d0ebaf24027e748f5a481a5822ee68313ff484acd371232305b9d773c2863d": {
     "is_ban": false,
     "reason": "Only disallows reports from scanners, not the act of scanning itself"
@@ -4103,6 +5631,14 @@
     "is_ban": true,
     "reason": "Explicitly bans the use of noisy automated tools, restricting the act of scanning"
   },
+  "d88433ffad0b5c4d83864a4bbc03b7b0ae30f0393a2aa953624b6f488af1bb16": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "d896f06a9370474fbe62ec4c1ba21bf93ae739cd3a8c9cda1bda08bdda313734": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "d8bdf5e2a3ff51c3e6a4d91b6320064ad92787c8cabda782747ffa3c729fc6dc": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only bans testing the marketplace site and negative impact"
@@ -4110,6 +5646,10 @@
   "d8ffd1118b9f06f3c9b4e89d1c46fab1968b1a883111d33ea224b847f5b25c8c": {
     "is_ban": false,
     "reason": "Snippet contains no mention of automated scanning or tool usage restrictions"
+  },
+  "d907d8397fc3e38c75c5baf101563cd9e1e8d58678042ec418804f88fbd975a6": {
+    "is_ban": false,
+    "reason": "No identity verification required"
   },
   "d90c353ec67a92e899a00b31411ec1027d42a67b3a2198479851c17c1ab99ead": {
     "is_ban": true,
@@ -4155,9 +5695,17 @@
     "is_ban": false,
     "reason": "Snippet contains no prohibition on using automated scanners"
   },
+  "da77994bc7952dde9e697996cb9cb67c5edf9bbdb3614a2fc86d207ad9e61d56": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "da8a8bb3274a1126332d29a72927c3f731a2b07aec6392c9da23872e746cb723": {
     "is_ban": false,
     "reason": "No statement restricts the use of automated scanners or tools"
+  },
+  "da9ade2cd3155bced9af5a58c81d52307dbc6199aec05d762ba7620d4d1fa6c2": {
+    "is_ban": false,
+    "reason": "No identity verification requirement mentioned"
   },
   "dab63f96894aa03b6eb29aa165389468704a7a954ed6e294769121d29b509588": {
     "is_ban": false,
@@ -4215,6 +5763,10 @@
     "is_ban": false,
     "reason": "No restriction on using automated scanners is mentioned"
   },
+  "ddd32a5f49dbe0922c14aa1980ef78b42325d450042d1ff139f8c123534c729c": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "dde7c3d9221282f3bf2ad1c0ae1abde4df3d5d1beb9239121ca8566ea1dfc099": {
     "is_ban": false,
     "reason": "Snippet contains no mention of automated scanning or tool usage restrictions"
@@ -4230,6 +5782,10 @@
   "de5734c885513b79522af2eb8230fd1107fd30863e8a14a800adb273fa83db94": {
     "is_ban": true,
     "reason": "Explicitly prohibits automated scanning as an action"
+  },
+  "de6f24ac16796e7913c720c624655d8e7edce15d133e0b9041a53f2acff22924": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "dea50a768da05b73275aa23a538c9cf65340b13101d70e530ec5a151704dd180": {
     "is_ban": false,
@@ -4250,6 +5806,10 @@
   "df59bd8761f7f561cf82684fe24206e7780a90836ffafd87cc6bc2117751c35e": {
     "is_ban": false,
     "reason": "It restricts reports from automated tools, not the act of using scanners"
+  },
+  "df670afe3bb5210c1dbb7c85197540c4d1e08f56b818abb3bb52ca866b134c1b": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "df6f3eabd12e390828bb8d655170079faf26e1b66cf2ed23f1be4464237dd966": {
     "is_ban": false,
@@ -4279,6 +5839,10 @@
     "is_ban": false,
     "reason": "{\"is_ban\": false, \"reason\":"
   },
+  "e084a1f024910d488f75964dd7e9c7c4ee1da6e5ed41e640e1992d4645675bd8": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "e08c32153374891f5e9de8de9d5782f306d9f97f77fba2db932cb74236304a85": {
     "is_ban": false,
     "reason": "The snippet contains no restriction on automated scanning tools, only guidance on copying exposed data and allowed RCE actions"
@@ -4287,9 +5851,17 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners, only scope and reporting rules"
   },
+  "e10486c25f7a60743ab6170945b17131cea041e7bce140f13bd1ec0541c727b3": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "e10c19af4c8a97a4b245301452e22c5e09e41af3b6cf992d2563d9542c63c737": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only general prohibitions against harming systems"
+  },
+  "e11b9954d8a98dcd39b3a818c8b34750f7e109dfb40172e5afb5a13e6f5b35cc": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "e15595076a858e07b1942fddc5d1238ce138558de0ff3f1b75618a0681be5a20": {
     "is_ban": true,
@@ -4302,6 +5874,10 @@
   "e16ded9c6b73557a9ed92e7a30cc8ceeb2f632dd6cb2a5feae618b170816b25d": {
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners; only scope and intrusive command rules are stated"
+  },
+  "e1758752f3edd09143837eed40c49273d3793cdeb1987f4248d1fd0e19c3f4f3": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "e2226cdedeb92a08332ec52ee06de4581f1fb1d0a914b9b6b8365c2e713e554e": {
     "is_ban": false,
@@ -4318,6 +5894,10 @@
   "e3b51ac010ce04af821f059501e3fa017af49b754fc22c566bb642ee58e7bb0f": {
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners, only submission and triage rules"
+  },
+  "e3ccef519fd08d93b24708adce95291d058e357a0e24b95f0d50842694ff6a03": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "e3d10ce07b891fcd3db1ffb544450714f82b8e39ee69dc1c17478f9e2540ddd3": {
     "is_ban": false,
@@ -4339,6 +5919,18 @@
     "is_ban": true,
     "reason": "Automation against form submissions is prohibited, banning the act of using automated tools"
   },
+  "e54fe23c5164ac3cfc3299b99ec75afb16447fc5ca1634699dc3f595ba3587be": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "e5afc2d37eac746d59d08fbd0ed7bcbe3e1b411302604a4b0e47cec2837b9c52": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "e5e62ea5159a048b5a2ed081b26eef6e7dac57cb46ff8ad3219c82a7ad294703": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "e600608c7d54f522ee9b86d7422a7a513f5c7a4279c61fc6842330c39f03a2a0": {
     "is_ban": false,
     "reason": "The snippet only mandates adding a custom header, not restricting automated scanning tools"
@@ -4346,6 +5938,14 @@
   "e61ac86952ed22c7e2b54388bc59536286ab6225bc800ecc980d5f84011d4bb0": {
     "is_ban": false,
     "reason": "Snippet contains no restriction on using automated scanners"
+  },
+  "e61d708dc01cb0524b8bba349dda6cd869eb8265eec290990a91f84602d1bdb2": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
+  "e6323d0d0da2ea9b1f170f5fb0b9cb65192711cd2a67f844613ca4943525414a": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "e636197732b6bc2d9b12bba4c41d1279b2414cbed6a26514643e35e1a60182e9": {
     "is_ban": false,
@@ -4395,9 +5995,17 @@
     "is_ban": false,
     "reason": "the snippet limits report submissions from automated scans, not the use of automated scanners"
   },
+  "e8599a10f9ae47e9ae2816fde53324e7371f1e6141cc7a7d9eed2834a22d3794": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "e8b3ab47a5181ec94c6c61831095c37cb2042f1dc331f98632ed1dba8e26963a": {
     "is_ban": true,
     "reason": "The snippet explicitly forbids usage of automated tooling for sending requests, banning the act of using such tools."
+  },
+  "e8c218feb6b82e81c04fafe14c6d7804a8a29480cf29e7cf9256d7c233700271": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "e8e67790a50b95ece54d7e0243868f04570242672bc4ee5e5f58261924bfa724": {
     "is_ban": false,
@@ -4439,6 +6047,10 @@
     "is_ban": false,
     "reason": "No explicit prohibition on using automated scanners, only reporting rules"
   },
+  "eb1d28a94b7d6cb7ff8e5e283db2bedee438a9449c17637fd7a83375c2d81ca7": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "eb24f0e0dee7f53876053cdd5eb1bc929b5ffcac47043466f8c5bf02d2b47b9c": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only access instructions are provided"
@@ -4455,9 +6067,21 @@
     "is_ban": false,
     "reason": "The snippet contains no prohibition on using automated scanners, only scope and duplicate finding rules"
   },
+  "ebf74e375b5891be8a8a27b75101104b09f947efa600f8084732e7874b08ea35": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "ec2c9b7c9804d30cebbb87f7239dc8fea64a81d4af5b004da1bde8a12119c57d": {
     "is_ban": false,
     "reason": "The snippet limits report submissions from scanners, not the act of using automated tools."
+  },
+  "ec32934f9664c4aecfccc7059590875869591a39e5858f66134f52154e58b8fa": {
+    "is_ban": false,
+    "reason": "No identity verification required"
+  },
+  "ec3d5759875654fa79371cddf935dee74616ecf05f827827e02eecb73780a68b": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "ec510d6dc54cb7b390af07f8ccb245504150b5a832af5da2d29342bcf21ddbb3": {
     "is_ban": false,
@@ -4471,9 +6095,17 @@
     "is_ban": false,
     "reason": "The snippet only rejects DoS-based submissions, not the use of automated scanning tools"
   },
+  "eca8165efcd0ff77115213cbb3b201923d2f9ef96d75f6ecaf045287cf428a38": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "eca97548162530f38e782bfb5d99abb9014649cfca30ffadd29ee14158dd6bf6": {
     "is_ban": false,
     "reason": "The snippet sets testing requirements for automated tooling rather than prohibiting its use"
+  },
+  "ecc68e75b9ea79342e061d207a1df1f3f329bdbc03afff668a8ceb69fc9dc4b7": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "ecf2940e1b05829edb2e69fdc30e49f74324004ccf644ec6e0ba186de30df07b": {
     "is_ban": false,
@@ -4547,6 +6179,10 @@
     "is_ban": false,
     "reason": "Snippet only lists bounty severities and does not restrict automated scanning"
   },
+  "efb03c828564e15e49c05c72551a7a8b6c0e9ddbc71690a062b01e0fee07b9ad": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "efbd0da4658001b677fa560828c68bb671cbdb40a91b6d76098e78b6b8f07a6a": {
     "is_ban": false,
     "reason": "The snippet only rejects reports based solely on automated tool results, not the act of using such tools."
@@ -4603,6 +6239,10 @@
     "is_ban": false,
     "reason": "The snippet contains no restriction on using automated scanners"
   },
+  "f190ddc4ace1a3cfe574c52c36bfe5570237ef34d2daccf62b0da85496cf9ad8": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "f1d793e78d7ca11815617d87fb59cd8db1241794a4f9a497f837c9f4c0254ce0": {
     "is_ban": true,
     "reason": "The policy explicitly prohibits the use of automated application scanners, banning the act of scanning."
@@ -4610,6 +6250,10 @@
   "f20948283b06d5f6b918a6364e9ae57f8fef6f24c2e99f00f1525c1b89bc3756": {
     "is_ban": true,
     "reason": "The policy explicitly prohibits using scanners or tools that generate high traffic, banning the act of automated scanning."
+  },
+  "f23ec5f9f15de42232f62f882c01116488a84664aa192eeb6f0ec8755cb7d6a4": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
   },
   "f2451312bbcfad1b13d14e326a6bb3bed80d6150741de98d3c94db842935d47d": {
     "is_ban": true,
@@ -4631,6 +6275,14 @@
     "is_ban": false,
     "reason": "No prohibition on using automated scanners; only bans specific attack types"
   },
+  "f2880933c86380d73e93f7722e87eaecd72837ec3fa4c3b66a476020fd5640b8": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "f294bbc6055da47d9931f9dbbc5a3bd72ee1ccb27299925dab2e20500dfb6931": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "f2b6f50a767ff6e981ff7469d2922e7fd5fbae346d9e294d8c44a58b455ba2b3": {
     "is_ban": true,
     "reason": "The snippet explicitly says the use of noisy automated tools is out of scope, banning their use."
@@ -4647,6 +6299,14 @@
     "is_ban": false,
     "reason": "The snippet lists vulnerability types and does not prohibit using automated scanners"
   },
+  "f302ceb32dbaf07a85d748f3d2f6e378105bc4c016401ac3f5f13128ae6c0e2c": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "f3212a25d6dad2df011871ed7bf9fc57c6e692e1f7a218172f26554d777ccbaa": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
+  },
   "f3624e47c4eca1a1e0dfc8b217d8da3f2377fc0b5211b0b1945ec87cb657dfd6": {
     "is_ban": false,
     "reason": "Only limits request rate, does not prohibit using automated tools"
@@ -4658,6 +6318,14 @@
   "f388b8eaa5849705dd48746b29094ccb3a7bf71280642102a42bfce12117cba8": {
     "is_ban": false,
     "reason": "Only limits scanner QPS, does not prohibit using automated tools"
+  },
+  "f394dc66a5bba87de2799aa76dae77830dc71186db25130ddbc7ca6eaf88dfc0": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "f3a8ac6de378d2e131a4cf13859fcf2f0a5366a11e342d065a402fad3fc5f120": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "f3ac1d335e072d73aa0c72beee7d860bb03ab1ab8c46203248ce72df264e7704": {
     "is_ban": false,
@@ -4675,6 +6343,14 @@
     "is_ban": false,
     "reason": "The snippet contains no rule prohibiting the use of automated scanners, only general activity restrictions."
   },
+  "f416ea3901990f3b196977e53a61d0b958b4e7afc80e2a1bae753c5965fc973c": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "f44e99204e5b3d1674e6e78ac5b6417434f3b6995eef12db4e23d2ed2a832296": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "f48a4b1150569ee0fd818d52b3ee2a8ebdc83ea73d583da4390f101dcbd03ead": {
     "is_ban": false,
     "reason": "Only restricts report content, not tool usage"
@@ -4686,6 +6362,10 @@
   "f4d5ca7032ae9a20bc0ef609519cc72f8bef6237624aa106962542c0ddc3f5e4": {
     "is_ban": true,
     "reason": "Explicitly instructs testers to refrain from conducting automated scans"
+  },
+  "f4ecf234e24e2b6141eddd1d1827b6a0dcbab91a3b9a138cd86c238c3c2f0775": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "f4fdec0d727116d2c11bfac1cf478d63a767142c879a55b67e7b577f11ece52b": {
     "is_ban": true,
@@ -4711,6 +6391,10 @@
     "is_ban": false,
     "reason": "No mention of banning automated scanners; only rate limit and DoS warnings"
   },
+  "f5ded8a2bd76375c61f7d12276906b5c4640cd57a4e641dfa457d7645f9b1773": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "f61c536fb418a12027ff5ee310c6fd5fb972380045dce8f7bf9f68886e13d2b5": {
     "is_ban": true,
     "reason": "{\"is_ban\": true, \"reason\": \"The snippet discourages use of automated scanning tools and"
@@ -4723,9 +6407,25 @@
     "is_ban": false,
     "reason": "The snippet contains no statement prohibiting the use of automated scanners or tools."
   },
+  "f6515e8892b3360ceb2f6aaa4fa23f9ab321fc24764a573992b00a2a6b70adfd": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "f68920c918b94dc464544900b76452a80107151402c88987f15932b8db42957e": {
     "is_ban": false,
     "reason": "The snippet restricts actions like altering grades, not the use of automated scanning tools"
+  },
+  "f68945e0ea6f734d48692e78f249b4a41b196f3568af258d179c43e5492eca15": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "f69eb116900d8e17a6f903cfd3594719f1639f99f3be9152b28aafcefbdba148": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "f6a4dfdb28188f27926162825ab058e8612a6e8114dad3cf536e7fa000896ede": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "f6dd84d688bbb79cb34d5ee811001df60f5ad3a386786182f5087ee0e81e576b": {
     "is_ban": false,
@@ -4758,6 +6458,18 @@
   "f7bf36ab182e6a3a7917206572b60fff4c8075367b82cad8f680d0ef283dd889": {
     "is_ban": true,
     "reason": "Explicitly prohibits use of vulnerability scanners, banning the act of using automated tools"
+  },
+  "f7d57ea308e2f76345a57ff7db61068a1cf1c91907b240b7af52dea989d072e7": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "f80ebe244132d41e52105ec6121d60fbd866908e7f606df34f0f34676ee47bb6": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "f8411c2409f9b55740c88f875ae2f026781c84963a60b7e1f12fe8b2f81d6456": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "f8b6b0791c02b23dc7fae9a16e9281ef8d8efb97775947719ed9cdc09e673a9a": {
     "is_ban": false,
@@ -4815,6 +6527,10 @@
     "is_ban": false,
     "reason": "The snippet only lists vulnerability types and does not restrict the use of automated tools"
   },
+  "fa7340e8f491d89c76bb77e7b41a54f508ac537eaf489060a7ad3c67203fc468": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
   "fab9553fd82382da117bd46b6811793dc55d413addf29827b97a13ce99b07a2c": {
     "is_ban": false,
     "reason": "The snippet does not prohibit automated scanning, only restricts testing production and other activities"
@@ -4847,6 +6563,10 @@
     "is_ban": false,
     "reason": "The snippet merely says scanners are unlikely to help, not that their use is prohibited"
   },
+  "fb5c9cdee1a4ad8ee37ff960ea38bf8979c8b5170e6c0ff93a3ea1b582b8cbc0": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "fbc01c3b1f5e472dd0e4fc58acbcb2c2fbfa290cbb1d9dac045abe1600fd5298": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners is mentioned"
@@ -4874,6 +6594,10 @@
   "fc3b01f92cbe8ce0a624b5e7c6a95beff706cc562d0dd666380f9131b01c1d89": {
     "is_ban": false,
     "reason": "the snippet limits disclosure and sets testing requirements, not a prohibition on using automated scanners"
+  },
+  "fc81e427378e76d26c887c1aa1db4ece67633a279f7b0f137887991dfebb6237": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   },
   "fcadc92bb3bdd1df03c70cea0bc2eefcba9cc472074999568536609e4671c5d1": {
     "is_ban": false,
@@ -4907,6 +6631,10 @@
     "is_ban": false,
     "reason": "The snippet contains no clause prohibiting the use of automated scanners or tools"
   },
+  "fdbce8fa2923eaaee0e9fac772f9ce274d78a53222989d13c63f02ee01a06a56": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
   "fde9e1936481bf41eafe4bb5284a69076217e7852ccb377b7d4b4f39d6098aa4": {
     "is_ban": false,
     "reason": "The snippet does not forbid using automated scanners, only restricts scope and certain attack types"
@@ -4914,6 +6642,14 @@
   "fe35b64e4095e74ad4f38c0551af53f5fe545815417cab2220fe9164547b77a0": {
     "is_ban": false,
     "reason": "Only bans using automated scanner output in reports, not the act of scanning"
+  },
+  "fe5824b7737a061013ac6eefb3974123cd904622be61108a2500064913d87974": {
+    "is_ban": false,
+    "reason": "No personal identity verification required"
+  },
+  "fe7107b201782295da81eaacb27a7d80f5008545bb9a38b63bf60f562c1a30f9": {
+    "is_ban": false,
+    "reason": "No identity verification is required"
   },
   "fe82d1a10cef82bd8b64aec32ff0bb3f216234a99c97a80ab37762fa3612e1d6": {
     "is_ban": false,
@@ -4930,5 +6666,13 @@
   "ff3a551afedbaa1af373ca2d1d86f85519edda49b17c49ceb8f138719c6352c3": {
     "is_ban": false,
     "reason": "No restriction on using automated scanners; only excludes DoS, spamming, and social engineering"
+  },
+  "ff839a6f0e772f5229c3194eb814b0d8c40b3d146b8828f776d1cce8d9a1671a": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
+  },
+  "ff8579e35ef08cee89ff4b61aaaaf471652353bb2db325af17e9375e4ad37b75": {
+    "is_ban": false,
+    "reason": "No personal identity verification is required"
   }
 }
