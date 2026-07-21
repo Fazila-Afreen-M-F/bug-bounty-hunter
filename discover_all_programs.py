@@ -144,7 +144,7 @@ def cerebras_check_id_verification(snippet, program_name):
         "model": "gpt-oss-120b",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0,
-        "max_tokens": 300,
+        "max_tokens": 700,
     }).encode()
     req = urllib.request.Request(
         CEREBRAS_URL,
@@ -249,7 +249,7 @@ def cerebras_check_rate_limit(text, program_name):
         "model": "gpt-oss-120b",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0,
-        "max_tokens": 300,
+        "max_tokens": 700,
     }).encode()
     req = urllib.request.Request(
         CEREBRAS_URL,
