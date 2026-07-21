@@ -222,6 +222,95 @@ def check_rate_limit(text):
     return value
 
 
+def cerebras_check_rate_limit(text, program_name):
+    if not text:
+        return None
+    cache_key = hashlib.sha256(("ratecheck:" + text[:2000]).encode()).hexdigest()
+    if cache_key in _CEREBRAS_CACHE:
+        cached = _CEREBRAS_CACHE[cache_key]
+        log_cerebras_call(program_name, text[:200], cached.get("is_ban"), cached["reason"] + " [CACHED]", error=None)
+        return cached.get("rate")
+    if not CEREBRAS_API_KEY:
+        return None
+    _cerebras_pace()
+    prompt = (
+        "You are reviewing policy text from a bug bounty program. Answer "
+        "ONLY with valid JSON, no other text, in this exact format: "
+        '{"rate_limit": number or null, "unit": "second" or "minute" or "hour" or null, "reason": "one short sentence"}.\n\n'
+        "Question: Does this text state a maximum request rate or scanning "
+        "throttle for automated tools (e.g. 'no more than 10 requests per "
+        "second', 'please keep scanning to a slow, reasonable pace', "
+        "'max 1 req/s')? Extract the numeric rate and its time unit if "
+        "stated, even if phrased informally. Return null for both fields "
+        "if no rate limit is mentioned at all.\n\n"
+        f"Text:\n{text[:2000]}"
+    )
+    body = json.dumps({
+        "model": "gpt-oss-120b",
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0,
+        "max_tokens": 300,
+    }).encode()
+    req = urllib.request.Request(
+        CEREBRAS_URL,
+        data=body,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {CEREBRAS_API_KEY}",
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Python-urllib-client",
+        },
+        method="POST",
+    )
+    last_err = None
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read().decode())
+            content = data["choices"][0]["message"]["content"].strip().strip("`")
+            if content.startswith("json"):
+                content = content[4:].strip()
+            rm = re.search(r'"rate_limit"\s*:\s*(\d+(?:\.\d+)?|null)', content)
+            um = re.search(r'"unit"\s*:\s*"?(second|minute|hour|null)"?', content, re.IGNORECASE)
+            reasonm = re.search(r'"reason"\s*:\s*"(.*?)"\s*}', content, re.DOTALL)
+            reason = reasonm.group(1) if reasonm else content[:150]
+            if not rm or rm.group(1) == "null":
+                log_cerebras_call(program_name, text[:200], False, reason, error=None)
+                _CEREBRAS_CACHE[cache_key] = {"rate": None, "reason": reason}
+                return None
+            value = float(rm.group(1))
+            unit = um.group(1).lower() if um else "second"
+            if unit == "minute":
+                rate = value / 60
+            elif unit == "hour":
+                rate = value / 3600
+            else:
+                rate = value
+            log_cerebras_call(program_name, text[:200], True, reason, error=None)
+            _CEREBRAS_CACHE[cache_key] = {"rate": rate, "reason": reason}
+            return rate
+        except urllib.error.HTTPError as e:
+            last_err = e
+            if e.code in (503, 429) and attempt < 2:
+                time.sleep(5 * (attempt + 1))
+                continue
+            break
+        except Exception as e:
+            last_err = e
+            if attempt < 2:
+                time.sleep(5 * (attempt + 1))
+                continue
+            break
+    log_cerebras_call(program_name, text[:200], None, None, error=str(last_err))
+    return None
+
+
+def check_rate_limit_two_layer(text, program_name):
+    rate = check_rate_limit(text)
+    if rate is not None:
+        return rate
+    if not text:
+        return None
+    return cerebras_check_rate_limit(text, program_name)
 def clean_html(text):
     return re.sub(r"<[^<]+?>", " ", text or "")
 
@@ -282,7 +371,7 @@ def vet_hackerone_program(handle, auth, results):
     if id_req:
         results["excluded"].append((handle, f"requires ID verification: {id_snippet[:80]}"))
         return
-    rate = check_rate_limit(policy)
+    rate = check_rate_limit_two_layer(policy, handle)
     if rate is not None and rate < MIN_RATE_LIMIT:
         results["excluded"].append((handle, f"rate limit too strict: {rate}/s"))
         return
@@ -456,7 +545,7 @@ def vet_yeswehack_program(program, results):
     if id_req:
         results["excluded"].append((slug, f"requires ID verification: {id_snippet[:80]}"))
         return
-    rate = check_rate_limit(rules)
+    rate = check_rate_limit_two_layer(rules, slug)
     if rate is not None and rate < MIN_RATE_LIMIT:
         results["excluded"].append((slug, f"rate limit too strict: {rate}/s"))
         return
@@ -558,7 +647,7 @@ def vet_bugcrowd_program(program, results):
     if id_req:
         results["excluded"].append((slug, f"requires ID verification: {id_snippet[:80]}"))
         return
-    rate = check_rate_limit(text)
+    rate = check_rate_limit_two_layer(text, slug)
     if rate is not None and rate < MIN_RATE_LIMIT:
         results["excluded"].append((slug, f"rate limit too strict: {rate}/s"))
         return
