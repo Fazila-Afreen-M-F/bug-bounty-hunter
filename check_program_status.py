@@ -39,13 +39,18 @@ def fetch_hackerone_scope(handle, token):
 
     scopes = data.get("relationships", {}).get("structured_scopes", {}).get("data", [])
     in_scope_domains = []
+    out_scope_domains = []
     for s in scopes:
         a = s.get("attributes", {})
-        if a.get("asset_type") in ("URL", "WILDCARD") and a.get("eligible_for_submission") is True:
+        if a.get("asset_type") not in ("URL", "WILDCARD"):
+            continue
+        if a.get("eligible_for_submission") is True:
             in_scope_domains.append(a.get("asset_identifier"))
+        elif a.get("eligible_for_submission") is False:
+            out_scope_domains.append(a.get("asset_identifier"))
 
     safe_harbor = data.get("attributes", {}).get("gold_standard_safe_harbor")
-    return {"scope": in_scope_domains, "safe_harbor": safe_harbor, "error": None}
+    return {"scope": in_scope_domains, "out_scope": out_scope_domains, "safe_harbor": safe_harbor, "error": None}
 
 def fetch_intigriti_programs(token):
     url = "https://api.intigriti.com/external/researcher/v1/programs?limit=500"
@@ -138,17 +143,21 @@ def fetch_bugcrowd_scope(slug):
     except Exception as e:
         return {"scope": [], "error": str(e)}
     domains = []
+    out_domains = []
     for grp in full.get("data", {}).get("scope", []):
-        if not grp.get("inScope"):
-            continue
+        target_domains = []
         for t in grp.get("targets", []):
             uri = t.get("uri")
             name = t.get("name", "") or ""
             if uri:
-                domains.append(re.sub(r"^https?://", "", uri).split("/")[0])
+                target_domains.append(re.sub(r"^https?://", "", uri).split("/")[0])
             elif re.match(r"^[a-zA-Z0-9*][a-zA-Z0-9\-.*]*\.[a-zA-Z]{2,}$", name.strip()):
-                domains.append(name.strip())
-    return {"scope": sorted(set(domains)), "error": None}
+                target_domains.append(name.strip())
+        if grp.get("inScope"):
+            domains.extend(target_domains)
+        else:
+            out_domains.extend(target_domains)
+    return {"scope": sorted(set(domains)), "out_scope": sorted(set(out_domains)), "error": None}
 def main():
     try:
         h1_token = get_token("HACKERONE_TOKEN", os.path.join(HOME, ".hackerone_token"))
@@ -183,9 +192,11 @@ def main():
     no_match = []
     ambiguous = []
     hackerone_scope_lines = []
+    hackerone_out_lines = []
     intigriti_scope_lines = []
     yeswehack_scope_lines = []
     bugcrowd_scope_lines = []
+    bugcrowd_out_lines = []
 
     for (platform, keyword), domains in sorted(groups.items()):
         if platform == "yeswehack":
@@ -228,7 +239,9 @@ def main():
                     else:
                         for d in scope_result["scope"]:
                             bugcrowd_scope_lines.append(d)
-                        print(f"    [SCOPE] {len(scope_result['scope'])} in-scope asset(s) found")
+                        for d in scope_result.get("out_scope", []):
+                            bugcrowd_out_lines.append(d)
+                        print(f"    [SCOPE] {len(scope_result['scope'])} in-scope, {len(scope_result.get('out_scope', []))} out-of-scope asset(s) found")
             continue
         programs = h1_programs if platform == "hackerone" else intigriti_programs
         matches = find_match(programs, keyword)
@@ -265,7 +278,9 @@ def main():
             else:
                 for asset in scope_result["scope"]:
                     hackerone_scope_lines.append(asset)
-                print(f"    [SCOPE] {len(scope_result['scope'])} in-scope asset(s) found")
+                for asset in scope_result.get("out_scope", []):
+                    hackerone_out_lines.append(asset)
+                print(f"    [SCOPE] {len(scope_result['scope'])} in-scope, {len(scope_result.get('out_scope', []))} out-of-scope asset(s) found")
 
         if platform == "intigriti" and is_open and is_bbp:
             scope_result = fetch_intigriti_scope(m["id"], intigriti_token)
@@ -289,11 +304,14 @@ def main():
     print(f"\nWrote {len(excluded_domains)} domains to {EXCLUDE_OUTPUT_PATH}")
 
     hackerone_scope_lines = sorted(set(hackerone_scope_lines))
+    hackerone_out_lines = sorted(set(hackerone_out_lines))
     scope_output_path = os.environ.get("HACKERONE_SCOPE_OUTPUT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "hackerone_scope.txt")
     with open(scope_output_path, "w") as f:
         for asset in hackerone_scope_lines:
             f.write(f"IN:{asset}\n")
-    print(f"Wrote {len(hackerone_scope_lines)} HackerOne in-scope assets to {scope_output_path}")
+        for asset in hackerone_out_lines:
+            f.write(f"OUT:{asset}\n")
+    print(f"Wrote {len(hackerone_scope_lines)} in-scope + {len(hackerone_out_lines)} out-of-scope HackerOne assets to {scope_output_path}")
 
     intigriti_scope_lines = sorted(set(intigriti_scope_lines))
     intigriti_scope_output_path = os.environ.get("INTIGRITI_SCOPE_OUTPUT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "intigriti_scope.txt")
@@ -310,11 +328,14 @@ def main():
     print(f"Wrote {len(yeswehack_scope_lines)} YesWeHack in-scope assets to {yeswehack_scope_output_path}")
 
     bugcrowd_scope_lines = sorted(set(bugcrowd_scope_lines))
+    bugcrowd_out_lines = sorted(set(bugcrowd_out_lines))
     bugcrowd_scope_output_path = os.environ.get("BUGCROWD_SCOPE_OUTPUT_PATH") or os.path.join(HOME, "bug-bounty-hunter", "bugcrowd_scope.txt")
     with open(bugcrowd_scope_output_path, "w") as f:
         for asset in bugcrowd_scope_lines:
             f.write(f"IN:{asset}\n")
-    print(f"Wrote {len(bugcrowd_scope_lines)} Bugcrowd in-scope assets to {bugcrowd_scope_output_path}")
+        for asset in bugcrowd_out_lines:
+            f.write(f"OUT:{asset}\n")
+    print(f"Wrote {len(bugcrowd_scope_lines)} in-scope + {len(bugcrowd_out_lines)} out-of-scope Bugcrowd assets to {bugcrowd_scope_output_path}")
 
 if __name__ == "__main__":
     main()
