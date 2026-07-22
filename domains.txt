@@ -151,7 +151,6 @@ atlastunnel.com
 atom-lens.com
 atspotify.com
 attentia.be
-audible.com
 audicagame.com
 aufbaubank.de
 auroratechaward.com
@@ -601,6 +600,7 @@ finicity.com
 finicityreports.com
 fireblocks.io
 firefox.com
+fishbowlapp.com
 fitbook.de
 fivetran.com
 fizzy.do
@@ -1503,6 +1503,7 @@ snapnames.com
 snapshooter.com
 snooguts.net
 solarcity.com
+solarwinds.com
 solvus.be
 sony.com
 sonyentertainmentnetwork.com
