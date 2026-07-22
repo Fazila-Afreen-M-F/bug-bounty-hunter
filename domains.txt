@@ -2,6 +2,7 @@
 10bis.co.il
 1688.com
 18f.gov
+1debit.com
 1w.cash
 1w.run
 1win.com
@@ -23,6 +24,7 @@
 8x8staging.com
 8x8testa.com
 8x8testb.com
+abercrombie.com
 abritel.fr
 acesso.io
 acorns.com
@@ -52,7 +54,6 @@ aiven.io
 aivencloud.com
 akhwien.at
 akismet.com
-album.link
 aleenote.cn
 aleenote.com
 alibaba-inc.com
@@ -112,12 +113,14 @@ anduril.dev
 andurildev.au
 andurildev.com
 anext.com.sg
+anfcorp.com
 antbank.hk
 anthropic.com
 antom.com
 apex-football.com
 apexnews.com
 apexscores.io
+api-exoscale.com
 apple.com
 aqtooling.com
 aquiris.com.br
@@ -132,7 +135,6 @@ arlo.com
 arlocloud.com
 arloxcld.com
 arrowfilms.com
-artist.link
 artstation.com
 arubanetworks.com
 as-nmt.de
@@ -230,6 +232,8 @@ blablacar.ru
 blablacar.tr
 blablacardaily.com
 blablalines.com
+blendlabs.com
+blinkforhome.com
 blis.com
 blismedia.com
 blockchain.com
@@ -310,8 +314,13 @@ chatspot.ai
 cheaptickets.com
 cheaptickets.nl
 chiatest.net
+chime.com
+chimebank.com
+chimecard.com
+chimepayments.com
 chipotle.co.uk
 chipotle.com
+chmfin.com
 cineramabios.nl
 circle.com
 circolocorecords.com
@@ -334,6 +343,7 @@ cloudvector.com
 cloudways.com
 clovesoftware-dev.com
 clovesoftware.com
+cms.gov
 coca-cola.com
 coda.io
 codacontent.io
@@ -375,6 +385,7 @@ cryptocompare.com
 cs.money
 csconnect.org
 css-tricks.com
+csscoperations.com
 cubicmotion.com
 cuehit.net
 cultbeauty.co.uk
@@ -543,6 +554,8 @@ etherscan.io
 etoro.com
 etoropartners.com
 etorox.com
+etsy.com
+etsypayments.com
 euid.eu
 eurid.eu
 europolitan.se
@@ -552,6 +565,7 @@ ex2b.com
 excalls.mobi
 exness.com
 exnessaffiliates.com
+exo.io
 exodus.com
 exodus.io
 exoscale.ch
@@ -583,6 +597,8 @@ fga.dev
 filezilla-project.org
 financialforce.com
 fing.com
+finicity.com
+finicityreports.com
 fireblocks.io
 firefox.com
 fitbook.de
@@ -594,6 +610,7 @@ flights.com
 flipkart.com
 flipkey.com
 floqast.app
+floqast.engineering
 flourish-user-preview.com
 flourish-user-templates.com
 flourish.studio
@@ -651,6 +668,7 @@ gitlap.com
 glean.com
 globalacademycme.com
 gnip.com
+gocardless-banking.io
 gocardless-cicd.io
 gocardless-lab.io
 gocardless-staging.io
@@ -707,6 +725,7 @@ hmh247.org
 hmxservices.com
 hmxwebservices.com
 holidaylettings.com
+hollisterco.com
 homerr.com
 honestdollar.com
 hongyuanib.com
@@ -725,6 +744,8 @@ hotwirepartnercentral.com
 housetrip.com
 hrs.com
 http1mustdie.com
+hubapi.com
+hubspot.com
 hubspot.net
 hubspotemail.net
 hubspotpagebuilder.com
@@ -748,6 +769,7 @@ ifood.com.br
 ifoodpago.com.br
 ikarem.io
 illamasqua.com
+immedia-semi.com
 immutable.com
 imperva.com
 in2tel.ie
@@ -788,7 +810,6 @@ jitsi.net
 jobinson.be
 jobmanager.dk
 joinmarriottbonvoy.com
-jointhemoment.net
 jora.com
 jora.xyz
 just-data.io
@@ -807,6 +828,7 @@ kartaview.org
 keeper.io
 keepersecurity.com
 khealth-test.com
+khealth.com
 kibana.wtf
 kidswebservices.com
 kiln.it
@@ -830,8 +852,6 @@ klaviyomsv.com
 klubcinema.fr
 koho.ca
 konghq.com
-korta.is
-kortathjonustan.is
 krisp.ai
 kronor.io
 kruidvat.be
@@ -879,9 +899,6 @@ linepluscorp.com
 link.co
 linkedin.com
 linkpop.com
-linktr.ee
-linktree-extensions.com
-linktree.com
 localizestaging.com
 logi.com
 logicool.co.jp
@@ -948,6 +965,11 @@ marionnaud.sk
 marriott.com
 marriottbonvoy.com
 marrtool.com
+mastercard.ch
+mastercard.com
+mastercard.com.au
+mastercard.nl
+mastercard.us
 matalan.co.uk
 mattermost.com
 mayoclinic.org
@@ -1075,7 +1097,6 @@ myhomebook.de
 myinsights.io
 myklpages.com
 mylightspeed.app
-mylink.page
 mynexuz.be
 myntra.com
 myopenpass.com
@@ -1086,6 +1107,7 @@ myshopify.com
 mysqueezebox.com
 myteksi.com
 myteksi.net
+mytrainpal.com
 myvitamins.com
 n0c.com
 namejet.com
@@ -1132,18 +1154,12 @@ npmjs.org
 nr-data.net
 nr-ops.net
 nsvcs.net
-nubank.com.br
-nubank.com.co
-nubank.com.mx
-nuinvest.com.br
 nutrip.com
 nvio.ar
 nvio.mx
 oasis.dev
 oasis.io
 octopus.com
-odesli.co
-odesli.com
 ogone.com
 oktukids.com
 omise.co
@@ -1231,19 +1247,16 @@ pixiv.net
 pixpay.fr
 planethoster.com
 planethoster.net
-plannthat.com
 platacard.mx
 platformservices.io
 playartifact.com
 playcanv.as
 playcanvas.com
-playlist.link
 playstation.com
 playstation.net
 playwonderbox.com
 playwonderbox.com.br
 pns.hk
-pods.link
 points.com
 politico.eu
 polygon.technology
@@ -1264,6 +1277,7 @@ preempt.com
 preemptsecurity.com
 prelert.com
 pressable.com
+priceless.com
 priceline.com
 pricerunner.com
 prijsmepper.nl
@@ -1289,9 +1303,6 @@ rallyforestaurants.com
 rallyforrestaurant.com
 rallyforrestaurants.com
 rallyforrestaurants.org
-rapyd.com
-rapyd.net
-rapyd.org
 rbx.com
 rea-group.com
 reachthefinals.com
@@ -1395,11 +1406,12 @@ s-pankki.fi
 s2stagehance.com
 sa-tech.de
 salesforce.com
+saltlabs.com
 samltool.io
 saturn.de
 savers.co.uk
 savi.xyz
-saviyntcloud.com
+saytechnologies.com
 sbgcdn.com
 sbgcore.com
 sbgorigin.com
@@ -1492,8 +1504,6 @@ snapshooter.com
 snooguts.net
 solarcity.com
 solvus.be
-song.link
-songlink.io
 sony.com
 sonyentertainmentnetwork.com
 sophos.com
@@ -1606,8 +1616,9 @@ tokopediax.com
 tomorrowland.com
 toolsforhumanity.com
 tospotify.com
-tr.ee
+toursgds.com
 tradepmr.com
+transferwise.com
 transparentadvertising.com
 transparentadvertising.eu
 travelbook.de
@@ -1626,6 +1637,7 @@ trip.biz
 trip.com
 tripadvisor.com
 triplinkintl.com
+truata.com
 truecaller.com
 truelayer.cloud
 truelayer.com
@@ -1714,6 +1726,8 @@ vayama.com
 vendhq.com
 venturatvos.com
 verisign.com
+viator.com
+viatorinc.com
 viavika.no
 vimla.io
 vimla.se
@@ -1800,6 +1814,8 @@ wienkav.at
 wimpmusic.com
 wisdomtreeconnect.com
 wisdomtreeprimeapp.com
+wise-sandbox.com
+wise.com
 wissen-sie-mehr.de
 withairbnb.com
 withbuddies.com
@@ -1824,6 +1840,7 @@ worldfirst.com
 wotif.com
 wowjobs.ca
 wpscan.com
+www.amazon
 wyze.com
 wyzecam.com
 x.ai
