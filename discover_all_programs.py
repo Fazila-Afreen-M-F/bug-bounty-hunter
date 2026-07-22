@@ -982,6 +982,22 @@ def rebuild_domains_txt(scope_paths, max_removal_pct=15):
     log(f"[APPLIED] {DOMAINS_TXT_PATH}: {len(new_roots)} total ({len(added)} added, {len(removed)} removed)")
     return {"applied": True, "added": len(added), "removed": len(removed), "total": len(new_roots)}
 
+def run_vet_pass(programs, vet_fn, results, key_fn, platform_name, cooldown=90):
+    """Run vet_fn over all programs, then retry once (after a cooldown) any
+    program that was skipped specifically due to a Cerebras API failure —
+    since that's usually transient service congestion, not a real block."""
+    for p in programs:
+        vet_fn(p)
+    retry = [p for p in programs
+             if any(key_fn(p) == s[0] and "Cerebras call failed" in s[1] for s in results["skipped"])]
+    if retry:
+        log(f"[{platform_name}] {len(retry)} program(s) skipped due to Cerebras failure — retrying once after {cooldown}s cooldown")
+        time.sleep(cooldown)
+        for p in retry:
+            results["skipped"] = [s for s in results["skipped"] if s[0] != key_fn(p)]
+            vet_fn(p)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--platform", choices=["hackerone", "intigriti", "yeswehack", "bugcrowd"], default=None,
@@ -997,8 +1013,8 @@ def main():
     if args.platform in (None, "hackerone") and h1_token:
         ran_platforms.add("hackerone")
         programs, auth = discover_hackerone(h1_token)
-        for p in programs:
-            vet_hackerone_program(p["handle"], auth, h1_results)
+        run_vet_pass(programs, lambda p: vet_hackerone_program(p["handle"], auth, h1_results),
+                     h1_results, lambda p: p["handle"], "H1")
         summarize("HackerOne", h1_results, len(programs))
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "hackerone_scope.txt"), h1_results["included"])
         log(f"[H1] merge result: {r}")
@@ -1014,8 +1030,8 @@ def main():
     if args.platform in (None, "intigriti") and int_token:
         ran_platforms.add("intigriti")
         programs = discover_intigriti(int_token)
-        for p in programs:
-            vet_intigriti_program(p, int_token, int_results)
+        run_vet_pass(programs, lambda p: vet_intigriti_program(p, int_token, int_results),
+                     int_results, lambda p: p.get("name", p["id"]), "Intigriti")
         summarize("Intigriti", int_results, len(programs))
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "intigriti_scope.txt"), int_results["included"])
         log(f"[Intigriti] merge result: {r}")
@@ -1031,8 +1047,8 @@ def main():
     if args.platform in (None, "yeswehack"):
         ran_platforms.add("yeswehack")
         programs = discover_yeswehack()
-        for p in programs:
-            vet_yeswehack_program(p, ywh_results)
+        run_vet_pass(programs, lambda p: vet_yeswehack_program(p, ywh_results),
+                     ywh_results, lambda p: p["slug"], "YWH")
         summarize("YesWeHack", ywh_results, len(programs))
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "yeswehack_scope.txt"), ywh_results["included"])
         log(f"[YWH] merge result: {r}")
@@ -1043,8 +1059,8 @@ def main():
     if args.platform in (None, "bugcrowd"):
         ran_platforms.add("bugcrowd")
         programs = discover_bugcrowd()
-        for p in programs:
-            vet_bugcrowd_program(p, bc_results)
+        run_vet_pass(programs, lambda p: vet_bugcrowd_program(p, bc_results),
+                     bc_results, lambda p: p["briefUrl"].rstrip("/").split("/")[-1], "Bugcrowd")
         summarize("Bugcrowd", bc_results, len(programs))
         r = merge_scope_file(os.path.join(OUTPUT_DIR, "bugcrowd_scope.txt"), bc_results["included"])
         log(f"[Bugcrowd] merge result: {r}")
