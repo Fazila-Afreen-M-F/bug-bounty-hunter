@@ -887,7 +887,7 @@ def update_domain_program_map(h1_results, int_results, ywh_results, bc_results, 
     log(f"[CSV] domain_program_map.csv: rebuilt {len(fresh_rows)} rows for "
         f"{applied_platforms}, kept {len(kept_rows)} rows untouched for skipped/guarded platforms")
 
-    write_excluded_domains_file(EXCLUDED_OUTPUT_PATH, existing_rows, platform_sources, ran_platforms)
+    write_excluded_domains_file(EXCLUDED_OUTPUT_PATH, existing_rows, platform_sources, set(applied_platforms))
 
 def write_excluded_domains_file(path, existing_rows, platform_sources, ran_platforms):
     """Write every domain whose program was excluded/skipped this run
