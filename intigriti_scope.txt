@@ -473,6 +473,7 @@ IN:https://hstconboarding.peoplecert.org/
 IN:https://idp.kuleuven.be/idp/
 IN:https://jobs.exoscale.com/
 IN:https://jobs.hrs.com/
+IN:https://metabase.pwn.intigriti.rocks/
 IN:https://movieclub-int.kinepolis.com
 IN:https://movienow-int.kinepolis.be/admin
 IN:https://nexo.com/

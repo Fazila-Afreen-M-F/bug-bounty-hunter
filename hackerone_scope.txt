@@ -607,6 +607,7 @@ IN:a4k.amazon.com
 IN:ab-api-cf.*.aws.indriverapp.com
 IN:ab-platform-api.eu-east-1.indriverapp.com
 IN:ab2b0c50cdc7b445391f99d4957850c5-cd4ccfdb37dfafad.elb.us-east-1.amazonaws.com
+IN:abercrombie.com
 IN:ablink.info.remitly.com
 IN:about.gitlab.com
 IN:academy-outbound-ads.tiktok.com
@@ -671,6 +672,7 @@ IN:amazonpayinsurance.in
 IN:amp.reddit.com
 IN:analytics-*.8x8.com
 IN:analytics.krisp.ai
+IN:anfcorp.com
 IN:anthropic.atlassian.com
 IN:ap-s.cloud.com
 IN:apcgateway.marriott.com
@@ -986,7 +988,9 @@ IN:contentportal.marriott.com
 IN:contentportalauth.marriott.com
 IN:contributor.stock.adobe.com
 IN:converse.8x8.com
+IN:core-api.deriv.com
 IN:corp.badoo.com
+IN:corporate.abercrombie.com
 IN:cosmo.fdeb.live.use1a.on.epicgames.com
 IN:courier-cf.*.aws.indriverapp.com
 IN:couriers.indrive.com
@@ -1201,6 +1205,8 @@ IN:helpers.bullsheet.me
 IN:helpseller.tw.coupangcorp.com
 IN:hg.mozilla.org
 IN:hmxservices.com
+IN:hollisterco.com
+IN:home.deriv.com
 IN:home.privy.io
 IN:homeloans.wellsfargo.com
 IN:homes-and-villas.marriott.com
@@ -1291,6 +1297,7 @@ IN:https://*test*.bykea.net
 IN:https://1win.com/betting
 IN:https://1win.com/casino
 IN:https://8x8.vc/xmpp-websocket
+IN:https://api-core.deriv.com
 IN:https://api.bykea.net
 IN:https://api.myntra.com
 IN:https://app.insomnia.rest/
@@ -1325,6 +1332,7 @@ IN:https://e.oppo.com/
 IN:https://fn-commerce-live.eeef.live.use1a.on.epicgames.com/api/fn-commerce/
 IN:https://fngw-svc-ds-livefn.ol.epicgames.net/api/magpie
 IN:https://fngw-svc-gc-livefn.ol.epicgames.net/api/magpie
+IN:https://fx-qa.np.bolsasymercados.es/
 IN:https://gcsm.oppoit.com/
 IN:https://geocode-beta.bykea.net
 IN:https://github.com/circlefin/stellar-cctp
@@ -1465,6 +1473,7 @@ IN:kit.snapchat.com
 IN:klarna.com
 IN:klarna.net
 IN:klarnacdn.net
+IN:knox.beta.blendlabs.com
 IN:konghq.com
 IN:krisp.ai
 IN:kronor.io
@@ -1929,7 +1938,6 @@ IN:spark.fareharbor.com
 IN:spectacles.com
 IN:splunk-phantom-nlb.marriott.com
 IN:ssh.fr.cloud.gov
-IN:ssm-marriottms.saviyntcloud.com
 IN:sso-sprint.dynatracelabs.com
 IN:sso.8x8.com
 IN:sso.8x8pilot.com
@@ -2091,7 +2099,6 @@ IN:web.ryadom.kz
 IN:web.snapchat.com
 IN:web.truecaller.com
 IN:web3.moonpay.com
-IN:webgateway.koho.ca
 IN:webhooks.booking.com
 IN:wechat.api.marriott.com
 IN:wga.volans.tech

@@ -1,3 +1,4 @@
+nubank	requires ID verification: [Cerebras-confirmed ID requirement, no regex match]
 rapyd	rate limit too strict: 0.8333333333333334/s
 okta	automation ban: [Cerebras-confirmed ban] ion of Okta.  
 
@@ -8,9 +9,15 @@ okta	automation ban: [Cerebras-confirmed ban] ion of Okta.
 ynab	automation ban: [Cerebras-confirmed ban, no regex match]
 bitpanda-og-bb	automation ban: [Cerebras-confirmed ban, no regex match]
 recroom-og	automation ban: [Cerebras-confirmed ban, no regex match]
+sap-private-invite	requires ID verification: [Cerebras-confirmed ID requirement] et the following criteria: 
+🔏 SAP's Customer
+twentyminuten	automation ban: [Cerebras-confirmed ban] lated submissions 
+ No aggressive automated scans as th
+classdojo	automation ban: [Cerebras-confirmed ban] counts and not modify, access, or affect other users' a
 thousandeyes-og	automation ban: [Cerebras-confirmed ban, no regex match]
 seek-com	automation ban: [Cerebras-confirmed ban] a job ad !! 
  Denial of Service, Rate Limiting, and oth
+pantheon	rate limit too strict: 1/s
 seek	automation ban: [Cerebras-confirmed ban] s 
 
  
@@ -19,9 +26,6 @@ irobot	automation ban: [Cerebras-confirmed ban] rabilities.
 
   NOTE! [Please Read Fully Before Beginn
 pixabay	automation ban: [Cerebras-confirmed ban, no regex match]
-twentyminuten	automation ban: [Cerebras-confirmed ban] lated submissions 
- No aggressive automated scans as th
-classdojo	automation ban: [Cerebras-confirmed ban] counts and not modify, access, or affect other users' a
 kohls	automation ban: [Cerebras-confirmed ban] ith your own test account) 
  Deserialization vulnerabil
 linktree-mbb-og	rate limit too strict: 0.0/s
@@ -31,3 +35,6 @@ originenergy-og1	automation ban: [Cerebras-confirmed ban, no regex match]
 intercom	automation ban: [Cerebras-confirmed ban, no regex match]
 codefortynine	automation ban: [Cerebras-confirmed ban, no regex match]
 trm-labs-public-mbb	automation ban: [Cerebras-confirmed ban, no regex match]
+cfr	rate limit too strict: 2/s
+kucoin	requires ID verification: [Cerebras-confirmed ID requirement] owdninja.com email address, and if you want 
+redmoon	automation ban: [Cerebras-confirmed ban] ulnerability, report it immediately; do not attempt to 
