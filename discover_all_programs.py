@@ -912,12 +912,11 @@ def extract_root_domain(asset):
         return None
     asset = asset.lstrip("*.").replace("https://", "").replace("http://", "")
     asset = asset.split("/")[0].split(":")[0].lower()
+    if "[" in asset and "]" in asset:
+        asset = re.sub(r"\[.*?\]", "", asset)
     if "*" in asset:
-        print(f"[SKIP] malformed asset (embedded wildcard, not parseable): {asset!r}")
-        return None
-    if "[" in asset or "]" in asset:
-        print(f"[SKIP] malformed asset (bracket/optional-group notation, not parseable): {asset!r}")
-        return None
+        asset = asset.replace("*", "")
+        asset = asset.strip(".-")
     ext = tldextract.extract(asset)
     if not ext.domain or not ext.suffix:
         return None
