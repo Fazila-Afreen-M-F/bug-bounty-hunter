@@ -982,17 +982,22 @@ def rebuild_domains_txt(scope_paths, max_removal_pct=15):
     log(f"[APPLIED] {DOMAINS_TXT_PATH}: {len(new_roots)} total ({len(added)} added, {len(removed)} removed)")
     return {"applied": True, "added": len(added), "removed": len(removed), "total": len(new_roots)}
 
-def run_vet_pass(programs, vet_fn, results, key_fn, platform_name, cooldown=90):
-    """Run vet_fn over all programs, then retry once (after a cooldown) any
-    program that was skipped specifically due to a Cerebras API failure —
-    since that's usually transient service congestion, not a real block."""
+def run_vet_pass(programs, vet_fn, results, key_fn, platform_name, max_wait=3900):
+    """Run vet_fn over all programs, then retry once any program that was
+    skipped specifically due to a Cerebras API failure — since that's
+    usually quota exhaustion, wait for the actual quota reset time
+    (_CEREBRAS_QUOTA_EXHAUSTED_UNTIL) rather than a fixed short cooldown,
+    capped at max_wait seconds so a single bad quota reading can't hang
+    the job indefinitely."""
     for p in programs:
         vet_fn(p)
     retry = [p for p in programs
              if any(key_fn(p) == s[0] and "Cerebras call failed" in s[1] for s in results["skipped"])]
     if retry:
-        log(f"[{platform_name}] {len(retry)} program(s) skipped due to Cerebras failure — retrying once after {cooldown}s cooldown")
-        time.sleep(cooldown)
+        wait = max(0, _CEREBRAS_QUOTA_EXHAUSTED_UNTIL - time.time())
+        wait = min(wait, max_wait) if wait > 0 else 90  # no known quota deadline -> short retry is fine
+        log(f"[{platform_name}] {len(retry)} program(s) skipped due to Cerebras failure — retrying once after {int(wait)}s cooldown")
+        time.sleep(wait)
         for p in retry:
             results["skipped"] = [s for s in results["skipped"] if s[0] != key_fn(p)]
             vet_fn(p)
