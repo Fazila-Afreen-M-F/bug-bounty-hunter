@@ -49,3 +49,7 @@ remove_*.py
 *.js
 *.html
 es.txt
+bypass-results-*/
+daily-results-*/
+live-batch-*/
+subs-batch-*/
