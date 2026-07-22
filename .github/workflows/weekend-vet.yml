@@ -1,4 +1,4 @@
-name: Weekly Vet
+name: Weekend Vet
 # ─────────────────────────────────────────────────────────────────────────────
 # SCHEDULE: every Saturday, 00:00 IST (Friday 18:30 UTC)
 # Runs discover_all_programs.py — full discovery + ban-detection (regex + Cerebras)
@@ -89,7 +89,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: weekly-vet-logs
+          name: weekend-vet-logs
           path: |
             cerebras_review_log.txt
             cerebras_429_debug.log
