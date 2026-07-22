@@ -1,4 +1,5 @@
 import csv
+import sys
 import tldextract
 
 MAPPING_PATH = "domain_program_map.csv"
@@ -32,6 +33,10 @@ def load_scoped_roots(path):
 def main():
     scoped_roots = load_scoped_roots(MAPPING_PATH)
     print(f"[FILTER] Loaded {len(scoped_roots)} scoped root domains from {MAPPING_PATH}")
+    if not scoped_roots:
+        print(f"[FILTER] ERROR: 0 scoped root domains loaded from {MAPPING_PATH} — "
+              f"refusing to filter (would wipe all host files). Aborting without writing.")
+        sys.exit(1)
     for fname in FILES_TO_FILTER:
         try:
             with open(fname) as f:
