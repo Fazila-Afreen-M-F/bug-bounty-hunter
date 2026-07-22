@@ -11,3 +11,7 @@ timestamp_utc,platform,total_discovered,included,excluded,skipped
 2026-07-22T14:33:49Z,Intigriti,209,85,124,0
 2026-07-22T14:40:06Z,YesWeHack,62,16,46,0
 2026-07-22T16:42:11Z,Bugcrowd,239,213,26,0
+2026-07-22T18:36:12Z,HackerOne,590,239,350,1
+2026-07-22T18:38:45Z,Intigriti,210,86,124,0
+2026-07-22T18:39:54Z,YesWeHack,62,16,46,0
+2026-07-22T18:49:46Z,Bugcrowd,240,214,26,0

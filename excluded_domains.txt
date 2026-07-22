@@ -110,12 +110,10 @@ insights.deribit.com
 jira.hyattdev.com
 jointhemoment.net
 js.crypto.com
-knox.beta.blendlabs.com
 linktr.ee
 linktree.com
 login.www.vaxvacationaccess.com
 m.chaturbate.com
-marketplace.atlassian.com
 meetings.hyatt.com
 merchant.crypto.com
 mobileapi.lystit.com
@@ -166,6 +164,7 @@ song.link
 songlink.io
 sso.oft.hyatt.com
 support.creditkarma.ca
+tax.audible.com
 tax.crypto.com
 template.uat.foodstorm.com
 test.deribit.com

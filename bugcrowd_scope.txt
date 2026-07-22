@@ -922,6 +922,7 @@ IN:www.etsy.com
 IN:www.eu.lululemon.com
 IN:www.financeiro.quintoandar.com.br
 IN:www.finicity.com
+IN:www.fishbowlapp.com
 IN:www.galabingo.com
 IN:www.galacasino.com
 IN:www.gamemaker.io

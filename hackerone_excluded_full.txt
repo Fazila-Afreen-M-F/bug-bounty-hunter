@@ -187,7 +187,6 @@ dropcontact	not BBP (VDP or other)
 john-deere	not BBP (VDP or other)
 hudapp	not BBP (VDP or other)
 cbre	not BBP (VDP or other)
-wonder-vdp	not BBP (VDP or other)
 freshworks	automation ban: [Cerebras-confirmed ban] ing for a bug, please also keep in mind:
 Minimize the m
 ohiosecretaryofstate	not BBP (VDP or other)

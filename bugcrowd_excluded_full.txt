@@ -31,10 +31,10 @@ kohls	automation ban: [Cerebras-confirmed ban] ith your own test account)
 linktree-mbb-og	rate limit too strict: 0.0/s
 bitdefender	automation ban: [Cerebras-confirmed ban, no regex match]
 volkswagen-og	automation ban: [Cerebras-confirmed ban] to be created, please use your @bugcrowdninja.com email
+cfr	rate limit too strict: 2/s
 originenergy-og1	automation ban: [Cerebras-confirmed ban, no regex match]
+kucoin	requires ID verification: [Cerebras-confirmed ID requirement] owdninja.com email address, and if you want 
 intercom	automation ban: [Cerebras-confirmed ban, no regex match]
 codefortynine	automation ban: [Cerebras-confirmed ban, no regex match]
 trm-labs-public-mbb	automation ban: [Cerebras-confirmed ban, no regex match]
-cfr	rate limit too strict: 2/s
-kucoin	requires ID verification: [Cerebras-confirmed ID requirement] owdninja.com email address, and if you want 
 redmoon	automation ban: [Cerebras-confirmed ban] ulnerability, report it immediately; do not attempt to 
