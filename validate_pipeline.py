@@ -17,6 +17,7 @@ except ImportError:
     sys.exit(2)
 
 MAX_REMOVAL_PCT = float(os.environ.get("VALIDATE_MAX_REMOVAL_PCT", "15"))
+MAX_SKIP_RATE_PCT = float(os.environ.get("VALIDATE_MAX_SKIP_RATE_PCT", "15"))
 
 ROOT_DOMAIN_FILES = [
     os.environ.get("DOMAINS_TXT_PATH", "domains.txt"),
@@ -106,6 +107,32 @@ def check_file(path, is_root_domain_file):
     return (len(problems) == 0), problems
 
 
+def check_skip_rate(csv_path="discovery_stats.csv"):
+    problems = []
+    if not os.path.exists(csv_path):
+        return True, []
+    import csv
+    latest = {}
+    with open(csv_path) as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            latest[row["platform"]] = row
+    ok = True
+    for platform, row in latest.items():
+        try:
+            total = int(row["total_discovered"])
+            skipped = int(row["skipped"])
+        except (KeyError, ValueError):
+            continue
+        if total == 0:
+            continue
+        pct = (skipped / total) * 100
+        if pct > MAX_SKIP_RATE_PCT:
+            problems.append(f"{platform}: skip rate {pct:.1f}% ({skipped}/{total}) exceeds {MAX_SKIP_RATE_PCT}% threshold")
+            ok = False
+    return ok, problems
+
+
 def main():
     overall_ok = True
     print("=== Pipeline validation ===")
@@ -125,6 +152,13 @@ def main():
             print(f"    - {p}")
         if not ok:
             overall_ok = False
+    ok, problems = check_skip_rate()
+    status = "OK" if ok else "FAIL"
+    print(f"[{status}] discovery_stats.csv skip-rate check")
+    for p in problems:
+        print(f"    - {p}")
+    if not ok:
+        overall_ok = False
     print("===========================")
     if not overall_ok:
         print("VALIDATION FAILED — see problems above. Nothing should be committed.")

@@ -125,6 +125,9 @@ def cerebras_check_id_verification(snippet, program_name):
         return cached["is_ban"]
     if not CEREBRAS_API_KEY:
         return None
+    global _CEREBRAS_QUOTA_EXHAUSTED_UNTIL
+    if time.time() < _CEREBRAS_QUOTA_EXHAUSTED_UNTIL:
+        return None
     _cerebras_pace()
     prompt = (
         "You are reviewing policy text from a bug bounty program. Answer "
@@ -144,6 +147,7 @@ def cerebras_check_id_verification(snippet, program_name):
         "model": "gpt-oss-120b",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0,
+        "reasoning_effort": "low",
         "max_tokens": 700,
     }).encode()
     req = urllib.request.Request(
@@ -175,8 +179,33 @@ def cerebras_check_id_verification(snippet, program_name):
             return is_ban
         except urllib.error.HTTPError as e:
             last_err = e
+            if e.code == 429:
+                try:
+                    body = e.read().decode()
+                except Exception:
+                    body = "<could not read body>"
+                retry_after = e.headers.get("Retry-After") if e.headers else None
+                with open(os.path.join(OUTPUT_DIR, "cerebras_429_debug.log"), "a") as df:
+                    df.write(f"--- {program_name} ---\n")
+                    df.write(f"retry_after: {retry_after}\n")
+                    df.write(f"body: {body}\n\n")
+                try:
+                    ra_val = float(retry_after) if retry_after is not None else None
+                except (TypeError, ValueError):
+                    ra_val = None
+                if ra_val is not None and ra_val > 300:
+                    _CEREBRAS_QUOTA_EXHAUSTED_UNTIL = time.time() + ra_val
+                    break
             if e.code in (503, 429) and attempt < 2:
-                time.sleep(5 * (attempt + 1))
+                wait = 5 * (attempt + 1)
+                if e.code == 429:
+                    try:
+                        ra = e.headers.get("Retry-After") if e.headers else None
+                        if ra is not None:
+                            wait = max(wait, min(int(float(ra)) + 1, 90))
+                    except (TypeError, ValueError):
+                        pass
+                time.sleep(wait)
                 continue
             break
         except Exception as e:
@@ -232,6 +261,9 @@ def cerebras_check_rate_limit(text, program_name):
         return cached.get("rate")
     if not CEREBRAS_API_KEY:
         return None
+    global _CEREBRAS_QUOTA_EXHAUSTED_UNTIL
+    if time.time() < _CEREBRAS_QUOTA_EXHAUSTED_UNTIL:
+        return None
     _cerebras_pace()
     prompt = (
         "You are reviewing policy text from a bug bounty program. Answer "
@@ -249,6 +281,7 @@ def cerebras_check_rate_limit(text, program_name):
         "model": "gpt-oss-120b",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0,
+        "reasoning_effort": "low",
         "max_tokens": 700,
     }).encode()
     req = urllib.request.Request(
@@ -290,8 +323,33 @@ def cerebras_check_rate_limit(text, program_name):
             return rate
         except urllib.error.HTTPError as e:
             last_err = e
+            if e.code == 429:
+                try:
+                    body = e.read().decode()
+                except Exception:
+                    body = "<could not read body>"
+                retry_after = e.headers.get("Retry-After") if e.headers else None
+                with open(os.path.join(OUTPUT_DIR, "cerebras_429_debug.log"), "a") as df:
+                    df.write(f"--- {program_name} ---\n")
+                    df.write(f"retry_after: {retry_after}\n")
+                    df.write(f"body: {body}\n\n")
+                try:
+                    ra_val = float(retry_after) if retry_after is not None else None
+                except (TypeError, ValueError):
+                    ra_val = None
+                if ra_val is not None and ra_val > 300:
+                    _CEREBRAS_QUOTA_EXHAUSTED_UNTIL = time.time() + ra_val
+                    break
             if e.code in (503, 429) and attempt < 2:
-                time.sleep(5 * (attempt + 1))
+                wait = 5 * (attempt + 1)
+                if e.code == 429:
+                    try:
+                        ra = e.headers.get("Retry-After") if e.headers else None
+                        if ra is not None:
+                            wait = max(wait, min(int(float(ra)) + 1, 90))
+                    except (TypeError, ValueError):
+                        pass
+                time.sleep(wait)
                 continue
             break
         except Exception as e:
@@ -1095,6 +1153,7 @@ def cerebras_check_ban(snippet, program_name):
         "model": "gpt-oss-120b",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0,
+        "reasoning_effort": "low",
         "max_tokens": 700,
     }).encode()
     req = urllib.request.Request(
