@@ -819,19 +819,20 @@ def summarize(platform, results, total_discovered):
     log(f"  [STATS] appended to {stats_path}")
 
 
-def update_domain_program_map(h1_results, int_results, ywh_results, bc_results, ran_platforms):
+def update_domain_program_map(h1_results, int_results, ywh_results, bc_results, ran_platforms, max_removal_pct=15):
     """Rebuild domain_program_map.csv rows for every platform that actually ran this
     invocation (dropping stale/removed programs for those platforms), while leaving
     rows for skipped platforms (e.g. a manual --platform test run, or no token set)
-    completely untouched."""
+    completely untouched. Same 15% removal guard + backup as merge_scope_file /
+    rebuild_domains_txt: a platform that "ran" but came back with degraded/near-empty
+    data (bad auth, API change) has its rows left untouched instead of being wiped,
+    since this CSV feeds filter_scope.py downstream in Weekend Recon."""
     existing_rows = []
     if os.path.exists(MAPPING_PATH):
         with open(MAPPING_PATH, newline="") as f:
             reader = csv.DictReader(f)
             for row in reader:
                 existing_rows.append((row["domain"], row["platform"], row["keyword"]))
-
-    kept_rows = [row for row in existing_rows if row[1] not in ran_platforms]
 
     fresh_rows = []
     seen = set()
@@ -854,15 +855,37 @@ def update_domain_program_map(h1_results, int_results, ywh_results, bc_results, 
                     fresh_rows.append(row)
                     seen.add(row)
 
+    force_apply = os.environ.get("SCOPE_GUARD_OVERRIDE") == "true"
+    guarded_platforms = set()
+    for platform_name in ran_platforms:
+        old_count = sum(1 for row in existing_rows if row[1] == platform_name)
+        new_count = sum(1 for row in fresh_rows if row[1] == platform_name)
+        removal_pct = ((old_count - new_count) / old_count * 100) if old_count else 0
+        if removal_pct > max_removal_pct and not force_apply:
+            log(f"  [GUARD] domain_program_map.csv/{platform_name}: would go from {old_count} "
+                f"to {new_count} rows ({removal_pct:.1f}% drop) - exceeds {max_removal_pct}% "
+                f"threshold. NOT applying for {platform_name}. Old rows left untouched.")
+            guarded_platforms.add(platform_name)
+
+    kept_rows = [row for row in existing_rows
+                 if row[1] not in ran_platforms or row[1] in guarded_platforms]
+    fresh_rows = [row for row in fresh_rows if row[1] not in guarded_platforms]
+
     all_rows = kept_rows + fresh_rows
+
+    if os.path.exists(MAPPING_PATH):
+        backup_path = f"{MAPPING_PATH}.bak.{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        shutil.copy2(MAPPING_PATH, backup_path)
+        log(f"  [BACKUP] {MAPPING_PATH} -> {backup_path}")
 
     with open(MAPPING_PATH, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["domain", "platform", "keyword"])
         for row in all_rows:
             writer.writerow(row)
+    applied_platforms = sorted(set(ran_platforms) - guarded_platforms)
     log(f"[CSV] domain_program_map.csv: rebuilt {len(fresh_rows)} rows for "
-        f"{sorted(ran_platforms)}, kept {len(kept_rows)} rows untouched for skipped platforms")
+        f"{applied_platforms}, kept {len(kept_rows)} rows untouched for skipped/guarded platforms")
 
     write_excluded_domains_file(EXCLUDED_OUTPUT_PATH, existing_rows, platform_sources, ran_platforms)
 
