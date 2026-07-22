@@ -2,9 +2,9 @@ name: Weekend Recon
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SCHEDULE: Every Saturday 4:00am IST (Friday 22:30 UTC)
-# All 7 discover batches run in PARALLEL on separate servers (~1.5h)
+# Discover batches (dynamic count, ~25 domains each, max 20 in parallel) run first
 # Then combine → httpx → finalize runs automatically
-# Total time: ~2.5h. One trigger, fully automated.
+# Total time varies with domain count. One trigger, fully automated.
 #
 # Manual trigger: workflow_dispatch with no inputs = runs everything
 # ────────────────────────────────────────────────────────────────────────────
@@ -255,7 +255,7 @@ jobs:
           path: batch_subs_raw.txt
           retention-days: 1
 
-  # ── COMBINE AND PROBE: runs after all 14 batches finish ─────────────────────
+  # ── COMBINE AND PROBE: runs after all discover batches finish ───────────────
   combine_and_probe:
     needs: discover
     if: always() && needs.discover.result != 'cancelled'
