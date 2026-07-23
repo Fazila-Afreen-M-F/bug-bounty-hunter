@@ -339,7 +339,7 @@ jobs:
             # is a general glob: escape literal dots first, then expand "*" to ".*".
             # Patterns with no "*" at all are matched literally.
             awk '{
-              if (substr($0,1,2)=="*.") {
+              if (substr($0,1,2)=="*." && index(substr($0,3),"*")==0) {
                 domain=substr($0,3)
                 gsub(/\./,"\\.",domain)
                 print "\\." domain "$|^" domain "$"
@@ -356,7 +356,7 @@ jobs:
             }' scope_in.txt > in_grep.txt
 
             awk '{
-              if (substr($0,1,2)=="*.") {
+              if (substr($0,1,2)=="*." && index(substr($0,3),"*")==0) {
                 domain=substr($0,3)
                 gsub(/\./,"\\.",domain)
                 print "\\." domain "$|^" domain "$"
