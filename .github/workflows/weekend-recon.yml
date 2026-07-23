@@ -333,19 +333,21 @@ jobs:
             grep "^OUT:" scope.txt | sed 's/^OUT://' > scope_out.txt || true
             echo "IN patterns: $(wc -l < scope_in.txt) | OUT patterns: $(wc -l < scope_out.txt)"
 
-            # Sanity check: flag any wildcard-looking pattern missing the dot (e.g. "*foo.com" instead of "*.foo.com")
-            # These silently fall through to literal-match instead of wildcard-match — easy to miss since nothing errors.
-            bad_patterns=$(grep -nE '^\*[^.]' scope_in.txt scope_out.txt 2>/dev/null || true)
-            if [ -n "$bad_patterns" ]; then
-              echo "::warning::Malformed scope pattern(s) found — starts with * but missing the dot (should be *.domain.com). These are being treated as literal strings, not wildcards:"
-              echo "$bad_patterns"
-            fi
-
+            # Pattern builder: "*.domain.com" is a special prefix case that also
+            # matches the bare apex domain (bug-bounty convention). Any other
+            # pattern containing "*" (e.g. "*-api-*.domain.com", "*ensemble*.yahoo.com")
+            # is a general glob: escape literal dots first, then expand "*" to ".*".
+            # Patterns with no "*" at all are matched literally.
             awk '{
               if (substr($0,1,2)=="*.") {
                 domain=substr($0,3)
                 gsub(/\./,"\\.",domain)
                 print "\\." domain "$|^" domain "$"
+              } else if (index($0,"*") > 0) {
+                pat=$0
+                gsub(/\./,"\\.",pat)
+                gsub(/\*/,".*",pat)
+                print "^" pat "$"
               } else {
                 escaped=$0
                 gsub(/\./,"\\.",escaped)
@@ -358,6 +360,11 @@ jobs:
                 domain=substr($0,3)
                 gsub(/\./,"\\.",domain)
                 print "\\." domain "$|^" domain "$"
+              } else if (index($0,"*") > 0) {
+                pat=$0
+                gsub(/\./,"\\.",pat)
+                gsub(/\*/,".*",pat)
+                print "^" pat "$"
               } else {
                 escaped=$0
                 gsub(/\./,"\\.",escaped)
