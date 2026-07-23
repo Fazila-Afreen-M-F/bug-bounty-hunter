@@ -434,14 +434,23 @@ def vet_hackerone_program(handle, auth, results):
         results["excluded"].append((handle, f"rate limit too strict: {rate}/s"))
         return
     domains = []
+    out_domains = []
     for s in data.get("relationships", {}).get("structured_scopes", {}).get("data", []):
         sa = s.get("attributes", {})
-        if sa.get("eligible_for_submission") and sa.get("asset_type") in ("URL", "WILDCARD"):
-            domains.append((sa.get("asset_identifier") or "").lower())
+        if sa.get("asset_type") not in ("URL", "WILDCARD"):
+            continue
+        asset = (sa.get("asset_identifier") or "").lower()
+        if not asset:
+            continue
+        if sa.get("eligible_for_submission"):
+            domains.append(asset)
+        elif sa.get("eligible_for_submission") is False:
+            out_domains.append(asset)
     results["included"].append({
         "handle": handle,
         "offers_bounties": a.get("offers_bounties"),
         "domains": domains,
+        "out_domains": out_domains,
     })
 
 
@@ -500,21 +509,32 @@ def vet_intigriti_program(program, token, results):
         results["excluded"].append((name, f"requires ID verification: {id_snippet[:80]}"))
         return
     domains = []
+    out_domains = []
     for d in data.get("domains", {}).get("content", []):
         asset_type = d.get("type", {}).get("value")
         tier = d.get("tier", {}).get("value")
+        tier_id = d.get("tier", {}).get("id")
         if asset_type not in ("Url", "Wildcard"):
+            continue
+        endpoint = d.get("endpoint") or d.get("content")
+        if not endpoint:
+            continue
+        endpoint = endpoint.strip().lower()
+        if tier_id == 5:
+            # tier.id 5 = genuinely out of scope (distinct from tier.value
+            # "No Bounty", which is still a testable, in-scope asset that
+            # simply doesn't pay a bounty).
+            out_domains.append(endpoint)
             continue
         if tier == "No Bounty":
             continue
-        endpoint = d.get("endpoint") or d.get("content")
-        if endpoint:
-            domains.append(endpoint.strip().lower())
+        domains.append(endpoint)
     results["included"].append({
         "handle": pid,
         "safe_harbor": roe.get("safeHarbour"),
         "rate_limit": rate,
         "domains": domains,
+        "out_domains": out_domains,
     })
 
 
@@ -711,22 +731,27 @@ def vet_bugcrowd_program(program, results):
         return
     skip_categories = ("android", "ios", "ip_address", "network")
     domains = []
+    out_domains = []
     for grp in full.get("data", {}).get("scope", []):
-        if not grp.get("inScope"):
-            continue
+        target_domains = []
         for t in grp.get("targets", []):
             if t.get("category") in skip_categories:
                 continue
             uri = t.get("uri")
             name = t.get("name", "") or ""
             if uri:
-                domains.append(re.sub(r"^https?://", "", uri).split("/")[0].lower())
+                target_domains.append(re.sub(r"^https?://", "", uri).split("/")[0].lower())
             elif re.match(r"^[a-zA-Z0-9*][a-zA-Z0-9\-.*]*\.[a-zA-Z]{2,}$", name.strip()):
-                domains.append(name.strip().lower())
+                target_domains.append(name.strip().lower())
+        if grp.get("inScope"):
+            domains.extend(target_domains)
+        else:
+            out_domains.extend(target_domains)
     results["included"].append({
         "slug": slug,
         "safe_harbor": (brief.get("safeHarborStatus") or {}).get("status"),
         "domains": sorted(set(domains)),
+        "out_domains": sorted(set(out_domains)),
     })
 
 
@@ -736,15 +761,20 @@ def new_results():
 
 def merge_scope_file(path, entries_by_program, max_removal_pct=15):
     new_domains = set()
+    new_out_domains = set()
     for p in entries_by_program:
         new_domains.update(p.get("domains", []))
+        new_out_domains.update(p.get("out_domains", []))
     old_domains = set()
+    old_out_domains = set()
     if os.path.exists(path):
         with open(path) as f:
             for line in f:
                 line = line.strip()
                 if line.startswith("IN:"):
                     old_domains.add(line[3:])
+                elif line.startswith("OUT:"):
+                    old_out_domains.add(line[4:])
     added = new_domains - old_domains
     removed = old_domains - new_domains
     removal_pct = (len(removed) / len(old_domains) * 100) if old_domains else 0
@@ -755,6 +785,17 @@ def merge_scope_file(path, entries_by_program, max_removal_pct=15):
             f"NOT applying. Old scope file left untouched.")
         log(f"  [GUARD] Would-be added: {len(added)}, would-be removed: {len(removed)}")
         return {"applied": False, "added": len(added), "removed": len(removed), "total": len(old_domains)}
+
+    out_added = new_out_domains - old_out_domains
+    out_removed = old_out_domains - new_out_domains
+    out_removal_pct = (len(out_removed) / len(old_out_domains) * 100) if old_out_domains else 0
+    out_guard_triggered = out_removal_pct > max_removal_pct and not force_apply
+    if out_guard_triggered:
+        log(f"  [GUARD] {path} OUT-scope: would remove {len(out_removed)}/{len(old_out_domains)} "
+            f"({out_removal_pct:.1f}%) - exceeds {max_removal_pct}% threshold. "
+            f"Keeping previous OUT: entries untouched this run.")
+        new_out_domains = old_out_domains
+
     if os.path.exists(path):
         backup_path = f"{path}.bak.{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         shutil.copy2(path, backup_path)
@@ -762,17 +803,26 @@ def merge_scope_file(path, entries_by_program, max_removal_pct=15):
     with open(path, "w") as f:
         for d in sorted(new_domains):
             f.write(f"IN:{d}\n")
-    if added or removed:
+        for d in sorted(new_out_domains):
+            f.write(f"OUT:{d}\n")
+    if added or removed or out_added or out_removed:
         diff_path = path.replace(".txt", "_diff.log")
         with open(diff_path, "a") as f:
             f.write(f"\n=== {datetime.now().isoformat()} ===\n")
             for d in sorted(added):
-                f.write(f"+ {d}\n")
+                f.write(f"+ IN:{d}\n")
             for d in sorted(removed):
-                f.write(f"- {d}\n")
+                f.write(f"- IN:{d}\n")
+            for d in sorted(out_added if not out_guard_triggered else []):
+                f.write(f"+ OUT:{d}\n")
+            for d in sorted(out_removed if not out_guard_triggered else []):
+                f.write(f"- OUT:{d}\n")
         log(f"  [DIFF] logged to {diff_path}")
-    log(f"  [APPLIED] {path}: {len(new_domains)} total ({len(added)} added, {len(removed)} removed)")
-    return {"applied": True, "added": len(added), "removed": len(removed), "total": len(new_domains)}
+    log(f"  [APPLIED] {path}: {len(new_domains)} IN ({len(added)} added, {len(removed)} removed), "
+        f"{len(new_out_domains)} OUT ({len(out_added) if not out_guard_triggered else 0} added, "
+        f"{len(out_removed) if not out_guard_triggered else 0} removed)")
+    return {"applied": True, "added": len(added), "removed": len(removed), "total": len(new_domains),
+            "out_total": len(new_out_domains)}
 def summarize(platform, results, total_discovered):
     log(f"\n=== {platform} summary ===")
     log(f"  total discovered from platform: {total_discovered}")
