@@ -89,7 +89,11 @@ def fetch_intigriti_scope(program_id, token):
 
     return {"scope": in_scope, "safe_harbor": safe_harbor, "rate_limit": rate_limit, "error": None}
 
-def find_match(programs, keyword):
+def find_match(programs, keyword, platform=None):
+    if platform == "intigriti":
+        by_id = [p for p in programs if p.get("id", "").lower() == keyword.lower()]
+        if by_id:
+            return by_id
     exact = [p for p in programs if p["handle"].lower() == keyword.lower()]
     if exact:
         return exact
@@ -244,7 +248,7 @@ def main():
                         print(f"    [SCOPE] {len(scope_result['scope'])} in-scope, {len(scope_result.get('out_scope', []))} out-of-scope asset(s) found")
             continue
         programs = h1_programs if platform == "hackerone" else intigriti_programs
-        matches = find_match(programs, keyword)
+        matches = find_match(programs, keyword, platform)
 
         if len(matches) == 0:
             print(f"[NO MATCH]  {platform}/{keyword} -> 0 programs found for {len(domains)} domain(s) - EXCLUDING (program may be removed/renamed, needs manual review)")
