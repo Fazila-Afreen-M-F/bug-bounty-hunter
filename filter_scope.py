@@ -1,4 +1,5 @@
 import csv
+import re
 import sys
 import tldextract
 
@@ -13,6 +14,10 @@ FILES_TO_FILTER = [
 ]
 
 def root_of(value):
+    # Strip leading wildcard glob chars (e.g. "*tidalhi.fi" or "*.tidalhi.fi")
+    # before handing to tldextract, which doesn't understand "*" as a glob
+    # and would otherwise fold it into the domain name (e.g. domain="*tidalhi").
+    value = re.sub(r"^\*\.?", "", value)
     ext = tldextract.extract(value)
     if not ext.domain or not ext.suffix:
         return None
