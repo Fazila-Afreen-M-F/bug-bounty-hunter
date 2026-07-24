@@ -89,7 +89,7 @@ jobs:
             exit 0
           fi
 
-          target_per_batch=15
+          target_per_batch=10
           max_batches=256
           chunk_size=$(( target_per_batch * max_batches ))
 
@@ -238,11 +238,11 @@ jobs:
           SCAN_START=$(date +%s)
           set +e
 
-          timeout 16200 nuclei -l input.txt \
+          timeout 20100 nuclei -l input.txt \
             -t "$TEMPLATE_PATHS" \
             -itags jwt,graphql,swagger,api-docs,openapi,git,env-file,default-login,jenkins,grafana,kibana,aws-s3,s3,springboot,actuator \
             -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive,js \
-            -severity low,medium,high,critical \
+            -severity medium,high,critical \
             -H "User-Agent: Mozilla/5.0 BugBounty/42 (YWH) Chemical Oxidizer CS_YWH/BB" \
             -H "X-Bug-Bounty: HackerOne-Chemical, HackerOne-Oxidizer" \
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
@@ -530,11 +530,11 @@ jobs:
           SCAN_START=$(date +%s)
           set +e
 
-          timeout 16200 nuclei -l "$INPUT_FILE" \
+          timeout 20100 nuclei -l "$INPUT_FILE" \
             -t "$TEMPLATES_DIR/http/exposures" \
             -itags token,secret,api-key,generic-tokens \
             -etags ssl,tls,http-missing-headers,tech,info,dns,helpers,passive \
-            -severity low,medium,high,critical \
+            -severity medium,high,critical \
             -H "User-Agent: Mozilla/5.0 BugBounty/42 (YWH) Chemical Oxidizer CS_YWH/BB" \
             -H "X-Bug-Bounty: HackerOne-Chemical, HackerOne-Oxidizer" \
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
@@ -686,9 +686,9 @@ jobs:
           SCAN_START=$(date +%s)
           set +e
 
-          timeout 16200 nuclei -l input.txt \
+          timeout 20100 nuclei -l input.txt \
             -t custom-templates \
-            -severity low,medium,high,critical \
+            -severity medium,high,critical \
             -H "User-Agent: Mozilla/5.0 BugBounty/42 (YWH) Chemical Oxidizer CS_YWH/BB" \
             -H "X-Bug-Bounty: HackerOne-Chemical, HackerOne-Oxidizer" \
             -H "X-Bugcrowd-Research: Chemical, Oxidizer" \
