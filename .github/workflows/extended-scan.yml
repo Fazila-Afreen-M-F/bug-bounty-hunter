@@ -89,7 +89,7 @@ jobs:
             exit 0
           fi
 
-          target_per_batch=20
+          target_per_batch=15
           max_batches=256
           chunk_size=$(( target_per_batch * max_batches ))
 
@@ -500,7 +500,7 @@ jobs:
             echo "::warning::Katana timed out (exit 124) - proceeding with partial/no crawled URLs, nuclei will still run"
           fi
           if [ -f urls.txt ]; then
-            sort -u urls.txt | head -95 > urls_capped.txt
+            sort -u urls.txt | head -100 > urls_capped.txt
             mv urls_capped.txt urls.txt
           else
             touch urls.txt
